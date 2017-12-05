@@ -1,0 +1,40 @@
+﻿<UserControl x:Class="DaSoft.Riviera.Modulador.Core.UI.CtrlOracleTNSConnector"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:DaSoft.Riviera.Modulador.Core.UI"
+             mc:Ignorable="d"
+             d:DesignHeight="200" d:DesignWidth="400">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Assets/RivieraStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1.5*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="32"/>
+            <RowDefinition Height="32"/>
+            <RowDefinition Height="32"/>
+            <RowDefinition Height="32"/>
+            <RowDefinition Height="32"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <TextBlock x:Name="txtUser" Grid.Row="0" Text="Usuario" Style="{StaticResource MenuStyle_Header}" Height="24" HorizontalAlignment="Right"/>
+        <TextBox x:Name="tboUser" Grid.Row="0" Grid.Column="2" Text="Usuario" Style="{StaticResource MenuStyle_Field}" Height="24" />
+        <TextBlock x:Name="txtPassword" Grid.Row="1" Text="Contraseña" Style="{StaticResource MenuStyle_Header}" Height="24" HorizontalAlignment="Right"/>
+        <PasswordBox x:Name="passOracle"  Grid.Row="1" Grid.Column="2" Password="Usuario" Style="{StaticResource MenuStyle_Password}" Height="24"/>
+        <TextBlock x:Name="txtTNS" Grid.Row="2" Text="TNS" Style="{StaticResource MenuStyle_Header}" Height="24" IsEnabled="False" HorizontalAlignment="Right"/>
+        <TextBox x:Name="tboTNS" Grid.Row="2" Grid.Column="2" Text="Tramites" Style="{StaticResource MenuStyle_Field}" Height="24"/>
+        <TextBlock x:Name="txtHost" Grid.Row="3" Text="Host" Style="{StaticResource MenuStyle_Header}" Height="24" HorizontalAlignment="Right"/>
+        <TextBox x:Name="tboHost"  Grid.Row="3" Grid.Column="2" Text="10.0.0.3" Style="{StaticResource MenuStyle_Field}" Height="24"/>
+        <TextBlock x:Name="txtPort" Grid.Row="4" Text="Puerto" Style="{StaticResource MenuStyle_Header}" Height="24" HorizontalAlignment="Right"/>
+        <TextBox x:Name="tboPort"  Grid.Row="4" Grid.Column="2" Text="1521" Style="{StaticResource MenuStyle_Field}" Height="24"/>
+    </Grid>
+</UserControl>

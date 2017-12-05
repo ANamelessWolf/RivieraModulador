@@ -1,0 +1,31 @@
+﻿<metro:MetroWindow x:Class="DaSoft.Riviera.Modulador.Core.UI.WinAppSettings"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:DaSoft.Riviera.Modulador.Core.UI"
+             xmlns:metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             mc:Ignorable="d"
+             Title="Configuraciones"
+             Height="390" Width="720" ShowTitleBar="True" ShowIconOnTitleBar="true">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Assets/RivieraStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid>
+        <TabControl>
+            <TabItem x:Name="tabOracle" Header="Oracle">
+                <local:CtrlOracleConnector/>
+            </TabItem>
+            <TabItem x:Name="tabLogin" Header="Sesión">
+                <local:CtrlOracleLogin x:Name="loginSection" IsEnabled="False"/>
+            </TabItem>
+            <TabItem x:Name="tabDante" Header="Rutas">
+                <local:CtrlAppPath/>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</metro:MetroWindow>

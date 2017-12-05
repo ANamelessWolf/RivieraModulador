@@ -51,18 +51,17 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="houkago">
-      <HintPath>..\Lib\nameless_api\R20\houkago.dll</HintPath>
+      <HintPath>..\Lib\houkago.dll</HintPath>
     </Reference>
     <Reference Include="MahApps.Metro, Version=1.5.0.23, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.1.5.0\lib\net45\MahApps.Metro.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="mikasa, Version=3.2.0.45, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Lib\nameless_api\R20\mikasa.dll</HintPath>
+    <Reference Include="mikasa">
+      <HintPath>..\Lib\mikasa.dll</HintPath>
     </Reference>
     <Reference Include="misa">
-      <HintPath>..\Lib\nameless_api\R20\misa.dll</HintPath>
+      <HintPath>..\Lib\misa.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -82,11 +81,11 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
     <Reference Include="tessa">
-      <HintPath>..\Lib\nameless_api\R20\tessa.dll</HintPath>
+      <HintPath>..\Lib\tessa.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="yggdrasil">
-      <HintPath>..\Lib\nameless_api\R20\yggdrasil.dll</HintPath>
+      <HintPath>..\Lib\yggdrasil.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

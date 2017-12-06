@@ -8,7 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DaSoft.Riviera.Modulador.Core.Model;
-
+using Nameless.Libraries.Yggdrasil.Lilith;
+using static DaSoft.Riviera.Modulador.Core.Controller.ApplicationUtils;
 namespace DaSoft.Riviera.Modulador.Core.Runtime
 {
     /// <summary>
@@ -33,6 +34,40 @@ namespace DaSoft.Riviera.Modulador.Core.Runtime
         /// The microsoft access connection file name
         /// </summary>
         const string MS_ACCESS_CONN = "access.conn";
+        /// <summary>
+        /// Gets or sets the application version.
+        /// </summary>
+        /// <value>
+        /// The application version.
+        /// </value>
+        public override string AppVersion
+        {
+            get
+            {
+                SuccubusAssembly assem = new SuccubusAssembly(typeof(RivieraApplication));
+                return assem.ShortVersion;
+            }
+            set => base.AppVersion = value;
+        }
+        /// <summary>
+        /// Gets or sets the last access.
+        /// </summary>
+        /// <value>
+        /// The last access.
+        /// </value>
+        public override DateTime Last_Access
+        {
+            get
+            {
+                SuccubusAssembly assem = new SuccubusAssembly(typeof(RivieraApplication));
+                return assem.File.CreationTime;
+            }
+            set => base.Last_Access = value;
+        }
+        /// <summary>
+        /// Gets or sets the 3d view mode enabled status
+        /// </summary>
+        public bool Is3DEnabled { get { return Boolean.Parse(this[CAT_ROOT][PROP_3D_MODE_ENABLED]); } set { this[CAT_ROOT][PROP_3D_MODE_ENABLED] = value.ToString(); } }
         /// <summary>
         /// Gets the application configuration node categories
         /// </summary>

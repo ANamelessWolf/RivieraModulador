@@ -25,19 +25,19 @@ namespace DaSoft.Riviera.Modulador.Core.Controller
         /****************************/
         /******* App Properties *****/
         /****************************/
-        const String PROP_PROJECT_NAME = "Project";
-        const String PROP_3D_MODE_ENABLED = "ViewMode3D";
-        const String PROP_ARNES_ENABLED = "UsarArnes";
-        const String PROP_CRED_USERNAME = "DB_Username";
-        const String PROP_CRED_PASSWORD = "DB_Password";
-        const String PROP_CRED_COMPANY = "DB_Company";
-        const String PROP_CRED_PROJECTID = "DB_ProjectId";
-        const String PROP_DAN_MDB_PATH = "DaNTePath";
-        const String PROP_DAN_ASOC_PATH = "AsocDirPath";
-        const String PROP_DAN_MOD_PATH = "ModulesDirPath";
-        const String PROP_DAN_ASOC = "SelectAsocPath";
-        const String PROP_DAN_UNITS = "Unidades";
-        const String PROP_ENABLE_LOG = "LogStatus";
+        public const String PROP_PROJECT_NAME = "Project";
+        public const String PROP_3D_MODE_ENABLED = "ViewMode3D";
+        public const String PROP_ARNES_ENABLED = "UsarArnes";
+        public const String PROP_CRED_USERNAME = "DB_Username";
+        public const String PROP_CRED_PASSWORD = "DB_Password";
+        public const String PROP_CRED_COMPANY = "DB_Company";
+        public const String PROP_CRED_PROJECTID = "DB_ProjectId";
+        public const String PROP_DAN_MDB_PATH = "DaNTePath";
+        public const String PROP_DAN_ASOC_PATH = "AsocDirPath";
+        public const String PROP_DAN_MOD_PATH = "ModulesDirPath";
+        public const String PROP_DAN_ASOC = "SelectAsocPath";
+        public const String PROP_DAN_UNITS = "Unidades";
+        public const String PROP_ENABLE_LOG = "LogStatus";
 
         /// <summary>
         /// Gets the application categories.

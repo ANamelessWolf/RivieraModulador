@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{A7E26C18-FDD9-49F0-82B7-9E1E2F7422DB}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DaSoft.Riviera.Modulador.Core</RootNamespace>
     <AssemblyName>riv_core</AssemblyName>
@@ -89,6 +89,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssemblyVersion_R20.cs" />
     <Compile Include="Assets\CMDS.cs" />
     <Compile Include="Assets\CONST.cs" />
     <Compile Include="Assets\Strings.Designer.cs">
@@ -96,10 +97,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Strings.resx</DependentUpon>
     </Compile>
-    <Compile Include="Assets\test.cs" />
     <Compile Include="Controller\AppDirectoryUtils.cs" />
     <Compile Include="Controller\ApplicationUtils.cs" />
     <Compile Include="Controller\ConnectionUtils.cs" />
+    <Compile Include="Controller\RuntimeUtils.cs" />
     <Compile Include="Controller\Transactions\CredentialTransactions.cs" />
     <Compile Include="Controller\Transactions\RuntimeTransactions.cs" />
     <Compile Include="Controller\UI\FileDialogUtils.cs" />

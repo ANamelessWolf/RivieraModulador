@@ -106,12 +106,17 @@
     <Compile Include="Controller\UI\FileDialogUtils.cs" />
     <Compile Include="Controller\UI\IOracleUIConnector.cs" />
     <Compile Include="Controller\UI\DialogUtils.cs" />
+    <Compile Include="Model\DB\RivieraCodeRow.cs" />
+    <Compile Include="Model\DesignLine.cs" />
+    <Compile Include="Model\RivieraAcabado.cs" />
     <Compile Include="Model\ItemFile.cs" />
     <Compile Include="Model\MicrosoftAccessFilter.cs" />
     <Compile Include="Model\DaNTePath.cs" />
     <Compile Include="Model\DB\Ejecutivo.cs" />
+    <Compile Include="Model\RivieraCode.cs" />
     <Compile Include="Model\RivieraCompany.cs" />
     <Compile Include="Model\DB\RivieraProject.cs" />
+    <Compile Include="Model\RivieraElementType.cs" />
     <Compile Include="Model\UserCredential.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

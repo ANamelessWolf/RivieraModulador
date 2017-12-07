@@ -100,8 +100,10 @@
     <Compile Include="Controller\AppDirectoryUtils.cs" />
     <Compile Include="Controller\ApplicationUtils.cs" />
     <Compile Include="Controller\ConnectionUtils.cs" />
+    <Compile Include="Controller\RivieraParsingUtils.cs" />
     <Compile Include="Controller\RuntimeUtils.cs" />
     <Compile Include="Controller\Transactions\CredentialTransactions.cs" />
+    <Compile Include="Controller\Transactions\RivieraDataTransactions.cs" />
     <Compile Include="Controller\Transactions\RuntimeTransactions.cs" />
     <Compile Include="Controller\UI\FileDialogUtils.cs" />
     <Compile Include="Controller\UI\IOracleUIConnector.cs" />
@@ -116,13 +118,17 @@
     <Compile Include="Model\RivieraCode.cs" />
     <Compile Include="Model\RivieraCompany.cs" />
     <Compile Include="Model\DB\RivieraProject.cs" />
+    <Compile Include="Model\RivieraDatabaseResult.cs" />
     <Compile Include="Model\RivieraElementType.cs" />
+    <Compile Include="Model\RivieraMeasure.cs" />
+    <Compile Include="Model\RivieraSize.cs" />
     <Compile Include="Model\UserCredential.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Runtime\App.cs" />
     <Compile Include="Runtime\RivieraApplication.cs" />
     <Compile Include="Runtime\RivieraDatabase.cs" />
+    <Compile Include="Runtime\RivieraDesignDatabase.cs" />
     <Compile Include="Runtime\RivieraException.cs" />
     <Compile Include="UI\CtrlAppPath.xaml.cs">
       <DependentUpon>CtrlAppPath.xaml</DependentUpon>

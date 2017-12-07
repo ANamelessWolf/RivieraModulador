@@ -1,4 +1,7 @@
-SELECT 
+CREATE OR REPLACE FORCE EDITIONABLE VIEW 
+	"RIVIERA"."VW_RIVERA_CODE" ("LINEA", "CODIGO", "CODIGO_DESC", "BLOQUE", "TIPO", "PANEL_DOBLE", "ACABADO", "ACABADO_DESC") 
+AS 
+  SELECT 
     tab_line.LINEA as linea,
     tab_desc.CODIGO as codigo, 
     tab_desc.DESCRIPCION AS codigo_desc,  

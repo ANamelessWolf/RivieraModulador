@@ -520,4 +520,24 @@ Detalles: {1}</value>
     <value>Selecciona el directorio de módulos.</value>
     <comment>CtrlAppPath</comment>
   </data>
+  <data name="CAP_LOADING" xml:space="preserve">
+    <value>Cargando...</value>
+    <comment>RivieraDatabase</comment>
+  </data>
+  <data name="ERR_INIT_DB" xml:space="preserve">
+    <value>Error al inicializar la base de datos.</value>
+    <comment>RivieraDataTransactions</comment>
+  </data>
+  <data name="ERR_LOAD_RIV_CODES" xml:space="preserve">
+    <value>Error al cargar los códigos de Riviera</value>
+    <comment>RivieraDataTransactions</comment>
+  </data>
+  <data name="MSG_LOADING_DB" xml:space="preserve">
+    <value>Cargando datos desde la BD.</value>
+    <comment>RivieraDatabase</comment>
+  </data>
+  <data name="MSG_MEMORY_LOADED" xml:space="preserve">
+    <value>Memoria cargada en la aplicación</value>
+    <comment>RivieraDatabase</comment>
+  </data>
 </root>

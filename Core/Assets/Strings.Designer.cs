@@ -88,6 +88,15 @@ namespace DaSoft.Riviera.Modulador.Core.Assets {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Cargando....
+        /// </summary>
+        internal static string CAP_LOADING {
+            get {
+                return ResourceManager.GetString("CAP_LOADING", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Atrás.
         /// </summary>
         internal static string CAPTION_BACK {
@@ -307,6 +316,15 @@ namespace DaSoft.Riviera.Modulador.Core.Assets {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Error al inicializar la base de datos..
+        /// </summary>
+        internal static string ERR_INIT_DB {
+            get {
+                return ResourceManager.GetString("ERR_INIT_DB", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Error al crear el proyecto &quot;{0}&quot;.
         ///Detalles: {1}.
         /// </summary>
@@ -331,6 +349,15 @@ namespace DaSoft.Riviera.Modulador.Core.Assets {
         internal static string ERR_JUST_T {
             get {
                 return ResourceManager.GetString("ERR_JUST_T", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Error al cargar los códigos de Riviera.
+        /// </summary>
+        internal static string ERR_LOAD_RIV_CODES {
+            get {
+                return ResourceManager.GetString("ERR_LOAD_RIV_CODES", resourceCulture);
             }
         }
         
@@ -633,6 +660,15 @@ namespace DaSoft.Riviera.Modulador.Core.Assets {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Cargando datos desde la BD..
+        /// </summary>
+        internal static string MSG_LOADING_DB {
+            get {
+                return ResourceManager.GetString("MSG_LOADING_DB", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Iniciando sesión como el usuario {0}..
         /// </summary>
         internal static string MSG_LOGGIN_IN {
@@ -648,6 +684,15 @@ namespace DaSoft.Riviera.Modulador.Core.Assets {
         internal static string MSG_MAM_ADD {
             get {
                 return ResourceManager.GetString("MSG_MAM_ADD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Memoria cargada en la aplicación.
+        /// </summary>
+        internal static string MSG_MEMORY_LOADED {
+            get {
+                return ResourceManager.GetString("MSG_MEMORY_LOADED", resourceCulture);
             }
         }
         

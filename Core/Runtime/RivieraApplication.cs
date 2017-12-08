@@ -83,6 +83,10 @@ namespace DaSoft.Riviera.Modulador.Core.Runtime
         /// </value>
         public FileInfo OracleConnectionFile { get { return new FileInfo(Path.Combine(this.AppDirectory.FullName, ORACLE_CONN)); } }
         /// <summary>
+        /// The riviera database
+        /// </summary>
+        public RivieraDatabase Database;
+        /// <summary>
         /// The oracle connection data
         /// </summary>
         public OracleConnectionData OracleConnection;
@@ -111,6 +115,7 @@ namespace DaSoft.Riviera.Modulador.Core.Runtime
                 else
                     this.OracleConnection = new OracleConnectionData(this.OracleConnectionFile.FullName);
                 this.SetApplicationInformation();
+                this.Database = new RivieraDatabase();
             }
             catch (Exception exc)
             {

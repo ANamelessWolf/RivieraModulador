@@ -24,13 +24,14 @@ namespace DaSoft.Riviera.Modulador.Core.Runtime
         /// <summary>
         /// The database information sorted by design line
         /// </summary>
-        protected Dictionary<DesignLine, RivieraDesignDatabase> Database;
+        public Dictionary<DesignLine, RivieraDesignDatabase> LineDB;
         /// <summary>
         /// Initializes a new instance of the <see cref="RivieraDatabase"/> class.
         /// </summary>
         public RivieraDatabase()
         {
-            this.Database = new Dictionary<DesignLine, RivieraDesignDatabase>();
+            this.LineDB = new Dictionary<DesignLine, RivieraDesignDatabase>();
+            
         }
 
         /// <summary>
@@ -77,7 +78,7 @@ namespace DaSoft.Riviera.Modulador.Core.Runtime
             else
             {
                 RivieraDatabaseResult dbResult = (RivieraDatabaseResult)result;
-                foreach (var db in Database.Values)
+                foreach (var db in LineDB.Values)
                     db.LoadDesignModelData(dbResult);
             }
         }

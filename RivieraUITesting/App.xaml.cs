@@ -13,5 +13,6 @@ namespace RivieraUITesting
     /// </summary>
     public partial class App : Application
     {
+        public static object Riviera { get; internal set; }
     }
 }

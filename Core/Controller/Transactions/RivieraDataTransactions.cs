@@ -41,7 +41,7 @@ namespace DaSoft.Riviera.Modulador.Core.Controller.Transactions
                         return result;
                     };
                 tr.TaskCompleted = taskCompleted;
-                tr.Run(App.Riviera.OracleConnection);
+                tr.Run(App.Riviera.OracleConnection, App.Riviera.Database.LineDB.Values.ToArray());
             }
             catch (Exception exc)
             {

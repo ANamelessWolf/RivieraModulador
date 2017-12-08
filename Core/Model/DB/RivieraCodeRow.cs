@@ -46,6 +46,14 @@ namespace DaSoft.Riviera.Modulador.Core.Model.DB
         /// </value>
         public override string PrimaryKey => FIELD_ID;
         /// <summary>
+        /// Initializes a new instance of the <see cref="RivieraCodeRow"/> class.
+        /// </summary>
+        public RivieraCodeRow(SelectionResult[] result) : 
+            base(result)
+        {
+
+        }
+        /// <summary>
         /// Parses the object.
         /// </summary>
         /// <param name="result">The result.</param>
@@ -99,7 +107,8 @@ namespace DaSoft.Riviera.Modulador.Core.Model.DB
                 QueryBuilder qB = new QueryBuilder(TABLENAME, conn);
                 qB.AddSelectionColumn();
                 String query = qB.GetQuery();
-                return conn.SelectView<RivieraCodeRow>(query);
+                var result = conn.SelectView<RivieraCodeRow>(query);
+                return result;
             }
             catch (Exception exc)
             {

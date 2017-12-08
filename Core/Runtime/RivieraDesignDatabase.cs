@@ -21,19 +21,20 @@ namespace DaSoft.Riviera.Modulador.Core.Runtime
         /// <summary>
         /// The Design line codes asociated to the design line
         /// </summary>
-        List<RivieraCode> Codes;
+        public List<RivieraCode> Codes;
         /// <summary>
         /// The Design line sizes asociated by the codes
         /// </summary>
-        List<ElementSizeCollection> Sizes;
+        public Dictionary<String, ElementSizeCollection> Sizes;
         /// <summary>
         /// Initializes a new instance of the <see cref="RivieraDatabase"/> class.
         /// </summary>
         /// <param name="line">The Riviera design line.</param>
         public RivieraDesignDatabase(DesignLine line)
         {
+            this.Line = line;
             this.Codes = new List<RivieraCode>();
-            this.Sizes = new List<ElementSizeCollection>();
+            this.Sizes = new Dictionary<String, ElementSizeCollection>();
         }
         /// <summary>
         /// Loads the design model data.
@@ -52,10 +53,9 @@ namespace DaSoft.Riviera.Modulador.Core.Runtime
         /// <returns>The design line data result</returns>
         public abstract Object InitDesignDatabase(DB_Connector conn);
         /// <summary>
-        /// Loads the design application model
+        /// Loads the design model data.
         /// </summary>
-        /// <param name="conn">The connection.</param>
-        /// <returns>The design line data result</returns>
+        /// <param name="result">The result.</param>
         public abstract void LoadDesignModelData(Object result);
     }
 }

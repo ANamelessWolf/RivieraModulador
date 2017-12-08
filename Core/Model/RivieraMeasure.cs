@@ -44,8 +44,8 @@ namespace DaSoft.Riviera.Modulador.Core.Model
         {
             StringBuilder sb = new StringBuilder();
             foreach (var size in this.Sizes)
-                sb.Append(String.Format("{0}: {1}", size));
-            return sb.ToString();
+                sb.Append(String.Format("{0}: {1}\" || ", size.Measure, size.Nominal));
+            return sb.ToString().Substring(0, sb.Length - 4);
         }
     }
 }

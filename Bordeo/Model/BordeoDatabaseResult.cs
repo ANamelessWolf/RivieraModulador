@@ -15,6 +15,6 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model
         /// <summary>
         /// The Bordeo element size collection data
         /// </summary>
-        public IEnumerable<ElementSizeCollection> Sizes;
+        public Dictionary<String, ElementSizeCollection> Sizes;
     }
 }

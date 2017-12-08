@@ -20,6 +20,7 @@ namespace DaSoft.Riviera.Modulador.Core
                     App.Riviera = new RivieraApplication();
                 WinAppSettings win = new WinAppSettings();
                 win.ShowDialog();
+         
             }
             catch (Exception exc)
             {

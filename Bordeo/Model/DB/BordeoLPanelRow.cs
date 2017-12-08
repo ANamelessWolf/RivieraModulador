@@ -1,4 +1,5 @@
 ﻿using DaSoft.Riviera.Modulador.Core.Model;
+using DaSoft.Riviera.Modulador.Core.Model.DB;
 using Nameless.Libraries.DB.Mikasa;
 using Nameless.Libraries.DB.Mikasa.Model;
 using System;
@@ -7,71 +8,63 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static DaSoft.Riviera.Modulador.Core.Assets.CONST;
+using static DaSoft.Riviera.Modulador.Bordeo.Model.BordeoDesignDatabase;
 namespace DaSoft.Riviera.Modulador.Bordeo.Model.DB
 {
     /// <summary>
     /// Defines a Bordeo Panel Row
     /// </summary>
-    /// <seealso cref="Nameless.Libraries.DB.Mikasa.Model.DBMappingViewObject" />
-    public class BordeoPanelRow : DBMappingViewObject
+    /// <seealso cref="DaSoft.Riviera.Modulador.Core.Model.DB.RivieraMeasureRow" />
+    public class BordeoLPanelRow : RivieraMeasureRow
     {
-        const string TABLENAME = "VW_BR_PANEL_L";
         const string FIELD_ALTO_REAL = "ALTO_REAL_M";
         const string FIELD_ALTO = "ALTO";
         const string FIELD_FRENTE_1_REAL = "FRENTE_1_REAL_M";
         const string FIELD_FRENTE_1 = "FRENTE_1";
         const string FIELD_FRENTE_2_REAL = "FRENTE_2_REAL_M";
         const string FIELD_FRENTE_2 = "FRENTE_2";
-        const string FIELD_CODE = "CODIGO";
         /// <summary>
         /// Gets the name of the table.
         /// </summary>
         /// <value>
         /// The name of the table.
         /// </value>
-        public override string TableName => TABLENAME;
+        public override string TableName => TABLENAME_PANEL_L;
         /// <summary>
-        /// Gets the primary key.
+        /// Initializes a new instance of the <see cref="BordeoLPanelRow"/> class.
         /// </summary>
-        /// <value>
-        /// The primary key.
-        /// </value>
-        public override string PrimaryKey => FIELD_CODE;
+        /// <param name="result">The selection result.</param>
+        public BordeoLPanelRow(SelectionResult[] result) :
+            base(result)
+        { }
         /// <summary>
-        /// The Bordeo panel measure
-        /// </summary>
-        public RivieraMeasure Measure;
-        /// <summary>
-        /// The Measure code
-        /// </summary>
-        public String Code;
-        /// <summary>
-        /// Parses the object.
+        /// Creats the meausure.
         /// </summary>
         /// <param name="result">The result.</param>
-        /// <exception cref="NotImplementedException"></exception>
-        protected override void ParseObject(SelectionResult[] result)
+        /// <returns>
+        /// Creates the measure
+        /// </returns>
+        protected override RivieraMeasure CreateMeausure(SelectionResult[] result)
         {
             RivieraSize frente1 = new RivieraSize()
             {
                 Measure = KEY_START_FRONT,
-                Nominal = result.GetValue<Double>(FIELD_FRENTE_1),
-                Real = result.GetValue<Double>(FIELD_FRENTE_1_REAL)
+                Nominal = result.ConvertValue<Double>(FIELD_FRENTE_1),
+                Real = result.ConvertValue<Double>(FIELD_FRENTE_1_REAL)
             },
             frente2 = new RivieraSize()
             {
                 Measure = KEY_END_FRONT,
-                Nominal = result.GetValue<Double>(FIELD_FRENTE_2),
-                Real = result.GetValue<Double>(FIELD_FRENTE_2_REAL)
+                Nominal = result.ConvertValue<Double>(FIELD_FRENTE_2),
+                Real = result.ConvertValue<Double>(FIELD_FRENTE_2_REAL)
             },
             alto = new RivieraSize()
             {
                 Measure = KEY_HEIGHT,
-                Nominal = result.GetValue<Double>(FIELD_ALTO),
-                Real = result.GetValue<Double>(FIELD_ALTO_REAL)
+                Nominal = result.ConvertValue<Double>(FIELD_ALTO),
+                Real = result.ConvertValue<Double>(FIELD_ALTO_REAL)
             };
-            this.Measure = new LPanelMeasure(frente1, frente2, alto);
-            this.
+            return new LPanelMeasure(frente1, frente2, alto);
         }
     }
 }

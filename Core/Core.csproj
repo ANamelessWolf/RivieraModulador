@@ -109,7 +109,9 @@
     <Compile Include="Controller\UI\IOracleUIConnector.cs" />
     <Compile Include="Controller\UI\DialogUtils.cs" />
     <Compile Include="Model\DB\RivieraCodeRow.cs" />
+    <Compile Include="Model\DB\RivieraMeasureRow.cs" />
     <Compile Include="Model\DesignLine.cs" />
+    <Compile Include="Model\ElementSizeCollection.cs" />
     <Compile Include="Model\RivieraAcabado.cs" />
     <Compile Include="Model\ItemFile.cs" />
     <Compile Include="Model\MicrosoftAccessFilter.cs" />

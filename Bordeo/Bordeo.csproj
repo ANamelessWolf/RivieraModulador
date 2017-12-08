@@ -91,6 +91,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyVersion_R20.cs" />
+    <Compile Include="Model\BordeoDatabaseResult.cs" />
+    <Compile Include="Model\BordeoDesignDatabase.cs" />
+    <Compile Include="Model\DB\BordeoPanelRow.cs" />
+    <Compile Include="Model\LPanelMeasure.cs" />
+    <Compile Include="Model\PanelMeasure.cs" />
+    <Compile Include="Model\PasoLuzMeasure.cs" />
+    <Compile Include="Model\PuenteMeasure.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -119,6 +126,9 @@
       <Project>{a7e26c18-fdd9-49f0-82b7-9e1e2f7422db}</Project>
       <Name>Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Assets\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

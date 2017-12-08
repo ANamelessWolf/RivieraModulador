@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace DaSoft.Riviera.Modulador.Core.Runtime
 {
+    /// <summary>
+    /// Riviera Design databse
+    /// </summary>
     public abstract class RivieraDesignDatabase
     {
         /// <summary>
@@ -18,7 +21,11 @@ namespace DaSoft.Riviera.Modulador.Core.Runtime
         /// <summary>
         /// The Design line codes asociated to the design line
         /// </summary>
-        List<RivieraCode> Codes = new List<RivieraCode>();
+        List<RivieraCode> Codes;
+        /// <summary>
+        /// The Design line sizes asociated by the codes
+        /// </summary>
+        List<ElementSizeCollection> Sizes;
         /// <summary>
         /// Initializes a new instance of the <see cref="RivieraDatabase"/> class.
         /// </summary>
@@ -26,6 +33,7 @@ namespace DaSoft.Riviera.Modulador.Core.Runtime
         public RivieraDesignDatabase(DesignLine line)
         {
             this.Codes = new List<RivieraCode>();
+            this.Sizes = new List<ElementSizeCollection>();
         }
         /// <summary>
         /// Loads the design model data.

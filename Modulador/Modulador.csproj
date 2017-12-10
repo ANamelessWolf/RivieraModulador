@@ -2642,6 +2642,10 @@
       <Project>{a7e26c18-fdd9-49f0-82b7-9e1e2f7422db}</Project>
       <Name>Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\EnfasisPlus\EnfasisPlus.csproj">
+      <Project>{27a3f110-38db-470c-b8d2-019d4d15a527}</Project>
+      <Name>EnfasisPlus</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Page Include="UI\WinAppInitializer.xaml">

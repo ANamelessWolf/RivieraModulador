@@ -91,6 +91,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyVersion_R20.cs" />
+    <Compile Include="Assets\Constants.cs" />
+    <Compile Include="Controller\BordeoUtils.cs" />
     <Compile Include="Model\BordeoDatabaseResult.cs" />
     <Compile Include="Model\BordeoDesignDatabase.cs" />
     <Compile Include="Model\BordeoPanelHeight.cs" />
@@ -100,6 +102,7 @@
     <Compile Include="Model\DB\BordeoPuenteRow.cs" />
     <Compile Include="Model\LPanelMeasure.cs" />
     <Compile Include="Model\PanelMeasure.cs" />
+    <Compile Include="Model\PanelRecto.cs" />
     <Compile Include="Model\PasoLuzMeasure.cs" />
     <Compile Include="Model\PuenteMeasure.cs" />
     <Compile Include="Model\UI\ImageItem.cs" />

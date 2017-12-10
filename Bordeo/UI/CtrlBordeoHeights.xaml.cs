@@ -16,13 +16,18 @@ using System.Windows.Shapes;
 namespace DaSoft.Riviera.Modulador.Bordeo.UI
 {
     /// <summary>
-    /// Interaction logic for CtrlBordeoMenuTab.xaml
+    /// Lógica de interacción para CtrlBordeoHeights.xaml
     /// </summary>
-    public partial class CtrlBordeoMenuTab : UserControl
+    public partial class CtrlBordeoHeights : UserControl
     {
-        public CtrlBordeoMenuTab()
+        public CtrlBordeoHeights()
         {
             InitializeComponent();
+        }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

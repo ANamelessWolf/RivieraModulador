@@ -1,4 +1,5 @@
-﻿using DaSoft.Riviera.Modulador.Core.Runtime;
+﻿using DaSoft.Riviera.Modulador.Core.Model;
+using DaSoft.Riviera.Modulador.Core.Runtime;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,14 +13,6 @@ namespace DaSoft.Riviera.Modulador.Core.Controller
     /// </summary>
     public static partial class ApplicationUtils
     {
-        /// <summary>
-        /// Initializes the database.
-        /// </summary>
-        /// <param name="app">The riviera application.</param>
-        /// <param name="database">The database to initialize on the application.</param>
-        public static void InitDatabase(this RivieraApplication app, params RivieraDatabase[] database)
-        {
-
-        }
+        
     }
 }

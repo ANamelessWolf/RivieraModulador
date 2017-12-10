@@ -5,6 +5,7 @@
         xmlns:metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RivieraUITesting"
+        xmlns:bordeo="clr-namespace:DaSoft.Riviera.Modulador.Bordeo.UI;assembly=riv_bordeo"
         mc:Ignorable="d" Loaded="Window_Loaded"
         Title="MainWindow" Height="350" Width="525">
     <Window.Resources>
@@ -15,6 +16,6 @@
         </ResourceDictionary>
     </Window.Resources>
     <Grid>
-        
+        <bordeo:TabBordeoMenu/>
     </Grid>
 </metro:MetroWindow>

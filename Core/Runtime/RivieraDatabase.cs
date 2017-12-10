@@ -26,6 +26,10 @@ namespace DaSoft.Riviera.Modulador.Core.Runtime
         /// </summary>
         public Dictionary<DesignLine, RivieraDesignDatabase> LineDB;
         /// <summary>
+        /// The action excecuted ones the database loaded
+        /// </summary>
+        public Action DatabaseLoaded;
+        /// <summary>
         /// Initializes a new instance of the <see cref="RivieraDatabase"/> class.
         /// </summary>
         public RivieraDatabase()
@@ -49,6 +53,8 @@ namespace DaSoft.Riviera.Modulador.Core.Runtime
                 await CloseProgressDialog();
                 await win.ShowMessageAsync(String.Empty, MSG_MEMORY_LOADED, MessageDialogStyle.Affirmative); 
                 win.Close();
+                if (DatabaseLoaded != null)
+                    this.DatabaseLoaded();
             });
         }
         /// <summary>

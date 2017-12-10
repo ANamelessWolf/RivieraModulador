@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:DaSoft.Riviera.Modulador.Bordeo.UI"
-             mc:Ignorable="d" 
+             mc:Ignorable="d" Loaded="UserControl_Loaded"
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -14,8 +14,47 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
-        <Grid>
-
-        </Grid>
+        <StackPanel Orientation="Vertical" Background="#FFD9EDF3">
+            <GroupBox x:Name="groupInsert" Header="Insertar">
+                <Grid Background="#FFD9EDF3">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="120"/>
+                        <RowDefinition Height="52"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock x:Name="txtFronts" Text="Frente"  Style="{StaticResource MenuStyle_Header}" HorizontalAlignment="Right"/>
+                    <TextBlock x:Name="txtHeight" Text="Altura" Grid.Row="1"  Style="{StaticResource MenuStyle_Header}" HorizontalAlignment="Right"/>
+                    <ComboBox x:Name="cboFronts" Grid.Column="1" Style="{StaticResource MenuStyle_List}" DisplayMemberPath="Frente"/>
+                    <local:CtrlBordeoHeights x:Name="listHeights" Grid.Column="1" Grid.Row="1"/>
+                    <Viewbox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Right">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                            <Button x:Name="btnInsertModule" Style="{StaticResource MenuStyle_RoundButton}" Content="M" FontWeight="Light" 
+                                    Click="btnInsertModule_Click">
+                                <Button.ToolTip>
+                                    <ToolTip Style="{StaticResource TooltipStyle}" Tag="Insertar módulo" 
+                                             ToolTip="Insertar un módulo."/>
+                                </Button.ToolTip>
+                            </Button>
+                            <Button x:Name="btnContinueInsert" Style="{StaticResource MenuStyle_RoundButton}" Content="&#xe101;" 
+                                    Click="btnContinueInsert_Click">
+                                <Button.ToolTip>
+                                    <ToolTip Style="{StaticResource TooltipStyle}" Tag="Continuar Inserción" 
+                                             ToolTip="Continue la inserción seleccionando un panel."/>
+                                </Button.ToolTip>
+                            </Button>
+                            <Button x:Name="btnInsert" Style="{StaticResource MenuStyle_RoundButton}" Content="&#xe109;" Click="btnInsert_Click">
+                                <Button.ToolTip>
+                                    <ToolTip Style="{StaticResource TooltipStyle}" Tag="Insertar" ToolTip="Haga clic para Insertar"/>
+                                </Button.ToolTip>
+                            </Button>
+                        </StackPanel>
+                    </Viewbox>
+                </Grid>
+            </GroupBox>
+        </StackPanel>
     </ScrollViewer>
 </UserControl>

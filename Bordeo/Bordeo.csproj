@@ -91,7 +91,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyVersion_R20.cs" />
+    <Compile Include="Assets\Codes.cs" />
     <Compile Include="Assets\Constants.cs" />
+    <Compile Include="Assets\Strings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Strings.resx</DependentUpon>
+    </Compile>
     <Compile Include="Controller\BordeoUtils.cs" />
     <Compile Include="Model\BordeoDatabaseResult.cs" />
     <Compile Include="Model\BordeoDesignDatabase.cs" />
@@ -119,6 +125,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Runtime\BordeoException.cs" />
     <Compile Include="UI\ButtonImage.xaml.cs">
       <DependentUpon>ButtonImage.xaml</DependentUpon>
     </Compile>
@@ -128,6 +135,10 @@
     <Compile Include="UI\TabBordeoMenu.xaml.cs">
       <DependentUpon>TabBordeoMenu.xaml</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Assets\Strings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Strings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

@@ -109,6 +109,7 @@
     <Compile Include="Controller\UI\FileDialogUtils.cs" />
     <Compile Include="Controller\UI\IOracleUIConnector.cs" />
     <Compile Include="Controller\UI\DialogUtils.cs" />
+    <Compile Include="Controller\UI\UIUtils.cs" />
     <Compile Include="Model\DB\RivieraCodeRow.cs" />
     <Compile Include="Model\DB\RivieraMeasureRow.cs" />
     <Compile Include="Model\DesignLine.cs" />
@@ -126,6 +127,7 @@
     <Compile Include="Model\RivieraMeasure.cs" />
     <Compile Include="Model\RivieraObject.cs" />
     <Compile Include="Model\RivieraSize.cs" />
+    <Compile Include="Model\UI\RivieraSizeItem.cs" />
     <Compile Include="Model\UserCredential.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

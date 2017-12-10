@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DaSoft.Riviera.Modulador.Bordeo.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,14 +21,29 @@ namespace DaSoft.Riviera.Modulador.Bordeo.UI
     /// </summary>
     public partial class CtrlBordeoHeights : UserControl
     {
+        /// <summary>
+        /// Gets the selected height for the panel.
+        /// </summary>
+        /// <value>
+        /// The selected height panel.
+        /// </value>
+        public BordeoPanelHeight SelectedHeight
+        {
+            get
+            {
+                Image img = this.lvPanelHeights.SelectedIndex != -1 ? this.lvPanelHeights.SelectedItem as Image : null;
+                if (img != null)
+                    return (BordeoPanelHeight)int.Parse(img.Tag.ToString());
+                else
+                    return BordeoPanelHeight.None;
+            }
+        }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CtrlBordeoHeights"/> class.
+        /// </summary>
         public CtrlBordeoHeights()
         {
             InitializeComponent();
-        }
-
-        private void UserControl_Loaded(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }

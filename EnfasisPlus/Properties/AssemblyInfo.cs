@@ -3,8 +3,7 @@ using System.Resources;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Windows;
-
-using static DaSoft.Riviera.Modulador.Bordeo.NamelessAssemblyVersion;
+using static DaSoft.Riviera.Modulador.Enfasis.NamelessAssemblyVersion;
 
 [assembly: AssemblyTitle(ASSEMBLY_TITLE)]
 [assembly: AssemblyDescription(ASSEMBLY_DESCRIPTION + ASSEMBLY_FRAMEWORK_VERSION)]

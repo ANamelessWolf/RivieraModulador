@@ -18,7 +18,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo
         public const string MINOR_VERSION = "20";
         public const string FRAMEWORK_VERSION = "45";
         public const string ASSEMBLY_COMPANY = "CAD.:Labs";
-        public const string ASSEMBLY_PRODUCT = "riv_core [" + AUTOCAD_VERSION + "]";
+        public const string ASSEMBLY_PRODUCT = "bordeo [" + AUTOCAD_VERSION + "]";
         public const string ASSEMBLY_TRADEMARK = "A Nameless Wolf";
         public const string ASSEMBLY_VERSION = "3." + MINOR_VERSION + ".0." + FRAMEWORK_VERSION;
         public const string ASSEMBLY_FILE_VERSION = "3." + MINOR_VERSION + ".0." + FRAMEWORK_VERSION;

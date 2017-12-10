@@ -1,4 +1,4 @@
-﻿<metro:MetroWindow x:Class="DaSoft.Riviera.Modulador.UI.WinAvailableLines"
+﻿<metro:MetroWindow x:Class="DaSoft.Riviera.Modulador.UI.WinAppInitializer"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:DaSoft.Riviera.Modulador.UI"
         xmlns:metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         mc:Ignorable="d"
-        Title="Riviera - Líneas Disponibles" Height="200" Width="270" ResizeMode="NoResize">
+        Title="Riviera - Cargando..." Height="200" Width="270" ResizeMode="NoResize">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

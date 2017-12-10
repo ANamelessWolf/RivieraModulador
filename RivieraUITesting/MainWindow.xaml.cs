@@ -33,12 +33,12 @@ namespace RivieraUITesting
         {
             try
             {
-                if (DaSoft.Riviera.Modulador.Core.Runtime.App.Riviera == null)
-                    DaSoft.Riviera.Modulador.Core.Runtime.App.Riviera = new RivieraApplication();
+                //if (DaSoft.Riviera.Modulador.Core.Runtime.App.Riviera == null)
+                  //  DaSoft.Riviera.Modulador.Core.Runtime.App.Riviera = new RivieraApplication();
                 //WinAppSettings win = new WinAppSettings();
                 //win.ShowDialog();
-                DaSoft.Riviera.Modulador.Core.Runtime.App.Riviera.Database.LineDB.Add(DaSoft.Riviera.Modulador.Core.Model.DesignLine.Bordeo, new BordeoDesignDatabase());
-                DaSoft.Riviera.Modulador.Core.Runtime.App.Riviera.Database.Init(this);
+               // DaSoft.Riviera.Modulador.Core.Runtime.App.Riviera.Database.LineDB.Add(DaSoft.Riviera.Modulador.Core.Model.DesignLine.Bordeo, new BordeoDesignDatabase());
+                //DaSoft.Riviera.Modulador.Core.Runtime.App.Riviera.Database.Init(this);
             }
             catch (Exception exc)
             {

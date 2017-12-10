@@ -92,6 +92,7 @@
   <ItemGroup>
     <Compile Include="AssemblyVersion_R20.cs" />
     <Compile Include="Commands\ApplicationCommands.cs" />
+    <Compile Include="Controller\RuntimeUtils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

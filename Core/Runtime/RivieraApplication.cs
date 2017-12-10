@@ -97,6 +97,9 @@ namespace DaSoft.Riviera.Modulador.Core.Runtime
         /// The ms access connection file.
         /// </value>
         public FileInfo MsAccessConnectionFile { get { return new FileInfo(Path.Combine(this.AppDirectory.FullName, MS_ACCESS_CONN)); } }
+
+        public bool DeveloperMode { get; set; }
+
         /// <summary>
         /// The Riviera login credentials
         /// </summary>

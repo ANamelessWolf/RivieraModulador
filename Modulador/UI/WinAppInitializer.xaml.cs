@@ -18,9 +18,9 @@ namespace DaSoft.Riviera.Modulador.UI
     /// <summary>
     /// Lógica de interacción para WinAvailableLines.xaml
     /// </summary>
-    public partial class WinAvailableLines : MetroWindow
+    public partial class WinAppInitializer : MetroWindow
     {
-        public WinAvailableLines()
+        public WinAppInitializer()
         {
             InitializeComponent();
         }

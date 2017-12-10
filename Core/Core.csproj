@@ -99,6 +99,7 @@
     </Compile>
     <Compile Include="Controller\AppDirectoryUtils.cs" />
     <Compile Include="Controller\ApplicationUtils.cs" />
+    <Compile Include="Controller\AutoCADUtils.cs" />
     <Compile Include="Controller\ConnectionUtils.cs" />
     <Compile Include="Controller\RivieraParsingUtils.cs" />
     <Compile Include="Controller\RuntimeUtils.cs" />
@@ -123,6 +124,7 @@
     <Compile Include="Model\RivieraDatabaseResult.cs" />
     <Compile Include="Model\RivieraElementType.cs" />
     <Compile Include="Model\RivieraMeasure.cs" />
+    <Compile Include="Model\RivieraObject.cs" />
     <Compile Include="Model\RivieraSize.cs" />
     <Compile Include="Model\UserCredential.cs" />
     <Compile Include="Program.cs" />

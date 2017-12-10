@@ -11,6 +11,9 @@ using System.Text;
 using System.Threading.Tasks;
 using static DaSoft.Riviera.Modulador.Core.Assets.CMDS;
 using System.Windows.Controls;
+using DaSoft.Riviera.Modulador.Enfasis.UI;
+using DaSoft.Riviera.Modulador.Bordeo.UI;
+using Nameless.Libraries.HoukagoTeaTime.Yui;
 
 namespace DaSoft.Riviera.Modulador
 {
@@ -36,7 +39,12 @@ namespace DaSoft.Riviera.Modulador
         /// The name.
         /// </value>
         public override string Name => "Modulador Riviera";
-
+        /// <summary>
+        /// Gets the tabs.
+        /// </summary>
+        /// <value>
+        /// The tabs.
+        /// </value>
         public override string[] Tabs
         {
             get
@@ -44,18 +52,43 @@ namespace DaSoft.Riviera.Modulador
                 if (App.Riviera.DeveloperMode)
                     return new String[]
                     {
-                       "Mamparas",
+                       "Bordeo",
+                       "Enfasis Plus",
                        "Developer"
                     };
                 else
                     return new String[]
                     {
-                        "Mamparas"
+                       "Bordeo",
+                       "Enfasis Plus",
                     };
             }
         }
-
-        public override UserControl[] Controls => throw new NotImplementedException();
+        /// <summary>
+        /// Gets the controls.
+        /// </summary>
+        /// <value>
+        /// The controls.
+        /// </value>
+        public override UserControl[] Controls
+        {
+            get
+            {
+                if (App.Riviera.DeveloperMode)
+                    return new UserControl[]
+                {
+                    new TabBordeoMenu(),
+                    new TabEnfasisMenu(),
+                    new TabDevMenu()
+                };
+                else
+                    return new UserControl[]
+                {
+                    new TabBordeoMenu(),
+                    new TabEnfasisMenu()
+                };
+            }
+        }
 
         /// <summary>
         /// Initializes the delta application.
@@ -66,8 +99,27 @@ namespace DaSoft.Riviera.Modulador
             if (App.Riviera == null)
                 App.Riviera = new RivieraApplication();
             RivApp.Is3DEnabled = false;
-            RivApp.Database.DatabaseLoaded =
+            RivApp.Database.DatabaseLoaded = InitCommand;
             RivApp.InitDatabase();
+        }
+        /// <summary>
+        /// Initialize the delta
+        /// </summary>
+        [CommandMethod(INIT_APP_UI)]
+        public override void InitCommand()
+        {
+            App.RunCommand(
+                delegate ()
+                {
+                    base.InitCommand();
+                    try
+                    {
+                    }
+                    catch (System.Exception exc)
+                    {
+                        Selector.Ed.WriteMessage(exc.Message);
+                    }
+                });
         }
         /// <summary>
         /// Configurations this instance.

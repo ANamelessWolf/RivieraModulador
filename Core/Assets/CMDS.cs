@@ -12,6 +12,7 @@ namespace DaSoft.Riviera.Modulador.Core.Assets
     public static class CMDS
     {
         public const String START = "IniciarRivieraApp";
+        public const String INIT_APP_UI = "IniciarRivieraAppUI";
         public const String CONFIG_UI = "IniciarConfiguraciones";
     }
 }

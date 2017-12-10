@@ -154,6 +154,9 @@
     <Compile Include="UI\CtrlOracleTNSConnector.xaml.cs">
       <DependentUpon>CtrlOracleTNSConnector.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\TabDevMenu.xaml.cs">
+      <DependentUpon>TabDevMenu.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\WinAppSettings.xaml.cs">
       <DependentUpon>WinAppSettings.xaml</DependentUpon>
     </Compile>
@@ -187,6 +190,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\CtrlOracleTNSConnector.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\TabDevMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -84,23 +84,26 @@ namespace DaSoft.Riviera.Modulador.Core.UI
         /// <param name="asocDir">The asoc directory.</param>
         private void UpdateCboAsoc(string asocDir)
         {
-            AerithScanner scn = new AerithScanner(asocDir, true, true);
-            scn.Find(new MicrosoftAccessFilter());
-            this.cboAsoc.ItemsSource = scn.Files.Select(x => new ItemFile(x)).OrderBy(y => y.ItemName);
-            if (this.cboAsoc.Items.Count > 0)
+            if (asocDir.ToUpper().Contains(CAT_DANTE.ToUpper()))
             {
-                string asoc = App.Riviera.GetPath(DaNTePath.ASOC_MDB);
-                if (IOFile.Exists(asoc))
+                AerithScanner scn = new AerithScanner(asocDir, true, true);
+                scn.Find(new MicrosoftAccessFilter());
+                this.cboAsoc.ItemsSource = scn.Files.Select(x => new ItemFile(x)).OrderBy(y => y.ItemName);
+                if (this.cboAsoc.Items.Count > 0)
                 {
-                    IOFileInfo file = new IOFileInfo(asoc);
-                    ItemFile item = this.cboAsoc.ItemsSource.OfType<ItemFile>().FirstOrDefault(x => x.ItemName == file.Name);
-                    if (item != null)
-                        this.cboAsoc.SelectedIndex = this.cboAsoc.ItemsSource.OfType<ItemFile>().ToList().IndexOf(item);
+                    string asoc = App.Riviera.GetPath(DaNTePath.ASOC_MDB);
+                    if (IOFile.Exists(asoc))
+                    {
+                        IOFileInfo file = new IOFileInfo(asoc);
+                        ItemFile item = this.cboAsoc.ItemsSource.OfType<ItemFile>().FirstOrDefault(x => x.ItemName == file.Name);
+                        if (item != null)
+                            this.cboAsoc.SelectedIndex = this.cboAsoc.ItemsSource.OfType<ItemFile>().ToList().IndexOf(item);
+                        else
+                            this.cboAsoc.SelectedIndex = 0;
+                    }
                     else
                         this.cboAsoc.SelectedIndex = 0;
                 }
-                else
-                    this.cboAsoc.SelectedIndex = 0;
             }
         }
         /// <summary>

@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:DaSoft.Riviera.Modulador.Bordeo.UI"
              mc:Ignorable="d" Loaded="UserControl_Loaded"
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="600" d:DesignWidth="300">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -24,7 +24,7 @@
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="2*"/>
                     </Grid.ColumnDefinitions>
                     <TextBlock x:Name="txtFronts" Text="Frente"  Style="{StaticResource MenuStyle_Header}" HorizontalAlignment="Right"/>
                     <TextBlock x:Name="txtHeight" Text="Altura" Grid.Row="1"  Style="{StaticResource MenuStyle_Header}" HorizontalAlignment="Right"/>
@@ -54,6 +54,73 @@
                         </StackPanel>
                     </Viewbox>
                 </Grid>
+            </GroupBox>
+            <GroupBox x:Name="groupEdit" Header="Edición">
+                <Viewbox>
+                    <StackPanel Orientation="Vertical">
+                        <StackPanel x:Name="col1" Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Button x:Name="btnSummonPanelEditor" Style="{StaticResource MenuStyle_RoundButton}" Content="P"
+                                    Click="btnSummonPanelEditor_Click">
+                                <Button.ToolTip>
+                                    <ToolTip Style="{StaticResource TooltipStyle}" Tag="Editor de paneles" ToolTip="Haga clic para visualizar el editor de paneles"/>
+                                </Button.ToolTip>
+                            </Button>
+
+                            <Button x:Name="btnSummonPanelClipboard" Style="{StaticResource MenuStyle_RoundButton}" Content="P&#xe16d;" FontWeight="Light"
+                                    Click="btnSummonPanelClipboard_Click">
+                                <Button.ToolTip>
+                                    <ToolTip Style="{StaticResource TooltipStyle}" Tag="Copiar estilo de paneles" 
+                                 ToolTip="Haga clic para copiar y pegar el estilo de paneles"/>
+                                </Button.ToolTip>
+                            </Button>
+                            <Button x:Name="btnDeletePanel" Style="{StaticResource MenuStyle_RoundButton}" Content="&#xe107;"
+                                    Click="btnDeletePanel_Click">
+                                <Button.ToolTip>
+                                    <ToolTip Style="{StaticResource TooltipStyle}" Tag="Eliminar" ToolTip="Haga clic para eliminar"/>
+                                </Button.ToolTip>
+                            </Button>
+                            <Button x:Name="btnSwapPanel" Style="{StaticResource MenuStyle_RoundButton}" Content="&#xe174;">
+                                <Button.ToolTip>
+                                    <ToolTip Style="{StaticResource TooltipStyle}" Tag="Intercambiar" ToolTip="Haga clic para intercambiar una grupo de paneles"/>
+                                </Button.ToolTip>
+                            </Button>
+                            <Button x:Name="btnQuantifyPanel" Style="{StaticResource MenuStyle_RoundButton}" Content="&#xe1d0;">
+                                <Button.ToolTip>
+                                    <ToolTip Style="{StaticResource TooltipStyle}" Tag="Cuantificar" ToolTip="Haga clic para visualizar la cuantificación actual"/>
+                                </Button.ToolTip>
+                            </Button>
+                        </StackPanel>
+                        <StackPanel x:Name="col2" Orientation="Horizontal" HorizontalAlignment="Left"/>
+                    </StackPanel>
+                </Viewbox>
+            </GroupBox>
+            <GroupBox x:Name="groupView" Header="Visualización">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button x:Name="btnReportMamparaType" Style="{StaticResource MenuStyle_RoundButton}" Content="R" HorizontalAlignment="Right"
+                            Click="btnReportMamparaType_Click">
+                        <Button.ToolTip>
+                            <ToolTip Style="{StaticResource TooltipStyle}" Tag="Reporte mampara tipo" ToolTip="Realiza el proceso de creación de reportes de mampara tipo"/>
+                        </Button.ToolTip>
+                    </Button>
+                    <Button x:Name="btnValidate" Style="{StaticResource MenuStyle_RoundButton}" Content="&#xe10B;" HorizontalAlignment="Right"
+                            Click="btnValidate_Click">
+                        <Button.ToolTip>
+                            <ToolTip Style="{StaticResource TooltipStyle}" Tag="Actualizar información" ToolTip="Realiza un proceso de actualización, necesario despues de copiar y pegar en AutoCAD"/>
+                        </Button.ToolTip>
+                    </Button>
+                    <Button x:Name="btnCreateModule" Style="{StaticResource MenuStyle_RoundButton}" Content="M" HorizontalAlignment="Right"
+                            Click="btnCreateModule_Click">
+                        <Button.ToolTip>
+                            <ToolTip Style="{StaticResource TooltipStyle}" Tag="Creador de Modulos" ToolTip="Abre la ventana de creación de modulo"/>
+                        </Button.ToolTip>
+                    </Button>
+                    <Button x:Name="btnSwapRenderView" Style="{StaticResource MenuStyle_RoundButton}" Content="&#xe117;" HorizontalAlignment="Right"
+                            Click="btnSwapRenderView_Click">
+                        <Button.ToolTip>
+                            <ToolTip Style="{StaticResource TooltipStyle}" Tag="Cambio de Vista" ToolTip="Se realiza un cambio de vista 2D a 3D o viceversa"/>
+                        </Button.ToolTip>
+                    </Button>
+                </StackPanel>
             </GroupBox>
         </StackPanel>
     </ScrollViewer>

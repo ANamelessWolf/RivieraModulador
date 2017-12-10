@@ -23,7 +23,7 @@ namespace DaSoft.Riviera.Modulador.Core.Model
         /// <exception cref="NotSupportedException">Not needed</exception>
         public override bool IsDirectoryValid(DirectoryInfo directory)
         {
-            throw new NotSupportedException();
+            return true;
         }
         /// <summary>
         /// Determines whether [is file valid] [the specified file].

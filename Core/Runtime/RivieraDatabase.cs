@@ -35,7 +35,7 @@ namespace DaSoft.Riviera.Modulador.Core.Runtime
         public RivieraDatabase()
         {
             this.LineDB = new Dictionary<DesignLine, RivieraDesignDatabase>();
-            
+
         }
 
         /// <summary>
@@ -49,11 +49,18 @@ namespace DaSoft.Riviera.Modulador.Core.Runtime
             OracleTransactions.InitDatabase(
                async (BackgroundWorker worker, Object result) =>
             {
-                this.InitCompleted(result);
+                string msg;
+                if (result is Exception)
+                    msg = (result as Exception).Message;
+                else
+                {
+                    this.InitCompleted(result);
+                    msg = MSG_MEMORY_LOADED;
+                }
                 await CloseProgressDialog();
-                await win.ShowMessageAsync(String.Empty, MSG_MEMORY_LOADED, MessageDialogStyle.Affirmative); 
+                await win.ShowMessageAsync(String.Empty, msg, MessageDialogStyle.Affirmative);
                 win.Close();
-                if (DatabaseLoaded != null)
+                if (!(result is Exception) && DatabaseLoaded != null)
                     this.DatabaseLoaded();
             });
         }
@@ -78,15 +85,9 @@ namespace DaSoft.Riviera.Modulador.Core.Runtime
         /// <param name="result">The Initialize task result.</param>
         private void InitCompleted(object result)
         {
-            string msg;
-            if (result is Exception)
-                msg = (result as Exception).Message;
-            else
-            {
-                RivieraDatabaseResult dbResult = (RivieraDatabaseResult)result;
-                foreach (var db in LineDB.Values)
-                    db.LoadDesignModelData(dbResult);
-            }
+            RivieraDatabaseResult dbResult = (RivieraDatabaseResult)result;
+            foreach (var db in LineDB.Values)
+                db.LoadDesignModelData(dbResult);
         }
     }
 }

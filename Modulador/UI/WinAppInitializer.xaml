@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:DaSoft.Riviera.Modulador.UI"
         xmlns:metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         mc:Ignorable="d"
-        Title="Riviera - Cargando..." Height="200" Width="270" ResizeMode="NoResize">
+        Title="Riviera - Cargando..." Height="480" Width="720" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" >
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

@@ -1,0 +1,146 @@
+﻿<UserControl x:Class="DaSoft.Riviera.Modulador.Enfasis.UI.TabEnfasisMenu"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:DaSoft.Riviera.Modulador.Enfasis.UI"
+             mc:Ignorable="d" 
+             d:DesignHeight="800" d:DesignWidth="300">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/riv_core;component/Assets/RivieraStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+        <StackPanel Orientation="Vertical" Background="#FFD9EDF3">
+            <GroupBox x:Name="groupDim" Header="Insertar">
+                <Grid Background="#FFD9EDF3">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="32"/>
+                        <RowDefinition Height="32"/>
+                        <RowDefinition Height="52"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="140"/>
+                        <ColumnDefinition Width="10"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock x:Name="txtFronts" Text="Frente" Style="{StaticResource MenuStyle_Header}" HorizontalAlignment="Right"/>
+                    <ComboBox x:Name="cboFronts" Grid.Column="1" Style="{StaticResource MenuStyle_List}"/>
+                    <TextBlock x:Name="txtHeights" Grid.Row="1" Text="Altura" Style="{StaticResource MenuStyle_Header}" HorizontalAlignment="Right"/>
+                    <ComboBox x:Name="cboHeights" Grid.Row="1" Grid.Column="1" Style="{StaticResource MenuStyle_List}"/>
+                    <Viewbox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" >
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                            <Button x:Name="btnInsertModule" Style="{StaticResource MenuStyle_RoundButton}" Content="M" FontWeight="Light">
+                                <Button.ToolTip>
+                                    <ToolTip Style="{StaticResource TooltipStyle}" Tag="Insertar módulo" ToolTip="Insertar un módulo, previamente definido con la aplicación."/>
+                                </Button.ToolTip>
+                            </Button>
+                            <Button x:Name="btnAppendStyle" Style="{StaticResource MenuStyle_RoundButton}" Content="&#xe16c;" FontWeight="Light">
+                                <Button.ToolTip>
+                                    <ToolTip Style="{StaticResource TooltipStyle}" Tag="Anexar estilo de paneles" 
+                                             ToolTip="Seleccione un estilo de paneles, este estilo de paneles se aplicará a las mamparas que sean del mismo frente y alto"/>
+                                </Button.ToolTip>
+                            </Button>
+                            <Button x:Name="btnInsertT" Style="{StaticResource MenuStyle_RoundButton}" Content="I&#xe2b7;T" FontWeight="Light">
+                                <Button.ToolTip>
+                                    <ToolTip Style="{StaticResource TooltipStyle}" Tag="Convertir unión I en T" 
+                                             ToolTip="Agregá una mampara en una unión en I, para convertirla la unión en T"/>
+                                </Button.ToolTip>
+                            </Button>
+                            <Button x:Name="btnContinueInsert" Style="{StaticResource MenuStyle_RoundButton}" Content="&#xe101;">
+                                <Button.ToolTip>
+                                    <ToolTip Style="{StaticResource TooltipStyle}" Tag="Continuar Inserción" 
+                                             ToolTip="Continue con el sembrado de mamparas."/>
+                                </Button.ToolTip>
+                            </Button>
+                            <Button  x:Name="btnInsert" Style="{StaticResource MenuStyle_RoundButton}" Content="&#xe109;">
+                                <Button.ToolTip>
+                                    <ToolTip Style="{StaticResource TooltipStyle}" Tag="Insertar" ToolTip="Haga clic para Insertar"/>
+                                </Button.ToolTip>
+                            </Button>
+                        </StackPanel>
+                    </Viewbox>
+                </Grid>
+            </GroupBox>
+            <GroupBox x:Name="groupEdit" Header="Edición">
+                <Viewbox>
+                    <StackPanel Orientation="Vertical">
+                        <StackPanel x:Name="col1" Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Button Style="{StaticResource MenuStyle_RoundButton}" Content="P">
+                                <Button.ToolTip>
+                                    <ToolTip Style="{StaticResource TooltipStyle}" Tag="Editor de paneles" ToolTip="Haga clic para visualizar el editor de paneles"/>
+                                </Button.ToolTip>
+                            </Button>
+
+                            <Button Style="{StaticResource MenuStyle_RoundButton}" Content="P&#xe16d;" FontWeight="Light">
+                                <Button.ToolTip>
+                                    <ToolTip Style="{StaticResource TooltipStyle}" Tag="Copiar estilo de paneles" 
+                                 ToolTip="Haga clic para copiar y pegar el estilo de paneles"/>
+                                </Button.ToolTip>
+                            </Button>
+                            <Button Style="{StaticResource MenuStyle_RoundButton}" Content="&#xe107;">
+                                <Button.ToolTip>
+                                    <ToolTip Style="{StaticResource TooltipStyle}" Tag="Eliminar" ToolTip="Haga clic para eliminar"/>
+                                </Button.ToolTip>
+                            </Button>
+                            <Button Style="{StaticResource MenuStyle_RoundButton}" Content="&#xe174;">
+                                <Button.ToolTip>
+                                    <ToolTip Style="{StaticResource TooltipStyle}" Tag="Intercambiar" ToolTip="Haga clic para intercambiar una mampara"/>
+                                </Button.ToolTip>
+                            </Button>
+                            <Button Style="{StaticResource MenuStyle_RoundButton}" Content="&#xe1d0;">
+                                <Button.ToolTip>
+                                    <ToolTip Style="{StaticResource TooltipStyle}" Tag="Cuantificar" ToolTip="Haga clic para visualizar la cuantificación actual"/>
+                                </Button.ToolTip>
+                            </Button>
+                        </StackPanel>
+                        <StackPanel x:Name="col2" Orientation="Horizontal" HorizontalAlignment="Left">
+                            <Button Style="{StaticResource MenuStyle_RoundButton}" Content="PD" FontWeight="Bold">
+                                <Button.ToolTip>
+                                    <ToolTip Style="{StaticResource TooltipStyle}" Tag="Editar paneles en dos mamparas" 
+                                 ToolTip="Haga clic para editar un panel en dos mamparas seleccionando una unión."/>
+                                </Button.ToolTip>
+                            </Button>
+                            <Button Style="{StaticResource MenuStyle_RoundButton}" Content="&#xe14b;54" FontSize="14.5">
+                                <Button.ToolTip>
+                                    <ToolTip Style="{StaticResource TooltipStyle}" Tag="Intercambiar Mamparas de 54" 
+                                             ToolTip="Haga clic para intercambiar una mampara de 54"/>
+                                </Button.ToolTip>
+                            </Button>
+                        </StackPanel>
+                    </StackPanel>
+                </Viewbox>
+            </GroupBox>
+            <GroupBox x:Name="groupView" Header="Visualización">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Style="{StaticResource MenuStyle_RoundButton}" Content="R" HorizontalAlignment="Right">
+                        <Button.ToolTip>
+                            <ToolTip Style="{StaticResource TooltipStyle}" Tag="Reporte mampara tipo" ToolTip="Realiza el proceso de creación de reportes de mampara tipo"/>
+                        </Button.ToolTip>
+                    </Button>
+                    <Button Style="{StaticResource MenuStyle_RoundButton}" Content="&#xe10B;" HorizontalAlignment="Right">
+                        <Button.ToolTip>
+                            <ToolTip Style="{StaticResource TooltipStyle}" Tag="Actualizar información" ToolTip="Realiza un proceso de actualización, necesario despues de copiar y pegar en AutoCAD"/>
+                        </Button.ToolTip>
+                    </Button>
+                    <Button Style="{StaticResource MenuStyle_RoundButton}" Content="M" HorizontalAlignment="Right">
+                        <Button.ToolTip>
+                            <ToolTip Style="{StaticResource TooltipStyle}" Tag="Creador de Modulos" ToolTip="Abre la ventana de creación de modulo"/>
+                        </Button.ToolTip>
+                    </Button>
+                    <Button Style="{StaticResource MenuStyle_RoundButton}" Content="&#xe117;" HorizontalAlignment="Right">
+                        <Button.ToolTip>
+                            <ToolTip Style="{StaticResource TooltipStyle}" Tag="Cambio de Vista" ToolTip="Se realiza un cambio de vista 2D a 3D o viceversa"/>
+                        </Button.ToolTip>
+                    </Button>
+                </StackPanel>
+            </GroupBox>
+
+          
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

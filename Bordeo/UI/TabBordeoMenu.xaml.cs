@@ -62,5 +62,40 @@ namespace DaSoft.Riviera.Modulador.Bordeo.UI
                 App.Riviera.Log.AppendEntry(exc, null);
             }
         }
+
+        private void btnSummonPanelEditor_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnSummonPanelClipboard_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnDeletePanel_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnReportMamparaType_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnValidate_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnCreateModule_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnSwapRenderView_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

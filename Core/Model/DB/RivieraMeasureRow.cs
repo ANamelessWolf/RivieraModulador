@@ -2,9 +2,11 @@
 using Nameless.Libraries.DB.Mikasa.Model;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace DaSoft.Riviera.Modulador.Core.Model.DB
 {
@@ -79,6 +81,29 @@ namespace DaSoft.Riviera.Modulador.Core.Model.DB
             {
                 return new T[0];
             }
+        }
+        /// <summary>
+        /// Serializes this instance and saves them in the xml file path
+        /// </summary>
+        /// <param name="xmlPth">The xml file path.</param>
+        public void Serialize(String xmlPth)
+        {
+            XmlSerializer xs = new XmlSerializer(this.GetType());
+            TextWriter tw = new StreamWriter(xmlPth);
+            xs.Serialize(tw, this);
+        }
+        /// <summary>
+        /// Deserializes the specified XML PTH.
+        /// </summary>
+        /// <param name="xmlPth">The XML PTH.</param>
+        /// <returns>The deserialize instance</returns>
+        public static T Deserialize<T>(String xmlPth) where T : RivieraMeasureRow
+        {
+            T result = null;
+            XmlSerializer xs = new XmlSerializer(typeof(T));
+            using (var sr = new StreamReader(xmlPth))
+                result = (T)xs.Deserialize(sr);
+            return result;
         }
     }
 }

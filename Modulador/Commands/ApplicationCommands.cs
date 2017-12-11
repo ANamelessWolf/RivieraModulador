@@ -89,7 +89,6 @@ namespace DaSoft.Riviera.Modulador
                 };
             }
         }
-
         /// <summary>
         /// Initializes the delta application.
         /// </summary>

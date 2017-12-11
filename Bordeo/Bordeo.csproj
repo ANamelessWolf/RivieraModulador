@@ -99,6 +99,7 @@
       <DependentUpon>Strings.resx</DependentUpon>
     </Compile>
     <Compile Include="Controller\BordeoUtils.cs" />
+    <Compile Include="Controller\PanelSower.cs" />
     <Compile Include="Model\BordeoDatabaseResult.cs" />
     <Compile Include="Model\BordeoDesignDatabase.cs" />
     <Compile Include="Model\BordeoPanelHeight.cs" />
@@ -126,6 +127,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="Runtime\BordeoException.cs" />
+    <Compile Include="Testing\BordeoMockingDesignDatabase.cs" />
     <Compile Include="UI\ButtonImage.xaml.cs">
       <DependentUpon>ButtonImage.xaml</DependentUpon>
     </Compile>
@@ -180,8 +182,6 @@
     <Resource Include="Assets\PBPsPB.png" />
     <Resource Include="Assets\PBPsPsPs.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Testing\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

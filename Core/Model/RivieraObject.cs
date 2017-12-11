@@ -69,6 +69,26 @@ namespace DaSoft.Riviera.Modulador.Core.Model
             }
         }
         /// <summary>
+        /// Gets the angle for the inserted riviera object.
+        /// </summary>
+        /// <value>
+        /// The riviera object angle direction.
+        /// </value>
+        public double Angle { get { return this.Direction.Angle; } }
+        /// <summary>
+        /// Gets a value indicating whether this instance has children.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if this instance has children; otherwise, <c>false</c>.
+        /// </value>
+        public bool HasChildren
+        {
+            get
+            {
+                return this.Children.Values.Where(x => x != 0).Count() > 0;
+            }
+        }
+        /// <summary>
         /// Gets the riviera object available direction keys.
         /// </summary>
         /// <value>

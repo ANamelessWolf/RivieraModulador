@@ -19,10 +19,6 @@ namespace DaSoft.Riviera.Modulador.Core.Runtime
         /// </summary>
         public static RivieraApplication Riviera;
         /// <summary>
-        /// The riviera database
-        /// </summary>
-        public static RivieraDatabase DB;
-        /// <summary>
         /// Gets a value indicating whether this instance is ready.
         /// </summary>
         /// <value>
@@ -30,7 +26,7 @@ namespace DaSoft.Riviera.Modulador.Core.Runtime
         /// </value>
         public static bool IsReady
         {
-            get { return Riviera != null && DB != null; }
+            get { return Riviera != null && Riviera.Database != null; }
         }
         /// <summary>
         /// Defines a command action

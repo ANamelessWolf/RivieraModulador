@@ -53,6 +53,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.UI
                 var db = GetDatabase();
                 var sizes = db.Sizes[CODE_PANEL_RECTO].Sizes.Select(x=> x as PanelMeasure);
                 var frentes = sizes.Select(x => new RivieraSizeItem() { Size = x.Frente, ItemName = x.Frente.Nominal.ToString() });
+                frentes = frentes.Distinct();
                 this.cboFronts.ItemsSource = frentes;
                 if (this.cboFronts.Items.Count > 0)
                     this.cboFronts.SelectedIndex = 0;

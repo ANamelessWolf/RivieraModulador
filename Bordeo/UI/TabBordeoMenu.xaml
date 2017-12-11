@@ -28,7 +28,7 @@
                     </Grid.ColumnDefinitions>
                     <TextBlock x:Name="txtFronts" Text="Frente"  Style="{StaticResource MenuStyle_Header}" HorizontalAlignment="Right"/>
                     <TextBlock x:Name="txtHeight" Text="Altura" Grid.Row="1"  Style="{StaticResource MenuStyle_Header}" HorizontalAlignment="Right"/>
-                    <ComboBox x:Name="cboFronts" Grid.Column="1" Style="{StaticResource MenuStyle_List}" DisplayMemberPath="Frente"/>
+                    <ComboBox x:Name="cboFronts" Grid.Column="1" Style="{StaticResource MenuStyle_List}"/>
                     <local:CtrlBordeoHeights x:Name="listHeights" Grid.Column="1" Grid.Row="1"/>
                     <Viewbox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Right">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">

@@ -39,13 +39,13 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model
         {
             BordeoDatabaseResult res = new BordeoDatabaseResult();
             this.InitSizes(res, conn);
-            this.InitCodes();
+            this.InitCodes(conn);
             return res;
         }
         /// <summary>
         /// Initializes the codes.
         /// </summary>
-        private void InitCodes()
+        private void InitCodes(DB_Connector conn)
         {
             RivieraCode[] codes = new RivieraCode[]
             {
@@ -53,6 +53,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model
                  new RivieraCode(){ Block ="BR2020", Code="BR2020", Description="Panel 90°", ElementType= RivieraElementType.Panel, Line= DesignLine.Bordeo },
                  new RivieraCode(){ Block ="BR2030", Code="BR2030", Description="Panel 135°", ElementType= RivieraElementType.Panel, Line= DesignLine.Bordeo },
             };
+            this.Codes = codes.ToList();
         }
 
         /// <summary>

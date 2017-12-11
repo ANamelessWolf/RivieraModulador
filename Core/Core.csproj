@@ -101,6 +101,7 @@
     <Compile Include="Controller\ApplicationUtils.cs" />
     <Compile Include="Controller\AutoCADUtils.cs" />
     <Compile Include="Controller\ConnectionUtils.cs" />
+    <Compile Include="Controller\IBlockObject.cs" />
     <Compile Include="Controller\RivieraParsingUtils.cs" />
     <Compile Include="Controller\RuntimeUtils.cs" />
     <Compile Include="Controller\Transactions\CredentialTransactions.cs" />

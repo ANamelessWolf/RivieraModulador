@@ -15,5 +15,9 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Assets
         public const String KEY_RIGHT_90 = "Right90";
         public const String KEY_RIGHT_135 = "Right135";
         public const String KEY_EXTRA = "ExtraContent";
+
+        public const string FOLDER_NAME_BLOCKS_BORDEO = "Bordeo";
+        public const string FOLDER_NAME_BLOCKS_2D = "2D";
+        public const string FOLDER_NAME_BLOCKS_3D = "3D";
     }
 }

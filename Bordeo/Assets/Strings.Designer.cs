@@ -61,6 +61,15 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Assets {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to El código {0} no se encontró en la base de datos..
+        /// </summary>
+        internal static string ERR_CODE_NOT_FOUND {
+            get {
+                return ResourceManager.GetString("ERR_CODE_NOT_FOUND", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to La base de datos de la línea Bordeo no se cargo en la aplicación..
         /// </summary>
         internal static string ERR_DB_NOT_READY {

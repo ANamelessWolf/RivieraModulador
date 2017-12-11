@@ -23,13 +23,13 @@ namespace DaSoft.Riviera.Modulador.Commands
         [CommandMethod("LoadMockingDatabase")]
         public void InitDeltaApplication()
         {
-            if (App.Riviera != null)
+            if (App.Riviera == null)
                 App.Riviera = new RivieraApplication();
             App.Riviera.Is3DEnabled = false;
             App.Riviera.Database = new RivieraDatabase();
             App.Riviera.Database.LineDB.Add(DesignLine.Bordeo, new BordeoMockingDesignDatabase());
             var doc = Application.DocumentManager.MdiActiveDocument;
-            doc.SendStringToExecute(INIT_APP_UI, true, false, false);
+            doc.SendStringToExecute(INIT_APP_UI + " ", true, false, false);
         }
     }
 }

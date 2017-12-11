@@ -321,21 +321,6 @@ Rote la mampara para poder continuar con la calificación.</value>
     <value>EnfasisMamparaReport</value>
     <comment>Mampara</comment>
   </data>
-  <data name="LAYER_ERR" xml:space="preserve">
-    <value>DD2D_Error</value>
-  </data>
-  <data name="LAYER_RIVIERA_GEOMETRY" xml:space="preserve">
-    <value>DD2D_Geometry</value>
-    <comment>App</comment>
-  </data>
-  <data name="LAYER_RIVIERA_OBJECT" xml:space="preserve">
-    <value>DD2D</value>
-    <comment>App</comment>
-  </data>
-  <data name="LAYER_RIVIERA_REPORT" xml:space="preserve">
-    <value>DDReportes</value>
-    <comment>Layer</comment>
-  </data>
   <data name="MSG_CONN" xml:space="preserve">
     <value>Conexión establecida.</value>
     <comment>Ctrl_OracleSettings</comment>

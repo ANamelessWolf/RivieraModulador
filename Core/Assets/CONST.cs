@@ -36,5 +36,13 @@ namespace DaSoft.Riviera.Modulador.Core.Assets
         /// The key name for the "fondo" size
         /// </summary>
         public const String KEY_DEPHT = "FONDO";
+        /// <summary>
+        /// The prefix block
+        /// </summary>
+        public const String PREFIX_BLOCK = "SPACE_{0}";
+        public const String LAYER_ERR = "DD2D_Error";
+        public const String LAYER_RIVIERA_GEOMETRY = "DD2D_Geometry";
+        public const String LAYER_RIVIERA_OBJECT = "DD2D";
+        public const String LAYER_RIVIERA_REPORT = "DDReportes";
     }
 }

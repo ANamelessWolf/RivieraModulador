@@ -104,6 +104,20 @@ namespace DaSoft.Riviera.Modulador.Core.Model
         /// </summary>
         public Dictionary<String, long> Children;
         /// <summary>
+        /// Draws the specified transaction.
+        /// </summary>
+        /// <param name="tr">The Active transaction.</param>
+        public abstract void Draw(Transaction tr);
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RivieraObject"/> class.
+        /// </summary>
+        public RivieraObject(RivieraCode code)
+        {
+            this.Ids = new ObjectIdCollection();
+            this.Children = new Dictionary<string, long>();
+            this.Code = code;
+        }
+        /// <summary>
         /// Saves the riviera object.
         /// </summary>
         /// <param name="tr">The active transaction.</param>

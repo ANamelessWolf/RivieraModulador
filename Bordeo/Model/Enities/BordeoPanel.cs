@@ -27,24 +27,13 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
     public class BordeoPanel : RivieraObject, IBlockObject
     {
         /// <summary>
-        /// The 2D Block file
-        /// </summary>
-        public FileInfo BlockFile2d => this.Code.GetBordeo2DBlock();
-        /// <summary>
-        /// The 3D Block file
-        /// </summary>
-        public FileInfo BlockFile3d => this.Code.GetBordeo3DBlock();
-        /// <summary>
-        /// Gets the spacename.
-        /// </summary>
-        /// <value>
-        /// The spacename.
-        /// </value>
-        public String Spacename => String.Format(PREFIX_BLOCK, this.Code.Code);
-        /// <summary>
         /// El contenido del bloque a insertar
         /// </summary>
-        public AutoCADBlock Block { get; set; }
+        public RivieraBlock Block { get { return new RivieraBlock(this.BlockName, BlockDirectoryPath); } }
+        /// <summary>
+        /// Gets the name of the block.
+        /// </summary>
+        public string BlockName => String.Format("{0}{1}{2}T", this.Code.Block, this.PanelSize.Frente.Nominal, this.PanelSize.Alto.Nominal);
         /// <summary>
         /// The Riviera object start point
         /// </summary>
@@ -52,7 +41,23 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
         /// <summary>
         /// The Riviera object end point
         /// </summary>
-        public override Point2d End => this.PanelGeometry.EndPoint.ToPoint2d();
+        public override Point2d End => this.PanelGeometry.GetEndPoint(this.PanelSize);
+        /// <summary>
+        /// Define la dirección del rectangulo.
+        /// </summary>
+        public override Vector2d Direction
+        {
+            get
+            {
+                double x = this.PanelGeometry.EndPoint.X - this.Start.X,
+                       y = this.PanelGeometry.EndPoint.Y - this.Start.Y;
+                return new Vector2d(x, y);
+            }
+        }
+        /// <summary>
+        /// Defines the starting Bordeo Panel elevation
+        /// </summary>
+        public Double Elevation;
         /// <summary>
         /// Gets the riviera object available direction keys.
         /// </summary>
@@ -66,7 +71,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
         /// <value>
         /// The geometry.
         /// </value>
-        protected override Entity Geometry => PanelGeometry;
+        protected override Entity CADGeometry => PanelGeometry;
         /// <summary>
         /// The panel geometry
         /// </summary>
@@ -98,17 +103,33 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
         /// <param name="tr">The Active transaction.</param>
         public override void Draw(Transaction tr)
         {
-            AutoCADBlock space;
-            if (App.Riviera.Is3DEnabled && this.DrawBlockContent(this.Code.Code, tr, out space))
+            Boolean is2DBlock = !App.Riviera.Is3DEnabled;
+            ObjectId first = this.Ids.OfType<ObjectId>().FirstOrDefault();
+            RivieraBlock block = this.Block;
+            var doc = Autodesk.AutoCAD.ApplicationServices.Application.DocumentManager.MdiActiveDocument;
+            BlockReference blkRef;
+            if (first.IsValid)
             {
-                AutoCADLayer lay = new AutoCADLayer(LAYER_RIVIERA_GEOMETRY, tr);
-                lay.SetStatus(LayerStatus.EnableStatus, tr);
-                BlockTableRecord model = tr.GetModelSpace();
-                this.Ids.Add(space.CreateReference(this.Start.ToPoint3d(), this.Angle).Draw(model, tr));
-                lay.AddToLayer(this.Ids, tr);
+                block.SetContent(is2DBlock, doc, tr);
+                blkRef = first.GetObject(OpenMode.ForWrite) as BlockReference;
             }
             else
-                this.Ids.Erase(tr);
+                blkRef = block.Insert(doc, tr, this.Start.ToPoint3d(), this.Direction.Angle);
+            if (!is2DBlock)
+                this.UpdateBlockPosition(tr, blkRef);
+        }
+        /// <summary>
+        /// Updates the block position.
+        /// </summary>
+        /// <param name="tr">The active transaction.</param>
+        /// <param name="blkRef">The block reference.</param>
+        public void UpdateBlockPosition(Transaction tr, BlockReference blkRef)
+        {
+            blkRef.Position = new Point3d(blkRef.Position.X, blkRef.Position.Y, this.Elevation);
+            //Se rota el bloque para la vista 3D
+            Point3d insPoint = blkRef.Position;
+            Vector3d v = insPoint.GetVectorTo(End.ToPoint3d(this.Elevation));
+            blkRef.TransformBy(Matrix3d.Rotation(Math.PI / 2, v, blkRef.Position));
         }
     }
 }

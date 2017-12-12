@@ -120,6 +120,7 @@
     <Compile Include="Model\MicrosoftAccessFilter.cs" />
     <Compile Include="Model\DaNTePath.cs" />
     <Compile Include="Model\DB\Ejecutivo.cs" />
+    <Compile Include="Model\RivieraBlock.cs" />
     <Compile Include="Model\RivieraCode.cs" />
     <Compile Include="Model\RivieraCompany.cs" />
     <Compile Include="Model\DB\RivieraProject.cs" />

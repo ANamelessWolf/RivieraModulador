@@ -30,74 +30,6 @@ namespace DaSoft.Riviera.Modulador.Core.Controller
             dMan.AddXRecord(field, tr).SetData(tr, values);
         }
         /// <summary>
-        /// Blocks the content.
-        /// </summary>
-        /// <param name="obj">The Riviera object that has a Block Reference as content.</param>
-        /// <param name="code">The Block code name.</param>
-        /// <param name="tr">The Active transaction</param>
-        /// <returns>True if the block content is loaded</returns>
-        public static Boolean BlockContent(this IBlockObject obj, String code, Transaction tr)
-        {
-            FileInfo block;
-            String blockName;
-            //1: Se realiza la selección del bloque segun el modo que se encuentre activo
-            obj.ExtractBlockData(code, out block, out blockName);
-            //2: Se realiza la carga de los bloques
-            if (block != null && File.Exists(block.FullName))
-            {
-                //Este es el bloque cargado en el archivo, se va a dibujar en 
-                //el bloque contenedor fantasma, codigo y prefijo SPACE_
-                try
-                {
-                    obj.Block = new AutoCADBlock(blockName, block, tr);
-                    return true;
-                }
-                catch (Exception exc)
-                {
-                    Application.DocumentManager.MdiActiveDocument.Editor.WriteMessage("Error al cargar el bloque {0}\n{1}", blockName, exc.Message);
-                    App.Riviera.Log.AppendEntry(exc.Message, Protocol.Error, "BlockContent");
-                    return false;
-                }
-
-            }
-            else
-                return false;
-        }
-        /// <summary>
-        /// Extracts the block data.
-        /// </summary>
-        /// <param name="obj">The Riviera object that has a Block Reference as content.</param>
-        /// <param name="code">The Block code name.</param>
-        /// <param name="block">The block file name.</param>
-        /// <param name="blockName">The block name to load.</param>
-        public static void ExtractBlockData(this IBlockObject obj, String code, out FileInfo block, out string blockName)
-        {
-            if (App.Riviera.Is3DEnabled)
-            {
-                block = obj.BlockFile3d;
-                blockName = code + "3D";
-            }
-            else
-            {
-                block = obj.BlockFile2d;
-                blockName = code + "2D";
-            }
-        }
-        /// <summary>
-        /// Creates the content of the block.
-        /// </summary>
-        /// <param name="obj">The Riviera object that has a Block Reference as content.</param>
-        /// <param name="code">The Block code name.</param>
-        /// <param name="tr">The active transaction.</param>
-        /// <returns>The AutoCAD block</returns>
-        public static AutoCADBlock CreateBlockContent(this IBlockObject obj, String code, Transaction tr)
-        {
-            AutoCADBlock block = null;
-            if (obj.BlockContent(code, tr))
-                block = new AutoCADBlock(obj.Spacename, tr);
-            return block;
-        }
-        /// <summary>
         /// Gets the model space.
         /// </summary>
         /// <param name="tr">The active transaction.</param>
@@ -108,45 +40,59 @@ namespace DaSoft.Riviera.Modulador.Core.Controller
             BlockTable blockTable =(BlockTable) doc.Database.BlockTableId.GetObject(OpenMode.ForRead);
             return (BlockTableRecord)blockTable[BlockTableRecord.ModelSpace].GetObject(openMode);
         }
-        /// <summary>
-        /// Draws the content of the block.
-        /// </summary>
-        /// <param name="obj">The object.</param>
-        /// <param name="code">The code.</param>
-        /// <param name="tr">The tr.</param>
-        /// <param name="space">The space.</param>
-        /// <returns></returns>
-        public static Boolean DrawBlockContent(this IBlockObject obj, String code, Transaction tr, out AutoCADBlock space)
-        {
-            FileInfo block;
-            String blockName;
-            space = obj.CreateBlockContent(code, tr);
-            //1: Se realiza la selección del bloque segun el modo que se encuentre activo
-            obj.ExtractBlockData(code, out block, out blockName);
-            //2: Se realiza la carga de los bloques
-            if (block != null && File.Exists(block.FullName) && space != null)
-            {
-                ObjectIdCollection coll = space.List(tr);
-                ObjectId blockRefId;
-                //Se borra el espacio antes de cambiar el contenido
-                if (coll.Count > 0 && coll.Count != 1)
-                    space.Clear(tr);
 
-                if ((coll.Count == 0) || (coll.Count > 0 && coll.Count != 1))
-                    blockRefId = obj.Block.CreateReference(new Point3d(), 0).Draw(obj.Block.Block, tr);
-                else
+        /// <summary>
+        /// Loads a block table record from an external database to the current database.
+        /// If the blockname exists on the table record, the block table record id is taken from the curren database block table.
+        /// </summary>
+        /// <param name="blockname">The block table record name.</param>
+        /// <param name="filePath">The dwg block file path.</param>
+        /// <param name="tr">The active transaction.</param>
+        /// <returns>The object id of the block table record</returns>
+        public static ObjectId _LoadBlock(this String blockname, String filePath, Transaction tr)
+        {
+            ObjectId id = new ObjectId();
+            Database dwg = Application.DocumentManager.MdiActiveDocument.Database;
+            try
+            {
+                BlockTable blkTab = (BlockTable)dwg.BlockTableId.GetObject(OpenMode.ForRead);
+                if (!blkTab.Has(blockname))
                 {
-                    BlockReference blk = coll[0].Open<BlockReference>(tr);
-                    if (blk.Name != blockName)
+                    //1: Se crea un registro de bloque
+                    blkTab.UpgradeOpen();
+                    BlockTableRecord newRecord = new BlockTableRecord();
+                    newRecord.Name = blockname;
+                    //2: Se agregá el registro a la tabla
+                    blkTab.Add(newRecord);
+                    tr.AddNewlyCreatedDBObject(newRecord, true);
+                    //3: Se abre la base de datos externa
+                    Database externalDB = new Database();
+                    externalDB.ReadDwgFile(filePath, FileShare.Read, true, null);
+                    //4: Con una subtransacción se clonán los elementos que esten contenidos en el espcio de modelo de la
+                    //base de datos externa
+                    ObjectIdCollection ids;
+                    using (Transaction subTr = externalDB.TransactionManager.StartTransaction())
                     {
-                        space.Clear(tr);
-                        blockRefId = obj.Block.CreateReference(new Point3d(), 0).Draw(obj.Block.Block, tr);
+                        //4.1: Abrir el espacio de modelo de la base de datos externa
+                        ObjectId modelId = SymbolUtilityServices.GetBlockModelSpaceId(externalDB);
+                        BlockTableRecord model = subTr.GetObject(modelId, OpenMode.ForRead) as BlockTableRecord;
+                        //4.2: Se extraen y clonan los elementos mediante la clase IdMapping
+                        ids = new ObjectIdCollection(model.OfType<ObjectId>().ToArray());
+                        //IEnumerable<DBObject> objs = ids.OfType<ObjectId>().Select(x => x.GetObject(OpenMode.ForRead));
+                        int erased = ids.OfType<ObjectId>().Count(x => x.IsValid);
+                        using (IdMapping iMap = new IdMapping())
+                            dwg.WblockCloneObjects(ids, newRecord.Id, iMap, DuplicateRecordCloning.Replace, false);
                     }
+                    id = newRecord.Id;
                 }
-                return true;
+                else
+                    id = blkTab[blockname];
             }
-            else
-                return false;
+            catch (Exception exc)
+            {
+                throw exc;
+            }
+            return id;
         }
     }
 }

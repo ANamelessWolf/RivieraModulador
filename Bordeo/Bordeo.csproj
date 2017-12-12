@@ -108,6 +108,7 @@
     <Compile Include="Model\DB\BordeoPasoLuzRow.cs" />
     <Compile Include="Model\DB\BordeoPuenteRow.cs" />
     <Compile Include="Model\Enities\BordeoPanel.cs" />
+    <Compile Include="Model\Enities\BordeoPanelStack.cs" />
     <Compile Include="Model\LPanelMeasure.cs" />
     <Compile Include="Model\PanelMeasure.cs" />
     <Compile Include="Model\PasoLuzMeasure.cs" />

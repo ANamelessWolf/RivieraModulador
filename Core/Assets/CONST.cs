@@ -40,9 +40,16 @@ namespace DaSoft.Riviera.Modulador.Core.Assets
         /// The prefix block
         /// </summary>
         public const String PREFIX_BLOCK = "SPACE_{0}";
+        public const String SUFFIX_BLOCK2D = "{0}2D";
+        public const String SUFFIX_BLOCK3D = "{0}3D";
         public const String LAYER_ERR = "DD2D_Error";
         public const String LAYER_RIVIERA_GEOMETRY = "DD2D_Geometry";
         public const String LAYER_RIVIERA_OBJECT = "DD2D";
         public const String LAYER_RIVIERA_REPORT = "DDReportes";
+
+
+        public const string FOLDER_2D = "2D";
+        public const string FOLDER_3D = "3D";
+
     }
 }

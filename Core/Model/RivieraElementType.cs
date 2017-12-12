@@ -35,5 +35,9 @@ namespace DaSoft.Riviera.Modulador.Core.Model
         /// Cajonera abrev "B"
         /// </summary>
         Biombo = 4,
+        /// <summary>
+        /// Panel Stack
+        /// </summary>
+        PanelStack = 5,
     }
 }

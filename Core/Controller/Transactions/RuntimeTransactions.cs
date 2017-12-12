@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Autodesk.AutoCAD.ApplicationServices;
 using Autodesk.AutoCAD.DatabaseServices;
 using Nameless.Libraries.HoukagoTeaTime.Runtime;
-using static DaSoft.Riviera.Modulador.Core.Assets.Strings;
+using static DaSoft.Riviera.Modulador.Core.Assets.CONST;
 using Nameless.Libraries.HoukagoTeaTime.Mio.Entities;
 using DaSoft.Riviera.Modulador.Core.Runtime;
 

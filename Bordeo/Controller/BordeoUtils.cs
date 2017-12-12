@@ -11,11 +11,21 @@ using static DaSoft.Riviera.Modulador.Bordeo.Assets.Constants;
 using static DaSoft.Riviera.Modulador.Bordeo.Assets.Strings;
 using Nameless.Libraries.Yggdrasil.Lilith;
 using System.IO;
+using Autodesk.AutoCAD.Geometry;
+using Autodesk.AutoCAD.DatabaseServices;
+using Nameless.Libraries.HoukagoTeaTime.Ritsu.Utils;
 
 namespace DaSoft.Riviera.Modulador.Bordeo.Controller
 {
     public static class BordeoUtils
     {
+        /// <summary>
+        /// Gets the block directory path.
+        /// </summary>
+        /// <value>
+        /// The block directory path.
+        /// </value>
+        public static String BlockDirectoryPath => Path.Combine(App.Riviera.AppDirectory.FullName, FOLDER_NAME_BLOCKS_BORDEO);
         /// <summary>
         /// Bordeoes the direction keys.
         /// </summary>
@@ -60,32 +70,17 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Controller
             }
         }
         /// <summary>
-        /// Gets the bordeo 2D blocks.
+        /// Gets the end point.
         /// </summary>
-        /// <returns>The Bordeo 2D Blocks</returns>
-        public static FileInfo GetBordeo2DBlock(this RivieraCode code)
+        /// <param name="geometry">The end point of the geometry.</param>
+        /// <returns>The end point of the geometry</returns>
+        public static Point2d GetEndPoint(this Line geometry, PanelMeasure size)
         {
-            String pth = Path.Combine(App.Riviera.AppDirectory.FullName, FOLDER_NAME_BLOCKS_BORDEO, FOLDER_NAME_BLOCKS_2D);
-            FileInfo[] files;
-            if (Directory.Exists(pth))
-                files = new DirectoryInfo(pth).GetFiles();
-            else
-                files = new FileInfo[0];
-            return files.Where(x => x.Name.ToUpper() == String.Format("{0}.DWG", code).ToUpper()).FirstOrDefault();
-        }
-        /// <summary>
-        /// Gets the bordeo 3D blocks.
-        /// </summary>
-        /// <returns>The Bordeo 3D Blocks</returns>
-        public static FileInfo GetBordeo3DBlock(this RivieraCode code)
-        {
-            String pth = Path.Combine(App.Riviera.AppDirectory.FullName, FOLDER_NAME_BLOCKS_BORDEO, FOLDER_NAME_BLOCKS_3D);
-            FileInfo[] files;
-            if (Directory.Exists(pth))
-                files = new DirectoryInfo(pth).GetFiles();
-            else
-                files = new FileInfo[0];
-            return files.Where(x => x.Name.ToUpper() == String.Format("{0}.DWG", code).ToUpper()).FirstOrDefault();
+            Point2d start = geometry.StartPoint.ToPoint2d(),
+                end = geometry.EndPoint.ToPoint2d();
+            Double angle = start.GetVectorTo(end).Angle;
+            Double distance = size.Frente.Real;
+            return start.ToPoint2dByPolar(distance, angle);
         }
     }
 }

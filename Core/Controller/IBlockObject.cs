@@ -1,4 +1,6 @@
-﻿using Nameless.Libraries.HoukagoTeaTime.Mio.Entities;
+﻿using Autodesk.AutoCAD.DatabaseServices;
+using DaSoft.Riviera.Modulador.Core.Model;
+using Nameless.Libraries.HoukagoTeaTime.Mio.Entities;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -15,32 +17,22 @@ namespace DaSoft.Riviera.Modulador.Core.Controller
     public interface IBlockObject
     {
         /// <summary>
-        /// Riviera object 2D block file
+        /// Gets the name of the block.
         /// </summary>
-        /// <value>
-        /// The 2D block file.
-        /// </value>
-        FileInfo BlockFile2d { get; }
-        /// <summary>
-        /// Riviera object 3D block file
-        /// </summary>
-        /// <value>
-        /// The 3D block file.
-        /// </value>
-        FileInfo BlockFile3d { get; }
-        /// <summary>
-        /// Gets the spacename.
-        /// </summary>
-        /// <value>
-        /// The spacename.
-        /// </value>
-        String Spacename { get; }
+        String BlockName { get; }
         /// <summary>
         /// Gets or sets the block manager.
         /// </summary>
         /// <value>
         /// The block manager.
         /// </value>
-        AutoCADBlock Block { get; set; }
+        RivieraBlock Block { get; }
+        /// <summary>
+        /// Updates the block position.
+        /// </summary>
+        /// <param name="tr">The tr.</param>
+        /// <param name="blockRef">The block reference.</param>
+        void UpdateBlockPosition(Transaction tr, BlockReference blockRef);
+
     }
 }

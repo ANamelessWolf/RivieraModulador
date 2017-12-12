@@ -1,6 +1,7 @@
 ﻿using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.Geometry;
 using DaSoft.Riviera.Modulador.Core.Controller;
+using Nameless.Libraries.HoukagoTeaTime.Mio.Utils;
 using Nameless.Libraries.HoukagoTeaTime.Tsumugi;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace DaSoft.Riviera.Modulador.Core.Model
     public abstract class RivieraObject
     {
         /// <summary>
-        /// The geometry collection ids
+        /// All the ids that defines the Riviera Object
         /// </summary>
         public ObjectIdCollection Ids;
         /// <summary>
@@ -22,13 +23,13 @@ namespace DaSoft.Riviera.Modulador.Core.Model
         /// <value>
         /// The geometry.
         /// </value>
-        protected abstract Entity Geometry { get; }
+        protected abstract Entity CADGeometry { get; }
         /// <summary>
         /// Defines the Handle
         /// </summary>
         public Handle Handle
         {
-            get { return this.Geometry.Handle; }
+            get { return this.CADGeometry.Handle; }
         }
         /// <summary>
         /// Gets the identifier.
@@ -38,7 +39,7 @@ namespace DaSoft.Riviera.Modulador.Core.Model
         /// </value>
         public ObjectId Id
         {
-            get { return this.Geometry.Id; }
+            get { return this.CADGeometry.Id; }
         }
         /// <summary>
         /// The riviera code
@@ -124,7 +125,7 @@ namespace DaSoft.Riviera.Modulador.Core.Model
         /// <param name="dMan">The extension dictionary manager</param>
         public virtual void Save(Transaction tr)
         {
-            var dMan = new ExtensionDictionaryManager(this.Geometry.Id, tr);
+            var dMan = new ExtensionDictionaryManager(this.CADGeometry.Id, tr);
             dMan.Set(tr, KEY_ID, this.Handle.Value.ToString());
             foreach (var child in Children)
                 dMan.Set(tr, child.Key, child.Value.ToString());
@@ -136,13 +137,20 @@ namespace DaSoft.Riviera.Modulador.Core.Model
         /// <param name="dMan">The extension dictionary manager</param>
         public virtual void Load(Transaction tr)
         {
-            var dMan = new ExtensionDictionaryManager(this.Geometry.Id, tr);
+            var dMan = new ExtensionDictionaryManager(this.CADGeometry.Id, tr);
             this.Children = new Dictionary<string, long>();
             Xrecord field;
             long id;
             foreach (var key in this.DirectionKeys)
                 if (dMan.TryGetXRecord(key, out field, tr) && long.TryParse(field.GetDataAsString(tr).FirstOrDefault(), out id))
                     this.Children.Add(key, id);
+        }
+        /// <summary>
+        /// Erase this instance drew geometry
+        /// </summary>
+        public void Erase(Transaction tr)
+        {
+            this.Ids.Erase(tr);
         }
     }
 }

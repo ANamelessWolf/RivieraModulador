@@ -397,10 +397,6 @@ Para seleccionar una mampara solo es necesario dar click en ella.</value>
     <value>La transacción ha terminado</value>
     <comment>Quantification</comment>
   </data>
-  <data name="PREFIX_BLOCK" xml:space="preserve">
-    <value>SPACE_{0}</value>
-    <comment>Ctrl_RivieraLogin</comment>
-  </data>
   <data name="SEL_ARROW_DIR" xml:space="preserve">
     <value>Selecciona una dirección.</value>
     <comment>Mampara</comment>
@@ -524,5 +520,9 @@ Detalles: {1}</value>
   <data name="MSG_MEMORY_LOADED" xml:space="preserve">
     <value>Memoria cargada en la aplicación</value>
     <comment>RivieraDatabase</comment>
+  </data>
+  <data name="ERR_LOADING_BLOCK" xml:space="preserve">
+    <value>Error al crear el bloque "{0}"</value>
+    <comment>Riviera Block</comment>
   </data>
 </root>

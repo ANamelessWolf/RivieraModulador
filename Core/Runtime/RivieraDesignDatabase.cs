@@ -21,7 +21,7 @@ namespace DaSoft.Riviera.Modulador.Core.Runtime
         /// <summary>
         /// The Design line codes asociated to the design line
         /// </summary>
-        public List<RivieraCode> Codes;
+        public IEnumerable<RivieraCode> Codes;
         /// <summary>
         /// The Design line sizes asociated by the codes
         /// </summary>

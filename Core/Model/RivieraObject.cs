@@ -58,7 +58,7 @@ namespace DaSoft.Riviera.Modulador.Core.Model
         /// </summary>
         public abstract Point2d End { get; }
         /// <summary>
-        /// Define la dirección del rectangulo.
+        /// Defines the direction
         /// </summary>
         public virtual Vector2d Direction
         {

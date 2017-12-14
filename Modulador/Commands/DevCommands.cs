@@ -43,9 +43,8 @@ namespace DaSoft.Riviera.Modulador.Commands
         public void TestPanelInsert()
         {
             Point3d p0, pf;
-
             if (Picker.Point("Selecciona el punto inicial", out p0) &&
-                Picker.Point("Selecciona el punto final", out pf))
+                Picker.Point("Selecciona el punto final", p0, out pf))
             {
                 App.Riviera.Is3DEnabled = true;
                 new QuickTransactionWrapper((Document doc, Transaction tr) => 

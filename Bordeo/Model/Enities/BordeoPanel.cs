@@ -28,9 +28,12 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
     public class BordeoPanel : RivieraObject, IBlockObject
     {
         /// <summary>
-        /// El contenido del bloque a insertar
+        /// Gets or sets the block manager.
         /// </summary>
-        public RivieraBlock Block { get { return new RivieraBlock(this.BlockName, BlockDirectoryPath); } }
+        /// <value>
+        /// The block manager.
+        /// </value>
+        public RivieraBlock Block => new RivieraBlock(this.BlockName, BlockDirectoryPath);
         /// <summary>
         /// Gets the name of the block.
         /// </summary>

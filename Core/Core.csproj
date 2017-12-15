@@ -128,6 +128,7 @@
     <Compile Include="Model\RivieraDatabaseResult.cs" />
     <Compile Include="Model\RivieraElementType.cs" />
     <Compile Include="Model\RivieraMeasure.cs" />
+    <Compile Include="Model\RivieraMirrorBlock.cs" />
     <Compile Include="Model\RivieraObject.cs" />
     <Compile Include="Model\RivieraSize.cs" />
     <Compile Include="Model\UI\RivieraSizeItem.cs" />

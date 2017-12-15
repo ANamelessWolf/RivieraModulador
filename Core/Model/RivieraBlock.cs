@@ -150,10 +150,13 @@ namespace DaSoft.Riviera.Modulador.Core.Model
             BlockTable blockTable = doc.Database.BlockTableId.GetObject(OpenMode.ForRead) as BlockTable;
             AutoCADBlock instance=null, content;
             Boolean is2DBlock = !App.Riviera.Is3DEnabled;
-            if (blockTable.Has(this.InstanceBlockName) && this.LoadBlocks(doc, tr, out instance, out content, is2DBlock))
+            if (!blockTable.Has(this.InstanceBlockName) && this.LoadBlocks(doc, tr, out instance, out content, is2DBlock))
                 this.SetContent(is2DBlock, doc, tr);
-            else 
+            else
+            {
+                this.LoadBlocks(doc, tr, out instance, out content, is2DBlock);
                 instance = new AutoCADBlock(this.InstanceBlockName, tr);
+            }
             if (instance != null)
             {
                 BlockReference blkRef = instance.CreateReference(insPt, angle, scale);

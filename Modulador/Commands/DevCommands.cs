@@ -47,15 +47,14 @@ namespace DaSoft.Riviera.Modulador.Commands
                 Picker.Point("Selecciona el punto final", p0, out pf))
             {
                 App.Riviera.Is3DEnabled = true;
-                new QuickTransactionWrapper((Document doc, Transaction tr) => 
+                new QuickTransactionWrapper((Document doc, Transaction tr) =>
                 {
-                    BordeoPanelStack stack = new BordeoPanelStack(p0, pf);
                     RivieraSize frente = new RivieraSize() { Measure = KEY_FRONT, Nominal = 18, Real = 18 * 0.0254d },
                                 alto1 = new RivieraSize() { Measure = KEY_HEIGHT, Nominal = 27, Real = 27 * 0.0254d },
                                 alto2 = new RivieraSize() { Measure = KEY_HEIGHT, Nominal = 15, Real = 15 * 0.0254d };
                     PanelMeasure panel = new PanelMeasure(frente, alto1),
                                  panel2 = new PanelMeasure(frente, alto2);
-                    stack.AddPanel(panel);
+                    BordeoPanelStack stack = new BordeoPanelStack(p0, pf, panel);
                     stack.AddPanel(panel2);
                     stack.Draw(tr);
                 }).Run();

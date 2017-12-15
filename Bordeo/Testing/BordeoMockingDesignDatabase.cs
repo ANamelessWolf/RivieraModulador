@@ -19,6 +19,8 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Testing
             this.InitSizes();
             this.Codes = new RivieraCode[]
             {
+                 new RivieraCode(){ Code="BRSTACK", Description="Pila de paneles rectos", ElementType= RivieraElementType.PanelStack, Line= DesignLine.Bordeo },
+                 new RivieraCode(){ Code="BRDSTACK", Description="Pila de paneles dobles", ElementType= RivieraElementType.PanelStack, Line= DesignLine.Bordeo },
                  new RivieraCode(){ Block ="BR2010", Code="BR2010", Description="Panel Recto", ElementType= RivieraElementType.Panel, Line= DesignLine.Bordeo },
                  new RivieraCode(){ Block ="BR2020", Code="BR2020", Description="Panel 90°", ElementType= RivieraElementType.Panel, Line= DesignLine.Bordeo },
                  new RivieraCode(){ Block ="BR2030", Code="BR2030", Description="Panel 135°", ElementType= RivieraElementType.Panel, Line= DesignLine.Bordeo },

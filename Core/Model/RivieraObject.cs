@@ -2,6 +2,7 @@
 using Autodesk.AutoCAD.Geometry;
 using DaSoft.Riviera.Modulador.Core.Controller;
 using Nameless.Libraries.HoukagoTeaTime.Mio.Utils;
+using Nameless.Libraries.HoukagoTeaTime.Ritsu.Utils;
 using Nameless.Libraries.HoukagoTeaTime.Tsumugi;
 using System;
 using System.Collections.Generic;
@@ -14,25 +15,11 @@ namespace DaSoft.Riviera.Modulador.Core.Model
     public abstract class RivieraObject
     {
         /// <summary>
-        /// All the ids that defines the Riviera Object
+        /// The Ids of the entities that defines the Riviera Object geometry
         /// </summary>
         public ObjectIdCollection Ids;
         /// <summary>
-        /// Gets the geometry that defines the riviera object data.
-        /// </summary>
-        /// <value>
-        /// The geometry.
-        /// </value>
-        protected abstract Entity CADGeometry { get; }
-        /// <summary>
-        /// Defines the Handle
-        /// </summary>
-        public Handle Handle
-        {
-            get { return this.CADGeometry.Handle; }
-        }
-        /// <summary>
-        /// Gets the identifier.
+        /// Gets the identifier for the CAD Geometry.
         /// </summary>
         /// <value>
         /// The identifier.
@@ -42,33 +29,47 @@ namespace DaSoft.Riviera.Modulador.Core.Model
             get { return this.CADGeometry.Id; }
         }
         /// <summary>
+        /// Gets the handle for the CAD Geometry;
+        /// </summary>
+        /// <value>
+        /// The handle.
+        /// </value>
+        public Handle Handle
+        {
+            get { return this.CADGeometry.Handle; }
+        }
+        /// <summary>
+        /// Gets the geometry that stores the riviera extended data.
+        /// </summary>
+        /// <value>
+        /// The CAD geometry
+        /// </value>
+        public abstract Entity CADGeometry { get; }
+        /// <summary>
         /// The riviera code
         /// </summary>
         public RivieraCode Code;
         /// <summary>
-        /// The measure size
+        /// The Riviera object size
         /// </summary>
-        protected abstract RivieraMeasure Size { get; }
+        public RivieraMeasure Size;
         /// <summary>
-        /// The Riviera object start point
+        /// The riviera object start point
         /// </summary>
-        public abstract Point2d Start { get; }
+        public Point2d Start;
         /// <summary>
-        /// The Riviera object end point
+        /// The riviera object end point
         /// </summary>
-        public abstract Point2d End { get; }
+        public Point2d End => GetEndPoint();
         /// <summary>
-        /// Defines the direction
+        /// Defines the riviera object direction
         /// </summary>
-        public virtual Vector2d Direction
-        {
-            get
-            {
-                double x = this.End.X - this.Start.X,
-                       y = this.End.Y - this.Start.Y;
-                return new Vector2d(x, y);
-            }
-        }
+        public Vector2d Direction;
+        /// <summary>
+        /// Gets the riviera object end point.
+        /// </summary>
+        /// <returns>The riviera end point</returns>
+        protected abstract Point2d GetEndPoint();
         /// <summary>
         /// Gets the angle for the inserted riviera object.
         /// </summary>
@@ -90,33 +91,43 @@ namespace DaSoft.Riviera.Modulador.Core.Model
             }
         }
         /// <summary>
-        /// Gets the riviera object available direction keys.
+        /// Gets the riviera object available record keys.
         /// </summary>
         /// <value>
-        /// The dictionary keys.
+        /// The dictionary XRecord Keys.
         /// </value>
-        public abstract String[] DirectionKeys { get; }
+        public abstract String[] Keys { get; }
         /// <summary>
-        /// Gets the parent Handel Id
+        /// The riviera object parent handle value
         /// </summary>
         public long Parent;
         /// <summary>
-        /// Gets the object children
+        /// The riviera object children handle value
+        /// Handles are asociated to a Key direction.
         /// </summary>
         public Dictionary<String, long> Children;
         /// <summary>
-        /// Draws the specified transaction.
+        /// Draws this instance
         /// </summary>
-        /// <param name="tr">The Active transaction.</param>
+        /// <param name="tr">The active transaction.</param>
         public abstract void Draw(Transaction tr);
+        /// <summary>
+        /// Regens this instance geometry <see cref="CADGeometry"/>.
+        /// </summary>
+        public abstract void Regen();
         /// <summary>
         /// Initializes a new instance of the <see cref="RivieraObject"/> class.
         /// </summary>
-        public RivieraObject(RivieraCode code)
+        /// <param name="code">The riviera code.</param>
+        /// <param name="size">The riviera element size.</param>
+        /// <param name="start">The riviera start point or insertion point.</param>
+        public RivieraObject(RivieraCode code, RivieraMeasure size, Point3d start)
         {
             this.Ids = new ObjectIdCollection();
             this.Children = new Dictionary<string, long>();
             this.Code = code;
+            this.Size = size;
+            this.Start = start.ToPoint2d();
         }
         /// <summary>
         /// Saves the riviera object.
@@ -141,7 +152,7 @@ namespace DaSoft.Riviera.Modulador.Core.Model
             this.Children = new Dictionary<string, long>();
             Xrecord field;
             long id;
-            foreach (var key in this.DirectionKeys)
+            foreach (var key in this.Keys)
                 if (dMan.TryGetXRecord(key, out field, tr) && long.TryParse(field.GetDataAsString(tr).FirstOrDefault(), out id))
                     this.Children.Add(key, id);
         }

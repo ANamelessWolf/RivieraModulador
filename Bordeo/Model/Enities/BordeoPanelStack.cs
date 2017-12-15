@@ -31,39 +31,34 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
         /// </summary>
         public Line PanelGeometry;
         /// <summary>
-        /// The Riviera object start point
-        /// </summary>
-        public override Point2d Start => this.PanelGeometry.StartPoint.ToPoint2d();
-        /// <summary>
-        /// The Riviera object end point
-        /// </summary>
-        public override Point2d End => this.PanelGeometry.GetEndPoint(this.Size as PanelMeasure);
-        /// <summary>
         /// Gets the riviera object available direction keys.
         /// </summary>
         /// <value>
         /// The dictionary keys.
         /// </value>
-        public override string[] DirectionKeys => BordeoUtils.BordeoDirectionKeys();
+        public override string[] Keys => BordeoUtils.BordeoDirectionKeys();
         /// <summary>
         /// Gets the geometry that defines the riviera object data.
         /// </summary>
         /// <value>
         /// The geometry.
         /// </value>
-        protected override Entity CADGeometry => this.PanelGeometry;
-        /// <summary>
-        /// Gets the measure of the first panel
-        /// </summary>
-        protected override RivieraMeasure Size => this.Panels.FirstOrDefault().PanelSize;
+        public override Entity CADGeometry => this.PanelGeometry;
         /// <summary>
         /// Initializes a new instance of the <see cref="BordeoPanelStack"/> class.
         /// </summary>
-        public BordeoPanelStack(Point3d start, Point3d end) :
-            base(GetRivieraCode(CODE_PANEL_STACK))
+        /// <param name="start">The start point.</param>
+        /// <param name="end">The end point.</param>
+        /// <param name="measure">The panel measure.</param>
+        public BordeoPanelStack(Point3d start, Point3d end, PanelMeasure measure) :
+            base(GetRivieraCode(CODE_PANEL_STACK), measure, start)
         {
             this.Panels = new List<BordeoPanel>();
-            this.PanelGeometry = new Line(start, end);
+            var first = new BordeoPanel(start, end, measure);
+            this.Panels.Add(first);
+            this.Direction = this.Panels.FirstOrDefault().Direction;
+            this.Regen();
+       
         }
         /// <summary>
         /// Adds the panel.
@@ -82,31 +77,30 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
         /// <param name="tr">The Active transaction.</param>
         public override void Draw(Transaction tr)
         {
-            
             BordeoPanel firstPanel = this.Panels.FirstOrDefault();
+            BlockTableRecord model = tr.GetModelSpace(OpenMode.ForWrite);
+            //Se dibujan todos los paneles en la vista 3D
             if (App.Riviera.Is3DEnabled)
             {
                 foreach (var panel in this.Panels)
                     panel.Draw(tr);
             }
-            else
+            else //Solo se dibuja el primer panel
             {
-                //Se borran todos los paneles menos el primero
+                //Si estan dibujados los otros paneles los borramos.
                 foreach (var panel in this.Panels.Where(x => x.Elevation > 0))
                     panel.Erase(tr);
+                //Se dibuja el primer panel
                 firstPanel.Draw(tr);
             }
+            //Se dibuja o actualizá la línea
             if (this.Id.IsValid)
             {
                 this.PanelGeometry.UpgradeOpen();
-                this.PanelGeometry.EndPoint = this.End.ToPoint3d();
+                this.Regen();
             }
             else
-            {
-                BlockTableRecord model = tr.GetModelSpace(OpenMode.ForWrite);
-                this.PanelGeometry.EndPoint = this.End.ToPoint3d();
                 this.PanelGeometry.Draw(model, tr);
-            }
         }
         /// <summary>
         /// Devuelve un enumerador que procesa una iteración en la colección.
@@ -128,5 +122,16 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
         {
             return this.Panels.GetEnumerator();
         }
+        /// <summary>
+        /// Gets the riviera object end point.
+        /// </summary>
+        /// <returns>
+        /// The riviera end point
+        /// </returns>
+        protected override Point2d GetEndPoint() => this.Panels.FirstOrDefault().End;
+        /// <summary>
+        /// Regens this instance geometry <see cref="P:DaSoft.Riviera.Modulador.Core.Model.RivieraObject.CADGeometry" />.
+        /// </summary>
+        public override void Regen() => this.RegenAsLine(ref this.PanelGeometry);
     }
 }

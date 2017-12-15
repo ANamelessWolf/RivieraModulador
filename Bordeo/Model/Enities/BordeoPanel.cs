@@ -17,6 +17,7 @@ using Nameless.Libraries.HoukagoTeaTime.Mio.Entities;
 using DaSoft.Riviera.Modulador.Core.Controller;
 using Nameless.Libraries.HoukagoTeaTime.Mio.Model;
 using Nameless.Libraries.HoukagoTeaTime.Mio.Utils;
+using Autodesk.AutoCAD.ApplicationServices;
 
 namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
 {
@@ -35,26 +36,6 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
         /// </summary>
         public string BlockName => String.Format("{0}{1}{2}T", this.Code.Block, this.PanelSize.Frente.Nominal, this.PanelSize.Alto.Nominal);
         /// <summary>
-        /// The Riviera object start point
-        /// </summary>
-        public override Point2d Start => this.PanelGeometry.StartPoint.ToPoint2d();
-        /// <summary>
-        /// The Riviera object end point
-        /// </summary>
-        public override Point2d End => this.PanelGeometry.GetEndPoint(this.PanelSize);
-        /// <summary>
-        /// Define la dirección del rectangulo.
-        /// </summary>
-        public override Vector2d Direction
-        {
-            get
-            {
-                double x = this.PanelGeometry.EndPoint.X - this.Start.X,
-                       y = this.PanelGeometry.EndPoint.Y - this.Start.Y;
-                return new Vector2d(x, y);
-            }
-        }
-        /// <summary>
         /// Defines the starting Bordeo Panel elevation
         /// </summary>
         public Double Elevation;
@@ -64,26 +45,22 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
         /// <value>
         /// The dictionary keys.
         /// </value>
-        public override string[] DirectionKeys => BordeoUtils.BordeoDirectionKeys();
+        public override string[] Keys => BordeoUtils.BordeoDirectionKeys();
         /// <summary>
         /// Gets the geometry that defines the riviera object data.
         /// </summary>
         /// <value>
         /// The geometry.
         /// </value>
-        protected override Entity CADGeometry => PanelGeometry;
+        public override Entity CADGeometry => PanelGeometry;
         /// <summary>
         /// The panel geometry
         /// </summary>
         public Line PanelGeometry;
         /// <summary>
-        /// The measure size
-        /// </summary>
-        protected override RivieraMeasure Size => PanelSize;
-        /// <summary>
         /// The measure panel size
         /// </summary>
-        public PanelMeasure PanelSize;
+        public PanelMeasure PanelSize => this.Size as PanelMeasure;
         /// <summary>
         /// Initializes a new instance of the <see cref="BordeoPanel"/> class.
         /// </summary>
@@ -91,10 +68,10 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
         /// <param name="end">The end.</param>
         /// <param name="measure">The measure.</param>
         public BordeoPanel(Point3d start, Point3d end, PanelMeasure measure) :
-            base(GetRivieraCode(CODE_PANEL_RECTO))
+            base(GetRivieraCode(CODE_PANEL_RECTO), measure, start)
         {
-            this.PanelSize = measure;
-            this.PanelGeometry = new Line(start, end);
+            this.Direction = start.ToPoint2d().GetVectorTo(end.ToPoint2d());
+            this.Regen();
         }
         /// <summary>
         /// Draws the specified Riviera object.
@@ -106,8 +83,10 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
             Boolean is2DBlock = !App.Riviera.Is3DEnabled;
             ObjectId first = this.Ids.OfType<ObjectId>().FirstOrDefault();
             RivieraBlock block = this.Block;
-            var doc = Autodesk.AutoCAD.ApplicationServices.Application.DocumentManager.MdiActiveDocument;
+            var doc = Application.DocumentManager.MdiActiveDocument;
             BlockReference blkRef;
+            //Si ya se dibujo, el elemento tiene un id válido, solo se debe actualizar
+            //el contenido.
             if (first.IsValid)
             {
                 block.SetContent(is2DBlock, doc, tr);
@@ -115,6 +94,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
             }
             else
                 blkRef = block.Insert(doc, tr, this.Start.ToPoint3d(), this.Direction.Angle);
+            //Solo se actualizan los bloques insertados en la vista 3D
             if (!is2DBlock)
                 this.UpdateBlockPosition(tr, blkRef);
         }
@@ -131,5 +111,21 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
             Vector3d v = insPoint.GetVectorTo(End.ToPoint3d(this.Elevation));
             blkRef.TransformBy(Matrix3d.Rotation(Math.PI / 2, v, blkRef.Position));
         }
+        /// <summary>
+        /// Gets the riviera object end point.
+        /// </summary>
+        /// <returns>
+        /// The riviera end point
+        /// </returns>
+        protected override Point2d GetEndPoint()
+        {
+            Double r = this.PanelSize.Frente.Real,
+                   ang = this.Direction.Angle;
+            return this.Start.ToPoint2dByPolar(r, ang);
+        }
+        /// <summary>
+        /// Regens this instance geometry <see cref="P:DaSoft.Riviera.Modulador.Core.Model.RivieraObject.CADGeometry" />.
+        /// </summary>
+        public override void Regen() => this.RegenAsLine(ref this.PanelGeometry);
     }
 }

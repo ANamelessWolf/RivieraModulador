@@ -21,6 +21,20 @@ namespace DaSoft.Riviera.Modulador.Core.Model
         /// <returns>The Riviera size associated to a key</returns>
         public RivieraSize this[String key] => Sizes.FirstOrDefault(x => x.Measure == key);
         /// <summary>
+        /// Determines whether the specified size exists on the measure
+        /// </summary>
+        /// <param name="sizes">The sizes to check.</param>
+        /// <returns>
+        ///   <c>true</c> if the specified sizes exists on the measure; otherwise, <c>false</c>.
+        /// </returns>
+        public Boolean HasSize(params KeyValuePair<string, double>[] sizes)
+        {
+            Boolean flag = true;
+            for (int i = 0; i < sizes.Length && flag; i++)
+                flag = flag && (Sizes.FirstOrDefault(x => x.Measure == sizes[i].Key && x.Nominal == sizes[i].Value).Measure != null);
+            return flag;
+        }
+        /// <summary>
         /// The Riviera element measures
         /// </summary>
         protected List<RivieraSize> Sizes;

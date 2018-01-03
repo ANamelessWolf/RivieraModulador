@@ -34,7 +34,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Controller
         {
             return new String[]
             {
-                KEY_BACK, KEY_FRONT, KEY_LEFT_135, KEY_LEFT_90, KEY_RIGHT_135, KEY_RIGHT_90, KEY_EXTRA
+               // KEY_BACK, KEY_FRONT, KEY_LEFT_135, KEY_LEFT_90, KEY_RIGHT_135, KEY_RIGHT_90, KEY_EXTRA
             };
         }
         /// <summary>

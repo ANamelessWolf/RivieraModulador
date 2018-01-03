@@ -525,4 +525,8 @@ Detalles: {1}</value>
     <value>Error al crear el bloque "{0}"</value>
     <comment>Riviera Block</comment>
   </data>
+  <data name="ERR_SIZE_NOT_EXIST" xml:space="preserve">
+    <value>Error el tamaño especificado no existe.</value>
+    <comment>Riviera Database</comment>
+  </data>
 </root>

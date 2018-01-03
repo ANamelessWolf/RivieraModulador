@@ -425,6 +425,15 @@ namespace DaSoft.Riviera.Modulador.Core.Assets {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Error el tamaño especificado no existe..
+        /// </summary>
+        internal static string ERR_SIZE_NOT_EXIST {
+            get {
+                return ResourceManager.GetString("ERR_SIZE_NOT_EXIST", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a El panel electrificable quedaría del lado de 24&quot;, no es válido.
         ///Rote la mampara para poder continuar con la calificación..
         /// </summary>

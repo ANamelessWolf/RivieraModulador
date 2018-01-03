@@ -89,5 +89,25 @@ namespace DaSoft.Riviera.Modulador.Core.Runtime
             foreach (var db in LineDB.Values)
                 db.LoadDesignModelData(dbResult);
         }
+        /// <summary>
+        /// Gets the size.
+        /// </summary>
+        /// <param name="line">The design line.</param>
+        /// <param name="code">The riviera design code</param>
+        /// <param name="values">The nominal values.</param>
+        public RivieraMeasure GetSize(DesignLine line, String code, KeyValuePair<string, double>[] values)
+        {
+            try
+            {
+                RivieraDesignDatabase db = this.LineDB[line];
+                var sizes = db?.Sizes.FirstOrDefault(x => x.Key == code).Value.Sizes;
+                return sizes.FirstOrDefault(x => x.HasSize(values));
+            }
+            catch (Exception)
+            {
+                throw new RivieraException(ERR_SIZE_NOT_EXIST);
+            }
+         
+        }
     }
 }

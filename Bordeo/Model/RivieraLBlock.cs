@@ -99,7 +99,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model
                     blocks3D.Add(LBlockType.LEFT_START_MIN_SIZE, new AutoCADBlock(String.Format(PREFIX_BLOCK_CONT, this.BlockName, "3D", BLOCK_DIR_RGT), tr));
                     blocks3D.Add(LBlockType.LEFT_START_MIN_SIZE, new AutoCADBlock(String.Format(PREFIX_BLOCK_VAR_CONT, this.VariantBlockName, "3D", BLOCK_DIR_LFT), tr));
                     blocks3D.Add(LBlockType.LEFT_START_MIN_SIZE, new AutoCADBlock(String.Format(PREFIX_BLOCK_VAR_CONT, this.VariantBlockName, "3D", BLOCK_DIR_RGT), tr));
-                    this.InitContent(blocks2D, blocks3D, block2d, block3d, varBlock2d, varBlock3d);
+                    this.InitContent(tr, blocks2D, blocks3D, block2d, block3d, varBlock2d, varBlock3d);
                 }
                 else
                 {
@@ -111,7 +111,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model
                     //Registros 3D
                     blocks3D.Add(LBlockType.LEFT_SAME_SIZE, new AutoCADBlock(String.Format(PREFIX_BLOCK_CONT, this.BlockName, "3D", BLOCK_DIR_LFT), tr));
                     blocks3D.Add(LBlockType.RIGHT_SAME_SIZE, new AutoCADBlock(String.Format(PREFIX_BLOCK_CONT, this.BlockName, "3D", BLOCK_DIR_RGT), tr));
-                    this.InitContent(blocks2D, blocks3D, block2d, block3d);
+                    this.InitContent(tr, blocks2D, blocks3D, block2d, block3d);
                 }
             }
             catch (Exception exc)
@@ -123,10 +123,38 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model
             }
             return true;
         }
-
-        private void InitContent(Dictionary<LBlockType, AutoCADBlock> blocks2D, Dictionary<LBlockType, AutoCADBlock> blocks3D, AutoCADBlock block2d, AutoCADBlock block3d, AutoCADBlock varBlock2d= null, AutoCADBlock varBlock3d = null)
+        /// <summary>
+        /// Initializes block content.
+        /// </summary>
+        /// <param name="blocks2D">The 2D blocks.</param>
+        /// <param name="blocks3D">The 3D blocks.</param>
+        /// <param name="block2d">The normal 2D block.</param>
+        /// <param name="block3d">The normal 3D block</param>
+        /// <param name="varBlock2d">The variant 2D block.</param>
+        /// <param name="varBlock3d">The variant 3D block</param>
+        private void InitContent(Transaction tr, Dictionary<LBlockType, AutoCADBlock> blocks2D, Dictionary<LBlockType, AutoCADBlock> blocks3D, AutoCADBlock block2d, AutoCADBlock block3d, AutoCADBlock varBlock2d = null, AutoCADBlock varBlock3d = null)
         {
-            throw new NotImplementedException();
+            string blockName = block2d.Blockname.Substring(0, block2d.Blockname.Length - 2),
+                   variantBlockName = varBlock2d != null ? varBlock2d.Blockname.Substring(0, varBlock2d.Blockname.Length - 2) : null;
+            if (variantBlockName != null)
+            {
+
+            }
+            else
+            {
+                blocks2D[LBlockType.RIGHT_SAME_SIZE].Draw(tr, block2d.CreateReference(new Point3d(), 0));
+                blocks2D[LBlockType.LEFT_SAME_SIZE].Draw(tr, this.CreateLeftReference(blockName, block2d));
+            }
+        }
+
+        private BlockReference CreateLeftReference(string blockName, AutoCADBlock block2d)
+        {
+            String code = blockName.Substring(0, 6);
+            int frente = int.Parse(blockName.Substring(6, 2)),
+                alto = int.Parse(blockName.Substring(8, 2));
+            KeyValuePair<String, double> Front = new KeyValuePair<String, double>(KEY_FRONT, frente);
+            KeyValuePair<String, double> Height = new KeyValuePair<String, double>(KEY_HEIGHT, alto);
+            LPanelMeasure size = App.Riviera.Database.GetSize(DesignLine.Bordeo, code, new KeyValuePair<String, double>[] { Front, Height }) as LPanelMeasure;
         }
 
 

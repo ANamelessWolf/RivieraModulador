@@ -76,9 +76,8 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model
         /// <param name="content">The block content</param>
         /// <param name="is2DBlock">if set to <c>true</c> [is a 2D block] otherwise a 3D block.</param>
         /// <returns></returns>
-        public bool LoadBlocks(Document doc, Transaction tr, out AutoCADBlock instance, out Dictionary<LBlockType, AutoCADBlock> blocks2D, out Dictionary<LBlockType, AutoCADBlock> blocks3D)
+        public bool LoadBlocks(Document doc, Transaction tr, out Dictionary<LBlockType, AutoCADBlock> blocks2D, out Dictionary<LBlockType, AutoCADBlock> blocks3D)
         {
-            BlockTable blockTable = (BlockTable)doc.Database.BlockTableId.GetObject(OpenMode.ForRead);
             AutoCADBlock block2d, block3d, varBlock2d, varBlock3d;
             blocks2D = new Dictionary<LBlockType, AutoCADBlock>();
             blocks3D = new Dictionary<LBlockType, AutoCADBlock>();
@@ -86,29 +85,34 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model
             {
                 block2d = new AutoCADBlock(String.Format(Block2DName, BlockName), this.GetBlockFilePath(), tr);
                 block3d = new AutoCADBlock(String.Format(Block3DName, BlockName), this.GetBlockFilePath(false), tr);
-                instance = new AutoCADBlock(this.InstanceBlockName, tr);
                 if (this.MinSize != this.MaxSize)
                 {
                     varBlock2d = new AutoCADBlock(String.Format(Block2DName, this.VariantBlockName), this.GetBlockFilePath(this.VariantBlockName), tr);
                     varBlock3d = new AutoCADBlock(String.Format(Block3DName, this.VariantBlockName), this.GetBlockFilePath(this.VariantBlockName, false), tr);
                     //Registros 2D
-                    blocks2D.Add(LBlockType.LEFT_START_MIN_SIZE, new AutoCADBlock(String.Format(PREFIX_BLOCK_LFT, this.BlockName, "2D"), tr));
-                    blocks2D.Add(LBlockType.LEFT_START_MAX_SIZE, new AutoCADBlock(String.Format(PREFIX_BLOCK_VAR_LFT, this.VariantBlockName, "2D"), tr));
-                    blocks2D.Add(LBlockType.RIGHT_START_MIN_SIZE, new AutoCADBlock(String.Format(PREFIX_BLOCK_RGT, this.BlockName, "2D"), tr));
-                    blocks2D.Add(LBlockType.RIGHT_START_MAX_SIZE, new AutoCADBlock(String.Format(PREFIX_BLOCK_VAR_RGT, this.VariantBlockName, "2D"), tr));
+                    blocks2D.Add(LBlockType.LEFT_START_MIN_SIZE, new AutoCADBlock(String.Format(PREFIX_BLOCK_CONT, this.BlockName, "2D", BLOCK_DIR_LFT), tr));
+                    blocks2D.Add(LBlockType.LEFT_START_MIN_SIZE, new AutoCADBlock(String.Format(PREFIX_BLOCK_CONT, this.BlockName, "2D", BLOCK_DIR_RGT), tr));
+                    blocks2D.Add(LBlockType.LEFT_START_MIN_SIZE, new AutoCADBlock(String.Format(PREFIX_BLOCK_VAR_CONT, this.VariantBlockName, "2D", BLOCK_DIR_LFT), tr));
+                    blocks2D.Add(LBlockType.LEFT_START_MIN_SIZE, new AutoCADBlock(String.Format(PREFIX_BLOCK_VAR_CONT, this.VariantBlockName, "2D", BLOCK_DIR_RGT), tr));
                     //Registros 3D
-                    blocks2D.Add(LBlockType.LEFT_START_MIN_SIZE, new AutoCADBlock(String.Format(PREFIX_BLOCK_LFT, this.BlockName, "3D"), tr));
-                    blocks2D.Add(LBlockType.LEFT_START_MAX_SIZE, new AutoCADBlock(String.Format(PREFIX_BLOCK_VAR_LFT, this.VariantBlockName, "3D"), tr));
-                    blocks2D.Add(LBlockType.RIGHT_START_MIN_SIZE, new AutoCADBlock(String.Format(PREFIX_BLOCK_RGT, this.BlockName, "3D"), tr));
-                    blocks2D.Add(LBlockType.RIGHT_START_MAX_SIZE, new AutoCADBlock(String.Format(PREFIX_BLOCK_VAR_RGT, this.VariantBlockName, "3D"), tr));
-                    
+                    blocks3D.Add(LBlockType.LEFT_START_MIN_SIZE, new AutoCADBlock(String.Format(PREFIX_BLOCK_CONT, this.BlockName, "3D", BLOCK_DIR_LFT), tr));
+                    blocks3D.Add(LBlockType.LEFT_START_MIN_SIZE, new AutoCADBlock(String.Format(PREFIX_BLOCK_CONT, this.BlockName, "3D", BLOCK_DIR_RGT), tr));
+                    blocks3D.Add(LBlockType.LEFT_START_MIN_SIZE, new AutoCADBlock(String.Format(PREFIX_BLOCK_VAR_CONT, this.VariantBlockName, "3D", BLOCK_DIR_LFT), tr));
+                    blocks3D.Add(LBlockType.LEFT_START_MIN_SIZE, new AutoCADBlock(String.Format(PREFIX_BLOCK_VAR_CONT, this.VariantBlockName, "3D", BLOCK_DIR_RGT), tr));
+                    this.InitContent(blocks2D, blocks3D, block2d, block3d, varBlock2d, varBlock3d);
                 }
                 else
                 {
-                    blocks3D.Add(LBlockType.LEFT_SAME_SIZE, new AutoCADBlock(String.Format(PREFIX_BLOCK_LFT, this.BlockName), tr));
-                    blocks3D.Add(LBlockType.RIGHT_SAME_SIZE, new AutoCADBlock(String.Format(PREFIX_BLOCK_RGT, this.BlockName), tr));
+                    varBlock2d = new AutoCADBlock(String.Format(Block2DName, this.VariantBlockName), this.GetBlockFilePath(this.VariantBlockName), tr);
+                    varBlock3d = new AutoCADBlock(String.Format(Block3DName, this.VariantBlockName), this.GetBlockFilePath(this.VariantBlockName, false), tr);
+                    //Registros 2D
+                    blocks2D.Add(LBlockType.LEFT_SAME_SIZE, new AutoCADBlock(String.Format(PREFIX_BLOCK_CONT, this.BlockName, "2D", BLOCK_DIR_LFT), tr));
+                    blocks2D.Add(LBlockType.RIGHT_SAME_SIZE, new AutoCADBlock(String.Format(PREFIX_BLOCK_CONT, this.BlockName, "2D", BLOCK_DIR_RGT), tr));
+                    //Registros 3D
+                    blocks3D.Add(LBlockType.LEFT_SAME_SIZE, new AutoCADBlock(String.Format(PREFIX_BLOCK_CONT, this.BlockName, "3D", BLOCK_DIR_LFT), tr));
+                    blocks3D.Add(LBlockType.RIGHT_SAME_SIZE, new AutoCADBlock(String.Format(PREFIX_BLOCK_CONT, this.BlockName, "3D", BLOCK_DIR_RGT), tr));
+                    this.InitContent(blocks2D, blocks3D, block2d, block3d);
                 }
-                this.InitContent(blockTable, block2d, block3d, blocks2D, blocks3D);
             }
             catch (Exception exc)
             {
@@ -120,10 +124,16 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model
             return true;
         }
 
-        private void InitContent(BlockTable blockTable, AutoCADBlock block2d, AutoCADBlock block3d, Dictionary<LBlockType, AutoCADBlock> blocks2D, Dictionary<LBlockType, AutoCADBlock> blocks3D)
+        private void InitContent(Dictionary<LBlockType, AutoCADBlock> blocks2D, Dictionary<LBlockType, AutoCADBlock> blocks3D, AutoCADBlock block2d, AutoCADBlock block3d, AutoCADBlock varBlock2d= null, AutoCADBlock varBlock3d = null)
         {
             throw new NotImplementedException();
         }
+
+
+
+
+
+
 
         /// <summary>
         /// Sets the instance content, depending on the if the application view

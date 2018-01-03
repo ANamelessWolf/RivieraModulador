@@ -16,11 +16,30 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Assets
         public const String KEY_RIGHT_135 = "Right135";
         public const String KEY_EXTRA = "ExtraContent";
 
-        public const string FOLDER_NAME_BLOCKS_BORDEO = "Bordeo";
-
-        public const String PREFIX_BLOCK_LFT = "BLK_CONTENT_LFT_{0}{1}";
-        public const String PREFIX_BLOCK_RGT = "BLK_CONTENT_RGT_{0}{1}";
-        public const String PREFIX_BLOCK_VAR_LFT = "BLK_CONTENT_LFT_V{0}{1}";
-        public const String PREFIX_BLOCK_VAR_RGT = "BLK_CONTENT_RGT_V{0}{1}";
+        public const String FOLDER_NAME_BLOCKS_BORDEO = "Bordeo";
+        /// <summary>
+        /// Define la dirección del bloque a la izquierda
+        /// </summary>
+        public const String BLOCK_DIR_LFT = "LFT";
+        /// <summary>
+        /// Define la dirección del bloque a la derecha
+        /// </summary>
+        public const String BLOCK_DIR_RGT = "RGT";
+        /// <summary>
+        /// Define el prefijo de instancia de un bloque en L
+        /// </summary>
+        public const String PREFIX_BLOCK_INST = "SPACE_{0}{1}";
+        /// <summary>
+        /// Define el prefijo de contenido de un bloque 2D o 3D en L
+        /// </summary>
+        public const String PREFIX_BLOCK_CONT = "CONTENT_{0}{1}{2}";
+        /// <summary>
+        /// Define el prefijo de instancia de un bloque variante en L
+        /// </summary>
+        public const String PREFIX_BLOCK_VAR__INST = "SPACE_VAR_{0}{1}";
+        /// <summary>
+        /// Define el prefijo de contenido de un bloque variante 2D o 3D en L
+        /// </summary>
+        public const String PREFIX_BLOCK_VAR_CONT = "CONTENT_VAR_{0}{1}{2}";
     }
 }

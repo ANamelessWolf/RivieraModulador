@@ -125,4 +125,8 @@
     <value>La base de datos de la línea Bordeo no se cargo en la aplicación.</value>
     <comment>Bordeo Utils</comment>
   </data>
+  <data name="ERR_LOADING_BLOCK" xml:space="preserve">
+    <value>Error al crear el bloque de bordeo "{0}"</value>
+    <comment>Riviera Block</comment>
+  </data>
 </root>

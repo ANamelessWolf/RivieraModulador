@@ -15,5 +15,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model
         LEFT_START_MAX_SIZE = 3,
         RIGHT_SAME_SIZE = 4,
         LEFT_SAME_SIZE = 5,
+        CONTENT = 6,
+        VARIANT_CONTENT = 7
     }
 }

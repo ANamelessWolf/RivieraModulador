@@ -225,6 +225,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model
             if (LoadBlocks(doc, tr, out blocks2d, out blocks3d))
             {
                 instance = new AutoCADBlock(this.GetInstanceName(block), this.GetBlockFilePath(this.VariantBlockName), tr);
+                instance.Clear(tr);
                 if (is2DBlock)
                     blkRef = blocks2d[block].CreateReference(new Point3d(), 0, 1);
                 else
@@ -240,8 +241,8 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model
         /// <returns>The Instance name</returns>
         public string GetInstanceName(LBlockType blockDirection)
         {
-            String code = new LBlockType[] { LBlockType.LEFT_START_MAX_SIZE, LBlockType.RIGHT_START_MAX_SIZE }.Contains(block) ? this.VariantBlockName : this.BlockName,
-             dir = new LBlockType[] { LBlockType.RIGHT_SAME_SIZE, LBlockType.RIGHT_START_MAX_SIZE, LBlockType.RIGHT_START_MIN_SIZE }.Contains(block) ? BLOCK_DIR_RGT : BLOCK_DIR_LFT;
+            String code = new LBlockType[] { LBlockType.LEFT_START_MAX_SIZE, LBlockType.RIGHT_START_MAX_SIZE }.Contains(blockDirection) ? this.VariantBlockName : this.BlockName,
+             dir = new LBlockType[] { LBlockType.RIGHT_SAME_SIZE, LBlockType.RIGHT_START_MAX_SIZE, LBlockType.RIGHT_START_MIN_SIZE }.Contains(blockDirection) ? BLOCK_DIR_RGT : BLOCK_DIR_LFT;
             return String.Format(PREFIX_BLOCK_INST, code, dir);
         }
 
@@ -268,7 +269,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model
             if (!blockTable.Has(instanceName))
                 instance = this.SetContent(blockDir, is2DBlock, doc, tr);
             else
-                instance = new AutoCADBlock(this.InstanceBlockName, tr);
+                instance = new AutoCADBlock(instanceName, tr);
             //Se realizá la inserción de la instancia
             if (instance != null)
             {

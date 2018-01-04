@@ -95,7 +95,7 @@ namespace DaSoft.Riviera.Modulador.Core.Model
         /// <param name="content">The block content</param>
         /// <param name="is2DBlock">if set to <c>true</c> [is a 2D block] otherwise a 3D block.</param>
         /// <returns></returns>
-        public virtual Boolean LoadBlocks(Document doc, Transaction tr, out AutoCADBlock instance, out AutoCADBlock content, Boolean is2DBlock = true)
+        public Boolean LoadBlocks(Document doc, Transaction tr, out AutoCADBlock instance, out AutoCADBlock content, Boolean is2DBlock = true)
         {
             BlockTable blockTable = (BlockTable)doc.Database.BlockTableId.GetObject(OpenMode.ForRead);
             instance = null;

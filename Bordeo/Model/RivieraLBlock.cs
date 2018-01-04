@@ -18,6 +18,7 @@ using System.Threading.Tasks;
 using static DaSoft.Riviera.Modulador.Core.Assets.CONST;
 using static DaSoft.Riviera.Modulador.Bordeo.Assets.Strings;
 using static DaSoft.Riviera.Modulador.Bordeo.Assets.Constants;
+using static DaSoft.Riviera.Modulador.Bordeo.Assets.Codes;
 namespace DaSoft.Riviera.Modulador.Bordeo.Model
 {
     public class RivieraLBlock : RivieraBlock
@@ -138,31 +139,77 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model
                    variantBlockName = varBlock2d != null ? varBlock2d.Blockname.Substring(0, varBlock2d.Blockname.Length - 2) : null;
             if (variantBlockName != null)
             {
-
+                //Bloques 2D
+                this.DrawIn(tr, blocks2D[LBlockType.RIGHT_START_MIN_SIZE], block2d.CreateReference(new Point3d(), 0));
+                this.DrawIn(tr, blocks2D[LBlockType.RIGHT_START_MAX_SIZE], varBlock2d.CreateReference(new Point3d(), 0));
+                this.DrawIn(tr, blocks2D[LBlockType.LEFT_START_MIN_SIZE], this.CreateLeftReference(this.VariantBlockName, varBlock2d));
+                this.DrawIn(tr, blocks2D[LBlockType.LEFT_START_MAX_SIZE], this.CreateLeftReference(this.BlockName, block2d));
+                //Bloques 3D
+                this.DrawIn(tr, blocks3D[LBlockType.RIGHT_START_MIN_SIZE], block3d.CreateReference(new Point3d(), 0), true);
+                this.DrawIn(tr, blocks3D[LBlockType.RIGHT_START_MAX_SIZE], varBlock3d.CreateReference(new Point3d(), 0), true);
+                this.DrawIn(tr, blocks3D[LBlockType.LEFT_START_MIN_SIZE], this.CreateLeftReference(this.VariantBlockName, varBlock3d), true);
+                this.DrawIn(tr, blocks3D[LBlockType.LEFT_START_MAX_SIZE], this.CreateLeftReference(this.BlockName, block3d), true);
             }
             else
             {
-                blocks2D[LBlockType.RIGHT_SAME_SIZE].Draw(tr, block2d.CreateReference(new Point3d(), 0));
-                blocks2D[LBlockType.LEFT_SAME_SIZE].Draw(tr, this.CreateLeftReference(blockName, block2d));
+                //Bloques 2D
+                this.DrawIn(tr, blocks2D[LBlockType.RIGHT_SAME_SIZE], block3d.CreateReference(new Point3d(), 0));
+                this.DrawIn(tr, blocks2D[LBlockType.LEFT_SAME_SIZE], this.CreateLeftReference(this.VariantBlockName, block3d));
+                //Bloques 3D
+                this.DrawIn(tr, blocks3D[LBlockType.RIGHT_SAME_SIZE], block3d.CreateReference(new Point3d(), 0));
+                this.DrawIn(tr, blocks3D[LBlockType.LEFT_SAME_SIZE], this.CreateLeftReference(this.VariantBlockName, block3d));
+            }
+        }
+        /// <summary>
+        /// Draws the in the block record the block reference only if the block record is empty.
+        /// </summary>
+        /// <param name="tr">The active transaction.</param>
+        /// <param name="blockRecord">The block table record.</param>
+        /// <param name="blkRef">The block reference.</param>
+        /// <param name="is3dBlock">if set to <c>true</c> [is a 3d block].</param>
+        private void DrawIn(Transaction tr, AutoCADBlock blockRecord, BlockReference blkRef, Boolean is3dBlock = false)
+        {
+            if (blockRecord.Block.OfType<ObjectId>().Count() == 0)
+            {
+                if (is3dBlock)
+                    blkRef.TransformBy(Matrix3d.Rotation(Math.PI / 2, Vector3d.XAxis, new Point3d()));
+                blockRecord.Draw(tr, blkRef);
             }
         }
 
-        private BlockReference CreateLeftReference(string blockName, AutoCADBlock block2d)
+        /// <summary>
+        /// Creates the left reference.
+        /// </summary>
+        /// <param name="blockName">Name of the block.</param>
+        /// <param name="block">The block.</param>
+        /// <returns></returns>
+        private BlockReference CreateLeftReference(string blockName, AutoCADBlock block)
         {
             String code = blockName.Substring(0, 6);
-            int frente = int.Parse(blockName.Substring(6, 2)),
+            int frente1 = int.Parse(blockName.Substring(6, 2)),
+                frente2 = int.Parse(blockName.Substring(6, 2)),
                 alto = int.Parse(blockName.Substring(8, 2));
-            KeyValuePair<String, double> Front = new KeyValuePair<String, double>(KEY_FRONT, frente);
+            KeyValuePair<String, double> Front1 = new KeyValuePair<String, double>(KEY_START_FRONT, frente1);
+            KeyValuePair<String, double> Front2 = new KeyValuePair<String, double>(KEY_END_FRONT, frente2);
             KeyValuePair<String, double> Height = new KeyValuePair<String, double>(KEY_HEIGHT, alto);
-            LPanelMeasure size = App.Riviera.Database.GetSize(DesignLine.Bordeo, code, new KeyValuePair<String, double>[] { Front, Height }) as LPanelMeasure;
+            LPanelMeasure size = App.Riviera.Database.GetSize(DesignLine.Bordeo, code,
+                new KeyValuePair<String, double>[] { Front1, Front2, Height }) as LPanelMeasure;
+            Double f1 = size.FrenteStart.Real,
+                   f2 = size.FrenteEnd.Real;
+            BlockReference blkRef = block.CreateReference(new Point3d(), 0);
+            //Se rota 270°
+            blkRef.TransformBy(Matrix3d.Rotation(3 * Math.PI / 2, Vector3d.ZAxis, new Point3d()));
+            Vector3d offset;
+            //Offset BR2020
+            if (code == CODE_PANEL_90)
+                offset = new Vector3d(0.1002d, 0.1002d, 0);
+            //Offset BR2030
+            else
+                offset = new Vector3d(0.0709d, 0.0293d, 0);
+            //Se traslada el punto final al punto inicial
+            blkRef.TransformBy(Matrix3d.Displacement(new Vector3d(f2 + offset.X, f1 + offset.Y, 0)));
+            return blkRef;
         }
-
-
-
-
-
-
-
         /// <summary>
         /// Sets the instance content, depending on the if the application view
         /// is on 2D or 3D
@@ -170,17 +217,72 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model
         /// <param name="is2DBlock">if set to <c>true</c> [is a 2D block] otherwise a 3D block.</param>
         /// <param name="doc">The active document.</param>
         /// <param name="tr">The active transaction.</param>
-        public void SetContent(LBlockType block, Boolean is2DBlock, Document doc, Transaction tr)
+        public AutoCADBlock SetContent(LBlockType block, Boolean is2DBlock, Document doc, Transaction tr)
         {
-            Dictionary<LBlockType, AutoCADBlock> blocks;
-            AutoCADBlock instance;
+            Dictionary<LBlockType, AutoCADBlock> blocks2d, blocks3d;
+            AutoCADBlock instance = null;
             BlockReference blkRef;
-            if (LoadBlocks(doc, tr, out instance, out instance, is2DBlock))
+            if (LoadBlocks(doc, tr, out blocks2d, out blocks3d))
             {
-                instance.Clear(tr);
-                blkRef = content.CreateReference(new Point3d(), 0, 1);
+                instance = new AutoCADBlock(this.GetInstanceName(block), this.GetBlockFilePath(this.VariantBlockName), tr);
+                if (is2DBlock)
+                    blkRef = blocks2d[block].CreateReference(new Point3d(), 0, 1);
+                else
+                    blkRef = blocks3d[block].CreateReference(new Point3d(), 0, 1);
                 instance.Draw(tr, blkRef);
             }
+            return instance;
+        }
+        /// <summary>
+        /// Gets the name of the instance.
+        /// </summary>
+        /// <param name="block">The block direction.</param>
+        /// <returns>The Instance name</returns>
+        public string GetInstanceName(LBlockType blockDirection)
+        {
+            String code = new LBlockType[] { LBlockType.LEFT_START_MAX_SIZE, LBlockType.RIGHT_START_MAX_SIZE }.Contains(block) ? this.VariantBlockName : this.BlockName,
+             dir = new LBlockType[] { LBlockType.RIGHT_SAME_SIZE, LBlockType.RIGHT_START_MAX_SIZE, LBlockType.RIGHT_START_MIN_SIZE }.Contains(block) ? BLOCK_DIR_RGT : BLOCK_DIR_LFT;
+            return String.Format(PREFIX_BLOCK_INST, code, dir);
+        }
+
+        /// <summary>
+        /// Inserts this instance block as a BlockReference.
+        /// </summary>
+        /// <param name="doc">The active document.</param>
+        /// <param name="tr">The active transaction.</param>
+        /// <param name="insPt">The insertion point.</param>
+        /// <param name="angle">The block rotation.</param>
+        /// <param name="scale">The block scale.</param>
+        /// <returns>
+        /// The Block Reference
+        /// </returns>
+        /// <exception cref="RivieraException">Si existe un error al insertar el bloque</exception>
+        public BlockReference Insert(Document doc, Transaction tr, LBlockType blockDir, Point3d insPt, double angle = 0, double scale = 1)
+        {
+            BlockTable blockTable = doc.Database.BlockTableId.GetObject(OpenMode.ForRead) as BlockTable;
+            Dictionary<LBlockType, AutoCADBlock> blocks2d, blocks3d;
+            AutoCADBlock instance;
+            Boolean is2DBlock = !App.Riviera.Is3DEnabled;
+            String instanceName = this.GetInstanceName(blockDir);
+            this.LoadBlocks(doc, tr, out blocks2d, out blocks3d);
+            if (!blockTable.Has(instanceName))
+                instance = this.SetContent(blockDir, is2DBlock, doc, tr);
+            else
+                instance = new AutoCADBlock(this.InstanceBlockName, tr);
+            //Se realizá la inserción de la instancia
+            if (instance != null)
+            {
+                BlockReference blkRef = instance.CreateReference(insPt, angle, scale);
+                BlockTableRecord modelSpace = tr.GetModelSpace();
+                blkRef.Draw(modelSpace, tr);
+                AutoCADLayer lay = new AutoCADLayer(LAYER_RIVIERA_GEOMETRY, tr);
+                lay.SetStatus(LayerStatus.EnableStatus, tr);
+                blkRef.UpgradeOpen();
+                blkRef.Layer = lay.Layername;
+                return blkRef;
+            }
+            else
+                throw new RivieraException(String.Format(ERR_LOADING_BLOCK, this.BlockName));
         }
     }
 }

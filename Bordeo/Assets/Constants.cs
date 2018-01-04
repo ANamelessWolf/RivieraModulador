@@ -27,6 +27,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Assets
         public const String BLOCK_DIR_RGT = "RGT";
         /// <summary>
         /// Define el prefijo de instancia de un bloque en L
+        /// con dirección
         /// </summary>
         public const String PREFIX_BLOCK_INST = "SPACE_{0}{1}";
         /// <summary>

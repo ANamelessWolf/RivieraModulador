@@ -71,7 +71,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
         /// <param name="end">The end.</param>
         /// <param name="measure">The measure.</param>
         public BordeoPanel(Point3d start, Point3d end, PanelMeasure measure) :
-            base(GetRivieraCode(CODE_PANEL_RECTO), measure, start)
+            base(BordeoUtils.GetRivieraCode(CODE_PANEL_RECTO), measure, start)
         {
             this.Direction = start.ToPoint2d().GetVectorTo(end.ToPoint2d());
             this.Regen();

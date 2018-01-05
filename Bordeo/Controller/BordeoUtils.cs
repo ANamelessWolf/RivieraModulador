@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static DaSoft.Riviera.Modulador.Core.Assets.CONST;
 using static DaSoft.Riviera.Modulador.Bordeo.Assets.Constants;
 using static DaSoft.Riviera.Modulador.Bordeo.Assets.Strings;
 using Nameless.Libraries.Yggdrasil.Lilith;
@@ -54,7 +55,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Controller
         /// </summary>
         /// <param name="code">The riviera code</param>
         /// <returns>The bordeo database</returns>
-        public static RivieraCode GetRivieraCode(String code)
+        public static RivieraCode GetRivieraCode(this String code)
         {
             try
             {
@@ -82,5 +83,45 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Controller
             Double distance = size.Frente.Real;
             return start.ToPoint2dByPolar(distance, angle);
         }
+        /// <summary>
+        /// Gets the heights.
+        /// </summary>
+        /// <param name="panelHeight">Height of the panel.</param>
+        /// <param name="panelHeight27">The panel height27.</param>
+        /// <param name="panelHeight15">The panel height15.</param>
+        /// <returns>The Riviera Height sizes</returns>
+        public static RivieraSize[] GetHeights(this BordeoPanelHeight panelHeight, RivieraSize panelHeight27, RivieraSize panelHeight15)
+        {
+            RivieraSize[] heights;
+            switch (panelHeight)
+            {
+                case BordeoPanelHeight.NormalMini:
+                    heights = new RivieraSize[] { panelHeight27, panelHeight15 };
+                    break;
+                case BordeoPanelHeight.NormalMiniNormal:
+                    heights = new RivieraSize[] { panelHeight27, panelHeight15, panelHeight27 };
+                    break;
+                case BordeoPanelHeight.NormalThreeMini:
+                    heights = new RivieraSize[] { panelHeight27, panelHeight15, panelHeight15, panelHeight15 };
+                    break;
+                case BordeoPanelHeight.NormalTwoMinis:
+                    heights = new RivieraSize[] { panelHeight27, panelHeight15, panelHeight15 };
+                    break;
+                case BordeoPanelHeight.ThreeNormals:
+                    heights = new RivieraSize[] { panelHeight27, panelHeight27, panelHeight27 };
+                    break;
+                case BordeoPanelHeight.TwoNormalOneMini:
+                    heights = new RivieraSize[] { panelHeight27, panelHeight27, panelHeight15 };
+                    break;
+                case BordeoPanelHeight.TwoNormals:
+                    heights = new RivieraSize[] { panelHeight27, panelHeight27 };
+                    break;
+                default:
+                    heights = new RivieraSize[0];
+                    break;
+            }
+            return heights;
+        }
+
     }
 }

@@ -15,7 +15,7 @@ using DaSoft.Riviera.Modulador.Enfasis.UI;
 using DaSoft.Riviera.Modulador.Bordeo.UI;
 using Nameless.Libraries.HoukagoTeaTime.Yui;
 
-namespace DaSoft.Riviera.Modulador
+namespace DaSoft.Riviera.Modulador.Commands
 {
     /// <summary>
     /// Defines the application commands
@@ -74,21 +74,26 @@ namespace DaSoft.Riviera.Modulador
         {
             get
             {
-                if (App.Riviera.DeveloperMode)
-                    return new UserControl[]
+                if (App.Riviera.DeveloperMode && _Controls == null)
+                    _Controls = new UserControl[]
                 {
                     new TabBordeoMenu(),
                     new TabEnfasisMenu(),
                     new TabDevMenu()
                 };
-                else
-                    return new UserControl[]
+                else if (_Controls == null)
+                    _Controls = new UserControl[]
                 {
                     new TabBordeoMenu(),
                     new TabEnfasisMenu()
                 };
+                return _Controls;
             }
         }
+        /// <summary>
+        /// The controls
+        /// </summary>
+        private UserControl[] _Controls;
         /// <summary>
         /// Initializes the delta application.
         /// </summary>

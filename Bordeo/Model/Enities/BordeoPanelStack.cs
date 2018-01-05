@@ -51,7 +51,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
         /// <param name="end">The end point.</param>
         /// <param name="measure">The panel measure.</param>
         public BordeoPanelStack(Point3d start, Point3d end, PanelMeasure measure) :
-            base(GetRivieraCode(CODE_PANEL_STACK), measure, start)
+            base(BordeoUtils.GetRivieraCode(CODE_PANEL_STACK), measure, start)
         {
             this.Panels = new List<BordeoPanel>();
             var first = new BordeoPanel(start, end, measure);

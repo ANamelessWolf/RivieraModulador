@@ -19,18 +19,23 @@
                 <Grid Background="#FFD9EDF3">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
                         <RowDefinition Height="120"/>
                         <RowDefinition Height="52"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1.4*"/>
                         <ColumnDefinition Width="2*"/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock x:Name="txtFronts" Text="Frente"  Style="{StaticResource MenuStyle_Header}" HorizontalAlignment="Right"/>
-                    <TextBlock x:Name="txtHeight" Text="Altura" Grid.Row="1"  Style="{StaticResource MenuStyle_Header}" HorizontalAlignment="Right"/>
-                    <ComboBox x:Name="cboFronts" Grid.Column="1" Style="{StaticResource MenuStyle_List}"/>
-                    <local:CtrlBordeoHeights x:Name="listHeights" Grid.Column="1" Grid.Row="1"/>
-                    <Viewbox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Right">
+                    <TextBlock x:Name="txtStartFront" Text="Frente inicial"  Style="{StaticResource MenuStyle_Header}" HorizontalAlignment="Right" Margin="0,0,5,0"/>
+                    <ComboBox x:Name="cboStartFronts" Grid.Column="1" Style="{StaticResource MenuStyle_List}"/>
+                    <TextBlock x:Name="txtEndFront" Grid.Row="1" Text="Frente final"  Style="{StaticResource MenuStyle_Header}" HorizontalAlignment="Right" Margin="0,0,5,0"/>
+                    <ComboBox x:Name="cboEndFronts" Grid.Row="1" Grid.Column="1" Style="{StaticResource MenuStyle_List}"/>
+                    
+                    <TextBlock x:Name="txtHeight" Text="Altura" Grid.Row="2"  Style="{StaticResource MenuStyle_Header}" HorizontalAlignment="Right"/>
+                    
+                    <local:CtrlBordeoHeights x:Name="listHeights" Grid.Column="1" Grid.Row="2"/>
+                    <Viewbox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Right">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
                             <Button x:Name="btnInsertModule" Style="{StaticResource MenuStyle_RoundButton}" Content="M" FontWeight="Light" 
                                     Click="btnInsertModule_Click">

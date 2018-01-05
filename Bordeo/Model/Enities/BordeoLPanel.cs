@@ -18,6 +18,7 @@ using DaSoft.Riviera.Modulador.Core.Controller;
 using Nameless.Libraries.HoukagoTeaTime.Mio.Model;
 using Nameless.Libraries.HoukagoTeaTime.Mio.Utils;
 using System.Windows.Media;
+using Autodesk.AutoCAD.ApplicationServices;
 
 namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
 {
@@ -33,7 +34,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
         /// <value>
         /// The block manager.
         /// </value>
-        public RivieraBlock Block => new RivieraBlock(this.BlockName, BlockDirectoryPath);
+        public RivieraBlock Block => new RivieraLBlock(this.BlockName, BlockDirectoryPath);
         /// <summary>
         /// Gets the name of the block.
         /// </summary>
@@ -42,16 +43,8 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
             get
             {
                 double f1, f2;
-                if (this.PanelSize.FrenteEnd.Nominal > this.PanelSize.FrenteStart.Nominal)
-                {
-                    f1 = this.PanelSize.FrenteEnd.Nominal;
-                    f2 = this.PanelSize.FrenteStart.Nominal;
-                }
-                else
-                {
-                    f1 = this.PanelSize.FrenteStart.Nominal;
-                    f2 = this.PanelSize.FrenteEnd.Nominal;
-                }
+                f1 = this.PanelSize.FrenteStart.Nominal;
+                f2 = this.PanelSize.FrenteEnd.Nominal;
                 return String.Format("{0}{1}{2}{3}T", this.Code.Block, f1, f2, this.PanelSize.Alto.Nominal);
             }
         }
@@ -113,18 +106,66 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
         /// <param name="size">The panel size.</param>
         /// <param name="code">The panel code.</param>
         public BordeoLPanel(SweepDirection rotation, Point3d start, Point3d end, LPanelMeasure size, String code)
-            : base(GetRivieraCode(code), size, start)
+            : base(BordeoUtils.GetRivieraCode(code), size, start)
         {
             this.Rotation = rotation;
             this.Direction = start.ToPoint2d().GetVectorTo(end.ToPoint2d());
             this.Rotation = rotation;
             this.Regen();
         }
+        /// <summary>
+        /// Draws this instance
+        /// </summary>
+        /// <param name="tr">The active transaction.</param>
         public override void Draw(Transaction tr)
         {
-            throw new NotImplementedException();
+            Boolean is2DBlock = !App.Riviera.Is3DEnabled;
+            ObjectId first = this.Ids.OfType<ObjectId>().FirstOrDefault();
+            RivieraLBlock block = this.Block as RivieraLBlock;
+            var doc = Application.DocumentManager.MdiActiveDocument;
+            BlockReference blkRef;
+            LBlockType blockType = this.GetBlockType();
+            //Si ya se dibujo, el elemento tiene un id válido, solo se debe actualizar
+            //el contenido.
+            if (first.IsValid)
+            {
+                block.SetContent(blockType, is2DBlock, doc, tr);
+                blkRef = first.GetObject(OpenMode.ForWrite) as BlockReference;
+            }
+            else
+                blkRef = block.Insert(doc, tr, blockType, this.Start.ToPoint3d(), this.Direction.Angle);
         }
-
+        /// <summary>
+        /// Gets the type of the block to insert.
+        /// </summary>
+        /// <returns>The block to insert</returns>
+        private LBlockType GetBlockType()
+        {
+            LPanelMeasure size = this.PanelSize;
+            LBlockType blockType = LBlockType.NONE;
+            if (this.Rotation == SweepDirection.Clockwise)
+            {
+                if (size.FrenteStart == size.FrenteEnd)
+                    blockType = LBlockType.RIGHT_SAME_SIZE;
+                else if (size.FrenteStart > size.FrenteEnd)
+                    blockType = LBlockType.RIGHT_START_MAX_SIZE;
+                else
+                    blockType = LBlockType.RIGHT_START_MIN_SIZE;
+            }
+            else
+            {
+                if (size.FrenteStart == size.FrenteEnd)
+                    blockType = LBlockType.LEFT_SAME_SIZE;
+                else if (size.FrenteStart > size.FrenteEnd)
+                    blockType = LBlockType.LEFT_START_MAX_SIZE;
+                else
+                    blockType = LBlockType.LEFT_START_MIN_SIZE;
+            }
+            return blockType;
+        }
+        /// <summary>
+        /// Regens this instance geometry <see cref="P:DaSoft.Riviera.Modulador.Core.Model.RivieraObject.CADGeometry" />.
+        /// </summary>
         public override void Regen()
         {
             if (this.CADGeometry == null)

@@ -141,6 +141,9 @@
     <Compile Include="UI\CtrlBordeoHeights.xaml.cs">
       <DependentUpon>CtrlBordeoHeights.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\TabBordeoDev.xaml.cs">
+      <DependentUpon>TabBordeoDev.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\TabBordeoMenu.xaml.cs">
       <DependentUpon>TabBordeoMenu.xaml</DependentUpon>
     </Compile>
@@ -173,6 +176,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\CtrlBordeoHeights.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\TabBordeoDev.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

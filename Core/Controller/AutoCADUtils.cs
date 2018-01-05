@@ -37,7 +37,7 @@ namespace DaSoft.Riviera.Modulador.Core.Controller
         public static BlockTableRecord GetModelSpace(this Transaction tr, OpenMode openMode = OpenMode.ForWrite)
         {
             Document doc = Application.DocumentManager.MdiActiveDocument;
-            BlockTable blockTable =(BlockTable) doc.Database.BlockTableId.GetObject(OpenMode.ForRead);
+            BlockTable blockTable = (BlockTable)doc.Database.BlockTableId.GetObject(OpenMode.ForRead);
             return (BlockTableRecord)blockTable[BlockTableRecord.ModelSpace].GetObject(openMode);
         }
 
@@ -66,7 +66,7 @@ namespace DaSoft.Riviera.Modulador.Core.Controller
                     blkTab.Add(newRecord);
                     tr.AddNewlyCreatedDBObject(newRecord, true);
                     //3: Se abre la base de datos externa
-                    Database externalDB = new Database();
+                    Database externalDB = new Database(false, false);
                     externalDB.ReadDwgFile(filePath, FileShare.Read, true, null);
                     //4: Con una subtransacción se clonán los elementos que esten contenidos en el espcio de modelo de la
                     //base de datos externa

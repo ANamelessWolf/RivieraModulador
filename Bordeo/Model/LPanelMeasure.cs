@@ -36,5 +36,13 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model
         {
 
         }
+        /// <summary>
+        /// Inverts the front.
+        /// </summary>
+        /// <returns>A size with the inverted fronts</returns>
+        public LPanelMeasure InvertFront()
+        {
+            return new LPanelMeasure(this.FrenteEnd, this.FrenteStart, this.Alto);
+        }
     }
 }

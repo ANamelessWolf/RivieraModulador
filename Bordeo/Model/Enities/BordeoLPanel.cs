@@ -157,9 +157,9 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
                 if (size.FrenteStart == size.FrenteEnd)
                     blockType = LBlockType.LEFT_SAME_SIZE;
                 else if (size.FrenteStart > size.FrenteEnd)
-                    blockType = LBlockType.LEFT_START_MAX_SIZE;
+                    blockType = LBlockType. LEFT_START_MAX_SIZE;
                 else
-                    blockType = LBlockType.LEFT_START_MIN_SIZE;
+                    blockType = LBlockType. LEFT_START_MIN_SIZE;
             }
             return blockType;
         }

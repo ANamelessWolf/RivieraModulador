@@ -66,8 +66,8 @@ namespace DaSoft.Riviera.Modulador.Core.Controller
                     blkTab.Add(newRecord);
                     tr.AddNewlyCreatedDBObject(newRecord, true);
                     //3: Se abre la base de datos externa
-                    Database externalDB = new Database(false, false);
-                    externalDB.ReadDwgFile(filePath, FileShare.Read, true, null);
+                    Database externalDB = new Database(false, true);
+                    externalDB.ReadDwgFile(filePath, FileShare.Read, true, "");
                     //4: Con una subtransacción se clonán los elementos que esten contenidos en el espcio de modelo de la
                     //base de datos externa
                     ObjectIdCollection ids;

@@ -36,6 +36,10 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model
         /// </summary>
         public readonly int MaxSize;
         /// <summary>
+        /// The Riviera block max size
+        /// </summary>
+        public readonly int Height;
+        /// <summary>
         /// The variant block name
         /// </summary>
         public String VariantBlockName;
@@ -51,7 +55,8 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model
             this.Code = blockName.Substring(0, 6);
             this.MinSize = int.Parse(blockName.Substring(6, 2));
             this.MaxSize = int.Parse(blockName.Substring(8, 2));
-            this.VariantBlockName = String.Format("{0}{1}{2}T", this.Code, this.MaxSize, this.MinSize);
+            this.Height = int.Parse(blockName.Substring(10, 2));
+            this.VariantBlockName = String.Format("{0}{1}{2}{3}T", this.Code, this.MaxSize, this.MinSize, this.Height);
         }
         /// <summary>
         /// Gets the block file path.
@@ -88,18 +93,18 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model
                 block3d = new AutoCADBlock(String.Format(Block3DName, BlockName), this.GetBlockFilePath(false), tr);
                 if (this.MinSize != this.MaxSize)
                 {
-                    varBlock2d = new AutoCADBlock(String.Format(Block2DName, this.VariantBlockName), this.GetBlockFilePath(this.VariantBlockName), tr);
-                    varBlock3d = new AutoCADBlock(String.Format(Block3DName, this.VariantBlockName), this.GetBlockFilePath(this.VariantBlockName, false), tr);
+                    varBlock2d = new AutoCADBlock(String.Format(SUFFIX_BLOCK2D, this.VariantBlockName), this.GetBlockFilePath(this.VariantBlockName), tr);
+                    varBlock3d = new AutoCADBlock(String.Format(SUFFIX_BLOCK3D, this.VariantBlockName), this.GetBlockFilePath(this.VariantBlockName, false), tr);
                     //Registros 2D
                     blocks2D.Add(LBlockType.LEFT_START_MIN_SIZE, new AutoCADBlock(String.Format(PREFIX_BLOCK_CONT, this.BlockName, "2D", BLOCK_DIR_LFT), tr));
-                    blocks2D.Add(LBlockType.LEFT_START_MIN_SIZE, new AutoCADBlock(String.Format(PREFIX_BLOCK_CONT, this.BlockName, "2D", BLOCK_DIR_RGT), tr));
-                    blocks2D.Add(LBlockType.LEFT_START_MIN_SIZE, new AutoCADBlock(String.Format(PREFIX_BLOCK_VAR_CONT, this.VariantBlockName, "2D", BLOCK_DIR_LFT), tr));
-                    blocks2D.Add(LBlockType.LEFT_START_MIN_SIZE, new AutoCADBlock(String.Format(PREFIX_BLOCK_VAR_CONT, this.VariantBlockName, "2D", BLOCK_DIR_RGT), tr));
+                    blocks2D.Add(LBlockType.RIGHT_START_MIN_SIZE, new AutoCADBlock(String.Format(PREFIX_BLOCK_CONT, this.BlockName, "2D", BLOCK_DIR_RGT), tr));
+                    blocks2D.Add(LBlockType.LEFT_START_MAX_SIZE, new AutoCADBlock(String.Format(PREFIX_BLOCK_VAR_CONT, this.VariantBlockName, "2D", BLOCK_DIR_LFT), tr));
+                    blocks2D.Add(LBlockType.RIGHT_START_MAX_SIZE, new AutoCADBlock(String.Format(PREFIX_BLOCK_VAR_CONT, this.VariantBlockName, "2D", BLOCK_DIR_RGT), tr));
                     //Registros 3D
                     blocks3D.Add(LBlockType.LEFT_START_MIN_SIZE, new AutoCADBlock(String.Format(PREFIX_BLOCK_CONT, this.BlockName, "3D", BLOCK_DIR_LFT), tr));
-                    blocks3D.Add(LBlockType.LEFT_START_MIN_SIZE, new AutoCADBlock(String.Format(PREFIX_BLOCK_CONT, this.BlockName, "3D", BLOCK_DIR_RGT), tr));
-                    blocks3D.Add(LBlockType.LEFT_START_MIN_SIZE, new AutoCADBlock(String.Format(PREFIX_BLOCK_VAR_CONT, this.VariantBlockName, "3D", BLOCK_DIR_LFT), tr));
-                    blocks3D.Add(LBlockType.LEFT_START_MIN_SIZE, new AutoCADBlock(String.Format(PREFIX_BLOCK_VAR_CONT, this.VariantBlockName, "3D", BLOCK_DIR_RGT), tr));
+                    blocks3D.Add(LBlockType.RIGHT_START_MIN_SIZE, new AutoCADBlock(String.Format(PREFIX_BLOCK_CONT, this.BlockName, "3D", BLOCK_DIR_RGT), tr));
+                    blocks3D.Add(LBlockType.LEFT_START_MAX_SIZE, new AutoCADBlock(String.Format(PREFIX_BLOCK_VAR_CONT, this.VariantBlockName, "3D", BLOCK_DIR_LFT), tr));
+                    blocks3D.Add(LBlockType.RIGHT_START_MAX_SIZE, new AutoCADBlock(String.Format(PREFIX_BLOCK_VAR_CONT, this.VariantBlockName, "3D", BLOCK_DIR_RGT), tr));
                     this.InitContent(tr, blocks2D, blocks3D, block2d, block3d, varBlock2d, varBlock3d);
                 }
                 else
@@ -143,12 +148,12 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model
                 this.DrawIn(tr, blocks2D[LBlockType.RIGHT_START_MIN_SIZE], block2d.CreateReference(new Point3d(), 0));
                 this.DrawIn(tr, blocks2D[LBlockType.RIGHT_START_MAX_SIZE], varBlock2d.CreateReference(new Point3d(), 0));
                 this.DrawIn(tr, blocks2D[LBlockType.LEFT_START_MIN_SIZE], this.CreateLeftReference(this.VariantBlockName, varBlock2d));
-                this.DrawIn(tr, blocks2D[LBlockType.LEFT_START_MAX_SIZE], this.CreateLeftReference(this.BlockName, block2d));
+                this.DrawIn(tr, blocks2D[LBlockType.LEFT_START_MAX_SIZE], this.CreateLeftReference(this.VariantBlockName, varBlock2d));
                 //Bloques 3D
                 this.DrawIn(tr, blocks3D[LBlockType.RIGHT_START_MIN_SIZE], block3d.CreateReference(new Point3d(), 0), true);
                 this.DrawIn(tr, blocks3D[LBlockType.RIGHT_START_MAX_SIZE], varBlock3d.CreateReference(new Point3d(), 0), true);
-                this.DrawIn(tr, blocks3D[LBlockType.LEFT_START_MIN_SIZE], this.CreateLeftReference(this.VariantBlockName, varBlock3d), true);
-                this.DrawIn(tr, blocks3D[LBlockType.LEFT_START_MAX_SIZE], this.CreateLeftReference(this.BlockName, block3d), true);
+                this.DrawIn(tr, blocks3D[LBlockType.LEFT_START_MIN_SIZE], this.CreateLeftReference(this.BlockName, varBlock3d), true);
+                this.DrawIn(tr, blocks3D[LBlockType.LEFT_START_MAX_SIZE], this.CreateLeftReference(this.VariantBlockName, varBlock3d), true);
             }
             else
             {
@@ -169,6 +174,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model
         /// <param name="is3dBlock">if set to <c>true</c> [is a 3d block].</param>
         private void DrawIn(Transaction tr, AutoCADBlock blockRecord, BlockReference blkRef, Boolean is3dBlock = false)
         {
+            blockRecord.Open(tr, OpenMode.ForWrite);
             if (blockRecord.Block.OfType<ObjectId>().Count() == 0)
             {
                 if (is3dBlock)
@@ -187,8 +193,9 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model
         {
             String code = blockName.Substring(0, 6);
             int frente1 = int.Parse(blockName.Substring(6, 2)),
-                frente2 = int.Parse(blockName.Substring(6, 2)),
-                alto = int.Parse(blockName.Substring(8, 2));
+                frente2 = int.Parse(blockName.Substring(8, 2)),
+                alto = int.Parse(blockName.Substring(10, 2));
+
             KeyValuePair<String, double> Front1 = new KeyValuePair<String, double>(KEY_START_FRONT, frente1);
             KeyValuePair<String, double> Front2 = new KeyValuePair<String, double>(KEY_END_FRONT, frente2);
             KeyValuePair<String, double> Height = new KeyValuePair<String, double>(KEY_HEIGHT, alto);
@@ -199,13 +206,13 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model
             BlockReference blkRef = block.CreateReference(new Point3d(), 0);
             //Se rota 270°
             blkRef.TransformBy(Matrix3d.Rotation(3 * Math.PI / 2, Vector3d.ZAxis, new Point3d()));
-            Vector3d offset;
+            Vector3d offset= new Vector3d(0,0,0);
             //Offset BR2020
-            if (code == CODE_PANEL_90)
-                offset = new Vector3d(0.1002d, 0.1002d, 0);
-            //Offset BR2030
-            else
-                offset = new Vector3d(0.0709d, 0.0293d, 0);
+            //if (code == CODE_PANEL_90)
+            //    offset = new Vector3d(-0.1002d/2, -0.1002d/2, 0);
+            ////Offset BR2030
+            //else
+            //    offset = new Vector3d(-0.0709d/2, -0.0293d/2, 0);
             //Se traslada el punto final al punto inicial
             blkRef.TransformBy(Matrix3d.Displacement(new Vector3d(f2 + offset.X, f1 + offset.Y, 0)));
             return blkRef;
@@ -224,7 +231,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model
             BlockReference blkRef;
             if (LoadBlocks(doc, tr, out blocks2d, out blocks3d))
             {
-                instance = new AutoCADBlock(this.GetInstanceName(block), this.GetBlockFilePath(this.VariantBlockName), tr);
+                instance = new AutoCADBlock(this.GetInstanceName(block), tr);
                 instance.Clear(tr);
                 if (is2DBlock)
                     blkRef = blocks2d[block].CreateReference(new Point3d(), 0, 1);
@@ -241,8 +248,28 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model
         /// <returns>The Instance name</returns>
         public string GetInstanceName(LBlockType blockDirection)
         {
-            String code = new LBlockType[] { LBlockType.LEFT_START_MAX_SIZE, LBlockType.RIGHT_START_MAX_SIZE }.Contains(blockDirection) ? this.VariantBlockName : this.BlockName,
-             dir = new LBlockType[] { LBlockType.RIGHT_SAME_SIZE, LBlockType.RIGHT_START_MAX_SIZE, LBlockType.RIGHT_START_MIN_SIZE }.Contains(blockDirection) ? BLOCK_DIR_RGT : BLOCK_DIR_LFT;
+            string code = this.BlockName.Substring(0, 6);
+            int frente1 = int.Parse(this.BlockName.Substring(6, 2)),
+                frente2 = int.Parse(this.BlockName.Substring(8, 2)),
+                alto = int.Parse(this.BlockName.Substring(10, 2));
+
+            if (blockDirection == LBlockType.LEFT_START_MAX_SIZE || blockDirection == LBlockType.RIGHT_START_MAX_SIZE)
+            {
+                int max = frente1 > frente2 ? frente1 : frente2,
+                    min = frente1 < frente2 ? frente1 : frente2;
+                frente1 = max;
+                frente2 = min;
+            }
+            else
+            {
+                int max = frente1 > frente2 ? frente1 : frente2,
+                    min = frente1 < frente2 ? frente1 : frente2;
+                frente1 = min;
+                frente2 = max;
+            }
+
+            code = String.Format("{0}{1}{2}{3}T", code, frente1, frente2, alto);
+            string dir = new LBlockType[] { LBlockType.RIGHT_SAME_SIZE, LBlockType.RIGHT_START_MAX_SIZE, LBlockType.RIGHT_START_MIN_SIZE }.Contains(blockDirection) ? BLOCK_DIR_RGT : BLOCK_DIR_LFT;
             return String.Format(PREFIX_BLOCK_INST, code, dir);
         }
 
@@ -261,15 +288,17 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model
         public BlockReference Insert(Document doc, Transaction tr, LBlockType blockDir, Point3d insPt, double angle = 0, double scale = 1)
         {
             BlockTable blockTable = doc.Database.BlockTableId.GetObject(OpenMode.ForRead) as BlockTable;
-            Dictionary<LBlockType, AutoCADBlock> blocks2d, blocks3d;
             AutoCADBlock instance;
             Boolean is2DBlock = !App.Riviera.Is3DEnabled;
             String instanceName = this.GetInstanceName(blockDir);
-            this.LoadBlocks(doc, tr, out blocks2d, out blocks3d);
             if (!blockTable.Has(instanceName))
                 instance = this.SetContent(blockDir, is2DBlock, doc, tr);
             else
+            {
+                Dictionary<LBlockType, AutoCADBlock> blocks2d, blocks3d;
+                this.LoadBlocks(doc, tr, out blocks2d, out blocks3d);
                 instance = new AutoCADBlock(instanceName, tr);
+            }
             //Se realizá la inserción de la instancia
             if (instance != null)
             {

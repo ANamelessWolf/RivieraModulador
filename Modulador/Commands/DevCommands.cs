@@ -22,6 +22,9 @@ using static DaSoft.Riviera.Modulador.Core.Assets.CONST;
 using static DaSoft.Riviera.Modulador.Bordeo.Assets.Codes;
 using DaSoft.Riviera.Modulador.Bordeo.Controller;
 using Autodesk.AutoCAD.EditorInput;
+using Nameless.Libraries.HoukagoTeaTime.Mio.Entities;
+using DaSoft.Riviera.Modulador.Core.Controller;
+using System.IO;
 
 namespace DaSoft.Riviera.Modulador.Commands
 {
@@ -82,18 +85,41 @@ namespace DaSoft.Riviera.Modulador.Commands
                     if (Picker.Point("Selecciona el punto inicial", out start))
                     {
                         end = start + new Vector3d(10, 0, 0);
-                        if (i == 0)
-                            panel = new BordeoL90Panel(SweepDirection.Clockwise, start, end, size);
-                        else if (i == 1)
+                        //  if (i == 0)
+                        //    panel = new BordeoL90Panel(SweepDirection.Clockwise, start, end, size);
+                        if (i == 1)
                             panel = new BordeoL90Panel(SweepDirection.Counterclockwise, start, end, size);
-                        else if (i == 2)
-                            panel = new BordeoL90Panel(SweepDirection.Clockwise, start, end, size.InvertFront());
-                        else
+                        //else if (i == 2)
+                        //  panel = new BordeoL90Panel(SweepDirection.Clockwise, start, end, size.InvertFront());
+                        else if (i == 3)
                             panel = new BordeoL90Panel(SweepDirection.Counterclockwise, start, end, size.InvertFront());
-                        panel.Draw(tr);
+                        else
+                            panel = null;
+                        if (panel != null)
+                            panel.Draw(tr);
                         ed.Regen();
                     }
                 }).Run();
         }
+        int index = 0;
+        [CommandMethod("TestBlockLoad")]
+        public void TestBlockLoad()
+        {
+            new QuickTransactionWrapper((Document doc, Transaction tr) =>
+            {
+                try
+                {
+                    string blockPath = @"D:\DaSoft\Proyectos\RivModulador\Modulador\Bordeo\2D\BR2020181815T.dwg";
+                    AutoCADUtils._LoadBlock(String.Format("test{0}", index++), blockPath, tr);
+                }
+                catch (System.Exception exc)
+                {
+                    Editor ed = Application.DocumentManager.MdiActiveDocument.Editor;
+                    ed.WriteMessage(exc.Message);
+                }
+
+            }).Run();
+        }
+
     }
 }

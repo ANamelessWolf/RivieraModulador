@@ -42,7 +42,9 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model
         /// <returns>A size with the inverted fronts</returns>
         public LPanelMeasure InvertFront()
         {
-            return new LPanelMeasure(this.FrenteEnd, this.FrenteStart, this.Alto);
+            RivieraSize s0 = new RivieraSize() { Measure = this.FrenteStart.Measure, Nominal = this.FrenteEnd.Nominal, Real = this.FrenteEnd.Real },
+                        s1 = new RivieraSize() { Measure = this.FrenteEnd.Measure, Nominal = this.FrenteStart.Nominal, Real = this.FrenteStart.Real };
+            return new LPanelMeasure(s0, s1, this.Alto);
         }
     }
 }

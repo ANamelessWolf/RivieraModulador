@@ -18,7 +18,7 @@ using Nameless.Libraries.HoukagoTeaTime.Ritsu.Utils;
 
 namespace DaSoft.Riviera.Modulador.Bordeo.Controller
 {
-    public static class BordeoUtils
+    public  static partial class BordeoUtils
     {
         /// <summary>
         /// Gets the block directory path.

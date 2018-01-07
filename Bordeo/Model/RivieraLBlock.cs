@@ -105,7 +105,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model
                     blocks3D.Add(LBlockType.RIGHT_START_MIN_SIZE, new AutoCADBlock(String.Format(PREFIX_BLOCK_CONT, this.BlockName, "3D", BLOCK_DIR_RGT), tr));
                     blocks3D.Add(LBlockType.LEFT_START_MAX_SIZE, new AutoCADBlock(String.Format(PREFIX_BLOCK_VAR_CONT, this.VariantBlockName, "3D", BLOCK_DIR_LFT), tr));
                     blocks3D.Add(LBlockType.RIGHT_START_MAX_SIZE, new AutoCADBlock(String.Format(PREFIX_BLOCK_VAR_CONT, this.VariantBlockName, "3D", BLOCK_DIR_RGT), tr));
-                    this.InitContent(tr, blocks2D, blocks3D, block2d, block3d, varBlock2d, varBlock3d);
+                   // this.InitContent(tr, blocks2D, blocks3D, block2d, block3d, varBlock2d, varBlock3d);
                 }
                 else
                 {
@@ -117,7 +117,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model
                     //Registros 3D
                     blocks3D.Add(LBlockType.LEFT_SAME_SIZE, new AutoCADBlock(String.Format(PREFIX_BLOCK_CONT, this.BlockName, "3D", BLOCK_DIR_LFT), tr));
                     blocks3D.Add(LBlockType.RIGHT_SAME_SIZE, new AutoCADBlock(String.Format(PREFIX_BLOCK_CONT, this.BlockName, "3D", BLOCK_DIR_RGT), tr));
-                    this.InitContent(tr, blocks2D, blocks3D, block2d, block3d);
+                   // this.InitContent(tr, blocks2D, blocks3D, block2d, block3d);
                 }
             }
             catch (Exception exc)

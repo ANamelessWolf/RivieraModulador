@@ -98,6 +98,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Strings.resx</DependentUpon>
     </Compile>
+    <Compile Include="Controller\BordeoSizeUtils.cs" />
     <Compile Include="Controller\BordeoUtils.cs" />
     <Compile Include="Controller\PanelSower.cs" />
     <Compile Include="Model\BordeoDatabaseResult.cs" />

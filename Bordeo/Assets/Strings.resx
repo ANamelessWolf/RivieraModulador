@@ -129,4 +129,8 @@
     <value>Error al crear el bloque de bordeo "{0}"</value>
     <comment>Riviera Block</comment>
   </data>
+  <data name="ERR_UNKNOWN_DRAWING_SIZE" xml:space="preserve">
+    <value>El valor nominal proporcionado "{0}", no es un tamaño de dibujo válido.</value>
+    <comment>Bordeo Size Utils</comment>
+  </data>
 </root>

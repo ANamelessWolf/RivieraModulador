@@ -19,6 +19,8 @@ using static DaSoft.Riviera.Modulador.Core.Assets.CONST;
 using static DaSoft.Riviera.Modulador.Bordeo.Assets.Strings;
 using static DaSoft.Riviera.Modulador.Bordeo.Assets.Constants;
 using static DaSoft.Riviera.Modulador.Bordeo.Assets.Codes;
+using DaSoft.Riviera.Modulador.Bordeo.Controller;
+
 namespace DaSoft.Riviera.Modulador.Bordeo.Model
 {
     public class RivieraLBlock : RivieraBlock
@@ -105,7 +107,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model
                     blocks3D.Add(LBlockType.RIGHT_START_MIN_SIZE, new AutoCADBlock(String.Format(PREFIX_BLOCK_CONT, this.BlockName, "3D", BLOCK_DIR_RGT), tr));
                     blocks3D.Add(LBlockType.LEFT_START_MAX_SIZE, new AutoCADBlock(String.Format(PREFIX_BLOCK_VAR_CONT, this.VariantBlockName, "3D", BLOCK_DIR_LFT), tr));
                     blocks3D.Add(LBlockType.RIGHT_START_MAX_SIZE, new AutoCADBlock(String.Format(PREFIX_BLOCK_VAR_CONT, this.VariantBlockName, "3D", BLOCK_DIR_RGT), tr));
-                   // this.InitContent(tr, blocks2D, blocks3D, block2d, block3d, varBlock2d, varBlock3d);
+                    this.InitContent(tr, blocks2D, blocks3D, block2d, block3d, varBlock2d, varBlock3d);
                 }
                 else
                 {
@@ -117,7 +119,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model
                     //Registros 3D
                     blocks3D.Add(LBlockType.LEFT_SAME_SIZE, new AutoCADBlock(String.Format(PREFIX_BLOCK_CONT, this.BlockName, "3D", BLOCK_DIR_LFT), tr));
                     blocks3D.Add(LBlockType.RIGHT_SAME_SIZE, new AutoCADBlock(String.Format(PREFIX_BLOCK_CONT, this.BlockName, "3D", BLOCK_DIR_RGT), tr));
-                   // this.InitContent(tr, blocks2D, blocks3D, block2d, block3d);
+                    this.InitContent(tr, blocks2D, blocks3D, block2d, block3d);
                 }
             }
             catch (Exception exc)
@@ -192,29 +194,31 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model
         private BlockReference CreateLeftReference(string blockName, AutoCADBlock block)
         {
             String code = blockName.Substring(0, 6);
-            int frente1 = int.Parse(blockName.Substring(6, 2)),
-                frente2 = int.Parse(blockName.Substring(8, 2)),
-                alto = int.Parse(blockName.Substring(10, 2));
-
-            KeyValuePair<String, double> Front1 = new KeyValuePair<String, double>(KEY_START_FRONT, frente1);
-            KeyValuePair<String, double> Front2 = new KeyValuePair<String, double>(KEY_END_FRONT, frente2);
-            KeyValuePair<String, double> Height = new KeyValuePair<String, double>(KEY_HEIGHT, alto);
-            LPanelMeasure size = App.Riviera.Database.GetSize(DesignLine.Bordeo, code,
-                new KeyValuePair<String, double>[] { Front1, Front2, Height }) as LPanelMeasure;
-            Double f1 = size.FrenteStart.Real,
-                   f2 = size.FrenteEnd.Real;
-            BlockReference blkRef = block.CreateReference(new Point3d(), 0);
+            double frente1 = int.Parse(blockName.Substring(6, 2)),
+                frente2 = int.Parse(blockName.Substring(8, 2));
+            Double f1, f2;
+            Vector3d offset = new Vector3d();
             //Se rota 270°
+            BlockReference blkRef = block.CreateReference(new Point3d(), 0);
             blkRef.TransformBy(Matrix3d.Rotation(3 * Math.PI / 2, Vector3d.ZAxis, new Point3d()));
-            Vector3d offset= new Vector3d(0,0,0);
             //Offset BR2020
-            //if (code == CODE_PANEL_90)
-            //    offset = new Vector3d(-0.1002d/2, -0.1002d/2, 0);
-            ////Offset BR2030
-            //else
-            //    offset = new Vector3d(-0.0709d/2, -0.0293d/2, 0);
-            //Se traslada el punto final al punto inicial
-            blkRef.TransformBy(Matrix3d.Displacement(new Vector3d(f2 + offset.X, f1 + offset.Y, 0)));
+            if (code == CODE_PANEL_90)
+            {
+                f1 = frente1.GetPanel90DrawingSize();
+                f2 = frente2.GetPanel90DrawingSize();
+                offset = new Vector3d(f2, f1, 0);
+                offset = new Vector3d(offset.X + 0.1002d, offset.Y + 0.1002d, 0);
+            }
+            //Offset BR2030
+            else
+            {
+                f1 = frente1.GetPanel135DrawingSize();
+                f2 = frente2.GetPanel135DrawingSize();
+                offset = new Vector3d(f2, f1, 0);
+                offset = new Vector3d(offset.X + 0.07085210d, offset.Y + 0.02934790d, 0);
+            }
+            //Se desplaza en el punto final al inicial del bloque
+            blkRef.TransformBy(Matrix3d.Displacement(new Vector3d(offset.X, offset.Y, 0)));
             return blkRef;
         }
         /// <summary>

@@ -73,7 +73,11 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model
                 files = new DirectoryInfo(pth).GetFiles();
             else
                 files = new FileInfo[0];
-            return files.FirstOrDefault(x => x.Name.ToUpper() == String.Format("{0}.DWG", blockName).ToUpper());
+            var file = files.FirstOrDefault(x => x.Name.ToUpper() == String.Format("{0}.DWG", blockName).ToUpper());
+            if (file != null)
+                return file;
+            else
+                throw new Exception(String.Format(ERR_BORDEO_FILE_MISSING, blockName, pth));
         }
         /// <summary>
         /// Loads the blocks.
@@ -89,45 +93,45 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model
             AutoCADBlock block2d, block3d, varBlock2d, varBlock3d;
             blocks2D = new Dictionary<LBlockType, AutoCADBlock>();
             blocks3D = new Dictionary<LBlockType, AutoCADBlock>();
+            string blockName = MinSize > MaxSize ? this.VariantBlockName : this.BlockName,
+                   varBlockName = MinSize > MaxSize ? this.BlockName : this.VariantBlockName;
             try
             {
-                block2d = new AutoCADBlock(String.Format(Block2DName, BlockName), this.GetBlockFilePath(), tr);
-                block3d = new AutoCADBlock(String.Format(Block3DName, BlockName), this.GetBlockFilePath(false), tr);
+                block2d = new AutoCADBlock(String.Format(Block2DName, blockName), this.GetBlockFilePath(blockName), tr);
+                block3d = new AutoCADBlock(String.Format(Block3DName, blockName), this.GetBlockFilePath(blockName, false), tr);
                 if (this.MinSize != this.MaxSize)
                 {
-                    varBlock2d = new AutoCADBlock(String.Format(SUFFIX_BLOCK2D, this.VariantBlockName), this.GetBlockFilePath(this.VariantBlockName), tr);
-                    varBlock3d = new AutoCADBlock(String.Format(SUFFIX_BLOCK3D, this.VariantBlockName), this.GetBlockFilePath(this.VariantBlockName, false), tr);
+                    varBlock2d = new AutoCADBlock(String.Format(SUFFIX_BLOCK2D, varBlockName), this.GetBlockFilePath(varBlockName), tr);
+                    varBlock3d = new AutoCADBlock(String.Format(SUFFIX_BLOCK3D, varBlockName), this.GetBlockFilePath(varBlockName, false), tr);
                     //Registros 2D
-                    blocks2D.Add(LBlockType.LEFT_START_MIN_SIZE, new AutoCADBlock(String.Format(PREFIX_BLOCK_CONT, this.BlockName, "2D", BLOCK_DIR_LFT), tr));
-                    blocks2D.Add(LBlockType.RIGHT_START_MIN_SIZE, new AutoCADBlock(String.Format(PREFIX_BLOCK_CONT, this.BlockName, "2D", BLOCK_DIR_RGT), tr));
-                    blocks2D.Add(LBlockType.LEFT_START_MAX_SIZE, new AutoCADBlock(String.Format(PREFIX_BLOCK_VAR_CONT, this.VariantBlockName, "2D", BLOCK_DIR_LFT), tr));
-                    blocks2D.Add(LBlockType.RIGHT_START_MAX_SIZE, new AutoCADBlock(String.Format(PREFIX_BLOCK_VAR_CONT, this.VariantBlockName, "2D", BLOCK_DIR_RGT), tr));
+                    blocks2D.Add(LBlockType.LEFT_START_MIN_SIZE, new AutoCADBlock(String.Format(PREFIX_BLOCK_CONT, blockName, "2D", BLOCK_DIR_LFT), tr));
+                    blocks2D.Add(LBlockType.RIGHT_START_MIN_SIZE, new AutoCADBlock(String.Format(PREFIX_BLOCK_CONT, blockName, "2D", BLOCK_DIR_RGT), tr));
+                    blocks2D.Add(LBlockType.LEFT_START_MAX_SIZE, new AutoCADBlock(String.Format(PREFIX_BLOCK_VAR_CONT, varBlockName, "2D", BLOCK_DIR_LFT), tr));
+                    blocks2D.Add(LBlockType.RIGHT_START_MAX_SIZE, new AutoCADBlock(String.Format(PREFIX_BLOCK_VAR_CONT, varBlockName, "2D", BLOCK_DIR_RGT), tr));
                     //Registros 3D
-                    blocks3D.Add(LBlockType.LEFT_START_MIN_SIZE, new AutoCADBlock(String.Format(PREFIX_BLOCK_CONT, this.BlockName, "3D", BLOCK_DIR_LFT), tr));
-                    blocks3D.Add(LBlockType.RIGHT_START_MIN_SIZE, new AutoCADBlock(String.Format(PREFIX_BLOCK_CONT, this.BlockName, "3D", BLOCK_DIR_RGT), tr));
-                    blocks3D.Add(LBlockType.LEFT_START_MAX_SIZE, new AutoCADBlock(String.Format(PREFIX_BLOCK_VAR_CONT, this.VariantBlockName, "3D", BLOCK_DIR_LFT), tr));
-                    blocks3D.Add(LBlockType.RIGHT_START_MAX_SIZE, new AutoCADBlock(String.Format(PREFIX_BLOCK_VAR_CONT, this.VariantBlockName, "3D", BLOCK_DIR_RGT), tr));
+                    blocks3D.Add(LBlockType.LEFT_START_MIN_SIZE, new AutoCADBlock(String.Format(PREFIX_BLOCK_CONT, blockName, "3D", BLOCK_DIR_LFT), tr));
+                    blocks3D.Add(LBlockType.RIGHT_START_MIN_SIZE, new AutoCADBlock(String.Format(PREFIX_BLOCK_CONT, blockName, "3D", BLOCK_DIR_RGT), tr));
+                    blocks3D.Add(LBlockType.LEFT_START_MAX_SIZE, new AutoCADBlock(String.Format(PREFIX_BLOCK_VAR_CONT, varBlockName, "3D", BLOCK_DIR_LFT), tr));
+                    blocks3D.Add(LBlockType.RIGHT_START_MAX_SIZE, new AutoCADBlock(String.Format(PREFIX_BLOCK_VAR_CONT, varBlockName, "3D", BLOCK_DIR_RGT), tr));
                     this.InitContent(tr, blocks2D, blocks3D, block2d, block3d, varBlock2d, varBlock3d);
                 }
                 else
                 {
-                    varBlock2d = new AutoCADBlock(String.Format(Block2DName, this.VariantBlockName), this.GetBlockFilePath(this.VariantBlockName), tr);
-                    varBlock3d = new AutoCADBlock(String.Format(Block3DName, this.VariantBlockName), this.GetBlockFilePath(this.VariantBlockName, false), tr);
                     //Registros 2D
-                    blocks2D.Add(LBlockType.LEFT_SAME_SIZE, new AutoCADBlock(String.Format(PREFIX_BLOCK_CONT, this.BlockName, "2D", BLOCK_DIR_LFT), tr));
-                    blocks2D.Add(LBlockType.RIGHT_SAME_SIZE, new AutoCADBlock(String.Format(PREFIX_BLOCK_CONT, this.BlockName, "2D", BLOCK_DIR_RGT), tr));
+                    blocks2D.Add(LBlockType.LEFT_SAME_SIZE, new AutoCADBlock(String.Format(PREFIX_BLOCK_CONT, blockName, "2D", BLOCK_DIR_LFT), tr));
+                    blocks2D.Add(LBlockType.RIGHT_SAME_SIZE, new AutoCADBlock(String.Format(PREFIX_BLOCK_CONT, blockName, "2D", BLOCK_DIR_RGT), tr));
                     //Registros 3D
-                    blocks3D.Add(LBlockType.LEFT_SAME_SIZE, new AutoCADBlock(String.Format(PREFIX_BLOCK_CONT, this.BlockName, "3D", BLOCK_DIR_LFT), tr));
-                    blocks3D.Add(LBlockType.RIGHT_SAME_SIZE, new AutoCADBlock(String.Format(PREFIX_BLOCK_CONT, this.BlockName, "3D", BLOCK_DIR_RGT), tr));
+                    blocks3D.Add(LBlockType.LEFT_SAME_SIZE, new AutoCADBlock(String.Format(PREFIX_BLOCK_CONT, blockName, "3D", BLOCK_DIR_LFT), tr));
+                    blocks3D.Add(LBlockType.RIGHT_SAME_SIZE, new AutoCADBlock(String.Format(PREFIX_BLOCK_CONT, blockName, "3D", BLOCK_DIR_RGT), tr));
                     this.InitContent(tr, blocks2D, blocks3D, block2d, block3d);
                 }
             }
             catch (Exception exc)
             {
-                string msg = String.Format(ERR_LOADING_BLOCK, this.BlockName);
+                string msg = String.Format(ERR_LOADING_BLOCK, blockName);
                 msg = NamelessUtils.FormatExceptionMessage(exc, msg);
                 App.Riviera.Log.AppendEntry(msg, Protocol.Error, "LoadBlocks", "RivieraLBlock");
-                throw exc.CreateNamelessException<RivieraException>(msg);
+                return false;
             }
             return true;
         }
@@ -149,22 +153,22 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model
                 //Bloques 2D
                 this.DrawIn(tr, blocks2D[LBlockType.RIGHT_START_MIN_SIZE], block2d.CreateReference(new Point3d(), 0));
                 this.DrawIn(tr, blocks2D[LBlockType.RIGHT_START_MAX_SIZE], varBlock2d.CreateReference(new Point3d(), 0));
-                this.DrawIn(tr, blocks2D[LBlockType.LEFT_START_MIN_SIZE], this.CreateLeftReference(this.VariantBlockName, varBlock2d));
-                this.DrawIn(tr, blocks2D[LBlockType.LEFT_START_MAX_SIZE], this.CreateLeftReference(this.VariantBlockName, varBlock2d));
+                this.DrawIn(tr, blocks2D[LBlockType.LEFT_START_MIN_SIZE], this.CreateLeftReference(variantBlockName, varBlock2d));
+                this.DrawIn(tr, blocks2D[LBlockType.LEFT_START_MAX_SIZE], this.CreateLeftReference(blockName, block2d));
                 //Bloques 3D
                 this.DrawIn(tr, blocks3D[LBlockType.RIGHT_START_MIN_SIZE], block3d.CreateReference(new Point3d(), 0), true);
                 this.DrawIn(tr, blocks3D[LBlockType.RIGHT_START_MAX_SIZE], varBlock3d.CreateReference(new Point3d(), 0), true);
-                this.DrawIn(tr, blocks3D[LBlockType.LEFT_START_MIN_SIZE], this.CreateLeftReference(this.BlockName, varBlock3d), true);
-                this.DrawIn(tr, blocks3D[LBlockType.LEFT_START_MAX_SIZE], this.CreateLeftReference(this.VariantBlockName, varBlock3d), true);
+                this.DrawIn(tr, blocks3D[LBlockType.LEFT_START_MIN_SIZE], this.CreateLeftReference(variantBlockName, varBlock3d), true);
+                this.DrawIn(tr, blocks3D[LBlockType.LEFT_START_MAX_SIZE], this.CreateLeftReference(blockName, block3d), true);
             }
             else
             {
                 //Bloques 2D
-                this.DrawIn(tr, blocks2D[LBlockType.RIGHT_SAME_SIZE], block3d.CreateReference(new Point3d(), 0));
-                this.DrawIn(tr, blocks2D[LBlockType.LEFT_SAME_SIZE], this.CreateLeftReference(this.VariantBlockName, block3d));
+                this.DrawIn(tr, blocks2D[LBlockType.RIGHT_SAME_SIZE], block2d.CreateReference(new Point3d(), 0));
+                this.DrawIn(tr, blocks2D[LBlockType.LEFT_SAME_SIZE], this.CreateLeftReference(blockName, block2d));
                 //Bloques 3D
                 this.DrawIn(tr, blocks3D[LBlockType.RIGHT_SAME_SIZE], block3d.CreateReference(new Point3d(), 0));
-                this.DrawIn(tr, blocks3D[LBlockType.LEFT_SAME_SIZE], this.CreateLeftReference(this.VariantBlockName, block3d));
+                this.DrawIn(tr, blocks3D[LBlockType.LEFT_SAME_SIZE], this.CreateLeftReference(blockName, block3d));
             }
         }
         /// <summary>

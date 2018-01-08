@@ -61,6 +61,15 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Assets {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No se encontró el bloque &quot;{0}&quot; de la línea bordeo, en el directorio {1}..
+        /// </summary>
+        internal static string ERR_BORDEO_FILE_MISSING {
+            get {
+                return ResourceManager.GetString("ERR_BORDEO_FILE_MISSING", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to El código {0} no se encontró en la base de datos..
         /// </summary>
         internal static string ERR_CODE_NOT_FOUND {

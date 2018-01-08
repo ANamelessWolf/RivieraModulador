@@ -96,7 +96,10 @@ namespace DaSoft.Riviera.Modulador.Commands
                         else
                             panel = null;
                         if (panel != null)
+                        {
                             panel.Draw(tr);
+                            panel.DrawGeometry(tr);
+                        }
                         ed.Regen();
                     }
                 }).Run();

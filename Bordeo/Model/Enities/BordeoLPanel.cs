@@ -29,6 +29,10 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
     public abstract class BordeoLPanel : RivieraObject, IBlockObject
     {
         /// <summary>
+        /// Defines the starting Bordeo Panel elevation
+        /// </summary>
+        public Double Elevation;
+        /// <summary>
         /// Gets or sets the block manager.
         /// </summary>
         /// <value>
@@ -48,10 +52,6 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
                 return String.Format("{0}{1}{2}{3}T", this.Code.Block, f1, f2, this.PanelSize.Alto.Nominal);
             }
         }
-        /// <summary>
-        /// Defines the starting Bordeo Panel elevation
-        /// </summary>
-        public Double Elevation;
         /// <summary>
         /// The panel sweep direction
         /// </summary>
@@ -136,6 +136,16 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
                 blkRef = block.Insert(doc, tr, blockType, this.Start.ToPoint3d(), this.Direction.Angle);
         }
         /// <summary>
+        /// Draws the geometry.
+        /// </summary>
+        /// <param name="tr">The transaction.</param>
+        public ObjectId DrawGeometry(Transaction tr)
+        {
+            BlockTableRecord currentSpace = Application.DocumentManager.MdiActiveDocument.Database.CurrentSpaceId.GetObject(OpenMode.ForWrite) as BlockTableRecord;
+            return this.CADGeometry.Draw(currentSpace, tr);
+        }
+
+        /// <summary>
         /// Gets the type of the block to insert.
         /// </summary>
         /// <returns>The block to insert</returns>
@@ -157,9 +167,9 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
                 if (size.FrenteStart == size.FrenteEnd)
                     blockType = LBlockType.LEFT_SAME_SIZE;
                 else if (size.FrenteStart > size.FrenteEnd)
-                    blockType = LBlockType. LEFT_START_MAX_SIZE;
+                    blockType = LBlockType.LEFT_START_MAX_SIZE;
                 else
-                    blockType = LBlockType. LEFT_START_MIN_SIZE;
+                    blockType = LBlockType.LEFT_START_MIN_SIZE;
             }
             return blockType;
         }
@@ -173,8 +183,8 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
             //Limpiamos la polilínea para comenzar a dibujarla
             while (this.PanelGeometry.NumberOfVertices > 0)
                 this.PanelGeometry.RemoveVertexAt(0);
-            Double f1 = this.PanelSize.FrenteStart.Real,
-                   f2 = this.PanelSize.FrenteEnd.Real,
+            Double f1 = this.LAngle == Math.PI / 2 ? this.PanelSize.FrenteStart.Nominal.GetPanel90DrawingSize() : this.PanelSize.FrenteStart.Nominal.GetPanel135DrawingSize(),
+                   f2 = this.LAngle == Math.PI / 2 ? this.PanelSize.FrenteEnd.Nominal.GetPanel90DrawingSize() : this.PanelSize.FrenteStart.Nominal.GetPanel135DrawingSize(),
                    dirAng = this.Direction.Angle,
                    rotAng = this.Direction.Angle + (this.Rotation == SweepDirection.Clockwise ? -1 * this.RotationAngle : this.RotationAngle),
                    panAng = this.Direction.Angle + (this.Rotation == SweepDirection.Clockwise ? -1 * this.LAngle : this.LAngle);
@@ -184,7 +194,10 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
             vertices.Add(vertices[0].ToPoint2dByPolar(f1, dirAng));
             vertices.Add(vertices[1].ToPoint2dByPolar(this.UnionLength, rotAng));
             vertices.Add(vertices[2].ToPoint2dByPolar(f2, panAng));
-            vertices.ForEach(x => this.PanelGeometry.AddVertexAt(vertices.IndexOf(x), x, 0, 0, 0));
+            Double bulge = this.LAngle == Math.PI / 2 ? 0.4142 : 0;
+            if (this.Rotation == SweepDirection.Clockwise)
+                bulge *= -1;
+            vertices.ForEach(x => this.PanelGeometry.AddVertexAt(vertices.IndexOf(x), x, vertices.IndexOf(x) == 1 ? bulge : 0, 0, 0));
         }
         /// <summary>
         /// Updates the block position.
@@ -203,8 +216,8 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
         /// </returns>
         protected override Point2d GetEndPoint()
         {
-            Double f1 = this.PanelSize.FrenteStart.Real,
-                  f2 = this.PanelSize.FrenteEnd.Real,
+            Double f1 = this.LAngle == Math.PI / 2 ? this.PanelSize.FrenteStart.Nominal.GetPanel90DrawingSize() : this.PanelSize.FrenteStart.Nominal.GetPanel135DrawingSize(),
+                   f2 = this.LAngle == Math.PI / 2 ? this.PanelSize.FrenteEnd.Nominal.GetPanel90DrawingSize() : this.PanelSize.FrenteStart.Nominal.GetPanel135DrawingSize(),
                   dirAng = this.Direction.Angle,
                   rotAng = this.Direction.Angle + (this.Rotation == SweepDirection.Clockwise ? -1 * this.RotationAngle : this.RotationAngle),
                   panAng = this.Direction.Angle + (this.Rotation == SweepDirection.Clockwise ? -1 * this.LAngle : this.LAngle);

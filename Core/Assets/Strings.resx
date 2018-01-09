@@ -397,7 +397,7 @@ Para seleccionar una mampara solo es necesario dar click en ella.</value>
     <value>La transacción ha terminado</value>
     <comment>Quantification</comment>
   </data>
-  <data name="SEL_ARROW_DIR" xml:space="preserve">
+  <data name="MSG_SEL_ARROW_DIR" xml:space="preserve">
     <value>Selecciona una dirección.</value>
     <comment>Mampara</comment>
   </data>
@@ -528,5 +528,9 @@ Detalles: {1}</value>
   <data name="ERR_SIZE_NOT_EXIST" xml:space="preserve">
     <value>Error el tamaño especificado no existe.</value>
     <comment>Riviera Database</comment>
+  </data>
+  <data name="ERR_MISS_ARROW" xml:space="preserve">
+    <value>No existe la flecha "{0}", en el directorio "{1}".</value>
+    <comment>GeometryUtils</comment>
   </data>
 </root>

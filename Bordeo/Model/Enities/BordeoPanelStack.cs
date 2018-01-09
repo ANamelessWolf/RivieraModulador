@@ -1,26 +1,23 @@
-﻿using DaSoft.Riviera.Modulador.Core.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Autodesk.AutoCAD.DatabaseServices;
+﻿using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.Geometry;
-using static DaSoft.Riviera.Modulador.Bordeo.Controller.BordeoUtils;
-using static DaSoft.Riviera.Modulador.Bordeo.Assets.Codes;
-using static DaSoft.Riviera.Modulador.Core.Assets.CONST;
-using Nameless.Libraries.HoukagoTeaTime.Ritsu.Utils;
 using DaSoft.Riviera.Modulador.Bordeo.Controller;
-using System.Collections;
-using DaSoft.Riviera.Modulador.Core.Runtime;
-using Nameless.Libraries.HoukagoTeaTime.Mio.Entities;
 using DaSoft.Riviera.Modulador.Core.Controller;
-using Nameless.Libraries.HoukagoTeaTime.Mio.Model;
+using DaSoft.Riviera.Modulador.Core.Model;
+using DaSoft.Riviera.Modulador.Core.Runtime;
 using Nameless.Libraries.HoukagoTeaTime.Mio.Utils;
+using Nameless.Libraries.HoukagoTeaTime.Ritsu.Utils;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Windows.Media;
+using static DaSoft.Riviera.Modulador.Bordeo.Assets.Codes;
+using static DaSoft.Riviera.Modulador.Bordeo.Assets.Constants;
 
 namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
 {
-    public class BordeoPanelStack : RivieraObject, IEnumerable<BordeoPanel>
+    public class BordeoPanelStack : RivieraObject, IEnumerable<BordeoPanel>, ISowable
     {
         /// <summary>
         /// The collection of panels asociated to the stack
@@ -58,7 +55,6 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
             this.Panels.Add(first);
             this.Direction = this.Panels.FirstOrDefault().Direction;
             this.Regen();
-       
         }
         /// <summary>
         /// Adds the panel.
@@ -103,20 +99,20 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
                 this.PanelGeometry.Draw(model, tr);
         }
         /// <summary>
-        /// Devuelve un enumerador que procesa una iteración en la colección.
+        /// Gets the enumerator that process the collection iteration
         /// </summary>
         /// <returns>
-        /// Enumerador que se puede utilizar para recorrer en iteración la colección.
+        /// The enum used to iterate the collection
         /// </returns>
         public IEnumerator<BordeoPanel> GetEnumerator()
         {
             return this.Panels.GetEnumerator();
         }
         /// <summary>
-        /// Devuelve un enumerador que recorre en iteración una colección.
+        /// Gets the enumerator that process the collection iteration
         /// </summary>
         /// <returns>
-        /// Objeto <see cref="T:System.Collections.IEnumerator" /> que puede usarse para recorrer en iteración la colección.
+        /// The enum used to iterate the collection
         /// </returns>
         IEnumerator IEnumerable.GetEnumerator()
         {
@@ -133,5 +129,60 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
         /// Regens this instance geometry <see cref="P:DaSoft.Riviera.Modulador.Core.Model.RivieraObject.CADGeometry" />.
         /// </summary>
         public override void Regen() => this.RegenAsLine(ref this.PanelGeometry);
+
+        /// <summary>
+        /// Gets the available directions.
+        /// </summary>
+        /// <returns>
+        /// The arrow direction
+        /// </returns>
+        public IEnumerable<ArrowDirection> GetAvailableDirections()
+        {
+            ArrowDirection[] supportedDir = new ArrowDirection[] 
+            {
+                ArrowDirection.FRONT,
+                ArrowDirection.FRONT_LEFT_135,
+                ArrowDirection.FRONT_LEFT_90,
+                ArrowDirection.FRONT_RIGHT_135,
+                ArrowDirection.FRONT_RIGHT_90,
+                ArrowDirection.BACK,
+                ArrowDirection.BACK_LEFT_135,
+                ArrowDirection.BACK_LEFT_90,
+                ArrowDirection.BACK_RIGHT_135,
+                ArrowDirection.BACK_RIGHT_90,
+            };
+            supportedDir.InitChildren(ref this.Children);
+            return this.Children.Where(x => x.Value == 0 && supportedDir.Contains(x.Key.GetArrowDirection())).Select(x => x.Key.GetArrowDirection());
+        }
+        /// <summary>
+        /// Draws the arrow on the given direction
+        /// </summary>
+        /// <param name="arrow">The arrow to be drawn.</param>
+        /// <param name="insertionPt">The insertion point.</param>
+        /// <param name="rotation">The arrow rotation rotation.</param>
+        /// <param name="tr">The Active transaction.</param>
+        /// <returns>
+        /// The drew arrow object id
+        /// </returns>
+        public ObjectId DrawArrow(ArrowDirection arrow, Point3d insertionPt, double rotation, Transaction tr) =>
+            arrow.DrawArrow(insertionPt, rotation, Path.Combine(App.Riviera.AppDirectory.FullName, FOLDER_NAME_BLOCKS_BORDEO), tr);
+        /// <summary>
+        /// Draws all available arrows
+        /// </summary>
+        /// <param name="insertionPt">The insertion point.</param>
+        /// <param name="rotation">The arrow rotation rotation.</param>
+        /// <param name="tr">The Active transaction.</param>
+        /// <returns>
+        /// The drew arrows object ids
+        /// </returns>
+        public ObjectIdCollection DrawArrows(Func<ArrowDirection, Boolean> filter, Point3d insertionPt, double rotation, Transaction tr)
+            => this.DrawArrows(filter, insertionPt, rotation, Path.Combine(App.Riviera.AppDirectory.FullName, FOLDER_NAME_BLOCKS_BORDEO), tr);
+        /// <summary>
+        /// Picks an arrow direction.
+        /// </summary>
+        /// <returns>
+        /// The arrow direction
+        /// </returns>
+        public ArrowDirection PickDirection(Transaction tr) => this.GetDirection(tr);
     }
 }

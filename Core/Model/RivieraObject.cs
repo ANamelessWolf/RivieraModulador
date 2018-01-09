@@ -4,6 +4,7 @@ using DaSoft.Riviera.Modulador.Core.Controller;
 using Nameless.Libraries.HoukagoTeaTime.Mio.Utils;
 using Nameless.Libraries.HoukagoTeaTime.Ritsu.Utils;
 using Nameless.Libraries.HoukagoTeaTime.Tsumugi;
+using Nameless.Libraries.HoukagoTeaTime.Yui;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -162,6 +163,17 @@ namespace DaSoft.Riviera.Modulador.Core.Model
         public void Erase(Transaction tr)
         {
             this.Ids.Erase(tr);
+        }
+        /// <summary>
+        /// Zooms at the specified zoom.
+        /// </summary>
+        /// <param name="scale">The zoom scale.</param>
+        public void ZoomAt(double scale)
+        {
+            Point3d min, max;
+            this.CADGeometry.GetGeometricExtents(out min, out max);
+            ZoomWindow zoom = new ZoomWindow(min, max);
+            zoom.SetView(scale);
         }
     }
 }

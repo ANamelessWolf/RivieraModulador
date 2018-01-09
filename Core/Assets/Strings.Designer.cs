@@ -380,6 +380,15 @@ namespace DaSoft.Riviera.Modulador.Core.Assets {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a No existe la flecha &quot;{0}&quot;, en el directorio &quot;{1}&quot;..
+        /// </summary>
+        internal static string ERR_MISS_ARROW {
+            get {
+                return ResourceManager.GetString("ERR_MISS_ARROW", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a No se puede conectar a Oracle con la información proporcionada, todos los campos son obligatorios..
         /// </summary>
         internal static string ERR_ORACLE_CONN_MISSING {
@@ -734,6 +743,15 @@ namespace DaSoft.Riviera.Modulador.Core.Assets {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Selecciona una dirección..
+        /// </summary>
+        internal static string MSG_SEL_ARROW_DIR {
+            get {
+                return ResourceManager.GetString("MSG_SEL_ARROW_DIR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Selecciona una unión en T para crear o editar un panel doble.
         ///El panel debe tener en la unión dos mamparas de 18&quot; o dos de 24&quot;..
         /// </summary>
@@ -831,15 +849,6 @@ namespace DaSoft.Riviera.Modulador.Core.Assets {
         internal static string MSG_TRANSACTION_FINISHED {
             get {
                 return ResourceManager.GetString("MSG_TRANSACTION_FINISHED", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Selecciona una dirección..
-        /// </summary>
-        internal static string SEL_ARROW_DIR {
-            get {
-                return ResourceManager.GetString("SEL_ARROW_DIR", resourceCulture);
             }
         }
         

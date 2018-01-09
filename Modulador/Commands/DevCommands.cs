@@ -70,6 +70,15 @@ namespace DaSoft.Riviera.Modulador.Commands
             }
         }
 
+        [CommandMethod("TestSow")]
+        public void TestSow()
+        {
+            TabBordeoMenu ctrl = this.Controls.Where(x => x is TabBordeoMenu).FirstOrDefault() as TabBordeoMenu;
+            BordeoSower sow = new BordeoSower(ctrl);
+            sow.Sow();
+        }
+
+
         [CommandMethod("TestLPanelInsert")]
         public void TestPanelLInsert()
         {

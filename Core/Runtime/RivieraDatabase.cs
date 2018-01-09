@@ -26,6 +26,10 @@ namespace DaSoft.Riviera.Modulador.Core.Runtime
         /// </summary>
         public Dictionary<DesignLine, RivieraDesignDatabase> LineDB;
         /// <summary>
+        /// La lista de objetos cargados en la aplicación.
+        /// </summary>
+        public List<RivieraObject> Objects;
+        /// <summary>
         /// The action excecuted ones the database loaded
         /// </summary>
         public Action DatabaseLoaded;
@@ -35,7 +39,7 @@ namespace DaSoft.Riviera.Modulador.Core.Runtime
         public RivieraDatabase()
         {
             this.LineDB = new Dictionary<DesignLine, RivieraDesignDatabase>();
-
+            this.Objects = new List<RivieraObject>();
         }
 
         /// <summary>

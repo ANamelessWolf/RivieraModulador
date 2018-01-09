@@ -99,10 +99,13 @@
       <DependentUpon>Strings.resx</DependentUpon>
     </Compile>
     <Compile Include="Controller\BordeoSizeUtils.cs" />
+    <Compile Include="Controller\BordeoSower.cs" />
     <Compile Include="Controller\BordeoUtils.cs" />
     <Compile Include="Controller\PanelSower.cs" />
+    <Compile Include="Controller\Transactions\BordeoDrawingTransaction.cs" />
     <Compile Include="Model\BordeoDatabaseResult.cs" />
     <Compile Include="Model\BordeoDesignDatabase.cs" />
+    <Compile Include="Model\BordeoLPanelAngle.cs" />
     <Compile Include="Model\BordeoPanelHeight.cs" />
     <Compile Include="Model\DB\BordeoIPanelRow.cs" />
     <Compile Include="Model\DB\BordeoLPanelRow.cs" />

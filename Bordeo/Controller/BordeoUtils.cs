@@ -39,6 +39,17 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Controller
             };
         }
         /// <summary>
+        /// Bordeoes the direction keys.
+        /// </summary>
+        /// <returns></returns>
+        public static String[] BordeoLPanelDirectionKeys()
+        {
+            return new String[]
+            {
+               KEY_DIR_FRONT, KEY_DIR_BACK
+            };
+        }
+        /// <summary>
         /// Gets the database for the design line bordeo.
         /// </summary>
         /// <returns>The bordeo database</returns>

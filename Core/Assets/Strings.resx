@@ -533,4 +533,16 @@ Detalles: {1}</value>
     <value>No existe la flecha "{0}", en el directorio "{1}".</value>
     <comment>GeometryUtils</comment>
   </data>
+  <data name="CAP_INI" xml:space="preserve">
+    <value>Inicial</value>
+    <comment>Caption</comment>
+  </data>
+  <data name="CAP_LAST" xml:space="preserve">
+    <value>Final</value>
+    <comment>Caption</comment>
+  </data>
+  <data name="MSG_SEL_POINT" xml:space="preserve">
+    <value>Selecciona el punto {0}.</value>
+    <comment>Mensaje de selección</comment>
+  </data>
 </root>

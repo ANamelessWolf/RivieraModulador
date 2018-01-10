@@ -88,6 +88,24 @@ namespace DaSoft.Riviera.Modulador.Core.Assets {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Inicial.
+        /// </summary>
+        internal static string CAP_INI {
+            get {
+                return ResourceManager.GetString("CAP_INI", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Final.
+        /// </summary>
+        internal static string CAP_LAST {
+            get {
+                return ResourceManager.GetString("CAP_LAST", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Cargando....
         /// </summary>
         internal static string CAP_LOADING {
@@ -812,6 +830,15 @@ namespace DaSoft.Riviera.Modulador.Core.Assets {
         internal static string MSG_SEL_PANEL_SOURCE {
             get {
                 return ResourceManager.GetString("MSG_SEL_PANEL_SOURCE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Selecciona el punto {0}..
+        /// </summary>
+        internal static string MSG_SEL_POINT {
+            get {
+                return ResourceManager.GetString("MSG_SEL_POINT", resourceCulture);
             }
         }
         

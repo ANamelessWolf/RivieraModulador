@@ -66,6 +66,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.1.5.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
       <Private>True</Private>
@@ -123,6 +124,7 @@
     <Compile Include="Model\PasoLuzMeasure.cs" />
     <Compile Include="Model\PuenteMeasure.cs" />
     <Compile Include="Model\RivieraLBlock.cs" />
+    <Compile Include="Model\UI\BordeoPanelHeightItem.cs" />
     <Compile Include="Model\UI\ImageItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

@@ -4,22 +4,33 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:DaSoft.Riviera.Modulador.Bordeo.UI"
-             mc:Ignorable="d"
+             mc:Ignorable="d" Loaded="UserControl_Loaded"
              d:DesignHeight="200" d:DesignWidth="220">
-    <ListView x:Name="lvPanelHeights">
-        <!--<ListView.ItemTemplate>
-            <DataTemplate>
-                <Viewbox>
-                    <Image Source="{Binding ImageSource}" Width="120" Height="120"/>
-                </Viewbox>
-            </DataTemplate>
-        </ListView.ItemTemplate>-->
-        <Image Source="../Assets/PBPs.png" Width="120" Height="120" Tag="0"/>
-        <Image Source="../Assets/PBPB.png" Width="120" Height="120" Tag="1"/>
-        <Image Source="../Assets/PBPsPs.png" Width="120" Height="120"  Tag="2"/>
-        <Image Source="../Assets/PBPBPs.png" Width="120" Height="120" Tag="3"/>
-        <Image Source="../Assets/PBPsPB.png" Width="120" Height="120" Tag="4"/>
-        <Image Source="../Assets/PBPsPsPs.png" Width="120" Height="120"  Tag="5"/>
-        <Image Source="../Assets/PBPBPB.png" Width="120" Height="120"  Tag="6"/>
-    </ListView>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="32"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <ComboBox x:Name="cboPanelHeights" SelectionChanged="cboPanelHeights_SelectionChanged">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock>
+                        <TextBlock Text="{Binding NominalSize}"/>
+                        <LineBreak/>
+                        <TextBlock Text="{Binding SizeDescription}" FontSize="8" Margin="0,-4,0,0"/>
+                    </TextBlock>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <Viewbox Grid.Row="1">
+            <Image x:Name="img" Source="../Assets/PBPs.png" Width="120" Height="120" Tag="0" />
+        </Viewbox>
+        <!--<Image Source="../Assets/PBPB.png" Width="120" Height="120" Tag="1"/>
+            <Image Source="../Assets/PBPsPs.png" Width="120" Height="120"  Tag="2"/>
+            <Image Source="../Assets/PBPBPs.png" Width="120" Height="120" Tag="3"/>
+            <Image Source="../Assets/PBPsPB.png" Width="120" Height="120" Tag="4"/>
+            <Image Source="../Assets/PBPsPsPs.png" Width="120" Height="120"  Tag="5"/>
+            <Image Source="../Assets/PBPBPB.png" Width="120" Height="120"  Tag="6"/>-->
+
+    </Grid>
 </UserControl>

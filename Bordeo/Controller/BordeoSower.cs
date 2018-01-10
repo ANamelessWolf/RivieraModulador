@@ -24,101 +24,94 @@ using Autodesk.AutoCAD.EditorInput;
 using Nameless.Libraries.HoukagoTeaTime.Mio.Utils;
 using DaSoft.Riviera.Modulador.Core.Controller.Transactions;
 using DaSoft.Riviera.Modulador.Bordeo.Controller.Transactions;
+using System.Windows.Media;
 
 namespace DaSoft.Riviera.Modulador.Bordeo.Controller
 {
     /// <summary>
     /// Defines the Bordeo Sower process
     /// </summary>
-    public class BordeoSower
+    public class BordeoSower : SowerController
     {
-        public String MiscFolder = Path.Combine(App.Riviera.AppDirectory.FullName, FOLDER_NAME_BLOCKS_BORDEO);
-        /// <summary>
-        /// Gets or sets the menu.
-        /// </summary>
-        /// <value>
-        /// The menu.
-        /// </value>
-        public UserControl Menu { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="BordeoSower"/> class.
         /// </summary>
-        public BordeoSower(TabBordeoMenu bordeoMenu)
+        public BordeoSower(TabBordeoMenu bordeoMenu, int currentState = 0) :
+            base(bordeoMenu, currentState)
         {
-            this.Menu = bordeoMenu;
+
+        }
+        /// <summary>
+        /// Defines the transition state matrix
+        /// </summary>
+        /// <returns>
+        /// The transition matrix
+        /// </returns>
+        protected override SowAutomatonState[] InitTransitionMatrix()
+        {
+            SowAutomatonState[] automaton = SowAutomatonState.CreateAutomaton(4);
+            //S0
+            automaton[0].AddTransition(ArrowDirection.FRONT, 1, InsertLinearPanel);
+            automaton[0].AddTransition(ArrowDirection.BACK, 1, InsertLinearPanel);
+            automaton[0].AddTransition(ArrowDirection.FRONT_LEFT_90, 2, InsertLPanel);
+            automaton[0].AddTransition(ArrowDirection.FRONT_LEFT_135, 2, InsertLPanel);
+            automaton[0].AddTransition(ArrowDirection.FRONT_RIGHT_90, 2, InsertLPanel);
+            automaton[0].AddTransition(ArrowDirection.FRONT_RIGHT_135, 2, InsertLPanel);
+            automaton[0].AddTransition(ArrowDirection.BACK_LEFT_90, 2, InsertLPanel);
+            automaton[0].AddTransition(ArrowDirection.BACK_LEFT_135, 2, InsertLPanel);
+            automaton[0].AddTransition(ArrowDirection.BACK_RIGHT_90, 2, InsertLPanel);
+            automaton[0].AddTransition(ArrowDirection.BACK_RIGHT_135, 2, InsertLPanel);
+            automaton[0].AddTransition(ArrowDirection.NONE, 3, null);
+            //S1
+            automaton[1].AddTransition(ArrowDirection.FRONT, 1, InsertLinearPanel);
+            automaton[1].AddTransition(ArrowDirection.BACK, 1, InsertLinearPanel);
+            automaton[1].AddTransition(ArrowDirection.FRONT_LEFT_90, 2, InsertLPanel);
+            automaton[1].AddTransition(ArrowDirection.FRONT_LEFT_135, 2, InsertLPanel);
+            automaton[1].AddTransition(ArrowDirection.FRONT_RIGHT_90, 2, InsertLPanel);
+            automaton[1].AddTransition(ArrowDirection.FRONT_RIGHT_135, 2, InsertLPanel);
+            automaton[1].AddTransition(ArrowDirection.BACK_LEFT_90, 2, InsertLPanel);
+            automaton[1].AddTransition(ArrowDirection.BACK_LEFT_135, 2, InsertLPanel);
+            automaton[1].AddTransition(ArrowDirection.BACK_RIGHT_90, 2, InsertLPanel);
+            automaton[1].AddTransition(ArrowDirection.BACK_RIGHT_135, 2, InsertLPanel);
+            automaton[1].AddTransition(ArrowDirection.NONE, 3, null);
+            //S2
+            automaton[2].AddTransition(ArrowDirection.FRONT, 1, InsertLinearPanel);
+            automaton[2].AddTransition(ArrowDirection.BACK, 1, InsertLinearPanel);
+            automaton[2].AddTransition(ArrowDirection.NONE, 3, null);
+            return automaton;
         }
         /// <summary>
         /// Sows the specified panel.
         /// </summary>
         /// <param name="panel">The panel measure.</param>
-        public void Sow()
+        public override void Sow()
         {
             Editor ed = Application.DocumentManager.MdiActiveDocument.Editor;
             TabBordeoMenu ctrl = this.Menu as TabBordeoMenu;
             var data = ctrl.GetLinearPanels().ToArray();
             BordeoPanelStack panel0 = (BordeoPanelStack)new TransactionWrapper<RivieraMeasure, RivieraObject>(InitSowing).Run(data);
             ed.Regen();
-            ArrowDirection dir = this.PickArrow(panel0, panel0, true, true);
-
+            this.Sow(this.PickArrow(panel0, true, true), panel0);
         }
         /// <summary>
-        /// Sows as Linear panel.
+        /// Picks the riviera sizes.
         /// </summary>
-        /// <param name="doc">The active document.</param>
-        /// <param name="tr">The active transaction.</param>
-        protected RivieraObject InitSowing(Document doc, Transaction tr, params RivieraMeasure[] sizes)
+        /// <param name="dir">The arrow direction.</param>
+        /// <returns>
+        /// The Riviera measure
+        /// </returns>
+        public override RivieraMeasure[] PickSizes(ArrowDirection dir)
         {
-            Point3d p0, pf;
-            if (Picker.Point("Selecciona el punto inicial", out p0) &&
-                Picker.Point("Selecciona el punto final", p0, out pf))
-            {
-                IEnumerable<PanelMeasure> pSizes = sizes.Select(x => x as PanelMeasure);
-                var first = sizes[0] as PanelMeasure;
-                BordeoPanelStack stack = new BordeoPanelStack(p0, pf, first);
-                for (int i = 1; i < sizes.Length; i++)
-                    stack.AddPanel(sizes[i] as PanelMeasure);
-                stack.Draw(tr);
-                return stack;
-            }
+            TabBordeoMenu ctrl = this.Menu as TabBordeoMenu;
+            RivieraMeasure[] sizes;
+            if (dir == ArrowDirection.FRONT || dir == ArrowDirection.BACK)
+                sizes = ctrl.GetLinearPanels().ToArray();
+            else if (dir.GetArrowDirectionName().Contains("90"))
+                sizes = ctrl.GetL90Panels().ToArray();
             else
-                return null;
+                sizes = ctrl.GetL135Panels().ToArray();
+            return sizes;
         }
-
-
-
-        /// <summary>
-        /// Sows as Linear panel.
-        /// </summary>
-        /// <param name="doc">The active document.</param>
-        /// <param name="tr">The active transaction.</param>
-        private ArrowDirection ContinueSowAsLinearPanel(Document doc, Transaction tr, params Object[] input)
-        {
-            RivieraObject last = input[0] as RivieraObject;
-            ArrowDirection dir = (ArrowDirection)input[1];
-            RivieraMeasure[] sizes = (RivieraMeasure[])input[2];
-            Point3d pf = dir == ArrowDirection.FRONT ? last.End.ToPoint2dByPolar(1, last.Angle).ToPoint3d() : last.Start.ToPoint2dByPolar(1, last.Angle).ToPoint3d(),
-                    p0 = dir == ArrowDirection.FRONT ? last.End.ToPoint3d() : last.Start.ToPoint3d();
-            Editor ed = Application.DocumentManager.MdiActiveDocument.Editor;
-            IEnumerable<PanelMeasure> pSizes = sizes.Select(x => x as PanelMeasure);
-            var first = sizes[0] as PanelMeasure;
-            BordeoPanelStack stack = new BordeoPanelStack(p0, pf, first);
-            for (int i = 1; i < sizes.Length; i++)
-                stack.AddPanel(sizes[i] as PanelMeasure);
-            stack.Draw(tr);
-            BordeoPanel panel = stack.FirstOrDefault();
-            ObjectIdCollection ids;
-            if (dir == ArrowDirection.FRONT)
-                ids = stack.DrawArrows(BordeoGeometryUtils.IsFront, panel.End.ToPoint3d(), panel.Angle, tr);
-            else
-                ids = stack.DrawArrows(BordeoGeometryUtils.IsBack, panel.Start.ToPoint3d(), panel.Angle, tr);
-            ed.Regen();
-            dir = stack.PickDirection(tr);
-            ids.Erase(tr);
-            App.Riviera.Database.Objects.Add(stack);
-            return dir;
-        }
-
-
         /// <summary>
         /// Picks the arrow.
         /// </summary>
@@ -126,9 +119,10 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Controller
         /// <param name="rivObject">The riv object.</param>
         /// <param name="atStartPoint">if set to <c>true</c> [at start point].</param>
         /// <param name="atEndPoint">if set to <c>true</c> [at end point].</param>
-        public ArrowDirection PickArrow(ISowable sowEntity, RivieraObject rivObject, Boolean atStartPoint = false, Boolean atEndPoint = false)
+        public override ArrowDirection PickArrow(ISowable sowEntity, Boolean atStartPoint = false, Boolean atEndPoint = false)
         {
             Editor ed = Application.DocumentManager.MdiActiveDocument.Editor;
+            RivieraObject rivObject = (RivieraObject)sowEntity;
             var drewIds = BordeoAutoCADTransactions.DrawArrows(sowEntity, rivObject, atStartPoint, atStartPoint);
             ed.Regen();
             rivObject.ZoomAt(2.5d);
@@ -136,6 +130,99 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Controller
             ed.Regen();
             return direction;
         }
-
+        /// <summary>
+        /// Sows as Linear panel.
+        /// </summary>
+        /// <param name="doc">The active document.</param>
+        /// <param name="tr">The active transaction.</param>
+        protected override RivieraObject InitSowing(Document doc, Transaction tr, params RivieraMeasure[] sizes)
+        {
+            Point3d p0, pf;
+            if (this.PickStartDirection(out p0, out pf))
+            {
+                //Se convierten los tamaños a tamaños de bordeo
+                IEnumerable<PanelMeasure> pSizes = sizes.Select(x => x as PanelMeasure);
+                //El panel inferios se usa como distancia base del arreglo de paneles.
+                var first = sizes[0] as PanelMeasure;
+                BordeoPanelStack stack = new BordeoPanelStack(p0, pf, first);
+                //Se agregan los tamaños superiores
+                for (int i = 1; i < sizes.Length; i++)
+                    stack.AddPanel(sizes[i] as PanelMeasure);
+                //Se dibuja el stack
+                stack.Draw(tr);
+                return stack;
+            }
+            else
+                return null;
+        }
+        /// <summary>
+        /// Sows as Linear panel.
+        /// </summary>
+        /// <param name="doc">The active document.</param>
+        /// <param name="tr">The active transaction.</param>
+        protected RivieraObject InsertLinearPanel(RivieraObject obj, ArrowDirection direction, params RivieraMeasure[] sizes)
+        {
+            //1: Se calcula la dirección y orientación del panel
+            Point3d end, start;
+            if (direction == ArrowDirection.FRONT) //Misma dirección
+            {
+                start = obj.End.ToPoint3d();
+                end = start.ToPoint2d().ToPoint2dByPolar(1, obj.Angle).ToPoint3d();
+            }
+            else //Se invierte la dirección
+            {
+                start = obj.Start.ToPoint3d();
+                end = start.ToPoint2d().ToPoint2dByPolar(1, obj.Angle + Math.PI).ToPoint3d();
+            }
+            //Se convierten los tamaños a tamaños de bordeo
+            IEnumerable<PanelMeasure> pSizes = sizes.Select(x => x as PanelMeasure);
+            //El panel inferios se usa como distancia base del arreglo de paneles.
+            var first = sizes[0] as PanelMeasure;
+            //Se crea el panel
+            BordeoPanelStack stack = new BordeoPanelStack(start, end, first);
+            //Se agregan los tamaños superiores
+            for (int i = 1; i < sizes.Length; i++)
+                stack.AddPanel(sizes[i] as PanelMeasure);
+            //Se dibuja en el plano
+            this.DrawObjects(null, stack);
+            obj.Connect(direction, stack);
+            //Se regresa el stack como objeto creado
+            return stack;
+        }
+        /// <summary>
+        /// Sows as L panel.
+        /// </summary>
+        /// <param name="doc">The active document.</param>
+        /// <param name="tr">The active transaction.</param>
+        protected RivieraObject InsertLPanel(RivieraObject obj, ArrowDirection direction, params RivieraMeasure[] sizes)
+        {
+            //1: Se calcula la dirección y orientación del panel
+            Point3d end, start;
+            //Siempre se inserta en la posición inicial del bloque insertado
+            //Selección de la dirección
+            start = obj.Start.ToPoint3d();
+            end = direction.IsFront() ? start.ToPoint2d().ToPoint2dByPolar(1, obj.Angle).ToPoint3d() //Misma dirección
+                                      : start.ToPoint2d().ToPoint2dByPolar(1, obj.Angle + Math.PI).ToPoint3d();//Dirección Invertida
+            //Selección de la rotación
+            SweepDirection rotation = direction.IsLeft() ? SweepDirection.Counterclockwise : SweepDirection.Clockwise;
+            //Seleccion de tipo de L
+            BordeoLPanelAngle lAng = direction.GetArrowDirectionName().Contains("90") ? BordeoLPanelAngle.ANG_90 : BordeoLPanelAngle.ANG_135;
+            //Se convierten los tamaños a tamaños de bordeo
+            IEnumerable<LPanelMeasure> pSizes = sizes.Select(x => x as LPanelMeasure);
+            //El panel inferios se usa como distancia base del arreglo de paneles.
+            var first = sizes[0] as LPanelMeasure;
+            //Se crea el panel
+            BordeoLPanelStack stack = new BordeoLPanelStack(start, end, first, rotation, lAng);
+            //Se agregan los tamaños superiores
+            for (int i = 1; i < sizes.Length; i++)
+                stack.AddPanel(sizes[i] as LPanelMeasure);
+            //Se dibuja en el plano y se borra el panel anterior
+            RivieraObject objParent = obj.GetParent();
+            this.DrawObjects((Document doc, Transaction tr, RivieraObject[] objs) => obj.Delete(tr));
+            if (objParent != null)
+                objParent.Connect(direction, stack);
+            //Se regresa el stack como objeto creado
+            return stack;
+        }
     }
 }

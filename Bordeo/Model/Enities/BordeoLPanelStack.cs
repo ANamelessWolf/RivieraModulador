@@ -186,8 +186,30 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
         /// The arrow direction
         /// </returns>
         public ArrowDirection PickDirection(Transaction tr) => this.GetDirection(tr);
+        /// <summary>
+        /// Connects the specified object to this instance
+        /// </summary>
+        /// <param name="direction">The direction to connect this instance.</param>
+        /// <param name="newObject">The new object to be added</param>
+        public override void Connect(ArrowDirection direction, RivieraObject newObject)
+        {
+            base.Connect(direction, newObject);
+            //Se bloquean las llaves usadas.
+            IEnumerable<ArrowDirection> keys;
+            if (direction.IsFront())
+                keys = this.GetAvailableDirections().Where(x => x.IsBack());
+            else
+                keys = this.GetAvailableDirections().Where(x => x.IsFront());
+            foreach (var key in keys.Select(x => x.GetArrowDirectionName()))
+            {
+                //Se bloquea el nodo en el que se realizo la conexión
+                if (newObject.Children.ContainsKey(key))
+                    newObject.Children[key] = -1;
+                else
+                    newObject.Children.Add(key, -1);
+            }
+        }
 
-        
 
     }
 }

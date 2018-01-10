@@ -1,6 +1,7 @@
 ﻿using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.Geometry;
 using DaSoft.Riviera.Modulador.Core.Controller;
+using DaSoft.Riviera.Modulador.Core.Runtime;
 using Nameless.Libraries.HoukagoTeaTime.Mio.Utils;
 using Nameless.Libraries.HoukagoTeaTime.Ritsu.Utils;
 using Nameless.Libraries.HoukagoTeaTime.Tsumugi;
@@ -158,11 +159,37 @@ namespace DaSoft.Riviera.Modulador.Core.Model
                     this.Children.Add(key, id);
         }
         /// <summary>
+        /// Connects the specified object to this instance
+        /// </summary>
+        /// <param name="direction">The direction.</param>
+        /// <param name="stack">The new bject to connect.</param>
+        public virtual void Connect(ArrowDirection direction, RivieraObject newObject)
+        {
+            newObject.Parent = this.Handle.Value;
+            String key = direction.GetArrowDirectionName();
+            if (this.Children.ContainsKey(key))
+                this.Children[key] = newObject.Handle.Value;
+            else
+                this.Children.Add(key, newObject.Handle.Value);
+            var db = App.Riviera.Database.Objects;
+            if (db.FirstOrDefault(x => x.Handle.Value == newObject.Handle.Value) == null)
+                db.Add(newObject);
+        }
+
+        /// <summary>
         /// Erase this instance drew geometry
         /// </summary>
         public void Erase(Transaction tr)
         {
             this.Ids.Erase(tr);
+        }
+        /// <summary>
+        /// Erase this instance drew geometry
+        /// </summary>
+        public void Delete(Transaction tr)
+        {
+            App.Riviera.Database.Objects.Remove(this);
+            this.Erase(tr);
         }
         /// <summary>
         /// Zooms at the specified zoom.

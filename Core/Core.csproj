@@ -106,6 +106,8 @@
     <Compile Include="Controller\ISowable.cs" />
     <Compile Include="Controller\RivieraParsingUtils.cs" />
     <Compile Include="Controller\RuntimeUtils.cs" />
+    <Compile Include="Controller\SowerController.cs" />
+    <Compile Include="Controller\SowAutomatonState.cs" />
     <Compile Include="Controller\Transactions\CredentialTransactions.cs" />
     <Compile Include="Controller\Transactions\DrawingTransactions.cs" />
     <Compile Include="Controller\Transactions\RivieraDataTransactions.cs" />
@@ -115,6 +117,7 @@
     <Compile Include="Controller\UI\DialogUtils.cs" />
     <Compile Include="Controller\UI\UIUtils.cs" />
     <Compile Include="Model\ArrowDirection.cs" />
+    <Compile Include="Model\AutomatonState.cs" />
     <Compile Include="Model\DB\RivieraCodeRow.cs" />
     <Compile Include="Model\DB\RivieraMeasureRow.cs" />
     <Compile Include="Model\DesignLine.cs" />

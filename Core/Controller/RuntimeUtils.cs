@@ -13,6 +13,17 @@ namespace DaSoft.Riviera.Modulador.Core.Controller
     /// </summary>
     public static partial class ApplicationUtils
     {
-        
+        /// <summary>
+        /// Gets the parent object.
+        /// </summary>
+        /// <param name="obj">The parent object.</param>
+        /// <returns>The parent object</returns>
+        public static RivieraObject GetParent(this RivieraObject obj)
+        {
+            if (obj.Handle.Value != 0)
+                return App.Riviera.Database.Objects.FirstOrDefault(x => x.Handle.Value == obj.Handle.Value);
+            else
+                return null;
+        }
     }
 }

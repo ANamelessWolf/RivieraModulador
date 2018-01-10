@@ -58,6 +58,15 @@ namespace DaSoft.Riviera.Modulador.Core.Assets
 
 
         /// <summary>
+        /// Defines the sowing Tag direction left
+        /// </summary>
+        public const String KEY_DIR_TAG_LFT = "LFT";
+        /// <summary>
+        /// Defines the sowing Tag direction Right
+        /// </summary>
+        public const String KEY_DIR_TAG_RGT = "RGT";
+
+        /// <summary>
         /// Defines the sowing direction front
         /// </summary>
         public const String KEY_DIR_FRONT = "Front";

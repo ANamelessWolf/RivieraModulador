@@ -162,6 +162,28 @@ namespace DaSoft.Riviera.Modulador.Core.Controller
             return arrow.GetArrowDirectionName().Contains(KEY_DIR_FRONT);
         }
         /// <summary>
+        /// Determines whether this instance is left.
+        /// </summary>
+        /// <param name="arrow">The arrow.</param>
+        /// <returns>
+        ///   <c>true</c> if the specified arrow is left; otherwise, <c>false</c>.
+        /// </returns>
+        public static Boolean IsLeft(this ArrowDirection arrow)
+        {
+            return arrow.GetArrowDirectionName().Contains(KEY_DIR_TAG_LFT);
+        }
+        /// <summary>
+        /// Determines whether this instance is right.
+        /// </summary>
+        /// <param name="arrow">The arrow.</param>
+        /// <returns>
+        ///   <c>true</c> if the specified arrow is right; otherwise, <c>false</c>.
+        /// </returns>
+        public static Boolean IsRight(this ArrowDirection arrow)
+        {
+            return arrow.GetArrowDirectionName().Contains(KEY_DIR_TAG_RGT);
+        }
+        /// <summary>
         /// Determines whether this instance is back.
         /// </summary>
         /// <param name="arrow">The arrow.</param>

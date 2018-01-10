@@ -1,4 +1,6 @@
 ﻿using DaSoft.Riviera.Modulador.Bordeo.Model;
+using DaSoft.Riviera.Modulador.Bordeo.Model.UI;
+using DaSoft.Riviera.Modulador.Core.Controller.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,11 +33,9 @@ namespace DaSoft.Riviera.Modulador.Bordeo.UI
         {
             get
             {
-                Image img = this.lvPanelHeights.SelectedIndex != -1 ? this.lvPanelHeights.SelectedItem as Image : null;
-                if (img != null)
-                    return (BordeoPanelHeight)int.Parse(img.Tag.ToString());
-                else
-                    return BordeoPanelHeight.None;
+                BordeoPanelHeightItem sel = this.cboPanelHeights.SelectedIndex != -1 ?
+                    (BordeoPanelHeightItem)cboPanelHeights.SelectedItem : new BordeoPanelHeightItem() { Height = BordeoPanelHeight.None };
+                return sel.Height;
             }
         }
         /// <summary>
@@ -44,6 +44,37 @@ namespace DaSoft.Riviera.Modulador.Bordeo.UI
         public CtrlBordeoHeights()
         {
             InitializeComponent();
+        }
+        /// <summary>
+        /// Handles the SelectionChanged event of the cboPanelHeights control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="SelectionChangedEventArgs"/> instance containing the event data.</param>
+        private void cboPanelHeights_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (cboPanelHeights.SelectedIndex != -1)
+            {
+                BordeoPanelHeightItem sel = (BordeoPanelHeightItem)cboPanelHeights.SelectedItem;
+               // var bitmap = new BitmapImage(new Uri(String.Format("pack://application:,,,/riv_bordeo;component/Assets/{0}", sel.ImageName)));
+                //var stream = this.GetType().Assembly.GetManifestResourceStream(String.Format("/riv_bordeo;component/Assets/{0}", sel.ImageName));
+                //img.Source = String.Format("/riv_bordeo;component/Assets/{0}", sel.ImageName).LoadImage(true);
+            }
+
+
+        }
+        /// <summary>
+        /// Handles the Loaded event of the UserControl control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            cboPanelHeights.ItemsSource =
+                Enum.GetValues(typeof(BordeoPanelHeight)).OfType<BordeoPanelHeight>().
+                Where(x => x != BordeoPanelHeight.None).
+                Select(y => new BordeoPanelHeightItem() { Height = y });
+            if (cboPanelHeights.Items.Count > 0)
+                this.cboPanelHeights.SelectedIndex = 0;
         }
     }
 }

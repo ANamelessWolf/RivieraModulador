@@ -138,7 +138,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
         /// </returns>
         public IEnumerable<ArrowDirection> GetAvailableDirections()
         {
-            ArrowDirection[] supportedDir = new ArrowDirection[] 
+            ArrowDirection[] supportedDir = new ArrowDirection[]
             {
                 ArrowDirection.FRONT,
                 ArrowDirection.FRONT_LEFT_135,
@@ -184,5 +184,22 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
         /// The arrow direction
         /// </returns>
         public ArrowDirection PickDirection(Transaction tr) => this.GetDirection(tr);
+        /// <summary>
+        /// Connects the specified object to this instance
+        /// </summary>
+        /// <param name="direction">The direction to connect this instance.</param>
+        /// <param name="newObject">The new object to be added</param>
+        public override void Connect(ArrowDirection direction, RivieraObject newObject)
+        {
+            base.Connect(direction, newObject);
+            String key = direction == ArrowDirection.FRONT ?
+                ArrowDirection.BACK.GetArrowDirectionName() :
+                ArrowDirection.FRONT.GetArrowDirectionName();
+            //Se bloquea el nodo en el que se realizo la conexión
+            if (newObject.Children.ContainsKey(key))
+                newObject.Children[key] = -1;
+            else
+                newObject.Children.Add(key, -1);
+        }
     }
 }

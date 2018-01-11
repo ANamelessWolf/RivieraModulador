@@ -131,10 +131,17 @@ namespace DaSoft.Riviera.Modulador.Core.Controller
             new VoidTransactionWrapper<RivieraObject>(
                 (Document doc, Transaction tr, RivieraObject[] objs) =>
                 {
-                    foreach (var obj in objs)
-                        obj.Draw(tr);
-                    if (task != null)
-                        task(doc, tr, objs);
+                    try
+                    {
+                        foreach (var obj in objs)
+                            obj.Draw(tr);
+                        if (task != null)
+                            task(doc, tr, objs);
+                    }
+                    catch (Exception exc)
+                    {
+                        throw exc;
+                    }
                 }).Run(objects);
         }
     }

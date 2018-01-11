@@ -20,11 +20,25 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
         /// <summary>
         /// The panel rotation angle 45°
         /// </summary>
-        protected override double RotationAngle => Math.PI/4;
+        protected override double RotationAngle => Math.PI / 4;
         /// <summary>
         /// The panel angle 135°
         /// </summary>
-        protected override double LAngle => Math.PI / 2;
+        public override double LAngle => Math.PI / 2;
+        /// <summary>
+        /// Gets the arrow rotation.
+        /// </summary>
+        /// <param name="isFrontDirection">if set to <c>true</c> [is front direction].</param>
+        /// <param name="initialRotation">The initial rotation.</param>
+        /// <returns>
+        /// The arrow rotation
+        /// </returns>
+        public override double GetArrowRotation(bool isFrontDirection, double rotation)
+        {
+            return isFrontDirection ? this.Rotation == SweepDirection.Counterclockwise ?
+                  rotation + this.LAngle :
+                  rotation - this.LAngle : rotation;
+        }
         /// <summary>
         /// The panel union length
         /// </summary>

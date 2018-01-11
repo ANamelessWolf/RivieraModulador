@@ -119,9 +119,16 @@ namespace DaSoft.Riviera.Modulador.Core.Model
         /// <param name="tr">The active transaction.</param>
         public void Draw(Transaction tr)
         {
-            ObjectIdCollection ids = DrawContent(tr);
-            foreach (ObjectId id in ids)
-                this.Ids.Add(id);
+            try
+            {
+                ObjectIdCollection ids = DrawContent(tr);
+                foreach (ObjectId id in ids)
+                    this.Ids.Add(id);
+            }
+            catch (Exception exc)
+            {
+                throw exc;
+            }
         }
         /// <summary>
         /// Regens this instance geometry <see cref="CADGeometry"/>.

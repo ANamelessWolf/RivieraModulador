@@ -63,7 +63,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
         /// <summary>
         /// The panel angle
         /// </summary>
-        protected abstract Double LAngle { get; }
+        public abstract Double LAngle { get; }
         /// <summary>
         /// The panel union length
         /// </summary>
@@ -86,6 +86,13 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
         /// The geometry.
         /// </value>
         public override Entity CADGeometry => PanelGeometry;
+        /// <summary>
+        /// Gets the arrow rotation.
+        /// </summary>
+        /// <param name="isFrontDirection">if set to <c>true</c> [is front direction].</param>
+        /// <param name="initialRotation">The initial rotation.</param>
+        /// <returns>The arrow rotation</returns>
+        public abstract Double GetArrowRotation(Boolean isFrontDirection, Double initialRotation);
         /// <summary>
         /// The panel geometry
         /// </summary>
@@ -119,24 +126,31 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
         /// <param name="tr">The active transaction.</param>
         protected override ObjectIdCollection DrawContent(Transaction tr)
         {
-            ObjectIdCollection ids = new ObjectIdCollection();
-            Boolean is2DBlock = !App.Riviera.Is3DEnabled;
-            ObjectId first = this.Ids.OfType<ObjectId>().FirstOrDefault();
-            RivieraLBlock block = this.Block as RivieraLBlock;
-            var doc = Application.DocumentManager.MdiActiveDocument;
-            BlockReference blkRef;
-            LBlockType blockType = this.GetBlockType();
-            //Si ya se dibujo, el elemento tiene un id válido, solo se debe actualizar
-            //el contenido.
-            if (first.IsValid)
+            try
             {
-                block.SetContent(blockType, is2DBlock, doc, tr);
-                blkRef = first.GetObject(OpenMode.ForWrite) as BlockReference;
+                ObjectIdCollection ids = new ObjectIdCollection();
+                Boolean is2DBlock = !App.Riviera.Is3DEnabled;
+                ObjectId first = this.Ids.OfType<ObjectId>().FirstOrDefault();
+                RivieraLBlock block = this.Block as RivieraLBlock;
+                var doc = Application.DocumentManager.MdiActiveDocument;
+                BlockReference blkRef;
+                LBlockType blockType = this.GetBlockType();
+                //Si ya se dibujo, el elemento tiene un id válido, solo se debe actualizar
+                //el contenido.
+                if (first.IsValid)
+                {
+                    block.SetContent(blockType, is2DBlock, doc, tr);
+                    blkRef = first.GetObject(OpenMode.ForWrite) as BlockReference;
+                }
+                else
+                    blkRef = block.Insert(doc, tr, blockType, this.Start.ToPoint3d(), this.Direction.Angle);
+                ids.Add(blkRef.Id);
+                return ids;
             }
-            else
-                blkRef = block.Insert(doc, tr, blockType, this.Start.ToPoint3d(), this.Direction.Angle);
-            ids.Add(blkRef.Id);
-            return ids;
+            catch (Exception exc)
+            {
+                throw exc;
+            }
         }
         /// <summary>
         /// Draws the geometry.
@@ -193,7 +207,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
                    rotAng = this.Direction.Angle + (this.Rotation == SweepDirection.Clockwise ? -1 * this.RotationAngle : this.RotationAngle),
                    panAng = this.Direction.Angle + (this.Rotation == SweepDirection.Clockwise ? -1 * this.LAngle : this.LAngle);
             if (this is BordeoL135Panel)
-                panAng = this.Rotation == SweepDirection.Clockwise? rotAng - RotationAngle: rotAng + RotationAngle;
+                panAng = this.Rotation == SweepDirection.Clockwise ? rotAng - RotationAngle : rotAng + RotationAngle;
             //Polyline vertices
             List<Point2d> vertices = new List<Point2d>();
             vertices.Add(this.Start);
@@ -227,6 +241,8 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
                   dirAng = this.Direction.Angle,
                   rotAng = this.Direction.Angle + (this.Rotation == SweepDirection.Clockwise ? -1 * this.RotationAngle : this.RotationAngle),
                   panAng = this.Direction.Angle + (this.Rotation == SweepDirection.Clockwise ? -1 * this.LAngle : this.LAngle);
+            if (this is BordeoL135Panel)
+                panAng = this.Rotation == SweepDirection.Clockwise ? rotAng - RotationAngle : rotAng + RotationAngle;
             return this.Start.ToPoint2dByPolar(f1, dirAng).ToPoint2dByPolar(this.UnionLength, rotAng).ToPoint2dByPolar(f2, panAng);
         }
 

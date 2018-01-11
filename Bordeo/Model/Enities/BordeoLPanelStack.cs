@@ -177,9 +177,8 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
         public ObjectId DrawArrow(ArrowDirection arrow, Point3d insertionPt, double rotation, Transaction tr)
         {
             var blockDirPath = Path.Combine(App.Riviera.AppDirectory.FullName, FOLDER_NAME_BLOCKS_BORDEO);
-            rotation = arrow.IsFront() ? this.Rotation == SweepDirection.Counterclockwise ?
-                rotation + Math.PI / 2 :
-                rotation - Math.PI / 2 : rotation;
+            BordeoLPanel first = this.Panels.FirstOrDefault();
+            rotation = first.GetArrowRotation(arrow.IsFront(), rotation);
             return arrow.DrawArrow(insertionPt, rotation, blockDirPath, tr);
         }
         /// <summary>

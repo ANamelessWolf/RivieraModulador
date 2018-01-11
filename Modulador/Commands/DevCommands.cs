@@ -179,11 +179,12 @@ namespace DaSoft.Riviera.Modulador.Commands
             blockRecord.Open(tr, OpenMode.ForWrite);
             blockRecord.Clear(tr);
             String code = blockName.Substring(0, 6);
-            Double frente1 = 0.3748d,
-                frente2 = 0.5278d;
+            Double frente1 = 18d.GetPanel135DrawingSize() * Math.Sin(Math.PI / 4),
+                frente2 = 18d.GetPanel135DrawingSize() + 18d.GetPanel135DrawingSize() * Math.Cos(Math.PI / 4);
             BlockReference blkRef = block2d.CreateReference(new Point3d(), 0);
             //Se rota 270°
-            blkRef.TransformBy(Matrix3d.Rotation(3 * Math.PI / 2, Vector3d.ZAxis, new Point3d()));
+
+            blkRef.TransformBy(Matrix3d.Rotation(-3 * Math.PI / 4, Vector3d.ZAxis, new Point3d()));
             Vector3d offset = new Vector3d(frente2, frente1, 0);
             //Offset BR2020
             if (code == CODE_PANEL_90)
@@ -192,7 +193,7 @@ namespace DaSoft.Riviera.Modulador.Commands
             else
                 offset = new Vector3d(offset.X + 0.0709d, offset.Y + 0.0293d, 0);
             //Se traslada el punto final al punto inicial
-           // blkRef.TransformBy(Matrix3d.Displacement(new Vector3d(offset.X, offset.Y, 0)));
+            blkRef.TransformBy(Matrix3d.Displacement(new Vector3d(offset.X, offset.Y, 0)));
             blockRecord.Draw(tr, blkRef);
         }
     }

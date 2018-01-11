@@ -202,9 +202,12 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model
                 frente2 = int.Parse(blockName.Substring(8, 2));
             Double f1, f2;
             Vector3d offset = new Vector3d();
-            //Se rota 270°
             BlockReference blkRef = block.CreateReference(new Point3d(), 0);
-            blkRef.TransformBy(Matrix3d.Rotation(3 * Math.PI / 2, Vector3d.ZAxis, new Point3d()));
+            if (code == CODE_PANEL_90)//Se rota 270°
+                blkRef.TransformBy(Matrix3d.Rotation(3 * Math.PI / 2, Vector3d.ZAxis, new Point3d()));
+            else //Se rota 225° para el panel de 135°
+                blkRef.TransformBy(Matrix3d.Rotation(-3 * Math.PI / 4, Vector3d.ZAxis, new Point3d()));
+
             //Offset BR2020
             if (code == CODE_PANEL_90)
             {
@@ -216,8 +219,8 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model
             //Offset BR2030
             else
             {
-                f1 = frente1.GetPanel135DrawingSize();
-                f2 = frente2.GetPanel135DrawingSize();
+                f1 = frente1.GetPanel135DrawingSize() * Math.Sin(Math.PI / 4);
+                f2 = frente2.GetPanel135DrawingSize() + frente2.GetPanel135DrawingSize() * Math.Cos(Math.PI / 4);
                 offset = new Vector3d(f2, f1, 0);
                 offset = new Vector3d(offset.X + 0.07085210d, offset.Y + 0.02934790d, 0);
             }

@@ -55,12 +55,11 @@ namespace DaSoft.Riviera.Modulador.Bordeo.UI
             if (cboPanelHeights.SelectedIndex != -1)
             {
                 BordeoPanelHeightItem sel = (BordeoPanelHeightItem)cboPanelHeights.SelectedItem;
-               // var bitmap = new BitmapImage(new Uri(String.Format("pack://application:,,,/riv_bordeo;component/Assets/{0}", sel.ImageName)));
-                //var stream = this.GetType().Assembly.GetManifestResourceStream(String.Format("/riv_bordeo;component/Assets/{0}", sel.ImageName));
-                //img.Source = String.Format("/riv_bordeo;component/Assets/{0}", sel.ImageName).LoadImage(true);
+                String imgPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetAssembly(typeof(CtrlBordeoHeights)).Location);
+                imgPath = System.IO.Path.Combine(imgPath, "img", sel.ImageName);
+                if (System.IO.File.Exists(imgPath))
+                    img.Source = new System.IO.FileInfo(imgPath).LoadImage(true);
             }
-
-
         }
         /// <summary>
         /// Handles the Loaded event of the UserControl control.

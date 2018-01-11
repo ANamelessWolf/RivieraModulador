@@ -123,13 +123,33 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Controller
         {
             Editor ed = Application.DocumentManager.MdiActiveDocument.Editor;
             RivieraObject rivObject = (RivieraObject)sowEntity;
-            var drewIds = BordeoAutoCADTransactions.DrawArrows(sowEntity, rivObject, atStartPoint, atStartPoint);
-            ed.Regen();
+            String keyFront = ArrowDirection.FRONT.GetArrowDirectionName(),
+                keyBack = ArrowDirection.BACK.GetArrowDirectionName();
+            atStartPoint = !rivObject.Children.ContainsKey(keyBack) || rivObject.Children[keyBack] == 0;
+            atEndPoint = !rivObject.Children.ContainsKey(keyFront) || rivObject.Children[keyFront] == 0;
+            if (!atStartPoint && !atEndPoint)
+                return ArrowDirection.NONE;
+            var drewIds = BordeoAutoCADTransactions.DrawArrows(sowEntity, rivObject, atStartPoint, atEndPoint);
+            //Se borra las direcciones de los tamaños no soportados
+            //this.EraseUnsupportedDirections(drewIds);
             rivObject.ZoomAt(2.5d);
+            ed.Regen();
             ArrowDirection direction = AutoCADTransactions.PickArrowDirection(sowEntity, drewIds);
             ed.Regen();
             return direction;
         }
+
+        private void EraseUnsupportedDirections(ObjectIdCollection drewIds)
+        {
+            new QuickTransactionWrapper((Document doc, Transaction tr) =>
+           {
+               TabBordeoMenu ctrl = this.Menu as TabBordeoMenu;
+               IEnumerable<PanelMeasure> pSize = ctrl.GetLinearPanels();
+               IEnumerable<LPanelMeasure> pLSize90 = ctrl.GetL90Panels(), pLSize135 = ctrl.GetL135Panels();
+               IEnumerable<BlockReference> blkRef = drewIds.OfType<ObjectId>().Select(x => (BlockReference)x.GetObject(OpenMode.ForRead));
+           }).Run();
+        }
+
         /// <summary>
         /// Sows as Linear panel.
         /// </summary>
@@ -150,6 +170,9 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Controller
                     stack.AddPanel(sizes[i] as PanelMeasure);
                 //Se dibuja el stack
                 stack.Draw(tr);
+                var db = App.Riviera.Database.Objects;
+                if (db.FirstOrDefault(x => x.Handle.Value == stack.Handle.Value) == null)
+                    db.Add(stack);
                 return stack;
             }
             else
@@ -166,8 +189,18 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Controller
             Point3d end, start;
             if (direction == ArrowDirection.FRONT) //Misma dirección
             {
-                start = obj.End.ToPoint3d();
-                end = start.ToPoint2d().ToPoint2dByPolar(1, obj.Angle).ToPoint3d();
+                if (obj is BordeoLPanelStack)
+                {
+                    Polyline pl = (obj as BordeoLPanelStack).FirstOrDefault().PanelGeometry;
+                    start = obj.End.ToPoint3d();
+                    double angle = pl.GetPoint2dAt(2).GetVectorTo(pl.GetPoint2dAt(3)).Angle;
+                    end = start.ToPoint2d().ToPoint2dByPolar(1, angle).ToPoint3d();
+                }
+                else
+                {
+                    start = obj.End.ToPoint3d();
+                    end = start.ToPoint2d().ToPoint2dByPolar(1, obj.Angle).ToPoint3d();
+                }
             }
             else //Se invierte la dirección
             {
@@ -218,9 +251,15 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Controller
                 stack.AddPanel(sizes[i] as LPanelMeasure);
             //Se dibuja en el plano y se borra el panel anterior
             RivieraObject objParent = obj.GetParent();
-            this.DrawObjects((Document doc, Transaction tr, RivieraObject[] objs) => obj.Delete(tr));
+            this.DrawObjects((Document doc, Transaction tr, RivieraObject[] objs) => obj.Delete(tr), stack);
             if (objParent != null)
                 objParent.Connect(direction, stack);
+            else
+            {
+                var db = App.Riviera.Database.Objects;
+                if (db.FirstOrDefault(x => x.Handle.Value == stack.Handle.Value) == null)
+                    db.Add(stack);
+            }
             //Se regresa el stack como objeto creado
             return stack;
         }

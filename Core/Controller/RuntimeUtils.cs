@@ -21,7 +21,7 @@ namespace DaSoft.Riviera.Modulador.Core.Controller
         public static RivieraObject GetParent(this RivieraObject obj)
         {
             if (obj.Handle.Value != 0)
-                return App.Riviera.Database.Objects.FirstOrDefault(x => x.Handle.Value == obj.Handle.Value);
+                return App.Riviera.Database.Objects.FirstOrDefault(x => x.Handle.Value == obj.Parent);
             else
                 return null;
         }

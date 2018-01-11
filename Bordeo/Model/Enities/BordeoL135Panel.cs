@@ -37,7 +37,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
         /// <param name="end">The end point direction.</param>
         /// <param name="size">The panel size.</param>
         public BordeoL135Panel(SweepDirection direction, Point3d start, Point3d end, LPanelMeasure size)
-            : base(direction, start, end, size, CODE_PANEL_90)
+            : base(direction, start, end, size, CODE_PANEL_135)
         {
         }
 

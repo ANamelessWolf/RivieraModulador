@@ -45,10 +45,10 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Controller.Transactions
             RivieraObject obj = (RivieraObject)input[3];
             ObjectIdCollection ids = new ObjectIdCollection();
             if (atStart)
-                foreach (ObjectId id in sowEnt.DrawArrows(BordeoGeometryUtils.IsFront, obj.End.ToPoint3d(), obj.Angle, tr))
+                foreach (ObjectId id in sowEnt.DrawArrows(BordeoGeometryUtils.IsBack, obj.Start.ToPoint3d(), obj.Angle, tr))
                     ids.Add(id);
             if (atEnd)
-                foreach (ObjectId id in sowEnt.DrawArrows(BordeoGeometryUtils.IsBack, obj.Start.ToPoint3d(), obj.Angle, tr))
+                foreach (ObjectId id in sowEnt.DrawArrows(BordeoGeometryUtils.IsFront, obj.End.ToPoint3d(), obj.Angle, tr))
                     ids.Add(id);
             return ids;
         }

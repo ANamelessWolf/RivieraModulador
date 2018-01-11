@@ -71,15 +71,20 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
         /// Draws the specified transaction.
         /// </summary>
         /// <param name="tr">The Active transaction.</param>
-        public override void Draw(Transaction tr)
+        protected override ObjectIdCollection DrawContent(Transaction tr)
         {
             BordeoPanel firstPanel = this.Panels.FirstOrDefault();
             BlockTableRecord model = tr.GetModelSpace(OpenMode.ForWrite);
+            ObjectIdCollection ids = new ObjectIdCollection();
             //Se dibujan todos los paneles en la vista 3D
             if (App.Riviera.Is3DEnabled)
             {
                 foreach (var panel in this.Panels)
+                {
                     panel.Draw(tr);
+                    foreach (ObjectId id in panel.Ids)
+                        ids.Add(id);
+                }
             }
             else //Solo se dibuja el primer panel
             {
@@ -88,6 +93,8 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
                     panel.Erase(tr);
                 //Se dibuja el primer panel
                 firstPanel.Draw(tr);
+                foreach (ObjectId id in firstPanel.Ids)
+                    ids.Add(id);
             }
             //Se dibuja o actualizá la línea
             if (this.Id.IsValid)
@@ -97,6 +104,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
             }
             else
                 this.PanelGeometry.Draw(model, tr);
+            return ids;
         }
         /// <summary>
         /// Gets the enumerator that process the collection iteration
@@ -191,10 +199,13 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
         /// <param name="newObject">The new object to be added</param>
         public override void Connect(ArrowDirection direction, RivieraObject newObject)
         {
+            //Solo conecta en dos orientaciones front y back
+            if (direction.IsFront())
+                direction = ArrowDirection.FRONT;
+            else
+                direction = ArrowDirection.BACK;
             base.Connect(direction, newObject);
-            String key = direction == ArrowDirection.FRONT ?
-                ArrowDirection.BACK.GetArrowDirectionName() :
-                ArrowDirection.FRONT.GetArrowDirectionName();
+            String key = ArrowDirection.BACK.GetArrowDirectionName();
             //Se bloquea el nodo en el que se realizo la conexión
             if (newObject.Children.ContainsKey(key))
                 newObject.Children[key] = -1;

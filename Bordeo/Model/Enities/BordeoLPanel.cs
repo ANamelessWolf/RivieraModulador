@@ -117,8 +117,9 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
         /// Draws this instance
         /// </summary>
         /// <param name="tr">The active transaction.</param>
-        public override void Draw(Transaction tr)
+        protected override ObjectIdCollection DrawContent(Transaction tr)
         {
+            ObjectIdCollection ids = new ObjectIdCollection();
             Boolean is2DBlock = !App.Riviera.Is3DEnabled;
             ObjectId first = this.Ids.OfType<ObjectId>().FirstOrDefault();
             RivieraLBlock block = this.Block as RivieraLBlock;
@@ -134,6 +135,8 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
             }
             else
                 blkRef = block.Insert(doc, tr, blockType, this.Start.ToPoint3d(), this.Direction.Angle);
+            ids.Add(blkRef.Id);
+            return ids;
         }
         /// <summary>
         /// Draws the geometry.
@@ -178,8 +181,9 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
         /// </summary>
         public override void Regen()
         {
-            if (this.CADGeometry == null)
+            if (this.CADGeometry == null || this.PanelGeometry.Id.IsNull)
                 this.PanelGeometry = new Polyline();
+
             //Limpiamos la polilínea para comenzar a dibujarla
             while (this.PanelGeometry.NumberOfVertices > 0)
                 this.PanelGeometry.RemoveVertexAt(0);
@@ -188,13 +192,15 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
                    dirAng = this.Direction.Angle,
                    rotAng = this.Direction.Angle + (this.Rotation == SweepDirection.Clockwise ? -1 * this.RotationAngle : this.RotationAngle),
                    panAng = this.Direction.Angle + (this.Rotation == SweepDirection.Clockwise ? -1 * this.LAngle : this.LAngle);
+            if (this is BordeoL135Panel)
+                panAng = this.Rotation == SweepDirection.Clockwise? rotAng - RotationAngle: rotAng + RotationAngle;
             //Polyline vertices
             List<Point2d> vertices = new List<Point2d>();
             vertices.Add(this.Start);
             vertices.Add(vertices[0].ToPoint2dByPolar(f1, dirAng));
             vertices.Add(vertices[1].ToPoint2dByPolar(this.UnionLength, rotAng));
             vertices.Add(vertices[2].ToPoint2dByPolar(f2, panAng));
-            Double bulge = this.LAngle == Math.PI / 2 ? 0.4142 : 0;
+            Double bulge = this.LAngle == Math.PI / 2 ? 0.4142 : 0.1989;
             if (this.Rotation == SweepDirection.Clockwise)
                 bulge *= -1;
             vertices.ForEach(x => this.PanelGeometry.AddVertexAt(vertices.IndexOf(x), x, vertices.IndexOf(x) == 1 ? bulge : 0, 0, 0));

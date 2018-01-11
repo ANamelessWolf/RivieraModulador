@@ -18,6 +18,7 @@ using System.Windows.Shapes;
 using static DaSoft.Riviera.Modulador.Bordeo.Controller.BordeoUtils;
 using static DaSoft.Riviera.Modulador.Bordeo.Assets.Codes;
 using DaSoft.Riviera.Modulador.Core.Model.UI;
+using Nameless.Libraries.HoukagoTeaTime.Yui;
 
 namespace DaSoft.Riviera.Modulador.Bordeo.UI
 {
@@ -26,6 +27,8 @@ namespace DaSoft.Riviera.Modulador.Bordeo.UI
     /// </summary>
     public partial class TabBordeoMenu : UserControl
     {
+        const String BORDEO_SOW_START = "BordeoSowStart";
+        const String BORDEO_SOW_CONTINUE = "BordeoSowContinue";
         /// <summary>
         /// Gets the riviera bordeo available sizes
         /// </summary>
@@ -147,17 +150,17 @@ namespace DaSoft.Riviera.Modulador.Bordeo.UI
 
         private void btnInsertModule_Click(object sender, RoutedEventArgs e)
         {
-
+            Selector.InvokeCMD(BORDEO_SOW_START);
         }
 
         private void btnContinueInsert_Click(object sender, RoutedEventArgs e)
         {
-
+            Selector.InvokeCMD(BORDEO_SOW_CONTINUE);
         }
 
         private void btnInsert_Click(object sender, RoutedEventArgs e)
         {
-
+            Selector.InvokeCMD(BORDEO_SOW_START);
         }
 
 

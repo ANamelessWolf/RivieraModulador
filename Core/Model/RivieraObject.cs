@@ -112,7 +112,17 @@ namespace DaSoft.Riviera.Modulador.Core.Model
         /// Draws this instance
         /// </summary>
         /// <param name="tr">The active transaction.</param>
-        public abstract void Draw(Transaction tr);
+        protected abstract ObjectIdCollection DrawContent(Transaction tr);
+        /// <summary>
+        /// Draws this instance
+        /// </summary>
+        /// <param name="tr">The active transaction.</param>
+        public void Draw(Transaction tr)
+        {
+            ObjectIdCollection ids = DrawContent(tr);
+            foreach (ObjectId id in ids)
+                this.Ids.Add(id);
+        }
         /// <summary>
         /// Regens this instance geometry <see cref="CADGeometry"/>.
         /// </summary>
@@ -182,6 +192,11 @@ namespace DaSoft.Riviera.Modulador.Core.Model
         public void Erase(Transaction tr)
         {
             this.Ids.Erase(tr);
+            if (this.CADGeometry.Id.IsValid)
+            {
+                var obj = this.CADGeometry.Id.GetObject(OpenMode.ForWrite);
+                obj.Erase(tr);
+            }
         }
         /// <summary>
         /// Erase this instance drew geometry
@@ -201,6 +216,27 @@ namespace DaSoft.Riviera.Modulador.Core.Model
             this.CADGeometry.GetGeometricExtents(out min, out max);
             ZoomWindow zoom = new ZoomWindow(min, max);
             zoom.SetView(scale);
+        }
+        /// <summary>
+        /// Returns a <see cref="System.String" /> that represents this instance.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append(this.Code.Code);
+            sb.Append(" ");
+            foreach (var child in this.Children.Where(x => x.Value > 0))
+                sb.Append(String.Format("{0}: {1}, ", child.Key, child.Value));
+            if (this.Children.Count(x => x.Value > 0) > 0)
+                return sb.ToString().Substring(0, sb.ToString().Length - 2);
+            else
+            {
+                sb.Append("Sin conexión.");
+                return sb.ToString();
+            }
         }
     }
 }

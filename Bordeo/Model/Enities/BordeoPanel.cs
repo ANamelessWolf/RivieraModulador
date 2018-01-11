@@ -81,13 +81,14 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
         /// The BordeoPanel is only visible when the mode is 3D
         /// </summary>
         /// <param name="tr">The Active transaction.</param>
-        public override void Draw(Transaction tr)
+        protected override ObjectIdCollection DrawContent(Transaction tr)
         {
             Boolean is2DBlock = !App.Riviera.Is3DEnabled;
             ObjectId first = this.Ids.OfType<ObjectId>().FirstOrDefault();
             RivieraBlock block = this.Block;
             var doc = Application.DocumentManager.MdiActiveDocument;
             BlockReference blkRef;
+            ObjectIdCollection ids = new ObjectIdCollection();
             //Si ya se dibujo, el elemento tiene un id válido, solo se debe actualizar
             //el contenido.
             if (first.IsValid)
@@ -100,6 +101,8 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
             //Solo se actualizan los bloques insertados en la vista 3D
             if (!is2DBlock)
                 this.UpdateBlockPosition(tr, blkRef);
+            this.Ids.Add(blkRef.Id);
+            return ids;
         }
         /// <summary>
         /// Updates the block position.

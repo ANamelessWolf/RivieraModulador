@@ -95,13 +95,13 @@ namespace DaSoft.Riviera.Modulador.Commands
                     {
                         end = start + new Vector3d(10, 0, 0);
                         if (i == 0)
-                            panel = new BordeoL90Panel(SweepDirection.Clockwise, start, end, size);
+                            panel = new BordeoL135Panel(SweepDirection.Clockwise, start, end, size);
                         else if (i == 1)
-                            panel = new BordeoL90Panel(SweepDirection.Counterclockwise, start, end, size);
+                            panel = new BordeoL135Panel(SweepDirection.Counterclockwise, start, end, size);
                         else if (i == 2)
-                            panel = new BordeoL90Panel(SweepDirection.Clockwise, start, end, size.InvertFront());
+                            panel = new BordeoL135Panel(SweepDirection.Clockwise, start, end, size.InvertFront());
                         else if (i == 3)
-                            panel = new BordeoL90Panel(SweepDirection.Counterclockwise, start, end, size.InvertFront());
+                            panel = new BordeoL135Panel(SweepDirection.Counterclockwise, start, end, size.InvertFront());
                         else
                             panel = null;
                         if (panel != null)
@@ -146,8 +146,8 @@ namespace DaSoft.Riviera.Modulador.Commands
                     if (Picker.Point("Selecciona el punto inicial", out start))
                     {
                         end = start + new Vector3d(10, 0, 0);
-                        var size = ctrl.GetL90Panels().FirstOrDefault() as LPanelMeasure;
-                        var panel = new BordeoL90Panel(SweepDirection.Counterclockwise, start, end, size);
+                        var size = ctrl.GetL135Panels().FirstOrDefault() as LPanelMeasure;
+                        BordeoL135Panel panel = new BordeoL135Panel(SweepDirection.Counterclockwise, start, end, size);
                         panel.Draw(tr);
                         this.InitContent(panel, tr);
                         ed.Regen();
@@ -162,7 +162,7 @@ namespace DaSoft.Riviera.Modulador.Commands
             }).Run();
         }
 
-        private void InitContent(BordeoL90Panel panel, Transaction tr)
+        private void InitContent(BordeoL135Panel panel, Transaction tr)
         {
             Dictionary<LBlockType, AutoCADBlock>
                 blocks2D = new Dictionary<LBlockType, AutoCADBlock>(),
@@ -175,7 +175,7 @@ namespace DaSoft.Riviera.Modulador.Commands
             (panel.Block as RivieraLBlock).LoadBlocks(Application.DocumentManager.MdiActiveDocument, tr, out blocks2D, out blocks3D);
             string blockName = block2d.Blockname.Substring(0, block2d.Blockname.Length - 2),
                    variantBlockName = varBlock2d != null ? varBlock2d.Blockname.Substring(0, varBlock2d.Blockname.Length - 2) : null;
-            AutoCADBlock blockRecord = blocks2D[LBlockType.LEFT_START_MIN_SIZE];
+            AutoCADBlock blockRecord = blocks2D[LBlockType.LEFT_SAME_SIZE];
             blockRecord.Open(tr, OpenMode.ForWrite);
             blockRecord.Clear(tr);
             String code = blockName.Substring(0, 6);
@@ -192,7 +192,7 @@ namespace DaSoft.Riviera.Modulador.Commands
             else
                 offset = new Vector3d(offset.X + 0.0709d, offset.Y + 0.0293d, 0);
             //Se traslada el punto final al punto inicial
-            blkRef.TransformBy(Matrix3d.Displacement(new Vector3d(offset.X, offset.Y, 0)));
+           // blkRef.TransformBy(Matrix3d.Displacement(new Vector3d(offset.X, offset.Y, 0)));
             blockRecord.Draw(tr, blkRef);
         }
     }

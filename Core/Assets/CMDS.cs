@@ -14,5 +14,10 @@ namespace DaSoft.Riviera.Modulador.Core.Assets
         public const String START = "IniciarRivieraApp";
         public const String INIT_APP_UI = "IniciarRivieraAppUI";
         public const String CONFIG_UI = "IniciarConfiguraciones";
+        /***************************/
+        /*****  ****/
+        /***************************/
+        public const String BORDEO_SOW_START = "BordeoSowStart";
+        public const String BORDEO_SOW_CONTINUE = "BordeoSowContinue";
     }
 }

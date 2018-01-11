@@ -39,7 +39,7 @@ namespace DaSoft.Riviera.Modulador.Core.Controller.Transactions
             var sowEntity = input[0] as ISowable;
             var ids = input[1] as ObjectIdCollection;
             ArrowDirection dir = sowEntity.PickDirection(tr);
-            ids[0].Erase(tr);
+            ids.Erase(tr);
             return dir;
         }
     }

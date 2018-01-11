@@ -118,7 +118,7 @@ namespace DaSoft.Riviera.Modulador.Core.Controller
             {
                 obj = this.TransitionMatrix[this.CurrentState].Transition(dir, out this.CurrentState, obj, this.PickSizes(dir));
                 ed.Regen();
-                dir = this.PickArrow(obj as ISowable, true, true);
+                dir = this.PickArrow(obj as ISowable);
             }
         }
         /// <summary>
@@ -131,7 +131,7 @@ namespace DaSoft.Riviera.Modulador.Core.Controller
             new VoidTransactionWrapper<RivieraObject>(
                 (Document doc, Transaction tr, RivieraObject[] objs) =>
                 {
-                    foreach (var obj in objects)
+                    foreach (var obj in objs)
                         obj.Draw(tr);
                     if (task != null)
                         task(doc, tr, objs);

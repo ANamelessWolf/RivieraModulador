@@ -87,15 +87,20 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
         /// Draws this instance
         /// </summary>
         /// <param name="tr">The active transaction.</param>
-        public override void Draw(Transaction tr)
+        protected override ObjectIdCollection DrawContent(Transaction tr)
         {
             BordeoLPanel firstPanel = this.Panels.FirstOrDefault();
             BlockTableRecord model = tr.GetModelSpace(OpenMode.ForWrite);
+            ObjectIdCollection ids = new ObjectIdCollection();
             //Se dibujan todos los paneles en la vista 3D
             if (App.Riviera.Is3DEnabled)
             {
                 foreach (var panel in this.Panels)
+                {
                     panel.Draw(tr);
+                    foreach (ObjectId id in panel.Ids)
+                        ids.Add(id);
+                }
             }
             else //Solo se dibuja el primer panel
             {
@@ -104,6 +109,8 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
                     panel.Erase(tr);
                 //Se dibuja el primer panel
                 firstPanel.Draw(tr);
+                foreach (ObjectId id in firstPanel.Ids)
+                    ids.Add(id);
             }
             //Se dibuja o actualizá la polilínea
             if (this.Id.IsValid)
@@ -113,6 +120,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
             }
             else
                 this.CADGeometry.Draw(model, tr);
+            return ids;
         }
         /// Devuelve un enumerador que recorre en iteración una colección.
         /// </summary>
@@ -166,8 +174,14 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
         /// <returns>
         /// The drew arrow object id
         /// </returns>
-        public ObjectId DrawArrow(ArrowDirection arrow, Point3d insertionPt, double rotation, Transaction tr) =>
-            arrow.DrawArrow(insertionPt, rotation, Path.Combine(App.Riviera.AppDirectory.FullName, FOLDER_NAME_BLOCKS_BORDEO), tr);
+        public ObjectId DrawArrow(ArrowDirection arrow, Point3d insertionPt, double rotation, Transaction tr)
+        {
+            var blockDirPath = Path.Combine(App.Riviera.AppDirectory.FullName, FOLDER_NAME_BLOCKS_BORDEO);
+            rotation = arrow.IsFront() ? this.Rotation == SweepDirection.Counterclockwise ?
+                rotation + Math.PI / 2 :
+                rotation - Math.PI / 2 : rotation;
+            return arrow.DrawArrow(insertionPt, rotation, blockDirPath, tr);
+        }
         /// <summary>
         /// Draws all available arrows
         /// </summary>
@@ -178,7 +192,12 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
         /// The drew arrows object ids
         /// </returns>
         public ObjectIdCollection DrawArrows(Func<ArrowDirection, Boolean> filter, Point3d insertionPt, double rotation, Transaction tr)
-            => this.DrawArrows(filter, insertionPt, rotation, Path.Combine(App.Riviera.AppDirectory.FullName, FOLDER_NAME_BLOCKS_BORDEO), tr);
+        {
+            ObjectIdCollection ids = new ObjectIdCollection();
+            IEnumerable<ArrowDirection> arrows = this.GetAvailableDirections().Where(x => filter(x));
+            arrows.ToList().ForEach(x => ids.Add(this.DrawArrow(x, insertionPt, rotation, tr)));
+            return ids;
+        }
         /// <summary>
         /// Picks an arrow direction.
         /// </summary>
@@ -193,21 +212,20 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
         /// <param name="newObject">The new object to be added</param>
         public override void Connect(ArrowDirection direction, RivieraObject newObject)
         {
-            base.Connect(direction, newObject);
-            //Se bloquean las llaves usadas.
-            IEnumerable<ArrowDirection> keys;
+            //Solo conecta en dos orientaciones front y back
             if (direction.IsFront())
-                keys = this.GetAvailableDirections().Where(x => x.IsBack());
+                direction = ArrowDirection.FRONT;
             else
-                keys = this.GetAvailableDirections().Where(x => x.IsFront());
-            foreach (var key in keys.Select(x => x.GetArrowDirectionName()))
-            {
-                //Se bloquea el nodo en el que se realizo la conexión
-                if (newObject.Children.ContainsKey(key))
-                    newObject.Children[key] = -1;
-                else
-                    newObject.Children.Add(key, -1);
-            }
+                direction = ArrowDirection.BACK;
+            base.Connect(direction, newObject);
+            var d = App.Riviera.Database.Objects.Select(x => x.Handle).ToArray();
+            //Se bloquean las llaves que apunten al padre, solo
+            //se permite una conexión.
+            String key = ArrowDirection.BACK.GetArrowDirectionName();
+            if (newObject.Children.ContainsKey(key))
+                newObject.Children[key] = -1;
+            else
+                newObject.Children.Add(key, -1);
         }
 
 

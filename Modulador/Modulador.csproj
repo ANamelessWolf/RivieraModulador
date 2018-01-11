@@ -92,6 +92,7 @@
   <ItemGroup>
     <Compile Include="AssemblyVersion_R20.cs" />
     <Compile Include="Commands\ApplicationCommands.cs" />
+    <Compile Include="Commands\BordeoCommands.cs" />
     <Compile Include="Commands\DevCommands.cs" />
     <Compile Include="Controller\RuntimeUtils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -110,6 +111,27 @@
     <Compile Include="UI\WinAppInitializer.xaml.cs">
       <DependentUpon>WinAppInitializer.xaml</DependentUpon>
     </Compile>
+    <Resource Include="img\PBPB.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\PBPBPB.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\PBPBPs.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\PBPs.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\PBPsPB.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\PBPsPs.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\PBPsPsPs.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

@@ -6,12 +6,19 @@
              xmlns:local="clr-namespace:DaSoft.Riviera.Modulador.Bordeo.UI"
              mc:Ignorable="d" Loaded="UserControl_Loaded"
              d:DesignHeight="200" d:DesignWidth="220">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/riv_core;component/Assets/RivieraStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="32"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
-        <ComboBox x:Name="cboPanelHeights" SelectionChanged="cboPanelHeights_SelectionChanged">
+        <ComboBox x:Name="cboPanelHeights" SelectionChanged="cboPanelHeights_SelectionChanged" Style="{StaticResource MenuStyle_List}">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock>

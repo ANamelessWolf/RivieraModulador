@@ -21,7 +21,38 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.UI
         /// <value>
         /// The name of the image.
         /// </value>
-        public string ImageName => String.Format("{0}.png", this.Height.ToString());
+        public string ImageName
+        {
+            get
+            {
+                String value = String.Empty;
+                switch (this.Height)
+                {
+                    case BordeoPanelHeight.NormalMini:
+                        value = "PBPs";
+                        break;
+                    case BordeoPanelHeight.NormalMiniNormal:
+                        value = "PBPsPB";
+                        break;
+                    case BordeoPanelHeight.NormalThreeMini:
+                        value = "PBPsPsPs";
+                        break;
+                    case BordeoPanelHeight.NormalTwoMinis:
+                        value = "PBPsPs";
+                        break;
+                    case BordeoPanelHeight.ThreeNormals:
+                        value = "PBPBPB";
+                        break;
+                    case BordeoPanelHeight.TwoNormalOneMini:
+                        value = "PBPBPs";
+                        break;
+                    case BordeoPanelHeight.TwoNormals:
+                        value = "PBPB";
+                        break;
+                }
+                return String.Format("{0}.png", value);
+            }
+        }
         /// <summary>
         /// Gets the size of the nominal.
         /// </summary>

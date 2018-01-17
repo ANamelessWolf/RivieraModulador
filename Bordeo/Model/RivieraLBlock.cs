@@ -58,6 +58,13 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model
             this.MinSize = int.Parse(blockName.Substring(6, 2));
             this.MaxSize = int.Parse(blockName.Substring(8, 2));
             this.Height = int.Parse(blockName.Substring(10, 2));
+            int tmp = this.MinSize;
+            if (MinSize > this.MaxSize)
+            {
+                this.MinSize = this.MaxSize;
+                this.MaxSize = tmp;
+                this.BlockName = String.Format("{0}{1}{2}{3}T", this.Code, this.MinSize, this.MaxSize, this.Height);
+            }
             this.VariantBlockName = String.Format("{0}{1}{2}{3}T", this.Code, this.MaxSize, this.MinSize, this.Height);
         }
         /// <summary>

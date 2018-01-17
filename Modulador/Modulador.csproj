@@ -2956,16 +2956,36 @@
     <Content Include="Bordeo\3D\BR2020484827T.dwg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="Bordeo\MISC\Back.dwg" />
-    <None Include="Bordeo\MISC\BackLFT135.dwg" />
-    <None Include="Bordeo\MISC\BackLFT90.dwg" />
-    <None Include="Bordeo\MISC\BackRGT135.dwg" />
-    <None Include="Bordeo\MISC\BackRGT90.dwg" />
-    <None Include="Bordeo\MISC\Front.dwg" />
-    <None Include="Bordeo\MISC\FrontLFT135.dwg" />
-    <None Include="Bordeo\MISC\FrontLFT90.dwg" />
-    <None Include="Bordeo\MISC\FrontRGT135.dwg" />
-    <None Include="Bordeo\MISC\FrontRGT90.dwg" />
+    <Content Include="Bordeo\MISC\Back.dwg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bordeo\MISC\BackLFT135.dwg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bordeo\MISC\BackLFT90.dwg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bordeo\MISC\BackRGT135.dwg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bordeo\MISC\BackRGT90.dwg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bordeo\MISC\Front.dwg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bordeo\MISC\FrontLFT135.dwg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bordeo\MISC\FrontLFT90.dwg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bordeo\MISC\FrontRGT135.dwg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bordeo\MISC\FrontRGT90.dwg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

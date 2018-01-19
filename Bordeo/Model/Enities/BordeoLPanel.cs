@@ -143,7 +143,11 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
                     blkRef = first.GetObject(OpenMode.ForWrite) as BlockReference;
                 }
                 else
+                {
                     blkRef = block.Insert(doc, tr, blockType, this.Start.ToPoint3d(), this.Direction.Angle);
+                    if (!is2DBlock)
+                        UpdateBlockPosition(tr, blkRef);
+                }
                 ids.Add(blkRef.Id);
                 return ids;
             }
@@ -199,8 +203,8 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
                 this.PanelGeometry = new Polyline();
 
             //Limpiamos la polilínea para comenzar a dibujarla
-            while (this.PanelGeometry.NumberOfVertices > 0)
-                this.PanelGeometry.RemoveVertexAt(0);
+            while (this.PanelGeometry.NumberOfVertices > 1)
+                this.PanelGeometry.RemoveVertexAt(this.PanelGeometry.NumberOfVertices - 1);
             Double f1 = this.LAngle == Math.PI / 2 ? this.PanelSize.FrenteStart.Nominal.GetPanel90DrawingSize() : this.PanelSize.FrenteStart.Nominal.GetPanel135DrawingSize(),
                    f2 = this.LAngle == Math.PI / 2 ? this.PanelSize.FrenteEnd.Nominal.GetPanel90DrawingSize() : this.PanelSize.FrenteStart.Nominal.GetPanel135DrawingSize(),
                    dirAng = this.Direction.Angle,
@@ -218,15 +222,17 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
             if (this.Rotation == SweepDirection.Clockwise)
                 bulge *= -1;
             vertices.ForEach(x => this.PanelGeometry.AddVertexAt(vertices.IndexOf(x), x, vertices.IndexOf(x) == 1 ? bulge : 0, 0, 0));
+            if (this.PanelGeometry.NumberOfVertices == 5)
+                this.PanelGeometry.RemoveVertexAt(this.PanelGeometry.NumberOfVertices - 1);
         }
         /// <summary>
         /// Updates the block position.
         /// </summary>
         /// <param name="tr">The tr.</param>
         /// <param name="blockRef">The block reference.</param>
-        public void UpdateBlockPosition(Transaction tr, BlockReference blockRef)
+        public void UpdateBlockPosition(Transaction tr, BlockReference blkRef)
         {
-
+            blkRef.Position = new Point3d(blkRef.Position.X, blkRef.Position.Y, this.Elevation);
         }
         /// <summary>
         /// Gets the riviera object end point.

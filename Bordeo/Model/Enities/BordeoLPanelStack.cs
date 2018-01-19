@@ -33,6 +33,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
         /// The panel angle
         /// </summary>
         public readonly BordeoLPanelAngle PanelAngle;
+        
         /// <summary>
         /// Gets the geometry that stores the riviera extended data.
         /// </summary>
@@ -97,6 +98,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
             {
                 foreach (var panel in this.Panels)
                 {
+                    panel.Direction = firstPanel.Direction;
                     panel.Draw(tr);
                     foreach (ObjectId id in panel.Ids)
                         ids.Add(id);
@@ -115,7 +117,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
             //Se dibuja o actualizá la polilínea
             if (this.Id.IsValid)
             {
-                this.CADGeometry.UpgradeOpen();
+                this.CADGeometry.Id.GetObject(OpenMode.ForWrite);
                 this.Regen();
             }
             else

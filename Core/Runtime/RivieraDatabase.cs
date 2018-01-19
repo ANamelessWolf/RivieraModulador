@@ -30,6 +30,10 @@ namespace DaSoft.Riviera.Modulador.Core.Runtime
         /// </summary>
         public List<RivieraObject> Objects;
         /// <summary>
+        /// La lista de objetos en la aplicación que son validos y no han sido borrados.
+        /// </summary>
+        public IEnumerable<RivieraObject> ValidObjects => Objects.Where(x => x.Id.IsValid && !x.Id.IsErased);
+        /// <summary>
         /// The action excecuted ones the database loaded
         /// </summary>
         public Action DatabaseLoaded;

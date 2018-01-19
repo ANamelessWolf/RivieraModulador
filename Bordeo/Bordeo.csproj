@@ -124,6 +124,7 @@
     <Compile Include="Model\PasoLuzMeasure.cs" />
     <Compile Include="Model\PuenteMeasure.cs" />
     <Compile Include="Model\RivieraLBlock.cs" />
+    <Compile Include="Model\RivieraLinearBlock.cs" />
     <Compile Include="Model\UI\BordeoPanelHeightItem.cs" />
     <Compile Include="Model\UI\ImageItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">

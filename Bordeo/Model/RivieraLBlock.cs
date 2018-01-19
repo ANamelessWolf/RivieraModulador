@@ -189,11 +189,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model
         {
             blockRecord.Open(tr, OpenMode.ForWrite);
             if (blockRecord.Block.OfType<ObjectId>().Count() == 0)
-            {
-                if (is3dBlock)
-                    blkRef.TransformBy(Matrix3d.Rotation(Math.PI / 2, Vector3d.XAxis, new Point3d()));
                 blockRecord.Draw(tr, blkRef);
-            }
         }
 
         /// <summary>

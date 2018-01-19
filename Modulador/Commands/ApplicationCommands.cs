@@ -14,6 +14,9 @@ using System.Windows.Controls;
 using DaSoft.Riviera.Modulador.Enfasis.UI;
 using DaSoft.Riviera.Modulador.Bordeo.UI;
 using Nameless.Libraries.HoukagoTeaTime.Yui;
+using Nameless.Libraries.HoukagoTeaTime.Runtime;
+using Autodesk.AutoCAD.ApplicationServices;
+using Autodesk.AutoCAD.DatabaseServices;
 
 namespace DaSoft.Riviera.Modulador.Commands
 {
@@ -107,6 +110,40 @@ namespace DaSoft.Riviera.Modulador.Commands
             RivApp.InitDatabase();
         }
         /// <summary>
+        /// Swaps between a 2D view and the 3D view.
+        /// </summary>
+        [CommandMethod(SWAP_3D_MODE)]
+        public void Swap3DView()
+        {
+            App.RunCommand(
+                delegate ()
+                {
+                    try
+                    {
+                        new QuickTransactionWrapper(
+                            (Document doc, Transaction tr) =>
+                            {
+                                App.Riviera.Is3DEnabled = !App.Riviera.Is3DEnabled;
+                                try
+                                {
+                                    foreach (var obj in App.Riviera.Database.ValidObjects)
+                                        obj.Draw(tr);
+                                }
+                                catch (System.Exception exc)
+                                {
+                                    Selector.Ed.WriteMessage(exc.Message);
+                                }
+                                
+                                Selector.Ed.Regen();
+                            }).Run();
+                    }
+                    catch (System.Exception exc)
+                    {
+                        Selector.Ed.WriteMessage(exc.Message);
+                    }
+                });
+        }
+        /// <summary>
         /// Initialize the delta
         /// </summary>
         [CommandMethod(INIT_APP_UI)]
@@ -118,6 +155,7 @@ namespace DaSoft.Riviera.Modulador.Commands
                     base.InitCommand();
                     try
                     {
+
                     }
                     catch (System.Exception exc)
                     {

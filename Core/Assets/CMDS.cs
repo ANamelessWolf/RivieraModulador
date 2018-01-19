@@ -11,11 +11,15 @@ namespace DaSoft.Riviera.Modulador.Core.Assets
     /// </summary>
     public static class CMDS
     {
+        /*******************************/
+        /**** Commandos Applicación ****/
+        /*******************************/
         public const String START = "IniciarRivieraApp";
         public const String INIT_APP_UI = "IniciarRivieraAppUI";
         public const String CONFIG_UI = "IniciarConfiguraciones";
+        public const String SWAP_3D_MODE = "Swap3DMode";
         /***************************/
-        /*****  ****/
+        /***** Commandos Bordeo ****/
         /***************************/
         public const String BORDEO_SOW_START = "BordeoSowStart";
         public const String BORDEO_SOW_CONTINUE = "BordeoSowContinue";

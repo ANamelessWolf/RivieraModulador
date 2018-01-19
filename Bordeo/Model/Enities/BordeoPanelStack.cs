@@ -99,7 +99,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
             //Se dibuja o actualizá la línea
             if (this.Id.IsValid)
             {
-                this.PanelGeometry.UpgradeOpen();
+                this.PanelGeometry.Id.GetObject(OpenMode.ForWrite);
                 this.Regen();
             }
             else

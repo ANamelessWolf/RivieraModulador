@@ -33,7 +33,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
         /// <value>
         /// The block manager.
         /// </value>
-        public RivieraBlock Block => new RivieraBlock(this.BlockName, BlockDirectoryPath);
+        public RivieraBlock Block => new RivieraLinearBlock(this.BlockName, BlockDirectoryPath);
         /// <summary>
         /// Gets the name of the block.
         /// </summary>
@@ -87,21 +87,24 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
             ObjectId first = this.Ids.OfType<ObjectId>().FirstOrDefault();
             RivieraBlock block = this.Block;
             var doc = Application.DocumentManager.MdiActiveDocument;
-            BlockReference blkRef;
+            BlockReference blkRef, blockContent;
             ObjectIdCollection ids = new ObjectIdCollection();
             //Si ya se dibujo, el elemento tiene un id válido, solo se debe actualizar
             //el contenido.
             if (first.IsValid)
             {
-                block.SetContent(is2DBlock, doc, tr);
+                block.SetContent(is2DBlock, out blockContent, doc, tr);
                 blkRef = first.GetObject(OpenMode.ForWrite) as BlockReference;
             }
             else
+            {
                 blkRef = block.Insert(doc, tr, this.Start.ToPoint3d(), this.Direction.Angle);
+                if (!is2DBlock)
+                    UpdateBlockPosition(tr, blkRef);
+                ids.Add(blkRef.Id);
+            }
             //Solo se actualizan los bloques insertados en la vista 3D
-            if (!is2DBlock)
-                this.UpdateBlockPosition(tr, blkRef);
-            this.Ids.Add(blkRef.Id);
+
             return ids;
         }
         /// <summary>
@@ -112,10 +115,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
         public void UpdateBlockPosition(Transaction tr, BlockReference blkRef)
         {
             blkRef.Position = new Point3d(blkRef.Position.X, blkRef.Position.Y, this.Elevation);
-            //Se rota el bloque para la vista 3D
-            Point3d insPoint = blkRef.Position;
-            Vector3d v = insPoint.GetVectorTo(End.ToPoint3d(this.Elevation));
-            blkRef.TransformBy(Matrix3d.Rotation(Math.PI / 2, v, blkRef.Position));
+
         }
         /// <summary>
         /// Gets the riviera object end point.

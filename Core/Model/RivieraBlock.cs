@@ -6,6 +6,7 @@ using DaSoft.Riviera.Modulador.Core.Runtime;
 using Nameless.Libraries.HoukagoTeaTime.Mio.Entities;
 using Nameless.Libraries.HoukagoTeaTime.Mio.Model;
 using Nameless.Libraries.HoukagoTeaTime.Mio.Utils;
+using Nameless.Libraries.HoukagoTeaTime.Ritsu.Utils;
 using Nameless.Libraries.Yggdrasil.Lain;
 using Nameless.Libraries.Yggdrasil.Lilith;
 using System;
@@ -124,18 +125,21 @@ namespace DaSoft.Riviera.Modulador.Core.Model
         /// is on 2D or 3D
         /// </summary>
         /// <param name="is2DBlock">if set to <c>true</c> [is a 2D block] otherwise a 3D block.</param>
+        /// <param name="blkRef">The Block reference</param>
         /// <param name="doc">The active document.</param>
         /// <param name="tr">The active transaction.</param>
-        public void SetContent(Boolean is2DBlock, Document doc, Transaction tr)
+        public virtual Boolean SetContent(Boolean is2DBlock, out BlockReference blkRef, Document doc, Transaction tr)
         {
             AutoCADBlock instance, content;
-            BlockReference blkRef;
-            if (LoadBlocks(doc, tr, out instance, out content, is2DBlock))
+            blkRef = null;
+            Boolean blocksLoaded = LoadBlocks(doc, tr, out instance, out content, is2DBlock);
+            if (blocksLoaded)
             {
                 instance.Clear(tr);
                 blkRef = content.CreateReference(new Point3d(), 0, 1);
                 instance.Draw(tr, blkRef);
             }
+            return blocksLoaded;
         }
         /// <summary>
         /// Inserts this instance block as a BlockReference.
@@ -149,10 +153,11 @@ namespace DaSoft.Riviera.Modulador.Core.Model
         public BlockReference Insert(Document doc, Transaction tr, Point3d insPt, Double angle = 0, Double scale = 1)
         {
             BlockTable blockTable = doc.Database.BlockTableId.GetObject(OpenMode.ForRead) as BlockTable;
-            AutoCADBlock instance=null, content;
+            AutoCADBlock instance = null, content;
+            BlockReference blockContent;
             Boolean is2DBlock = !App.Riviera.Is3DEnabled;
             if (!blockTable.Has(this.InstanceBlockName) && this.LoadBlocks(doc, tr, out instance, out content, is2DBlock))
-                this.SetContent(is2DBlock, doc, tr);
+                this.SetContent(is2DBlock, out blockContent, doc, tr);
             else
             {
                 this.LoadBlocks(doc, tr, out instance, out content, is2DBlock);

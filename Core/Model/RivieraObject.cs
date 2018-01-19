@@ -123,7 +123,12 @@ namespace DaSoft.Riviera.Modulador.Core.Model
             {
                 ObjectIdCollection ids = DrawContent(tr);
                 foreach (ObjectId id in ids)
-                    this.Ids.Add(id);
+                    if (!this.Ids.Contains(id))
+                        this.Ids.Add(id);
+                //Se eliminan los bloques borrados.
+                var erased = this.Ids.OfType<ObjectId>().Where(x => x.IsErased);
+                foreach (ObjectId id in erased)
+                    this.Ids.Remove(id);
             }
             catch (Exception exc)
             {
@@ -199,6 +204,7 @@ namespace DaSoft.Riviera.Modulador.Core.Model
         public void Erase(Transaction tr)
         {
             this.Ids.Erase(tr);
+            this.Ids.Clear();
             if (this.CADGeometry.Id.IsValid)
             {
                 var obj = this.CADGeometry.Id.GetObject(OpenMode.ForWrite);

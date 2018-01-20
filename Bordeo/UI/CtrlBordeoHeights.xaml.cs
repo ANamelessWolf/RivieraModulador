@@ -24,6 +24,20 @@ namespace DaSoft.Riviera.Modulador.Bordeo.UI
     public partial class CtrlBordeoHeights : UserControl
     {
         /// <summary>
+        /// Gets the index of the selected.
+        /// </summary>
+        /// <value>
+        /// The index of the selected.
+        /// </value>
+        public int SelectedIndex
+        {
+            get { return this.cboPanelHeights.SelectedIndex; }
+        }
+        /// <summary>
+        /// Occurs when [selection changed].
+        /// </summary>
+        public event SelectionChangedEventHandler SelectionChanged;
+        /// <summary>
         /// Gets the selected height for the panel.
         /// </summary>
         /// <value>
@@ -59,6 +73,8 @@ namespace DaSoft.Riviera.Modulador.Bordeo.UI
                 imgPath = System.IO.Path.Combine(imgPath, "img", sel.ImageName);
                 if (System.IO.File.Exists(imgPath))
                     img.Source = new System.IO.FileInfo(imgPath).LoadImage(true);
+                if (SelectionChanged != null)
+                    SelectionChanged(this, e);
             }
         }
         /// <summary>

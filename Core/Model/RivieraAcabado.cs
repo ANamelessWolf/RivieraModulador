@@ -29,7 +29,7 @@ namespace DaSoft.Riviera.Modulador.Core.Model.DB
         /// <returns>la colección de acabados.</returns>
         public override string ToString()
         {
-            return String.Format("{0}: {1}", this.RivCode, this.Acabado);
+            return this.Acabado;
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using DaSoft.Riviera.Modulador.Bordeo.Runtime;
+﻿using DaSoft.Riviera.Modulador.Bordeo.Model;
+using DaSoft.Riviera.Modulador.Bordeo.Model.Enities;
+using DaSoft.Riviera.Modulador.Bordeo.Runtime;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -84,6 +86,59 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Controller
             else
                 throw new BordeoException(String.Format(ERR_UNKNOWN_DRAWING_SIZE, nominal));
             return val;
+        }
+
+        public static BordeoPanelHeight GetHeights(this IEnumerable<BordeoPanel> panels)
+        {
+            String panelHeightString = String.Empty;
+            foreach (BordeoPanel panel in panels)
+                panelHeightString += panel.PanelSize.Alto.Nominal == 27 ? "PB" : "Ps";
+            return panelHeightString.GetHeight();
+        }
+        public static BordeoPanelHeight GetHeights(this IEnumerable<BordeoLPanel> panels)
+        {
+            String panelHeightString = String.Empty;
+            foreach (BordeoLPanel panel in panels)
+                panelHeightString += panel.PanelSize.Alto.Nominal == 27 ? "PB" : "Ps";
+            return panelHeightString.GetHeight();
+        }
+        /// <summary>
+        /// Gets the height.
+        /// </summary>
+        /// <param name="panelHeightString">The panel height string.</param>
+        /// <returns>The panel height</returns>
+        public static BordeoPanelHeight GetHeight(this String panelHeightString)
+        {
+            BordeoPanelHeight value;
+            switch (panelHeightString)
+            {
+                case "PBPs":
+                    value = BordeoPanelHeight.NormalMini;
+                    break;
+                case "PBPsPB":
+                    value = BordeoPanelHeight.NormalMiniNormal;
+                    break;
+                case "PBPsPsPs":
+                    value = BordeoPanelHeight.NormalThreeMini;
+                    break;
+
+                case "PBPsPs":
+                    value = BordeoPanelHeight.NormalTwoMinis;
+                    break;
+                case "PBPBPB":
+                    value = BordeoPanelHeight.ThreeNormals;
+                    break;
+                case "PBPBPs":
+                    value = BordeoPanelHeight.TwoNormalOneMini;
+                    break;
+                case "PBPB":
+                    value = BordeoPanelHeight.TwoNormals;
+                    break;
+                default:
+                    value = BordeoPanelHeight.None;
+                    break;
+            }
+            return value;
         }
     }
 }

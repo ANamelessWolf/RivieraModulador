@@ -22,6 +22,18 @@ namespace DaSoft.Riviera.Modulador.Core.Model
         /// </summary>
         public String Code;
         /// <summary>
+        /// The selected acabado index
+        /// </summary>
+        public int SelectedAcabadoIndex;
+        /// <summary>
+        /// The selected acabado 
+        /// </summary>
+        public RivieraAcabado SelectedAcabado
+        {
+            get => this.SelectedAcabadoIndex > 0 && this.Acabados.Count < this.SelectedAcabadoIndex ? 
+                this.Acabados[this.SelectedAcabadoIndex] : new RivieraAcabado() { Acabado = "", Description = "", RivCode = this };
+        }
+        /// <summary>
         /// The riviera code description
         /// </summary>
         public String Description;
@@ -47,6 +59,15 @@ namespace DaSoft.Riviera.Modulador.Core.Model
         public RivieraCode()
         {
             this.Acabados = new List<RivieraAcabado>();
+            this.SelectedAcabadoIndex = 0;
+        }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RivieraCode"/> class.
+        /// </summary>
+        /// <param name="acabados">La colección de acabados.</param>
+        public RivieraCode(params string[] acabados)
+        {
+            this.Acabados = acabados.Select(x => new RivieraAcabado() { Acabado = x, Description = "Sin descripción para el código " + x, RivCode = this }).ToList();
         }
         /// <summary>
         /// Adds the acabado.

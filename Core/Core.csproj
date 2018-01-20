@@ -67,6 +67,7 @@
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -122,6 +123,7 @@
     <Compile Include="Model\DB\RivieraMeasureRow.cs" />
     <Compile Include="Model\DesignLine.cs" />
     <Compile Include="Model\ElementSizeCollection.cs" />
+    <Compile Include="Model\PanelSide.cs" />
     <Compile Include="Model\RivieraAcabado.cs" />
     <Compile Include="Model\ItemFile.cs" />
     <Compile Include="Model\MicrosoftAccessFilter.cs" />
@@ -164,8 +166,15 @@
     <Compile Include="UI\CtrlOracleTNSConnector.xaml.cs">
       <DependentUpon>CtrlOracleTNSConnector.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Items\PanelItem.xaml.cs">
+      <DependentUpon>PanelItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Items\PanelItemStatus.cs" />
     <Compile Include="UI\TabDevMenu.xaml.cs">
       <DependentUpon>TabDevMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\WinAcabadoPicker.xaml.cs">
+      <DependentUpon>WinAcabadoPicker.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\WinAppSettings.xaml.cs">
       <DependentUpon>WinAppSettings.xaml</DependentUpon>
@@ -203,7 +212,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UI\Items\PanelItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UI\TabDevMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\WinAcabadoPicker.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

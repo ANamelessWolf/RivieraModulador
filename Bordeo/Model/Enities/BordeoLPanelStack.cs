@@ -14,12 +14,14 @@ using System.Linq;
 using System.Windows.Media;
 using static DaSoft.Riviera.Modulador.Bordeo.Assets.Codes;
 using static DaSoft.Riviera.Modulador.Bordeo.Assets.Constants;
+using DaSoft.Riviera.Modulador.Core.Model.DB;
+
 namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
 {
     /// <summary>
     /// Define el panel bordeo en L
     /// </summary>
-    public class BordeoLPanelStack : RivieraObject, IEnumerable<BordeoLPanel>, ISowable
+    public class BordeoLPanelStack : RivieraObject, IEnumerable<BordeoLPanel>, ISowable, IBordeoPanelStyler
     {
         /// <summary>
         /// The collection of panels asociated to the stack
@@ -48,6 +50,43 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
         /// The dictionary XRecord Keys.
         /// </value>
         public override string[] Keys => BordeoUtils.BordeoDirectionKeys();
+
+        /// <summary>
+        /// Gets or sets the riviera bordeo code.
+        /// </summary>
+        /// <value>
+        /// The riviera bordeo code.
+        /// </value>
+        public string RivieraBordeoCode { get => this.Code.Code.Substring(0, 6); }
+        /// <summary>
+        /// Gets or sets the size.
+        /// </summary>
+        /// <value>
+        /// The size.
+        /// </value>
+        public RivieraMeasure BordeoPanelSize { get => this.Size; }
+        /// <summary>
+        /// Gets or sets the heights.
+        /// </summary>
+        /// <value>
+        /// The heights.
+        /// </value>
+        public BordeoPanelHeight Height { get => this.GetHeights(); }
+        /// <summary>
+        /// Gets or sets the acabados lado a.
+        /// </summary>
+        /// <value>
+        /// The acabados lado a.
+        /// </value>
+        public IEnumerable<RivieraAcabado> AcabadosLadoA { get => this.Panels.Select(x => x.Code.SelectedAcabado); }
+        /// <summary>
+        /// Gets or sets the acabados lado b.
+        /// </summary>
+        /// <value>
+        /// The acabados lado b.
+        /// </value>
+        public IEnumerable<RivieraAcabado> AcabadosLadoB { get => this.Panels.Select(x => x.Code.SelectedAcabado); }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="BordeoPanelStack"/> class.
         /// </summary>

@@ -1,0 +1,61 @@
+﻿<UserControl x:Class="DaSoft.Riviera.Modulador.Core.UI.CtrlAppPath"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:DaSoft.Riviera.Modulador.Core.UI"
+             mc:Ignorable="d" Loaded="UserControl_Loaded"
+             d:DesignHeight="300" d:DesignWidth="480">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Assets/RivieraStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="54"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="32"/>
+            <RowDefinition Height="32"/>
+            <RowDefinition Height="32"/>
+            <RowDefinition Height="32"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <TextBlock x:Name="txtBases" Text="Bases MDB" Style="{StaticResource MenuStyle_Header}" HorizontalAlignment="Right"/>
+        <TextBox x:Name="tboBases" Grid.Column="1" Text="" Style="{StaticResource MenuStyle_Field}"/>
+        <TextBlock x:Name="txtDirAsoc" Grid.Row="2" Text="Directorio Asociados" Style="{StaticResource MenuStyle_Header}" HorizontalAlignment="Right"/>
+        <TextBox x:Name="tboDirAsoc" Grid.Row="2" Grid.Column="1" Text="" Style="{StaticResource MenuStyle_Field}"/>
+        <TextBlock x:Name="txtDirMod" Grid.Row="1" Text="Directorio Modulos" Style="{StaticResource MenuStyle_Header}" HorizontalAlignment="Right"/>
+        <TextBox x:Name="tboDirMod" Grid.Row="1" Grid.Column="1" Text="" Style="{StaticResource MenuStyle_Field}" />
+        <TextBlock x:Name="txtAsoc" Grid.Row="3" Text="Asociados MDB" Style="{StaticResource MenuStyle_Header}"  HorizontalAlignment="Right"/>
+        <ComboBox x:Name="cboAsoc" Grid.Row="3" Grid.Column="1" Style="{StaticResource MenuStyle_List}" 
+                  HorizontalAlignment="Stretch" SelectionChanged="cboAsoc_SelectionChanged"/>
+        <Viewbox Grid.Column="2">
+            <Button Name="btnBases" Style="{DynamicResource MenuStyle_RoundButton}" Content="&#xe188;" Click="btnSelectPath">
+                <Button.ToolTip>
+                    <ToolTip Style="{StaticResource TooltipStyle}" Tag="Seleccionar DaNTe MDB" ToolTip="Haga clic para seleccionar la ruta del archivo DaNTe MDB"/>
+                </Button.ToolTip>
+            </Button>
+        </Viewbox>
+        <Viewbox Grid.Row="2" Grid.Column="2">
+            <Button Name="btnAsoc" Style="{DynamicResource MenuStyle_RoundButton}" Content="&#xe188;" Click="btnSelectPath">
+                <Button.ToolTip>
+                    <ToolTip Style="{StaticResource TooltipStyle}" Tag="Seleccionar Directorio de Asociados" ToolTip="Haga clic para seleccionar la ruta del directorio de asociados de DaNTe"/>
+                </Button.ToolTip>
+            </Button>
+        </Viewbox>
+        <Viewbox Grid.Row="1" Grid.Column="2">
+            <Button Name="btnModules" Style="{DynamicResource MenuStyle_RoundButton}" Content="&#xe188;" Click="btnSelectPath" >
+                <Button.ToolTip>
+                    <ToolTip Style="{StaticResource TooltipStyle}" Tag="Seleccionar Directorio de Modulos" ToolTip="Haga clic para seleccionar la ruta del directorio de modulos de DaNTe"/>
+                </Button.ToolTip>
+            </Button>
+        </Viewbox>
+
+    </Grid>
+</UserControl>

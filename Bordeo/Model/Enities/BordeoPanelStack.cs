@@ -7,6 +7,7 @@ using DaSoft.Riviera.Modulador.Core.Model.DB;
 using DaSoft.Riviera.Modulador.Core.Runtime;
 using Nameless.Libraries.HoukagoTeaTime.Mio.Utils;
 using Nameless.Libraries.HoukagoTeaTime.Ritsu.Utils;
+using Nameless.Libraries.HoukagoTeaTime.Tsumugi;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ using System.Linq;
 using System.Windows.Media;
 using static DaSoft.Riviera.Modulador.Bordeo.Assets.Codes;
 using static DaSoft.Riviera.Modulador.Bordeo.Assets.Constants;
-
+using static DaSoft.Riviera.Modulador.Core.Controller.AutoCADUtils;
 namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
 {
     public class BordeoPanelStack : RivieraObject, IEnumerable<BordeoPanel>, ISowable, IBordeoPanelStyler
@@ -77,8 +78,6 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
         /// The acabados lado b.
         /// </value>
         public IEnumerable<RivieraAcabado> AcabadosLadoB { get => this.Panels.Select(x => x.Code.SelectedAcabado); }
-
-
         /// <summary>
         /// Initializes a new instance of the <see cref="BordeoPanelStack"/> class.
         /// </summary>
@@ -93,7 +92,22 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
             this.Panels.Add(first);
             this.Direction = this.Panels.FirstOrDefault().Direction;
             this.Regen();
+            this.Description.ClassName = this.GetType().FullName;
         }
+        /// <summary>
+        /// Saves the riviera object.
+        /// </summary>
+        /// <param name="tr">The active transaction.</param>
+        public override void Save(Transaction tr)
+        {
+            base.Save(tr);
+            var dMan = new ExtensionDictionaryManager(this.CADGeometry.Id, tr);
+            dMan.Set(tr, KEY_LOCATION, this.Start.ToFormat(5, false), this.End.ToFormat(5, false));
+            List<String> content = new List<string>();
+            foreach (var panel in this)
+                content.Add(String.Format("{0}@{1}@{2}@{3}", panel.Code.Code, panel.PanelSize.Frente.Nominal, panel.PanelSize.Alto.Nominal, panel.Code.SelectedAcabadoIndex));
+        }
+
         /// <summary>
         /// Adds the panel.
         /// </summary>
@@ -144,6 +158,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
                 this.PanelGeometry.Draw(model, tr);
             return ids;
         }
+
         /// <summary>
         /// Gets the enumerator that process the collection iteration
         /// </summary>
@@ -224,7 +239,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
         public ObjectIdCollection DrawArrows(Func<ArrowDirection, Boolean> filter, Point3d insertionPt, double rotation, Transaction tr)
             => this.DrawArrows(filter, insertionPt, rotation, Path.Combine(App.Riviera.AppDirectory.FullName, FOLDER_NAME_BLOCKS_BORDEO), tr);
 
-  
+
 
         /// <summary>
         /// Picks an arrow direction.

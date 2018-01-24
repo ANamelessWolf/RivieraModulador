@@ -28,6 +28,19 @@ namespace DaSoft.Riviera.Modulador.Core.Controller.Transactions
             return new TransactionWrapper<Object, ArrowDirection>(AutoCADTransactions.PickAndEraseArrows).Run(sowEntity, arrowsIds);
         }
         /// <summary>
+        /// Saves the specified objs.
+        /// </summary>
+        /// <param name="objs">The objs.</param>
+        public static void Save(params RivieraObject[] objs)
+        {
+            new QuickTransactionWrapper(
+                (Document doc, Transaction tr) =>
+                {
+                    foreach (var obj in objs.Where(x => x != null))
+                        obj.Save(tr);
+                }).Run();
+        }
+        /// <summary>
         /// Picks an arrow and then erase the showed arrows.
         /// </summary>
         /// <param name="doc">The active document.</param>

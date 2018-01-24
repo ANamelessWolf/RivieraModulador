@@ -18,6 +18,9 @@ namespace DaSoft.Riviera.Modulador.Core.Controller
     public static class AutoCADUtils
     {
         public const String KEY_ID = "ID";
+        public const String KEY_PARENT = "Parent";
+        public const String KEY_CONTENT = "Content";
+        public const String KEY_LOCATION = "Location";
         /// <summary>
         /// Sets the specified field.
         /// </summary>

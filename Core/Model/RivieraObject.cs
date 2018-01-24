@@ -110,6 +110,10 @@ namespace DaSoft.Riviera.Modulador.Core.Model
         /// </summary>
         public Dictionary<String, long> Children;
         /// <summary>
+        /// The riviera description
+        /// </summary>
+        public RivieraDescription Description;
+        /// <summary>
         /// Draws this instance
         /// </summary>
         /// <param name="tr">The active transaction.</param>
@@ -153,6 +157,8 @@ namespace DaSoft.Riviera.Modulador.Core.Model
             this.Code = code;
             this.Size = size;
             this.Start = start.ToPoint2d();
+            this.Description = new RivieraDescription();
+            this.Description.ClassName = this.GetType().FullName;
         }
         /// <summary>
         /// Sets the default acabado.
@@ -180,8 +186,11 @@ namespace DaSoft.Riviera.Modulador.Core.Model
         {
             var dMan = new ExtensionDictionaryManager(this.CADGeometry.Id, tr);
             dMan.Set(tr, KEY_ID, this.Handle.Value.ToString());
-            foreach (var child in Children)
+            foreach (var child in Children.Where(x => x.Value > 0))
                 dMan.Set(tr, child.Key, child.Value.ToString());
+            dMan.Set(tr, KEY_PARENT, this.Parent.ToString());
+            foreach (var conn in this.Description.Connections)
+                dMan.Set(tr, conn.Key, conn.Direction, conn.BlockName);
         }
         /// <summary>
         /// Saves the riviera object.
@@ -214,6 +223,8 @@ namespace DaSoft.Riviera.Modulador.Core.Model
             var db = App.Riviera.Database.Objects;
             if (db.FirstOrDefault(x => x.Handle.Value == newObject.Handle.Value) == null)
                 db.Add(newObject);
+            this.Description.Connections.Add(new RivieraConnection() { BlockName = newObject.Code.Code, Direction = key, Key = key });
+            newObject.Description.Connections.Add(new RivieraConnection() { BlockName = this.Code.Code, Direction = key, Key = KEY_PARENT });
         }
 
         /// <summary>

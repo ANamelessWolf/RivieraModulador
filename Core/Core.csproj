@@ -133,7 +133,9 @@
     <Compile Include="Model\RivieraCode.cs" />
     <Compile Include="Model\RivieraCompany.cs" />
     <Compile Include="Model\DB\RivieraProject.cs" />
+    <Compile Include="Model\RivieraConnection.cs" />
     <Compile Include="Model\RivieraDatabaseResult.cs" />
+    <Compile Include="Model\RivieraDescription.cs" />
     <Compile Include="Model\RivieraElementType.cs" />
     <Compile Include="Model\RivieraMeasure.cs" />
     <Compile Include="Model\RivieraMirrorBlock.cs" />

@@ -3,9 +3,11 @@ using Autodesk.AutoCAD.Geometry;
 using DaSoft.Riviera.Modulador.Bordeo.Controller;
 using DaSoft.Riviera.Modulador.Core.Controller;
 using DaSoft.Riviera.Modulador.Core.Model;
+using DaSoft.Riviera.Modulador.Core.Model.DB;
 using DaSoft.Riviera.Modulador.Core.Runtime;
 using Nameless.Libraries.HoukagoTeaTime.Mio.Utils;
 using Nameless.Libraries.HoukagoTeaTime.Ritsu.Utils;
+using Nameless.Libraries.HoukagoTeaTime.Tsumugi;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -14,7 +16,7 @@ using System.Linq;
 using System.Windows.Media;
 using static DaSoft.Riviera.Modulador.Bordeo.Assets.Codes;
 using static DaSoft.Riviera.Modulador.Bordeo.Assets.Constants;
-using DaSoft.Riviera.Modulador.Core.Model.DB;
+using static DaSoft.Riviera.Modulador.Core.Controller.AutoCADUtils;
 
 namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
 {
@@ -108,6 +110,19 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
             this.Regen();
         }
         /// <summary>
+        /// Saves the riviera object.
+        /// </summary>
+        /// <param name="tr">The active transaction.</param>
+        public override void Save(Transaction tr)
+        {
+            base.Save(tr);
+            var dMan = new ExtensionDictionaryManager(this.CADGeometry.Id, tr);
+            dMan.Set(tr, KEY_LOCATION, this.Start.ToFormat(5, false), (this.CADGeometry as Polyline).GetPoint2dAt(1).ToFormat(5, false));
+            List<String> content = new List<string>();
+            foreach (var panel in this)
+                content.Add(String.Format("{0}@{1}@{2}@{3}@{4}", panel.Code.Code, panel.PanelSize.FrenteStart.Nominal, panel.PanelSize.FrenteEnd.Nominal, panel.PanelSize.Alto.Nominal, panel.Code.SelectedAcabadoIndex));
+        }
+        /// <summary>
         /// Updates the panel stack.
         /// </summary>
         /// <param name="newHeight">The new height.</param>
@@ -131,8 +146,8 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
             for (int i = 1; i < heights.Length; i++)
             {
                 measure = sizes.FirstOrDefault(
-                    x => x.FrenteStart.Nominal == panelSize.FrenteStart.Nominal && 
-                    x.FrenteEnd.Nominal == panelSize.FrenteEnd.Nominal && 
+                    x => x.FrenteStart.Nominal == panelSize.FrenteStart.Nominal &&
+                    x.FrenteEnd.Nominal == panelSize.FrenteEnd.Nominal &&
                     x.Alto.Nominal == heights[i].Nominal);
                 this.AddPanel(measure);
                 this.Panels.LastOrDefault().SetAcabado(acabadoLadoA[i]);

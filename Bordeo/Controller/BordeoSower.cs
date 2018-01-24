@@ -173,6 +173,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Controller
                 var db = App.Riviera.Database.Objects;
                 if (db.FirstOrDefault(x => x.Handle.Value == stack.Handle.Value) == null)
                     db.Add(stack);
+                stack.Save(tr);
                 return stack;
             }
             else
@@ -220,6 +221,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Controller
             this.DrawObjects(null, stack);
             obj.Connect(direction, stack);
             //Se regresa el stack como objeto creado
+            AutoCADTransactions.Save(stack, obj);
             return stack;
         }
         /// <summary>
@@ -260,6 +262,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Controller
                 if (db.FirstOrDefault(x => x.Handle.Value == stack.Handle.Value) == null)
                     db.Add(stack);
             }
+            AutoCADTransactions.Save(stack, objParent);
             return stack;
         }
     }

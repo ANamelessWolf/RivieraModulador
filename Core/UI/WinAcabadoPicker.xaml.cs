@@ -102,7 +102,7 @@ namespace DaSoft.Riviera.Modulador.Core.UI
         {
             this.Code = _code;
             this.listAcabados.ItemsSource = Acabados;
-            if (this.listAcabados.Items.Count == 0)
+            if (this.listAcabados.Items.Count > 0)
                 this.listAcabados.SelectedIndex = 0;
         }
     }

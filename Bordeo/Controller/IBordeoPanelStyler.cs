@@ -50,5 +50,12 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Controller
         /// The acabados lado b.
         /// </value>
         IEnumerable<RivieraAcabado> AcabadosLadoB { get;  }
+        /// <summary>
+        /// Updates the panel stack.
+        /// </summary>
+        /// <param name="newHeight">The new height.</param>
+        /// <param name="acabadoLadoA">The acabado lado a.</param>
+        /// <param name="acabadosLadoB">The acabados lado b.</param>
+        void UpdatePanelStack(BordeoPanelHeight newHeight, String[] acabadoLadoA, String[] acabadosLadoB);
     }
 }

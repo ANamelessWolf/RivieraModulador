@@ -61,7 +61,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.UI
         /// <value>
         /// The acabados lado a.
         /// </value>
-        public IEnumerable<String> AcabadosLadoB => this.stackViewA.Items.Select(x => x.Acabado);
+        public IEnumerable<String> AcabadosLadoB => this.stackViewB.Items.Select(x => x.Acabado);
         /// <summary>
         /// Accede al Panel Stack Styler
         /// </summary>
@@ -91,8 +91,8 @@ namespace DaSoft.Riviera.Modulador.Bordeo.UI
         {
             if (this.heights.SelectedIndex != -1)
             {
-                this.stackViewA.Replace(this.stackViewA.GetCode(this.Stack), this.heights.SelectedHeight);
-                this.stackViewB.Replace(this.stackViewA.GetCode(this.Stack), this.heights.SelectedHeight);
+                this.stackViewA.Fill(this.Stack, this.heights.SelectedHeight);
+                this.stackViewB.Fill(this.Stack, this.heights.SelectedHeight, false);
             }
         }
         /// <summary>
@@ -107,7 +107,10 @@ namespace DaSoft.Riviera.Modulador.Bordeo.UI
             if (win.ShowDialog().Value)
             {
                 foreach (PanelItem item in this.SelectedItems)
+                {
                     item.Acabado = win.SelectedAcabado.Acabado;
+                    item.PanelStatus = item.LastPanelStatus;
+                }
             }
         }
         /// <summary>
@@ -173,8 +176,9 @@ namespace DaSoft.Riviera.Modulador.Bordeo.UI
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            this.stackViewA.Fill(this.Stack);
-            this.stackViewB.Fill(this.Stack);
+            this.heights.DefaultHeight = this.Stack.Height;
+            this.stackViewA.Fill(this.Stack, this.Stack.Height);
+            this.stackViewB.Fill(this.Stack, this.Stack.Height, false);
             this.codeHost.Text = this.Stack.RivieraBordeoCode;
             if (this.Stack.BordeoPanelSize is PanelMeasure)
                 this.frenteSize.Text = String.Format("{0}\"", ((PanelMeasure)this.Stack.BordeoPanelSize).Frente.Nominal);

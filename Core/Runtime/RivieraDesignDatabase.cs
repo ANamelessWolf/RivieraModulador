@@ -47,6 +47,15 @@ namespace DaSoft.Riviera.Modulador.Core.Runtime
             this.LoadDesignModelData(gloabalResult.DesignResult[this.Line]);
         }
         /// <summary>
+        /// Gets the default acabado for the selected code
+        /// </summary>
+        /// <param name="code">The code.</param>
+        /// <returns>The riviera acabado</returns>
+        public RivieraAcabado DefaultAcabado(String code)
+        {
+            return this.Codes.FirstOrDefault(x => x.Code == code).FirstOrDefault();
+        }
+        /// <summary>
         /// Loads the design line data.
         /// </summary>
         /// <param name="conn">The connection.</param>

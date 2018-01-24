@@ -29,6 +29,9 @@ namespace DaSoft.Riviera.Modulador.Bordeo.UI
     {
         const String BORDEO_SOW_START = "BordeoSowStart";
         const String BORDEO_SOW_CONTINUE = "BordeoSowContinue";
+        const String BORDEO_EDIT_PANELS = "BordeoPanelEditor";
+        const String SWAP_3D_MODE = "Swap3DMode";
+        const String BORDEO_PANEL_COPY_PASTE = "BordeoCopyPastePanel";
         /// <summary>
         /// Gets the riviera bordeo available sizes
         /// </summary>
@@ -100,27 +103,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.UI
         /// <returns>The panel list</returns>
         public List<RivieraMeasure> GetPanels(String code)
         {
-            List<RivieraMeasure> measure = new List<RivieraMeasure>();
-            var heights = this.SelectHeights;
-            var startFront = this.SelectedStartFront;
-            var endFront = this.SelectedEndFront;
-            foreach (RivieraSize height in heights)
-                switch (code)
-                {
-                    case CODE_PANEL_RECTO:
-                        measure.Add(this.Sizes[CODE_PANEL_RECTO].Sizes.Select(x => x as PanelMeasure).
-                            FirstOrDefault(y => y.Alto == height && y.Frente == startFront));
-                        break;
-                    case CODE_PANEL_90:
-                        measure.Add(this.Sizes[CODE_PANEL_90].Sizes.Select(x => x as LPanelMeasure).
-                            FirstOrDefault(y => y.Alto == height && y.FrenteStart == startFront && y.FrenteEnd == endFront));
-                        break;
-                    case CODE_PANEL_135:
-                        measure.Add(this.Sizes[CODE_PANEL_135].Sizes.Select(x => x as LPanelMeasure).
-                            FirstOrDefault(y => y.Alto == height && y.FrenteStart == startFront && y.FrenteEnd == endFront));
-                        break;
-                }
-            return measure;
+            return code.GetPanelMeasure(this.Sizes, this.SelectHeights, this.SelectedStartFront, this.SelectedEndFront);
         }
         /// <summary>
         /// Gets the linear panels.
@@ -167,12 +150,12 @@ namespace DaSoft.Riviera.Modulador.Bordeo.UI
 
         private void btnSummonPanelEditor_Click(object sender, RoutedEventArgs e)
         {
-
+            Selector.InvokeCMD(BORDEO_EDIT_PANELS);
         }
 
         private void btnSummonPanelClipboard_Click(object sender, RoutedEventArgs e)
         {
-
+            Selector.InvokeCMD(BORDEO_PANEL_COPY_PASTE);
         }
 
         private void btnDeletePanel_Click(object sender, RoutedEventArgs e)
@@ -197,7 +180,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.UI
 
         private void btnSwapRenderView_Click(object sender, RoutedEventArgs e)
         {
-
+            Selector.InvokeCMD(SWAP_3D_MODE);
         }
         /// <summary>
         /// Handles the Loaded event of the UserControl control.

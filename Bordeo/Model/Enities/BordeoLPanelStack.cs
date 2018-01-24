@@ -35,7 +35,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
         /// The panel angle
         /// </summary>
         public readonly BordeoLPanelAngle PanelAngle;
-        
+
         /// <summary>
         /// Gets the geometry that stores the riviera extended data.
         /// </summary>
@@ -57,7 +57,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
         /// <value>
         /// The riviera bordeo code.
         /// </value>
-        public string RivieraBordeoCode { get => this.Code.Code.Substring(0, 6); }
+        public string RivieraBordeoCode { get => this.FirstOrDefault().Code.Code.Substring(0, 6); }
         /// <summary>
         /// Gets or sets the size.
         /// </summary>
@@ -106,6 +106,37 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
             this.Panels.Add(first);
             this.Direction = this.Panels.FirstOrDefault().Direction;
             this.Regen();
+        }
+        /// <summary>
+        /// Updates the panel stack.
+        /// </summary>
+        /// <param name="newHeight">The new height.</param>
+        /// <param name="acabadoLadoA">The acabado lado a.</param>
+        /// <param name="acabadosLadoB">The acabados lado b.</param>
+        public void UpdatePanelStack(BordeoPanelHeight newHeight, string[] acabadoLadoA, string[] acabadosLadoB)
+        {
+            //Se borran los tamaños actuales
+            while (this.Panels.Count > 1)
+                this.Panels.RemoveAt(this.Panels.Count - 1);
+            //Se obtienen los tamaños actuales
+            String codePanel = this.PanelAngle == BordeoLPanelAngle.ANG_135 ? CODE_PANEL_135 : CODE_PANEL_90;
+            var sizes = BordeoUtils.GetDatabase().Sizes[codePanel].Sizes.Select(x => x as LPanelMeasure);
+            RivieraSize p15 = sizes.FirstOrDefault(x => x.Alto.Nominal == 15d).Alto,
+                        p27 = sizes.FirstOrDefault(x => x.Alto.Nominal == 27d).Alto;
+            RivieraSize[] heights = newHeight.GetHeights(p27, p15);
+            //Se agregan los tamaños superiores
+            LPanelMeasure measure;
+            var panelSize = this.FirstOrDefault().PanelSize;
+            this.Panels.FirstOrDefault().SetAcabado(acabadoLadoA[0]);
+            for (int i = 1; i < heights.Length; i++)
+            {
+                measure = sizes.FirstOrDefault(
+                    x => x.FrenteStart.Nominal == panelSize.FrenteStart.Nominal && 
+                    x.FrenteEnd.Nominal == panelSize.FrenteEnd.Nominal && 
+                    x.Alto.Nominal == heights[i].Nominal);
+                this.AddPanel(measure);
+                this.Panels.LastOrDefault().SetAcabado(acabadoLadoA[i]);
+            }
         }
         /// <summary>
         /// Adds the panel.

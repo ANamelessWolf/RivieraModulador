@@ -33,10 +33,10 @@
                 <Border x:Name="stackOneBorder" BorderThickness="4" BorderBrush="#FF00C5FF" Visibility="Hidden" />
                 <Border x:Name="stackTwoBorder" BorderThickness="4" BorderBrush="#FF00C5FF" Grid.Column="1" Visibility="Hidden"/>
                 <Viewbox VerticalAlignment="Top" Margin="0,0,0,50">
-                    <local:PanelStackView x:Name="stackViewA" Width="400" Margin="20" MouseLeftButtonUp="clicked"/>
+                    <local:PanelStackView x:Name="stackViewA" Width="400" Margin="20"/>
                 </Viewbox>
                 <Viewbox VerticalAlignment="Top" Grid.Column="1" Margin="0,0,0,50" >
-                    <local:PanelStackView x:Name="stackViewB" Width="400" Margin="20" MouseLeftButtonUp="clicked"/>
+                    <local:PanelStackView x:Name="stackViewB" Width="400" Margin="20"/>
                 </Viewbox>
                 <Grid VerticalAlignment="Bottom" Height="50" >
                     <Rectangle Fill="#4C000000" />

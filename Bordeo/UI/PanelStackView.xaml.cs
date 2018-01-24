@@ -66,42 +66,28 @@ namespace DaSoft.Riviera.Modulador.Bordeo.UI
             this.list.Items.Clear();
         }
         /// <summary>
-        /// Replaces the specified selected height.
-        /// </summary>
-        /// <param name="selectedHeight">Height of the selected.</param>
-        internal void Replace(String code, BordeoPanelHeight selectedHeight)
-        {
-            this.Clear();
-            BordeoPanelHeightItem item = new BordeoPanelHeightItem() { Height = selectedHeight };
-            String pName = item.ImageName;
-            for (int i = 0; i < pName.Length; i += 2)
-            {
-                if (pName.Substring(i, 2) == "PB")
-                    this.list.Items.Add(new PanelItem() { Code = String.Format("{0}27T", code), Acabado = "", Height = 135 });
-                else if (pName.Substring(i, 2) == "Ps")
-                    this.list.Items.Add(new PanelItem() { Code = String.Format("{0}15T", code), Acabado = "", Height = 75 });
-            }
-        }
-        /// <summary>
         /// Fills the specified stack.
         /// </summary>
         /// <param name="stack">The stack.</param>
-        internal void Fill(IBordeoPanelStyler stack, Boolean sideA = true)
+        internal void Fill(IBordeoPanelStyler stack, BordeoPanelHeight defHeight, Boolean sideA = true)
         {
             this.Clear();
-            BordeoPanelHeightItem item = new BordeoPanelHeightItem() { Height = stack.Height };
+            BordeoPanelHeightItem item = new BordeoPanelHeightItem() { Height = defHeight };
             String pName = item.ImageName;
             String[] acabados = sideA ? stack.AcabadosLadoA.Select(x => x.Acabado).ToArray() : stack.AcabadosLadoB.Select(x => x.Acabado).ToArray();
             String code = this.GetCode(stack);
+            List<PanelItem> Panels = new List<PanelItem>();
             for (int i = 0, j = 0; i < pName.Length; i += 2)
             {
                 if (pName.Substring(i, 2) == "PB")
-                    this.list.Items.Add(new PanelItem() { Code = String.Format("{0}27T", code), Acabado = acabados[j], Height = 135 });
+                    Panels.Add(new PanelItem() { Code = String.Format("{0}27T", code), Acabado = acabados[j], Height = 135 });
                 else if (pName.Substring(i, 2) == "Ps")
-                    this.list.Items.Add(new PanelItem() { Code = String.Format("{0}15T", code), Acabado = acabados[j], Height = 75 });
-                if (pName.Substring(i, 2) == "PB" || pName.Substring(i, 2) == "Ps")
+                    Panels.Add(new PanelItem() { Code = String.Format("{0}15T", code), Acabado = acabados[j], Height = 75 });
+                if ((pName.Substring(i, 2) == "PB" || pName.Substring(i, 2) == "Ps") && j < acabados.Length - 1)
                     j++;
             }
+            for (int i = Panels.Count - 1; i >= 0; i--)
+                this.list.Items.Add(Panels[i]);
         }
         /// <summary>
         /// Gets the code.
@@ -115,7 +101,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.UI
             if (size is PanelMeasure)
             {
                 var nSize = ((PanelMeasure)size);
-                code = String.Format("{0}{1}", stack.RivieraBordeoCode, nSize.Frente, nSize.Alto);
+                code = String.Format("{0}{1}{2}", stack.RivieraBordeoCode, nSize.Frente.Nominal, nSize.Alto.Nominal);
             }
             else if (size is LPanelMeasure)
             {
@@ -131,9 +117,14 @@ namespace DaSoft.Riviera.Modulador.Bordeo.UI
                     start = lSize.FrenteEnd.Nominal;
                     end = lSize.FrenteStart.Nominal;
                 }
-                code = String.Format("{0}{1}{2}", stack.RivieraBordeoCode, lSize.FrenteStart, lSize.FrenteEnd, lSize.Alto);
+                code = String.Format("{0}{1}{2}{3}", stack.RivieraBordeoCode, start, end, lSize.Alto.Nominal);
             }
             return code;
+        }
+
+        private void list_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            (sender as ListView).SelectedIndex = -1;
         }
     }
 }

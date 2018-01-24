@@ -30,7 +30,7 @@ namespace DaSoft.Riviera.Modulador.Core.Model
         /// </summary>
         public RivieraAcabado SelectedAcabado
         {
-            get => this.SelectedAcabadoIndex > 0 && this.Acabados.Count < this.SelectedAcabadoIndex ? 
+            get => this.SelectedAcabadoIndex >= 0 && this.Acabados.Count > this.SelectedAcabadoIndex ?
                 this.Acabados[this.SelectedAcabadoIndex] : new RivieraAcabado() { Acabado = "", Description = "", RivCode = this };
         }
         /// <summary>
@@ -102,6 +102,15 @@ namespace DaSoft.Riviera.Modulador.Core.Model
         IEnumerator IEnumerable.GetEnumerator()
         {
             return this.Acabados.GetEnumerator();
+        }
+        /// <summary>
+        /// Gets the index of the selected item
+        /// </summary>
+        /// <param name="rivieraAcabado">The riviera acabado.</param>
+        /// <returns></returns>
+        internal int IndexOf(RivieraAcabado rivieraAcabado)
+        {
+            return this.Acabados.IndexOf(this.Acabados.FirstOrDefault(x => x.Acabado == rivieraAcabado.Acabado));
         }
     }
 }

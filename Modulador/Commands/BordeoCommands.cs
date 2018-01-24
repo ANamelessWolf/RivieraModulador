@@ -81,5 +81,77 @@ namespace DaSoft.Riviera.Modulador.Commands
                    }
                });
         }
+        /// <summary>
+        /// Initializes the sowing process
+        /// </summary>
+        [CommandMethod(BORDEO_EDIT_PANELS)]
+        public void BordeoEditPanels()
+        {
+            App.RunCommand(
+               delegate ()
+               {
+                   try
+                   {
+                       ObjectId selPanelStackId;
+                       if (Picker.ObjectId("Selecciona el panel a editar", out selPanelStackId, typeof(BlockReference)))
+                       {
+                           var objs = App.Riviera.Database.Objects;
+                           var obj = objs.FirstOrDefault(x => x.Ids.Contains(selPanelStackId));
+                           if (obj is BordeoPanelStack || obj is BordeoLPanelStack)
+                           {
+                               WinPanelEditor win = new WinPanelEditor(obj as IBordeoPanelStyler);
+                               if (win.ShowDialog().Value)
+                                   (obj as IBordeoPanelStyler).UpdatePanelStack(win.Heights, win.AcabadosLadoA.ToArray(), win.AcabadosLadoB.ToArray());
+                           }
+                           else
+                               Selector.Ed.WriteMessage("No es un elemento de bordeo");
+                       }
+                   }
+                   catch (System.Exception exc)
+                   {
+                       Selector.Ed.WriteMessage(exc.Message);
+                   }
+               });
+        }
+        [CommandMethod(BORDEO_PANEL_COPY_PASTE)]
+        public void BordeoClipboard()
+        {
+            App.RunCommand(
+              delegate ()
+              {
+                  try
+                  {
+                      ObjectId selPanelStackId;
+                      ObjectIdCollection stacksIds;
+                      SelectionFilterBuilder sb = new SelectionFilterBuilder(typeof(BlockReference));
+                      if (Picker.ObjectId("Selecciona el arreglo de paneles a copiar", out selPanelStackId, typeof(BlockReference)) &&
+                          Picker.ObjectIds("Selecciona en donde se pegará el estilo de paneles", out stacksIds, sb.Filter))
+                      {
+                          var objs = App.Riviera.Database.Objects;
+                          var obj = objs.FirstOrDefault(x => x.Ids.Contains(selPanelStackId));
+                          if (obj is BordeoPanelStack || obj is BordeoLPanelStack)
+                          {
+                              var stacks = stacksIds.OfType<ObjectId>().
+                              Select(x => objs.FirstOrDefault(y => y.Ids.Contains(x))).
+                              Where(z => (obj is BordeoPanelStack || obj is BordeoLPanelStack)).Select(x => x as IBordeoPanelStyler).ToList();
+                              var cbstack = (obj as IBordeoPanelStyler);
+                              String[] acabA = cbstack.AcabadosLadoA.Select(y => y.Acabado).ToArray(),
+                                       acabB = cbstack.AcabadosLadoB.Select(y => y.Acabado).ToArray();
+                              stacks.ForEach(x => 
+                              {
+                                  x.UpdatePanelStack(cbstack.Height, acabA, acabB);
+
+                              });
+                          }
+                          else
+                              Selector.Ed.WriteMessage("No es un elemento de bordeo");
+                      }
+                  }
+                  catch (System.Exception exc)
+                  {
+                      Selector.Ed.WriteMessage(exc.Message);
+                  }
+              });
+        }
     }
 }

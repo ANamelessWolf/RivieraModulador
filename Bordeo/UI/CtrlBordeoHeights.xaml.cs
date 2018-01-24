@@ -52,6 +52,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.UI
                 return sel.Height;
             }
         }
+        public BordeoPanelHeight DefaultHeight;
         /// <summary>
         /// Initializes a new instance of the <see cref="CtrlBordeoHeights"/> class.
         /// </summary>
@@ -88,7 +89,12 @@ namespace DaSoft.Riviera.Modulador.Bordeo.UI
                 Enum.GetValues(typeof(BordeoPanelHeight)).OfType<BordeoPanelHeight>().
                 Where(x => x != BordeoPanelHeight.None).
                 Select(y => new BordeoPanelHeightItem() { Height = y });
-            if (cboPanelHeights.Items.Count > 0)
+            if (cboPanelHeights.Items.Count > 0 && DefaultHeight != BordeoPanelHeight.None)
+            {
+                int selIndex = cboPanelHeights.Items.OfType<BordeoPanelHeightItem>().Select(x => x.Height).ToList().IndexOf(DefaultHeight);
+                this.cboPanelHeights.SelectedIndex = selIndex;
+            }
+            else if (cboPanelHeights.Items.Count > 0)
                 this.cboPanelHeights.SelectedIndex = 0;
         }
     }

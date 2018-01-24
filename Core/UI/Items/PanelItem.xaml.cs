@@ -47,6 +47,7 @@ namespace DaSoft.Riviera.Modulador.Core.UI.Items
                 SetValue(PanelStatusProperty, value);
             }
         }
+        public PanelItemStatus LastPanelStatus;
         /// <summary>
         /// Gets the panel status.
         /// </summary>
@@ -238,7 +239,7 @@ namespace DaSoft.Riviera.Modulador.Core.UI.Items
         {
             PanelItem ctr = sender as PanelItem;
             String res = (String)e.NewValue;
-            ctr.codePanel.Text = ctr.Code != null ? ctr.Code : String.Empty + res;
+            ctr.codePanel.Text = (ctr.Code != null ? ctr.Code : String.Empty) + res;
         }
         /// <summary>
         /// Widthes the changed.
@@ -267,6 +268,7 @@ namespace DaSoft.Riviera.Modulador.Core.UI.Items
         /// </summary>
         public PanelItem()
         {
+            this.LastPanelStatus = PanelItemStatus.Initial;
             InitializeComponent();
         }
         /// <summary>
@@ -276,6 +278,10 @@ namespace DaSoft.Riviera.Modulador.Core.UI.Items
         /// <param name="e">The <see cref="MouseButtonEventArgs"/> instance containing the event data.</param>
         private void panelArea_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
+            if (this.PanelStatus == PanelItemStatus.Selected)
+                this.PanelStatus = this.LastPanelStatus;
+            else
+                this.PanelStatus = PanelItemStatus.Selected;
             if (Click != null)
                 this.Click(this, e);
         }

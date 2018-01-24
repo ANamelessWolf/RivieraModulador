@@ -260,7 +260,6 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Controller
                 if (db.FirstOrDefault(x => x.Handle.Value == stack.Handle.Value) == null)
                     db.Add(stack);
             }
-            //Se regresa el stack como objeto creado
             return stack;
         }
     }

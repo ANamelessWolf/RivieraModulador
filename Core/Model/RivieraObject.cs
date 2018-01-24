@@ -1,6 +1,7 @@
 ﻿using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.Geometry;
 using DaSoft.Riviera.Modulador.Core.Controller;
+using DaSoft.Riviera.Modulador.Core.Model.DB;
 using DaSoft.Riviera.Modulador.Core.Runtime;
 using Nameless.Libraries.HoukagoTeaTime.Mio.Utils;
 using Nameless.Libraries.HoukagoTeaTime.Ritsu.Utils;
@@ -152,6 +153,23 @@ namespace DaSoft.Riviera.Modulador.Core.Model
             this.Code = code;
             this.Size = size;
             this.Start = start.ToPoint2d();
+        }
+        /// <summary>
+        /// Sets the default acabado.
+        /// </summary>
+        /// <param name="rivieraAcabado">The riviera acabado.</param>
+        public void SetAcabado(RivieraAcabado rivieraAcabado)
+        {
+            this.Code.SelectedAcabadoIndex = this.Code.IndexOf(rivieraAcabado);
+        }
+        /// <summary>
+        /// Sets the default acabado.
+        /// </summary>
+        /// <param name="rivieraAcabado">The riviera acabado.</param>
+        public void SetAcabado(string acabado)
+        {
+            RivieraAcabado rivieraAcabado = this.Code.FirstOrDefault(x => x.Acabado == acabado);
+            this.Code.SelectedAcabadoIndex = this.Code.IndexOf(rivieraAcabado);
         }
         /// <summary>
         /// Saves the riviera object.

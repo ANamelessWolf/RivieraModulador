@@ -1,12 +1,14 @@
 ﻿using DaSoft.Riviera.Modulador.Bordeo.Model;
 using DaSoft.Riviera.Modulador.Bordeo.Model.Enities;
 using DaSoft.Riviera.Modulador.Bordeo.Runtime;
+using DaSoft.Riviera.Modulador.Core.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static DaSoft.Riviera.Modulador.Bordeo.Assets.Strings;
+using static DaSoft.Riviera.Modulador.Bordeo.Assets.Codes;
 namespace DaSoft.Riviera.Modulador.Bordeo.Controller
 {
     /// <summary>
@@ -121,7 +123,6 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Controller
                 case "PBPsPsPs":
                     value = BordeoPanelHeight.NormalThreeMini;
                     break;
-
                 case "PBPsPs":
                     value = BordeoPanelHeight.NormalTwoMinis;
                     break;
@@ -139,6 +140,38 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Controller
                     break;
             }
             return value;
+        }
+        /// <summary>
+        /// Gets the panel measure.
+        /// </summary>
+        /// <param name="code">The code.</param>
+        /// <param name="sizes">The sizes.</param>
+        /// <param name="selectedHeights">The selected heights.</param>
+        /// <param name="selectedFronts">The selected fronts.</param>
+        /// <returns></returns>
+        public static List<RivieraMeasure> GetPanelMeasure(this String code, Dictionary<String, ElementSizeCollection> sizes, RivieraSize[] selectedHeights, params RivieraSize[] selectedFronts)
+        {
+            List<RivieraMeasure> measure = new List<RivieraMeasure>();
+            var heights = selectedHeights;
+            RivieraSize startFront = selectedFronts[0];
+            RivieraSize endFront = selectedFronts.Length > 1 ? selectedFronts[1] : default(RivieraSize);
+            foreach (RivieraSize height in heights)
+                switch (code)
+                {
+                    case CODE_PANEL_RECTO:
+                        measure.Add(sizes[CODE_PANEL_RECTO].Sizes.Select(x => x as PanelMeasure).
+                            FirstOrDefault(y => y.Alto == height && y.Frente == startFront));
+                        break;
+                    case CODE_PANEL_90:
+                        measure.Add(sizes[CODE_PANEL_90].Sizes.Select(x => x as LPanelMeasure).
+                            FirstOrDefault(y => y.Alto == height && y.FrenteStart == startFront && y.FrenteEnd == endFront));
+                        break;
+                    case CODE_PANEL_135:
+                        measure.Add(sizes[CODE_PANEL_135].Sizes.Select(x => x as LPanelMeasure).
+                            FirstOrDefault(y => y.Alto == height && y.FrenteStart == startFront && y.FrenteEnd == endFront));
+                        break;
+                }
+            return measure;
         }
     }
 }

@@ -23,5 +23,7 @@ namespace DaSoft.Riviera.Modulador.Core.Assets
         /***************************/
         public const String BORDEO_SOW_START = "BordeoSowStart";
         public const String BORDEO_SOW_CONTINUE = "BordeoSowContinue";
+        public const String BORDEO_EDIT_PANELS = "BordeoPanelEditor";
+        public const String BORDEO_PANEL_COPY_PASTE = "BordeoCopyPastePanel";
     }
 }

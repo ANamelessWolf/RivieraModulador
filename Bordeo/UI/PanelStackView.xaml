@@ -14,7 +14,7 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <ListView x:Name="list">
+    <ListView x:Name="list" SelectionChanged="list_SelectionChanged">
         <core_items:PanelItem Height="135"/>
         <core_items:PanelItem Height="75"/>
         <core_items:PanelItem Height="75"/>

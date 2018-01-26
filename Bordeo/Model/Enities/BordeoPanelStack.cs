@@ -95,6 +95,22 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
             this.Description.ClassName = this.GetType().FullName;
         }
         /// <summary>
+        /// Initializes a new instance of the <see cref="BordeoPanelStack"/> class.
+        /// </summary>
+        /// <param name="start">The start point.</param>
+        /// <param name="end">The end point.</param>
+        /// <param name="measure">The panel measure.</param>
+        public BordeoPanelStack(Point3d start, Point3d end, BordeoPanel[] panels) :
+            base(BordeoUtils.GetRivieraCode(CODE_PANEL_STACK), panels[0].PanelSize, start)
+        {
+            this.Panels = new List<BordeoPanel>();
+            foreach (var panel in panels)
+                this.Panels.Add(panel);
+            this.Direction = this.Panels.FirstOrDefault().Direction;
+            this.Regen();
+            this.Description.ClassName = this.GetType().FullName;
+        }
+        /// <summary>
         /// Saves the riviera object.
         /// </summary>
         /// <param name="tr">The active transaction.</param>
@@ -105,7 +121,8 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
             dMan.Set(tr, KEY_LOCATION, this.Start.ToFormat(5, false), this.End.ToFormat(5, false));
             List<String> content = new List<string>();
             foreach (var panel in this)
-                content.Add(String.Format("{0}@{1}@{2}@{3}", panel.Code.Code, panel.PanelSize.Frente.Nominal, panel.PanelSize.Alto.Nominal, panel.Code.SelectedAcabadoIndex));
+                content.Add(String.Format("{0}@{1}@{2}@{3}@{4}", panel.Code.Code, panel.PanelSize.Frente.Nominal, panel.PanelSize.Alto.Nominal, panel.Code.SelectedAcabadoIndex, panel.Elevation));
+            dMan.Set(tr, KEY_CONTENT, content.ToArray());
         }
 
         /// <summary>

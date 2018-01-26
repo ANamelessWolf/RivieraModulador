@@ -105,6 +105,7 @@
     <Compile Include="Controller\GeometryUtils.cs" />
     <Compile Include="Controller\IBlockObject.cs" />
     <Compile Include="Controller\ISowable.cs" />
+    <Compile Include="Controller\RivieraLoader.cs" />
     <Compile Include="Controller\RivieraParsingUtils.cs" />
     <Compile Include="Controller\RuntimeUtils.cs" />
     <Compile Include="Controller\SowerController.cs" />

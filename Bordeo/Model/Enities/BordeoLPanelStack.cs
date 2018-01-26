@@ -110,6 +110,22 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
             this.Regen();
         }
         /// <summary>
+        /// Initializes a new instance of the <see cref="BordeoPanelStack"/> class.
+        /// </summary>
+        /// <param name="start">The start point.</param>
+        /// <param name="end">The end point.</param>
+        /// <param name="measure">The panel measure.</param>
+        public BordeoLPanelStack(Point3d start, Point3d end, params BordeoLPanel[] panels) :
+            base(BordeoUtils.GetRivieraCode(CODE_PANEL_STACK), panels[0].PanelSize, start)
+        {
+            this.Panels = new List<BordeoLPanel>();
+            this.PanelAngle = panels[0].Code.Code == CODE_PANEL_90 ? BordeoLPanelAngle.ANG_90 : BordeoLPanelAngle.ANG_135;
+            foreach (BordeoLPanel panel in this.Panels)
+                this.Panels.Add(panel);
+            this.Direction = this.Panels.FirstOrDefault().Direction;
+            this.Regen();
+        }
+        /// <summary>
         /// Saves the riviera object.
         /// </summary>
         /// <param name="tr">The active transaction.</param>
@@ -120,7 +136,14 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
             dMan.Set(tr, KEY_LOCATION, this.Start.ToFormat(5, false), (this.CADGeometry as Polyline).GetPoint2dAt(1).ToFormat(5, false));
             List<String> content = new List<string>();
             foreach (var panel in this)
-                content.Add(String.Format("{0}@{1}@{2}@{3}@{4}", panel.Code.Code, panel.PanelSize.FrenteStart.Nominal, panel.PanelSize.FrenteEnd.Nominal, panel.PanelSize.Alto.Nominal, panel.Code.SelectedAcabadoIndex));
+                content.Add(String.Format("{0}@{1}@{2}@{3}@{4}@{5}@{6}"
+                    , panel.Code.Code, 
+                    panel.PanelSize.FrenteStart.Nominal, 
+                    panel.PanelSize.FrenteEnd.Nominal, 
+                    panel.PanelSize.Alto.Nominal, 
+                    panel.Code.SelectedAcabadoIndex, 
+                    panel.Elevation,
+                    (int)this.Rotation));
         }
         /// <summary>
         /// Updates the panel stack.

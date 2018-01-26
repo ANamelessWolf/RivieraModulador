@@ -21,6 +21,7 @@ namespace DaSoft.Riviera.Modulador.Core.Controller
         public const String KEY_PARENT = "Parent";
         public const String KEY_CONTENT = "Content";
         public const String KEY_LOCATION = "Location";
+        public const String KEY_GEOMETRY = "Geometria";
         /// <summary>
         /// Sets the specified field.
         /// </summary>

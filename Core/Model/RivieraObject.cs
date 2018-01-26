@@ -186,6 +186,10 @@ namespace DaSoft.Riviera.Modulador.Core.Model
         {
             var dMan = new ExtensionDictionaryManager(this.CADGeometry.Id, tr);
             dMan.Set(tr, KEY_ID, this.Handle.Value.ToString());
+            List<String> handles = new List<string>();
+            foreach(ObjectId id in this.Ids)
+                handles.Add(id.Handle.Value.ToString());
+            dMan.Set(tr, KEY_GEOMETRY, handles.ToArray());
             foreach (var child in Children.Where(x => x.Value > 0))
                 dMan.Set(tr, child.Key, child.Value.ToString());
             dMan.Set(tr, KEY_PARENT, this.Parent.ToString());

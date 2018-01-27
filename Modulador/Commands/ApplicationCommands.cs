@@ -17,6 +17,8 @@ using Nameless.Libraries.HoukagoTeaTime.Yui;
 using Nameless.Libraries.HoukagoTeaTime.Runtime;
 using Autodesk.AutoCAD.ApplicationServices;
 using Autodesk.AutoCAD.DatabaseServices;
+using DaSoft.Riviera.Modulador.Bordeo.Controller;
+using Nameless.Libraries.HoukagoTeaTime.Tsumugi;
 
 namespace DaSoft.Riviera.Modulador.Commands
 {
@@ -108,7 +110,31 @@ namespace DaSoft.Riviera.Modulador.Commands
             RivApp.Is3DEnabled = false;
             RivApp.Database.DatabaseLoaded = InitCommand;
             RivApp.InitDatabase();
+          //  this.LoadApplication();
         }
+        /// <summary>
+        /// Loads the application.
+        /// </summary>
+        private void LoadApplication()
+        {
+            new QuickTransactionWrapper(
+                (Document doc, Transaction tr) =>
+                {
+                    BlockTable blkTab = (BlockTable)doc.Database.BlockTableId.GetObject(OpenMode.ForRead);
+                    BlockTableRecord model = (BlockTableRecord)blkTab[BlockTableRecord.ModelSpace].GetObject(OpenMode.ForRead);
+                    ExtensionDictionaryManager dMan;
+                    BordeoLoader bLoader;
+                    foreach (ObjectId entId in model)
+                        if (entId.GetObject(OpenMode.ForRead) is Entity)
+                        {
+                            dMan = new ExtensionDictionaryManager(entId, tr);
+                            bLoader = new BordeoLoader(dMan);
+                            //string code = dMan.GetXRecord(KEY_)
+                            //bLoader.Load()
+                        }
+                });
+        }
+
         /// <summary>
         /// Swaps between a 2D view and the 3D view.
         /// </summary>
@@ -133,7 +159,7 @@ namespace DaSoft.Riviera.Modulador.Commands
                                 {
                                     Selector.Ed.WriteMessage(exc.Message);
                                 }
-                                
+
                                 Selector.Ed.Regen();
                             }).Run();
                     }

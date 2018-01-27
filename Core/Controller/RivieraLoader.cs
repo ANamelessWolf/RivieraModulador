@@ -51,7 +51,7 @@ namespace DaSoft.Riviera.Modulador.Core.Controller
         /// <param name="end">The end.</param>
         public void GetLocation(Transaction tr, out Point3d start, out Point3d end)
         {
-            String[] location = this.DManager.GetXRecord(KEY_CONTENT, tr).GetDataAsString(tr);
+            String[] location = this.DManager.GetXRecord(KEY_LOCATION, tr).GetDataAsString(tr);
             var coords = location[0].Split(',');
             start = new Point3d(double.Parse(coords[0]), double.Parse(coords[1]), 0);
             coords = location[1].Split(',');

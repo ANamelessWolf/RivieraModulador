@@ -163,6 +163,14 @@ namespace DaSoft.Riviera.Modulador.Core.Model
         /// <summary>
         /// Sets the default acabado.
         /// </summary>
+        /// <param name="index">The riviera selected index.</param>
+        public void SetAcabado(int index)
+        {
+            this.Code.SelectedAcabadoIndex = index;
+        }
+        /// <summary>
+        /// Sets the default acabado.
+        /// </summary>
         /// <param name="rivieraAcabado">The riviera acabado.</param>
         public void SetAcabado(RivieraAcabado rivieraAcabado)
         {

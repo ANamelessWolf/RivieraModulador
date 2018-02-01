@@ -45,6 +45,13 @@ namespace DaSoft.Riviera.Modulador.Bordeo.UI
         /// </summary>
         public RivieraSize PanelHeight15;
         /// <summary>
+        /// Locks the height.
+        /// </summary>
+        public void SetHeightEnableStatus(Boolean lockHeight)
+        {
+            this.listHeights.IsEnabled = lockHeight;
+        }
+        /// <summary>
         /// Gets the selected start front.
         /// </summary>
         /// <value>

@@ -34,8 +34,10 @@ namespace DaSoft.Riviera.Modulador.Commands
                    try
                    {
                        TabBordeoMenu ctrl = this.Controls.Where(x => x is TabBordeoMenu).FirstOrDefault() as TabBordeoMenu;
+                       ctrl.SetHeightEnableStatus(false);
                        BordeoSower sow = new BordeoSower(ctrl);
                        sow.Sow();
+                       ctrl.SetHeightEnableStatus(true);
                    }
                    catch (System.Exception exc)
                    {
@@ -62,6 +64,7 @@ namespace DaSoft.Riviera.Modulador.Commands
                            if (rivObj != null)
                            {
                                TabBordeoMenu ctrl = this.Controls.Where(x => x is TabBordeoMenu).FirstOrDefault() as TabBordeoMenu;
+                               ctrl.SetHeightEnableStatus(false);
                                BordeoSower sow = new BordeoSower(ctrl);
                                if (rivObj is BordeoPanelStack)
                                    state = 1;
@@ -71,6 +74,7 @@ namespace DaSoft.Riviera.Modulador.Commands
                                    state = 0;
                                var dir = sow.PickArrow(rivObj as ISowable);
                                sow.Sow(dir, rivObj, state);
+                               ctrl.SetHeightEnableStatus(true);
                            }
                            else
                                Selector.Ed.WriteMessage("No es un elemento de bordeo");

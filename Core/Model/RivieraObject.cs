@@ -42,6 +42,39 @@ namespace DaSoft.Riviera.Modulador.Core.Model
             get { return this.CADGeometry.Handle; }
         }
         /// <summary>
+        /// Gets a value indicating whether this instance is root.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if this instance is root; otherwise, <c>false</c>.
+        /// </value>
+        public Boolean IsRoot
+        {
+            get { return this.Parent != 0; }
+        }
+        /// <summary>
+        /// Gets the children.
+        /// </summary>
+        /// <returns></returns>
+        public RivieraObject GetChildren(List<RivieraObject> objects, ArrowDirection direction)
+        {
+            string key = direction.GetArrowDirectionName();
+            if (this.Children.ContainsKey(key) && this.Children[key] > 0)
+                return objects.FirstOrDefault(x => x.Handle.Value == this.Children[key]);
+            else
+                return null;
+        }
+        /// <summary>
+        /// Gets the children.
+        /// </summary>
+        /// <returns></returns>
+        public RivieraObject GetParent(List<RivieraObject> objects)
+        {
+            if (this.Parent > 0)
+                return objects.FirstOrDefault(x => x.Handle.Value == this.Parent);
+            else
+                return null;
+        }
+        /// <summary>
         /// Gets the geometry that stores the riviera extended data.
         /// </summary>
         /// <value>
@@ -195,7 +228,7 @@ namespace DaSoft.Riviera.Modulador.Core.Model
             var dMan = new ExtensionDictionaryManager(this.CADGeometry.Id, tr);
             dMan.Set(tr, KEY_ID, this.Handle.Value.ToString());
             List<String> handles = new List<string>();
-            foreach(ObjectId id in this.Ids)
+            foreach (ObjectId id in this.Ids)
                 handles.Add(id.Handle.Value.ToString());
             dMan.Set(tr, KEY_GEOMETRY, handles.ToArray());
             foreach (var child in Children.Where(x => x.Value > 0))

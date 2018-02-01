@@ -273,17 +273,19 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
         public override void Connect(ArrowDirection direction, RivieraObject newObject)
         {
             //Solo conecta en dos orientaciones front y back
+            String key;
             if (direction.IsFront())
                 direction = ArrowDirection.FRONT;
             else
                 direction = ArrowDirection.BACK;
+            key = ArrowDirection.BACK.GetArrowDirectionName();
             base.Connect(direction, newObject);
-            String key = ArrowDirection.BACK.GetArrowDirectionName();
+            
             //Se bloquea el nodo en el que se realizo la conexión
             if (newObject.Children.ContainsKey(key))
-                newObject.Children[key] = -1;
+                newObject.Children[key] = this.Handle.Value;
             else
-                newObject.Children.Add(key, -1);
+                newObject.Children.Add(key, this.Handle.Value);
         }
 
         public void UpdatePanelStack(BordeoPanelHeight newHeight, string[] acabadoLadoA, string[] acabadosLadoB)

@@ -137,11 +137,11 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
             List<String> content = new List<string>();
             foreach (var panel in this)
                 content.Add(String.Format("{0}@{1}@{2}@{3}@{4}@{5}@{6}"
-                    , panel.Code.Code, 
-                    panel.PanelSize.FrenteStart.Nominal, 
-                    panel.PanelSize.FrenteEnd.Nominal, 
-                    panel.PanelSize.Alto.Nominal, 
-                    panel.Code.SelectedAcabadoIndex, 
+                    , panel.Code.Code,
+                    panel.PanelSize.FrenteStart.Nominal,
+                    panel.PanelSize.FrenteEnd.Nominal,
+                    panel.PanelSize.Alto.Nominal,
+                    panel.Code.SelectedAcabadoIndex,
                     panel.Elevation,
                     (int)this.Rotation));
         }
@@ -321,20 +321,21 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
         /// <param name="newObject">The new object to be added</param>
         public override void Connect(ArrowDirection direction, RivieraObject newObject)
         {
+            //Se bloquean las llaves que apunten al padre, solo
+            //se permite una conexión.
+            String key;
             //Solo conecta en dos orientaciones front y back
             if (direction.IsFront())
                 direction = ArrowDirection.FRONT;
             else
                 direction = ArrowDirection.BACK;
+            key = ArrowDirection.BACK.GetArrowDirectionName();
             base.Connect(direction, newObject);
             var d = App.Riviera.Database.Objects.Select(x => x.Handle).ToArray();
-            //Se bloquean las llaves que apunten al padre, solo
-            //se permite una conexión.
-            String key = ArrowDirection.BACK.GetArrowDirectionName();
             if (newObject.Children.ContainsKey(key))
-                newObject.Children[key] = -1;
+                newObject.Children[key] = this.Handle.Value;
             else
-                newObject.Children.Add(key, -1);
+                newObject.Children.Add(key, this.Handle.Value);
         }
 
 

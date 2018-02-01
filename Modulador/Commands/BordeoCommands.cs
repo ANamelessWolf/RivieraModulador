@@ -101,7 +101,23 @@ namespace DaSoft.Riviera.Modulador.Commands
                            {
                                WinPanelEditor win = new WinPanelEditor(obj as IBordeoPanelStyler);
                                if (win.ShowDialog().Value)
+                               {
                                    (obj as IBordeoPanelStyler).UpdatePanelStack(win.Heights, win.AcabadosLadoA.ToArray(), win.AcabadosLadoB.ToArray());
+                                   //1: Se realizá la selección del padre,
+
+                              //     var stacks = stacksIds.OfType<ObjectId>().
+                              //Select(x => objs.FirstOrDefault(y => y.Ids.Contains(x))).
+                              //Where(z => (obj is BordeoPanelStack || obj is BordeoLPanelStack)).Select(x => x as IBordeoPanelStyler).ToList();
+                              //     var cbstack = (obj as IBordeoPanelStyler);
+                              //     String[] acabA = cbstack.AcabadosLadoA.Select(y => y.Acabado).ToArray(),
+                              //              acabB = cbstack.AcabadosLadoB.Select(y => y.Acabado).ToArray();
+                              //     stacks.ForEach(x =>
+                              //     {
+                              //         x.UpdatePanelStack(cbstack.Height, acabA, acabB);
+
+                              //     });
+
+                               }
                            }
                            else
                                Selector.Ed.WriteMessage("No es un elemento de bordeo");

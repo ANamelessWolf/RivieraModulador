@@ -151,7 +151,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
         /// <param name="newHeight">The new height.</param>
         /// <param name="acabadoLadoA">The acabado lado a.</param>
         /// <param name="acabadosLadoB">The acabados lado b.</param>
-        public void UpdatePanelStack(BordeoPanelHeight newHeight, string[] acabadoLadoA, string[] acabadosLadoB)
+        public void UpdatePanelStack(BordeoPanelHeight newHeight, string[] acabadoLadoA = null, string[] acabadosLadoB = null)
         {
             //Se borran los tamaños actuales
             while (this.Panels.Count > 1)
@@ -165,7 +165,8 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
             //Se agregan los tamaños superiores
             LPanelMeasure measure;
             var panelSize = this.FirstOrDefault().PanelSize;
-            this.Panels.FirstOrDefault().SetAcabado(acabadoLadoA[0]);
+            if (acabadoLadoA != null)
+                this.Panels.FirstOrDefault().SetAcabado(acabadoLadoA[0]);
             for (int i = 1; i < heights.Length; i++)
             {
                 measure = sizes.FirstOrDefault(
@@ -173,7 +174,8 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
                     x.FrenteEnd.Nominal == panelSize.FrenteEnd.Nominal &&
                     x.Alto.Nominal == heights[i].Nominal);
                 this.AddPanel(measure);
-                this.Panels.LastOrDefault().SetAcabado(acabadoLadoA[i]);
+                if (acabadoLadoA != null)
+                    this.Panels.LastOrDefault().SetAcabado(acabadoLadoA[i]);
             }
         }
         /// <summary>
@@ -188,7 +190,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
                 panel = new BordeoL90Panel(this.Rotation, pl.StartPoint, pl.EndPoint, measure);
             else
                 panel = new BordeoL135Panel(this.Rotation, pl.StartPoint, pl.EndPoint, measure);
-            Double elev = this.Panels.Sum(x => x.PanelSize.Alto.Real);
+            Double elev = this.Panels.Sum(x => x.PanelSize.Alto.Real - ELEV_OFFSET);
             panel.Elevation = elev;
             this.Panels.Add(panel);
         }

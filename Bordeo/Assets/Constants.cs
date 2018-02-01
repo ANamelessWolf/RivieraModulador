@@ -13,8 +13,11 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Assets
         //public const String KEY_LEFT_135 = "Left135";
         //public const String KEY_RIGHT_90 = "Right90";
         //public const String KEY_RIGHT_135 = "Right135";
-        //public const String KEY_EXTRA = "ExtraContent";
-
+        //public const String KEY_EXTRA = "ExtraContent";        
+        /// <summary>
+        /// Define el offset que debe reducirse para que los bloques esten a hueso
+        /// </summary>
+        public const double ELEV_OFFSET = -0.0138d;
         public const String FOLDER_NAME_BLOCKS_BORDEO = "Bordeo";
         /// <summary>
         /// Define la dirección del bloque a la izquierda

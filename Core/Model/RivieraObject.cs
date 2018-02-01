@@ -49,7 +49,7 @@ namespace DaSoft.Riviera.Modulador.Core.Model
         /// </value>
         public Boolean IsRoot
         {
-            get { return this.Parent != 0; }
+            get { return this.Parent == 0; }
         }
         /// <summary>
         /// Gets the children.

@@ -132,7 +132,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
         public void AddPanel(PanelMeasure measure)
         {
             BordeoPanel panel = new BordeoPanel(this.PanelGeometry.StartPoint, this.PanelGeometry.EndPoint, measure);
-            Double elev = this.Panels.Sum(x => x.PanelSize.Alto.Real);
+            Double elev = this.Panels.Sum(x => x.PanelSize.Alto.Real+ ELEV_OFFSET);
             panel.Elevation = elev;
             this.Panels.Add(panel);
         }
@@ -280,7 +280,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
                 direction = ArrowDirection.BACK;
             key = ArrowDirection.BACK.GetArrowDirectionName();
             base.Connect(direction, newObject);
-            
+
             //Se bloquea el nodo en el que se realizo la conexión
             if (newObject.Children.ContainsKey(key))
                 newObject.Children[key] = this.Handle.Value;
@@ -288,7 +288,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
                 newObject.Children.Add(key, this.Handle.Value);
         }
 
-        public void UpdatePanelStack(BordeoPanelHeight newHeight, string[] acabadoLadoA, string[] acabadosLadoB)
+        public void UpdatePanelStack(BordeoPanelHeight newHeight, string[] acabadoLadoA = null, string[] acabadosLadoB = null)
         {
             //Se borran los tamaños actuales
             while (this.Panels.Count > 1)
@@ -301,14 +301,16 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
             //Se agregan los tamaños superiores
             PanelMeasure measure;
             var panelSize = this.FirstOrDefault().PanelSize;
-            this.Panels.FirstOrDefault().SetAcabado(acabadoLadoA[0]);
+            if (acabadoLadoA != null)
+                this.Panels.FirstOrDefault().SetAcabado(acabadoLadoA[0]);
             for (int i = 1; i < heights.Length; i++)
             {
                 measure = sizes.FirstOrDefault(
                     x => x.Frente.Nominal == panelSize.Frente.Nominal &&
                     x.Alto.Nominal == heights[i].Nominal);
                 this.AddPanel(measure);
-                this.Panels.LastOrDefault().SetAcabado(acabadoLadoA[i]);
+                if (acabadoLadoA != null)
+                    this.Panels.LastOrDefault().SetAcabado(acabadoLadoA[i]);
             }
         }
     }

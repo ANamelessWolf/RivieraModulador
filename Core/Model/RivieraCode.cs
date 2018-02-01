@@ -112,5 +112,15 @@ namespace DaSoft.Riviera.Modulador.Core.Model
         {
             return this.Acabados.IndexOf(this.Acabados.FirstOrDefault(x => x.Acabado == rivieraAcabado.Acabado));
         }
+        /// <summary>
+        /// Returns a <see cref="System.String" /> that represents this instance.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
+        public override string ToString()
+        {
+            return String.Format("{0}{1}", this.Code, this.SelectedAcabado.Acabado);
+        }
     }
 }

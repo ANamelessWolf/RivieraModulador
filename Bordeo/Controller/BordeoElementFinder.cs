@@ -1,4 +1,5 @@
 ﻿using DaSoft.Riviera.Modulador.Bordeo.Model.Enities;
+using DaSoft.Riviera.Modulador.Core.Controller;
 using DaSoft.Riviera.Modulador.Core.Model;
 using DaSoft.Riviera.Modulador.Core.Runtime;
 using System;
@@ -18,7 +19,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Controller
         /// <returns>The list of riviera object</returns>
         public static IEnumerable<RivieraObject> GetGroup(this BordeoPanelStack panel)
         {
-            return GetRivieraGroup(panel);
+            return GetBordeoGroup(panel);
         }
         /// <summary>
         /// Gets the Riviera objects that belongs to bordeo group.
@@ -27,14 +28,14 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Controller
         /// <returns>The list of riviera object</returns>
         public static IEnumerable<RivieraObject> GetGroup(this BordeoLPanelStack panel)
         {
-            return GetRivieraGroup(panel);
+            return GetBordeoGroup(panel);
         }
         /// <summary>
         /// Gets the Riviera objects that belongs to bordeo group.
         /// </summary>
         /// <param name="obj">The riviera object.</param>
         /// <returns>The list of riviera object</returns>
-        private static List<RivieraObject> GetRivieraGroup(RivieraObject obj)
+        public static List<RivieraObject> GetBordeoGroup(this RivieraObject obj)
         {
             List<RivieraObject> objs = new List<RivieraObject>();
             var db = App.Riviera.Database.Objects;
@@ -57,9 +58,9 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Controller
             else
             {
                 var parentObj = obj;
-                while (obj.Parent > 0)
+                while (!parentObj.IsRoot)
                     parentObj = parentObj.GetParent(db);
-                objs = GetRivieraGroup(parentObj);
+                objs = GetBordeoGroup(parentObj);
             }
             return objs;
         }
@@ -68,7 +69,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Controller
         /// </summary>
         /// <param name="obj">The riviera object.</param>
         /// <returns>The list of riviera object</returns>
-        private static List<RivieraObject> GetRivieraFront(RivieraObject obj)
+        public static List<RivieraObject> GetRivieraFront(RivieraObject obj)
         {
             List<RivieraObject> objs = new List<RivieraObject>();
             var db = App.Riviera.Database.Objects;
@@ -83,13 +84,14 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Controller
         /// <summary>
         /// Gets the Riviera objects that belongs to bordeo group.
         /// </summary>
-        /// <param name="obj">The riviera object.</param>
+        /// <param name="obj">The 
+        /// riviera object.</param>
         /// <returns>The list of riviera object</returns>
-        private static List<RivieraObject> GetRivieraBack(RivieraObject obj)
+        public static List<RivieraObject> GetRivieraBack(RivieraObject obj)
         {
             List<RivieraObject> objs = new List<RivieraObject>();
             var db = App.Riviera.Database.Objects;
-           
+
             if (obj.IsRoot)
             {
                 var back = obj.GetChildren(db, ArrowDirection.BACK);
@@ -97,6 +99,39 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Controller
                 {
                     objs.Add(back);
                     back = back.GetChildren(db, ArrowDirection.FRONT);
+                }
+            }
+            else
+            {
+                var back = obj;
+                while (back != null && !back.IsRoot)
+                {
+                    back = back.GetChildren(db, ArrowDirection.BACK);
+                    objs.Add(back);
+                }
+                if (back != null && back.IsRoot)
+                {
+                    RivieraObject previous = objs[objs.Count - 2];
+                    string fKey = ArrowDirection.FRONT.GetArrowDirectionName();
+                    //Previous is Front
+                    if (previous.Handle.Value == back.Children[fKey])
+                    {
+                        back = obj.GetChildren(db, ArrowDirection.BACK);
+                        while (back != null)
+                        {
+                            objs.Add(back);
+                            back = obj.GetChildren(db, ArrowDirection.BACK);
+                        }
+                    }//Previous is Back
+                    else
+                    {
+                        back = obj.GetChildren(db, ArrowDirection.FRONT);
+                        while (back != null)
+                        {
+                            objs.Add(back);
+                            back = obj.GetChildren(db, ArrowDirection.FRONT);
+                        }
+                    }
                 }
             }
             return objs;

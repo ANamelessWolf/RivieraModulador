@@ -8,6 +8,7 @@ using DaSoft.Riviera.Modulador.Bordeo.UI;
 using DaSoft.Riviera.Modulador.Core.Controller;
 using DaSoft.Riviera.Modulador.Core.Model;
 using DaSoft.Riviera.Modulador.Core.Runtime;
+using DaSoft.Riviera.Modulador.Core.UI;
 using Nameless.Libraries.HoukagoTeaTime.Yui;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static DaSoft.Riviera.Modulador.Core.Assets.CMDS;
+using static DaSoft.Riviera.Modulador.Core.Assets.CONST;
+using static DaSoft.Riviera.Modulador.Bordeo.Assets.Codes;
+using Nameless.Libraries.HoukagoTeaTime.Runtime;
+
 namespace DaSoft.Riviera.Modulador.Commands
 {
     /// <summary>
@@ -31,18 +36,19 @@ namespace DaSoft.Riviera.Modulador.Commands
             App.RunCommand(
                delegate ()
                {
+                   TabBordeoMenu ctrl = null;
                    try
                    {
-                       TabBordeoMenu ctrl = this.Controls.Where(x => x is TabBordeoMenu).FirstOrDefault() as TabBordeoMenu;
+                       ctrl = this.Controls.Where(x => x is TabBordeoMenu).FirstOrDefault() as TabBordeoMenu;
                        ctrl.SetHeightEnableStatus(false);
                        BordeoSower sow = new BordeoSower(ctrl);
                        sow.Sow();
-                       ctrl.SetHeightEnableStatus(true);
                    }
                    catch (System.Exception exc)
                    {
                        Selector.Ed.WriteMessage(exc.Message);
                    }
+                   ctrl?.SetHeightEnableStatus(true);
                });
         }
         /// <summary>
@@ -54,6 +60,7 @@ namespace DaSoft.Riviera.Modulador.Commands
             App.RunCommand(
                delegate ()
                {
+                   TabBordeoMenu ctrl = null;
                    try
                    {
                        ObjectId entId;
@@ -63,7 +70,7 @@ namespace DaSoft.Riviera.Modulador.Commands
                            RivieraObject rivObj = App.Riviera.Database.Objects.FirstOrDefault(x => x.Id == entId);
                            if (rivObj != null)
                            {
-                               TabBordeoMenu ctrl = this.Controls.Where(x => x is TabBordeoMenu).FirstOrDefault() as TabBordeoMenu;
+                               ctrl = this.Controls.Where(x => x is TabBordeoMenu).FirstOrDefault() as TabBordeoMenu;
                                ctrl.SetHeightEnableStatus(false);
                                BordeoSower sow = new BordeoSower(ctrl);
                                if (rivObj is BordeoPanelStack)
@@ -84,6 +91,7 @@ namespace DaSoft.Riviera.Modulador.Commands
                    {
                        Selector.Ed.WriteMessage(exc.Message);
                    }
+                   ctrl?.SetHeightEnableStatus(true);
                });
         }
         /// <summary>
@@ -108,9 +116,9 @@ namespace DaSoft.Riviera.Modulador.Commands
                                if (win.ShowDialog().Value)
                                {
                                    var connected = obj.GetBordeoGroup();
-                                   foreach(var objConn in connected)
+                                   foreach (var objConn in connected)
                                    {
-                                       if(objConn.Handle.Value == obj.Handle.Value)
+                                       if (objConn.Handle.Value == obj.Handle.Value)
                                            (objConn as IBordeoPanelStyler).UpdatePanelStack(win.Heights, win.AcabadosLadoA.ToArray(), win.AcabadosLadoB.ToArray());
                                        else
                                            (objConn as IBordeoPanelStyler).UpdatePanelStack(win.Heights, null, null);
@@ -127,6 +135,45 @@ namespace DaSoft.Riviera.Modulador.Commands
                    }
                });
         }
+
+        [CommandMethod(BORDEO_PANEL_UPDATE_SIZE)]
+        public void BordeoUpdateFrenteSize()
+        {
+            App.RunCommand(
+               delegate ()
+               {
+                   try
+                   {
+                       ObjectId selPanelStackId;
+                       if (Picker.ObjectId("Selecciona el panel a editar", out selPanelStackId, typeof(BlockReference)))
+                       {
+                           var objs = App.Riviera.Database.Objects;
+                           var obj = objs.FirstOrDefault(x => x.Ids.Contains(selPanelStackId));
+                           if (obj is BordeoPanelStack || obj is BordeoLPanelStack)
+                           {
+                               ArrowDirection dir = (obj as IBordeoPanelStyler).GetMoveDirection();
+                               new QuickTransactionWrapper((Document doc, Transaction tr) =>
+                               {
+                                   if (dir != ArrowDirection.NONE)
+                                   {
+                                       String defFront = (obj as IBordeoPanelStyler).GetDefaultMovingFront(dir);
+                                       WinSelectFront win = new WinSelectFront(BordeoUtils.GetDatabase(), CODE_PANEL_RECTO, defFront);
+                                       if (win.ShowDialog().Value)
+                                           (obj as IBordeoPanelStyler).Move(tr, dir, win.SelectedFront);
+                                   }
+                               }).Run();
+                           }
+                           else
+                               Selector.Ed.WriteMessage("No es un elemento de bordeo");
+                       }
+                   }
+                   catch (System.Exception exc)
+                   {
+                       Selector.Ed.WriteMessage(exc.Message);
+                   }
+               });
+        }
+
         [CommandMethod(BORDEO_PANEL_COPY_PASTE)]
         public void BordeoClipboard()
         {
@@ -151,7 +198,7 @@ namespace DaSoft.Riviera.Modulador.Commands
                               var cbstack = (obj as IBordeoPanelStyler);
                               String[] acabA = cbstack.AcabadosLadoA.Select(y => y.Acabado).ToArray(),
                                        acabB = cbstack.AcabadosLadoB.Select(y => y.Acabado).ToArray();
-                              stacks.ForEach(x => 
+                              stacks.ForEach(x =>
                               {
                                   x.UpdatePanelStack(cbstack.Height, acabA, acabB);
 

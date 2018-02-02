@@ -71,22 +71,22 @@
                                 </Button.ToolTip>
                             </Button>
 
-                            <Button x:Name="btnSummonPanelClipboard" Style="{StaticResource MenuStyle_RoundButton}" Content="P&#xe16d;" FontWeight="Light"
+                            <!--<Button x:Name="btnSummonPanelClipboard" Style="{StaticResource MenuStyle_RoundButton}" Content="P&#xe16d;" FontWeight="Light"
                                     Click="btnSummonPanelClipboard_Click">
                                 <Button.ToolTip>
                                     <ToolTip Style="{StaticResource TooltipStyle}" Tag="Copiar estilo de paneles" 
                                  ToolTip="Haga clic para copiar y pegar el estilo de paneles"/>
                                 </Button.ToolTip>
-                            </Button>
+                            </Button>-->
                             <Button x:Name="btnDeletePanel" Style="{StaticResource MenuStyle_RoundButton}" Content="&#xe107;"
                                     Click="btnDeletePanel_Click">
                                 <Button.ToolTip>
                                     <ToolTip Style="{StaticResource TooltipStyle}" Tag="Eliminar" ToolTip="Haga clic para eliminar"/>
                                 </Button.ToolTip>
                             </Button>
-                            <Button x:Name="btnSwapPanel" Style="{StaticResource MenuStyle_RoundButton}" Content="&#xe174;">
+                            <Button x:Name="btnSwapPanel" Style="{StaticResource MenuStyle_RoundButton}" Content="&#xe174;" Click="btnSwapPanel_Click">
                                 <Button.ToolTip>
-                                    <ToolTip Style="{StaticResource TooltipStyle}" Tag="Intercambiar" ToolTip="Haga clic para intercambiar una grupo de paneles"/>
+                                    <ToolTip Style="{StaticResource TooltipStyle}" Tag="Intercambiar" ToolTip="Haga clic para intercambiar el frente de paneles"/>
                                 </Button.ToolTip>
                             </Button>
                             <Button x:Name="btnQuantifyPanel" Style="{StaticResource MenuStyle_RoundButton}" Content="&#xe1d0;">

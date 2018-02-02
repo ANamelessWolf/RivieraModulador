@@ -86,6 +86,12 @@ namespace DaSoft.Riviera.Modulador.Core.Controller
                 case KEY_DIR_FRONT_RGT90:
                     dir = ArrowDirection.FRONT_RIGHT_90;
                     break;
+                case KEY_DIR_LFT:
+                    dir = ArrowDirection.LEFT;
+                    break;
+                case KEY_DIR_RGT:
+                    dir = ArrowDirection.RIGHT;
+                    break;
                 default:
                     dir = ArrowDirection.NONE;
                     break;
@@ -143,6 +149,12 @@ namespace DaSoft.Riviera.Modulador.Core.Controller
                     break;
                 case ArrowDirection.FRONT_RIGHT_90:
                     dir = KEY_DIR_FRONT_RGT90;
+                    break;
+                case ArrowDirection.LEFT:
+                    dir = KEY_DIR_LFT;
+                    break;
+                case ArrowDirection.RIGHT:
+                    dir = KEY_DIR_RGT;
                     break;
                 default:
                     dir = String.Empty;
@@ -206,12 +218,7 @@ namespace DaSoft.Riviera.Modulador.Core.Controller
         public static ObjectId DrawArrow(this ArrowDirection arrow, Point3d insertionPoint, Double rotation, String blockDirPath, Transaction tr)
         {
             //Se realiza la selección del archivo.
-            String pth = Path.Combine(blockDirPath, FOLDER_MISC);
-            FileInfo[] files;
-            if (Directory.Exists(pth))
-                files = new DirectoryInfo(pth).GetFiles();
-            else
-                files = new FileInfo[0];
+            FileInfo[] files = blockDirPath.GetMiscFiles();
             string arrowName = arrow.GetArrowDirectionName();
             FileInfo arrowFile = files.FirstOrDefault(x => x.Name.ToUpper() == String.Format("{0}.DWG", arrowName).ToUpper());
             if (arrowFile != null && arrowFile.Exists)
@@ -222,8 +229,39 @@ namespace DaSoft.Riviera.Modulador.Core.Controller
                 return blkRef.Draw(currentSpace, tr);
             }
             else
-                throw new RivieraException(String.Format(ERR_MISS_ARROW, arrowName, pth));
+                throw new RivieraException(String.Format(ERR_MISS_ARROW, arrowName, Path.Combine(blockDirPath, FOLDER_MISC)));
         }
+        /// <summary>
+        /// Creates the arrow.
+        /// </summary>
+        /// <param name="arrow">The arrow.</param>
+        /// <param name="miscFiles">The misc files.</param>
+        /// <param name="tr">The active transaction.</param>
+        /// <returns>The arrow block</returns>
+        public static AutoCADBlock CreateArrowBlock(this ArrowDirection arrow, FileInfo[] miscFiles, Transaction tr)
+        {
+            String arrowName = arrow.GetArrowDirectionName();
+            FileInfo arrowFile = miscFiles.FirstOrDefault(x => x.Name.ToUpper() == String.Format("{0}.DWG", arrowName).ToUpper());
+            AutoCADBlock arrowBlock = new AutoCADBlock(String.Format(SUFFIX_ARROW, arrowName), arrowFile, tr);
+            return arrowBlock;
+        }
+        /// <summary>
+        /// Gets the misc files.
+        /// </summary>
+        /// <param name="blockDirPath">The block dir path.</param>
+        /// <returns></returns>
+        public static FileInfo[] GetMiscFiles(this String blockDirPath)
+        {
+            //Se realiza la selección del archivo.
+            String pth = Path.Combine(blockDirPath, FOLDER_MISC);
+            FileInfo[] files;
+            if (Directory.Exists(pth))
+                files = new DirectoryInfo(pth).GetFiles();
+            else
+                files = new FileInfo[0];
+            return files;
+        }
+
         /// <summary>
         /// Draws the available arrows.
         /// </summary>

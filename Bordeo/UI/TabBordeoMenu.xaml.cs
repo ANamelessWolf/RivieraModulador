@@ -32,6 +32,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.UI
         const String BORDEO_EDIT_PANELS = "BordeoPanelEditor";
         const String SWAP_3D_MODE = "Swap3DMode";
         const String BORDEO_PANEL_COPY_PASTE = "BordeoCopyPastePanel";
+        const String BORDEO_PANEL_UPDATE_SIZE = "BordeoUpdatePanelSize";
         /// <summary>
         /// Gets the riviera bordeo available sizes
         /// </summary>
@@ -164,7 +165,10 @@ namespace DaSoft.Riviera.Modulador.Bordeo.UI
         {
             Selector.InvokeCMD(BORDEO_PANEL_COPY_PASTE);
         }
-
+        private void btnSwapPanel_Click(object sender, RoutedEventArgs e)
+        {
+            Selector.InvokeCMD(BORDEO_PANEL_UPDATE_SIZE);
+        }
         private void btnDeletePanel_Click(object sender, RoutedEventArgs e)
         {
 
@@ -224,5 +228,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.UI
             if (cbo.Items.Count > 0)
                 cbo.SelectedIndex = 0;
         }
+
+    
     }
 }

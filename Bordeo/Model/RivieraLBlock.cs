@@ -239,7 +239,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model
             Point2d start = new Point2d();
             Double union_length = 0.07668976d,
                    angF1 = 0d, angU = Math.PI / -8d, angF2 =  Math.PI / -4d;
-            //F1∡0°:UL<337.5°:F2<225°
+            //F1∡0°:UL<337.5°:F2<315°
             return start.ToPoint2dByPolar(frente1, angF1).ToPoint2dByPolar(union_length, angU).ToPoint2dByPolar(frente2, angF2);
         }
 

@@ -115,6 +115,14 @@ namespace DaSoft.Riviera.Modulador.Core.Assets
         /// </summary>
         public const String KEY_DIR_BACK_RGT = "BackRGT";
         /// <summary>
+        /// Defines the sowing direction back right
+        /// </summary>
+        public const String KEY_DIR_RGT = "Right";
+        /// <summary>
+        /// Defines the sowing direction back right
+        /// </summary>
+        public const String KEY_DIR_LFT = "Left";
+        /// <summary>
         /// Defines the sowing direction back right at 90°
         /// </summary>
         public const String KEY_DIR_BACK_RGT90 = "BackRGT90";

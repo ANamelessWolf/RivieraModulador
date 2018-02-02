@@ -182,6 +182,9 @@
     <Compile Include="UI\WinAppSettings.xaml.cs">
       <DependentUpon>WinAppSettings.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\WinSelectFront.xaml.cs">
+      <DependentUpon>WinSelectFront.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -228,6 +231,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\WinAppSettings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\WinSelectFront.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

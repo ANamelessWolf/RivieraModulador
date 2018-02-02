@@ -23,5 +23,7 @@ namespace DaSoft.Riviera.Modulador.Core.Model
         BACK_RIGHT = 11,
         BACK_RIGHT_90 = 12,
         BACK_RIGHT_135 = 13,
+        LEFT = 14,
+        RIGHT = 15,
     }
 }

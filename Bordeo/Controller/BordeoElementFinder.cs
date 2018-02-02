@@ -69,7 +69,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Controller
         /// </summary>
         /// <param name="obj">The riviera object.</param>
         /// <returns>The list of riviera object</returns>
-        public static List<RivieraObject> GetRivieraFront(RivieraObject obj)
+        public static List<RivieraObject> GetRivieraFront(this RivieraObject obj)
         {
             List<RivieraObject> objs = new List<RivieraObject>();
             var db = App.Riviera.Database.Objects;
@@ -87,7 +87,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Controller
         /// <param name="obj">The 
         /// riviera object.</param>
         /// <returns>The list of riviera object</returns>
-        public static List<RivieraObject> GetRivieraBack(RivieraObject obj)
+        public static List<RivieraObject> GetRivieraBack(this RivieraObject obj)
         {
             List<RivieraObject> objs = new List<RivieraObject>();
             var db = App.Riviera.Database.Objects;

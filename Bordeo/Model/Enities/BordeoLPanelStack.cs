@@ -1,13 +1,17 @@
-﻿using Autodesk.AutoCAD.DatabaseServices;
+﻿using Autodesk.AutoCAD.ApplicationServices;
+using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.Geometry;
 using DaSoft.Riviera.Modulador.Bordeo.Controller;
 using DaSoft.Riviera.Modulador.Core.Controller;
 using DaSoft.Riviera.Modulador.Core.Model;
 using DaSoft.Riviera.Modulador.Core.Model.DB;
 using DaSoft.Riviera.Modulador.Core.Runtime;
+using Nameless.Libraries.HoukagoTeaTime.Mio.Entities;
 using Nameless.Libraries.HoukagoTeaTime.Mio.Utils;
 using Nameless.Libraries.HoukagoTeaTime.Ritsu.Utils;
+using Nameless.Libraries.HoukagoTeaTime.Runtime;
 using Nameless.Libraries.HoukagoTeaTime.Tsumugi;
+using Nameless.Libraries.HoukagoTeaTime.Yui;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -190,7 +194,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
                 panel = new BordeoL90Panel(this.Rotation, pl.StartPoint, pl.EndPoint, measure);
             else
                 panel = new BordeoL135Panel(this.Rotation, pl.StartPoint, pl.EndPoint, measure);
-            Double elev = this.Panels.Sum(x => x.PanelSize.Alto.Real - (ELEV_OFFSET+ 0.0256d));
+            Double elev = this.Panels.Sum(x => x.PanelSize.Alto.Real - (ELEV_OFFSET + 0.0256d));
             panel.Elevation = elev;
             this.Panels.Add(panel);
         }
@@ -339,7 +343,82 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
             else
                 newObject.Children.Add(key, this.Handle.Value);
         }
+        /// <summary>
+        /// Gets the default moving front.
+        /// </summary>
+        /// <param name="direction">The direction.</param>
+        /// <returns>
+        /// The default moving front(FRENTE) in Nominal value
+        /// </returns>
+        public string GetDefaultMovingFront(ArrowDirection direction)
+        {
+            if (direction == ArrowDirection.BACK || direction == ArrowDirection.LEFT)
+                return (this.Size as LPanelMeasure).FrenteStart.Nominal.ToString();
+            else
+                return (this.Size as LPanelMeasure).FrenteEnd.Nominal.ToString();
+        }
 
+        public ArrowDirection GetMoveDirection()
+        {
+            Polyline pl = this.CADGeometry as Polyline;
+            Double upperDistance = 0.13d, arrowSeparation = 0.05d,
+            ang1 = this.Direction.Angle, invAng1 = ang1 + Math.PI,
+            ang2 = pl.GetPoint2dAt(2).GetVectorTo(pl.GetPoint2dAt(3)).Angle, invAng2 = ang2 + Math.PI;
+            Point2d middle1 = pl.GetPoint2dAt(0).MiddlePointTo(pl.GetPoint2dAt(1)),
+                    middle2 = pl.GetPoint2dAt(2).MiddlePointTo(pl.GetPoint2dAt(3)),
+                    back = middle1.ToPoint2dByPolar(upperDistance, ang1 + Math.PI / 2).ToPoint2dByPolar(arrowSeparation, ang1),
+                    front = middle1.ToPoint2dByPolar(upperDistance, ang1 + Math.PI / 2).ToPoint2dByPolar(arrowSeparation, invAng1),
+                    left = middle2.ToPoint2dByPolar(upperDistance, ang2 + Math.PI / 2).ToPoint2dByPolar(arrowSeparation, invAng2 ),
+                    right = middle2.ToPoint2dByPolar(upperDistance, ang2 + Math.PI / 2).ToPoint2dByPolar(arrowSeparation, ang2);
 
+            ArrowDirection dir = ArrowDirection.NONE;
+            ObjectIdCollection ids = new BlankTransactionWrapper<ObjectIdCollection>((Document doc, Transaction tr) =>
+            {
+                FileInfo[] miscFiles = Path.Combine(App.Riviera.AppDirectory.FullName, FOLDER_NAME_BLOCKS_BORDEO).GetMiscFiles();
+                BlockTableRecord currentSpace = (BlockTableRecord)Application.DocumentManager.MdiActiveDocument.Database.CurrentSpaceId.GetObject(OpenMode.ForWrite);
+                AutoCADBlock arrowFront = ArrowDirection.FRONT.CreateArrowBlock(miscFiles, tr),
+                             arrowBack = ArrowDirection.BACK.CreateArrowBlock(miscFiles, tr),
+                             arrowLeft = ArrowDirection.LEFT.CreateArrowBlock(miscFiles, tr),
+                             arrowRight = ArrowDirection.RIGHT.CreateArrowBlock(miscFiles, tr);
+                BlockReference aF = arrowFront.CreateReference(back.ToPoint3d(), this.Direction.Angle, 1),
+                               aB = arrowBack.CreateReference(front.ToPoint3d(), this.Direction.Angle, 1),
+                               aL = arrowLeft.CreateReference(left.ToPoint3d(), invAng2 - Math.PI / 2, 1),
+                               aR = arrowRight.CreateReference(right.ToPoint3d(), invAng2 - Math.PI / 2, 1);
+                var result = new ObjectIdCollection(
+                    new ObjectId[]
+                    {
+                         aF.Draw(currentSpace, tr),
+                         aB.Draw(currentSpace, tr),
+                         aL.Draw(currentSpace, tr),
+                         aR.Draw(currentSpace, tr)
+                    });
+                return result;
+            }).Run();
+            Selector.Ed.Regen();
+            dir = new BlankTransactionWrapper<ArrowDirection>((Document doc, Transaction tr) =>
+            {
+
+                var direction = this.PickDirection(tr);
+                ids.Erase(tr);
+                return direction;
+            }).Run();
+            Selector.Ed.Regen();
+            return dir;
+        }
+        /// <summary>
+        /// Moves the specified panel.
+        /// </summary>
+        /// <param name="tr">The active transaction.</param>
+        /// <param name="direction">The picked direction.</param>
+        /// <param name="front">The riviera size front.</param>
+        /// <exception cref="NotImplementedException"></exception>
+        public void Move(Transaction tr, ArrowDirection direction, RivieraSize front)
+        {
+            List<RivieraObject> objs;
+            if (direction == ArrowDirection.BACK)
+                objs = this.GetRivieraBack();
+            else
+                objs = this.GetRivieraFront();
+        }
     }
 }

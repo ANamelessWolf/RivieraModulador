@@ -190,7 +190,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
                 panel = new BordeoL90Panel(this.Rotation, pl.StartPoint, pl.EndPoint, measure);
             else
                 panel = new BordeoL135Panel(this.Rotation, pl.StartPoint, pl.EndPoint, measure);
-            Double elev = this.Panels.Sum(x => x.PanelSize.Alto.Real - ELEV_OFFSET);
+            Double elev = this.Panels.Sum(x => x.PanelSize.Alto.Real - (ELEV_OFFSET+ 0.0256d));
             panel.Elevation = elev;
             this.Panels.Add(panel);
         }

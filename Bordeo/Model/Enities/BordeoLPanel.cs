@@ -206,7 +206,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
             while (this.PanelGeometry.NumberOfVertices > 1)
                 this.PanelGeometry.RemoveVertexAt(this.PanelGeometry.NumberOfVertices - 1);
             Double f1 = this.LAngle == Math.PI / 2 ? this.PanelSize.FrenteStart.Nominal.GetPanel90DrawingSize() : this.PanelSize.FrenteStart.Nominal.GetPanel135DrawingSize(),
-                   f2 = this.LAngle == Math.PI / 2 ? this.PanelSize.FrenteEnd.Nominal.GetPanel90DrawingSize() : this.PanelSize.FrenteStart.Nominal.GetPanel135DrawingSize(),
+                   f2 = this.LAngle == Math.PI / 2 ? this.PanelSize.FrenteEnd.Nominal.GetPanel90DrawingSize() : this.PanelSize.FrenteEnd.Nominal.GetPanel135DrawingSize(),
                    dirAng = this.Direction.Angle,
                    rotAng = this.Direction.Angle + (this.Rotation == SweepDirection.Clockwise ? -1 * this.RotationAngle : this.RotationAngle),
                    panAng = this.Direction.Angle + (this.Rotation == SweepDirection.Clockwise ? -1 * this.LAngle : this.LAngle);
@@ -243,7 +243,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
         protected override Point2d GetEndPoint()
         {
             Double f1 = this.LAngle == Math.PI / 2 ? this.PanelSize.FrenteStart.Nominal.GetPanel90DrawingSize() : this.PanelSize.FrenteStart.Nominal.GetPanel135DrawingSize(),
-                   f2 = this.LAngle == Math.PI / 2 ? this.PanelSize.FrenteEnd.Nominal.GetPanel90DrawingSize() : this.PanelSize.FrenteStart.Nominal.GetPanel135DrawingSize(),
+                   f2 = this.LAngle == Math.PI / 2 ? this.PanelSize.FrenteEnd.Nominal.GetPanel90DrawingSize() : this.PanelSize.FrenteEnd.Nominal.GetPanel135DrawingSize(),
                   dirAng = this.Direction.Angle,
                   rotAng = this.Direction.Angle + (this.Rotation == SweepDirection.Clockwise ? -1 * this.RotationAngle : this.RotationAngle),
                   panAng = this.Direction.Angle + (this.Rotation == SweepDirection.Clockwise ? -1 * this.LAngle : this.LAngle);

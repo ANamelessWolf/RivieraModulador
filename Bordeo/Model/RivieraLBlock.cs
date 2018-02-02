@@ -20,6 +20,7 @@ using static DaSoft.Riviera.Modulador.Bordeo.Assets.Strings;
 using static DaSoft.Riviera.Modulador.Bordeo.Assets.Constants;
 using static DaSoft.Riviera.Modulador.Bordeo.Assets.Codes;
 using DaSoft.Riviera.Modulador.Bordeo.Controller;
+using Nameless.Libraries.HoukagoTeaTime.Ritsu.Utils;
 
 namespace DaSoft.Riviera.Modulador.Bordeo.Model
 {
@@ -222,15 +223,33 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model
             //Offset BR2030
             else
             {
-                f1 = frente1.GetPanel135DrawingSize() * Math.Sin(Math.PI / 4);
-                f2 = frente2.GetPanel135DrawingSize() + frente2.GetPanel135DrawingSize() * Math.Cos(Math.PI / 4);
-                offset = new Vector3d(f2, f1, 0);
-                offset = new Vector3d(offset.X + 0.07085210d, offset.Y + 0.02934790d, 0);
+                Point2d pt = Get135EndPoint(frente1.GetPanel135DrawingSize(), frente2.GetPanel135DrawingSize());
+                var rot = Matrix3d.Rotation(5 * Math.PI / 4, Vector3d.ZAxis, new Point3d());
+                var end = pt.ToPoint3d().TransformBy(rot);
+                offset = end.GetVectorTo(pt.ToPoint3d());
+                //f1 = frente1.GetPanel135DrawingSize() * Math.Sin(Math.PI / 4);
+                //f2 = frente2.GetPanel135DrawingSize() + frente2.GetPanel135DrawingSize() * Math.Cos(Math.PI / 4);
+                //offset = new Vector3d(f2, f1, 0);
+                //offset = new Vector3d(offset.X, offset.Y, 0);
+
+                //offset = new Vector3d(offset.X + 0.0708d, offset.Y + 0.02934790d, 0);
+                //  offset = new Vector3d(offset.X + 0.1790521d, offset.Y + 0.02934790d, 0);
             }
             //Se desplaza en el punto final al inicial del bloque
             blkRef.TransformBy(Matrix3d.Displacement(new Vector3d(offset.X, offset.Y, 0)));
             return blkRef;
         }
+
+
+        public Point2d Get135EndPoint(double frente1, double frente2)
+        {
+            Point2d start = new Point2d();
+            Double union_length = 0.07668976d,
+                   angF1 = 0d, angU = Math.PI / -8d, angF2 = 5d * Math.PI / 4d;
+            //F1∡0°:UL<337.5°:F2<225°
+            return start.ToPoint2dByPolar(frente1, angF1).ToPoint2dByPolar(union_length, angU).ToPoint2dByPolar(frente2, angF2);
+        }
+
         /// <summary>
         /// Sets the instance content, depending on the if the application view
         /// is on 2D or 3D

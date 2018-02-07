@@ -1,0 +1,7 @@
+Descripción
+Bloque
+Tabla de Gajos {frente, altura, nivel}
+Tabla Descripciones {código, desc, bloque}
+Tabla de Acabados{código, acabado, desc}
+No se puede insertar un gajo medio al inicio ni intermedio, solo al final.
+Tabla restricción de posición {código, nivel1, nivel2, nivel3, nivel4 }

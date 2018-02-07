@@ -1,0 +1,415 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="BadDictionaryKey" xml:space="preserve">
+    <value>La llave del diccionario no es nombre valido.</value>
+    <comment>Mugi Chan Api</comment>
+  </data>
+  <data name="BadValueforLine" xml:space="preserve">
+    <value>El valor proporcionado para la recta no satisface la ecuación, </value>
+    <comment>Ritsu Api</comment>
+  </data>
+  <data name="BlockFileMissing" xml:space="preserve">
+    <value>El archivo dwg, no existe. 
+Revise la ruta: </value>
+    <comment>Mio Api</comment>
+  </data>
+  <data name="BlockNameMissing" xml:space="preserve">
+    <value>No se puede insertar el bloque. El nombre del bloque no existe. Bloque desconocido, </value>
+    <comment>Mio Api</comment>
+  </data>
+  <data name="CanNotBeErased" xml:space="preserve">
+    <value>No se puede eliminar el DbObject seleccionado.</value>
+    <comment>Mio Api</comment>
+  </data>
+  <data name="CanNotBeMovedToLayer" xml:space="preserve">
+    <value>El elemento no se puede mover a la capa {0}.</value>
+    <comment>Mio Api</comment>
+  </data>
+  <data name="CanNotBeSummonedAsEntity" xml:space="preserve">
+    <value>Uno o más elementos no pueden ser invocados como entidad.</value>
+    <comment>Mio Api</comment>
+  </data>
+  <data name="CanNotCastAnEntity" xml:space="preserve">
+    <value>No se puede realizar el casting.</value>
+    <comment>Mio Api</comment>
+  </data>
+  <data name="CanNotClosePolyline" xml:space="preserve">
+    <value>La poli-línea seleccionada no se pudo cerrar.</value>
+    <comment>Mio Api</comment>
+  </data>
+  <data name="CanNotCreateLayer" xml:space="preserve">
+    <value>No se pudo crear la capa.</value>
+    <comment>Mio Api</comment>
+  </data>
+  <data name="CanNotDraw" xml:space="preserve">
+    <value>La entidad no se puede dibujar.</value>
+    <comment>Mio Api</comment>
+  </data>
+  <data name="CanNotExtractAttributeValue" xml:space="preserve">
+    <value>No se puede extraer el valor del atributo.</value>
+    <comment>Mio Api</comment>
+  </data>
+  <data name="CanNotFlipPl" xml:space="preserve">
+    <value>Error al tratar de invertir el sentido de la poli-línea.</value>
+    <comment>Ritsu Api</comment>
+  </data>
+  <data name="CanNotSummonAnEntity" xml:space="preserve">
+    <value>No se puede acceder a la entidad.</value>
+    <comment>Mio Api</comment>
+  </data>
+  <data name="CanNotSummonAnObject" xml:space="preserve">
+    <value>No se puede acceder al objeto.</value>
+    <comment>Mio Api</comment>
+  </data>
+  <data name="CanNotUpdateProperty" xml:space="preserve">
+    <value>No se puede actualizar, las propiedades de la entidad seleccionada.</value>
+    <comment>Mio Api</comment>
+  </data>
+  <data name="ErrorAddingTypedValues" xml:space="preserve">
+    <value>No se pudieron agregar los valores al Xrecord.</value>
+    <comment>Mugi Chan Api</comment>
+  </data>
+  <data name="ErrorCreatingDictionary" xml:space="preserve">
+    <value>No se pudo crear el diccionario.</value>
+    <comment>Mugi Chan Api</comment>
+  </data>
+  <data name="ErrorCreatingExtensionDictionary" xml:space="preserve">
+    <value>No se puede crear el diccionario de extensión en la entidad.</value>
+    <comment>Mugi Chan Api</comment>
+  </data>
+  <data name="ErrorCreatingXRecord" xml:space="preserve">
+    <value>No se pudo crear el XRecord.</value>
+    <comment>Mugi Chan Api</comment>
+  </data>
+  <data name="ErrorDefieneS0PulseWave" xml:space="preserve">
+    <value>Error al tratar de definir el estado s0, del automata para generar pulsos.</value>
+    <comment>Ritsu Api</comment>
+  </data>
+  <data name="ErrorDefieneS1PulseWave" xml:space="preserve">
+    <value>Error al tratar de definir el estado s1, del automata para generar pulsos.</value>
+    <comment>Ritsu Api</comment>
+  </data>
+  <data name="ErrorDefieneS2PulseWave" xml:space="preserve">
+    <value>Error al tratar de definir el estado s2, del automata para generar pulsos.</value>
+    <comment>Ritsu Api</comment>
+  </data>
+  <data name="ErrorDestroyingExtDictionary" xml:space="preserve">
+    <value>Error al tratar de eliminar el diccionario de extensión de la entidad, </value>
+    <comment>Mugi Chan Api</comment>
+  </data>
+  <data name="ErrorExtractingParamValue" xml:space="preserve">
+    <value>Error al tratar de extraes los valores del parametro.</value>
+    <comment>Mugi Chan Api</comment>
+  </data>
+  <data name="ErrorInsertingBlockReference" xml:space="preserve">
+    <value>Error al tratar de insertar el bloque.</value>
+    <comment>Mio Api</comment>
+  </data>
+  <data name="ErrorReadingXData" xml:space="preserve">
+    <value>Error al tratar de leer la información en la propiedad XDATA</value>
+    <comment>Mugi Chan Api</comment>
+  </data>
+  <data name="ErrorReadingXrecord" xml:space="preserve">
+    <value>Error al tratar de leer el Xrecord, asegurese que exista el registro antes de intentar leerlo.</value>
+    <comment>Mugi Chan Api</comment>
+  </data>
+  <data name="ErrorStateMsg" xml:space="preserve">
+    <value>Se encontro un error al recorrer el automata.</value>
+    <comment>Ritsu Api</comment>
+  </data>
+  <data name="ExtDictionaryCreated" xml:space="preserve">
+    <value>El diccionario de extensión ha sido creado para la entidad, </value>
+    <comment>Mugi Chan Api</comment>
+  </data>
+  <data name="ExtensionDictionaryIsReleased" xml:space="preserve">
+    <value>El diccionario fue removido de la entidad seleccionada.</value>
+    <comment>Mugi Chan Api</comment>
+  </data>
+  <data name="FailedGetCurrentLayer" xml:space="preserve">
+    <value>Error al tratar de leer la capa actual.</value>
+    <comment>Mio Api</comment>
+  </data>
+  <data name="FailedSetCurrentLayer" xml:space="preserve">
+    <value>Error al tratar de establecer la capa como la capa actual.</value>
+    <comment>Mio Api</comment>
+  </data>
+  <data name="FailedToGetLayerStatus" xml:space="preserve">
+    <value>Error al tratar de extraer el status actual de la capa</value>
+    <comment>Mio Api</comment>
+  </data>
+  <data name="FailedToListLayers" xml:space="preserve">
+    <value>Error al listar las capas del dibujo actual.</value>
+    <comment>Mio Api</comment>
+  </data>
+  <data name="FailedToUpdateFreezeStatus" xml:space="preserve">
+    <value>Error al tratar de actualizar el estado de congelamiento de las capas seleccionadas.</value>
+    <comment>Mio Api</comment>
+  </data>
+  <data name="FailedToUpdateHiddenStatus" xml:space="preserve">
+    <value>Error al tratar de actualizar el estado de visibilidad de las capas seleccionadas.</value>
+    <comment>Mio Api</comment>
+  </data>
+  <data name="FailedToUpdateLayer" xml:space="preserve">
+    <value>Hubo un error al cambiarle la capa a una entidad.</value>
+    <comment>Mio Api</comment>
+  </data>
+  <data name="FailedToUpdateLockStatus" xml:space="preserve">
+    <value>Error al tratar de actualizar el estado de seguridad de las capas seleccionadas.</value>
+    <comment>Mio Api</comment>
+  </data>
+  <data name="FailedToUpdateStatus" xml:space="preserve">
+    <value>Error al tratar de actualizar el estado de la capa seleccionadas</value>
+    <comment>Mio Api</comment>
+  </data>
+  <data name="ImposibleToRunCMD" xml:space="preserve">
+    <value>Error al ejecutar el comando</value>
+    <comment>Ritsu Api</comment>
+  </data>
+  <data name="InvalidLayerName" xml:space="preserve">
+    <value>El nombre de la capa esta vacio o el nombre de la capa no es válido.
+El nombre de la capa no debe utilizar los siguientes caracteres: 
+&lt;&gt;\":;?|,='`</value>
+    <comment>Mio Api</comment>
+  </data>
+  <data name="InvalidRegionElements" xml:space="preserve">
+    <value>La colección de elementos no es válida para crear una región.</value>
+    <comment>Ritsu Api</comment>
+  </data>
+  <data name="Line2dNotZSupported" xml:space="preserve">
+    <value>Una línea 2d no soporta ser constante en el eje Z.</value>
+    <comment>Ritsu Api</comment>
+  </data>
+  <data name="NewDataAddedXData" xml:space="preserve">
+    <value>Nueva información ha sido agregada o actualizada al registro de XDATA de la entidad seleccionado.</value>
+    <comment>Mugi Chan Api</comment>
+  </data>
+  <data name="NewDataAddedXrecord" xml:space="preserve">
+    <value>Nueva información ha sido agregada o actualizada al registro seleccionado.</value>
+    <comment>Mugi Chan Api</comment>
+  </data>
+  <data name="NewDictionaryAdded" xml:space="preserve">
+    <value>Se agregó un nuevo diccionario con nombre, </value>
+    <comment>Mugi Chan Api</comment>
+  </data>
+  <data name="NewRegAppRecord" xml:space="preserve">
+    <value>Un nuevo registro se agregado en la tabla de RegApp de AutoCAD.</value>
+    <comment>Mugi Chan Api</comment>
+  </data>
+  <data name="NewXRecordAdded" xml:space="preserve">
+    <value>Se agregó un nuevo Xrecord con nombre, </value>
+    <comment>Mugi Chan Api</comment>
+  </data>
+  <data name="NotAnEntity" xml:space="preserve">
+    <value>El elemento no es una entidad.</value>
+    <comment>Mio Api</comment>
+  </data>
+  <data name="NotASegment" xml:space="preserve">
+    <value>El valor proporcionado no es un segmento</value>
+    <comment>Ritsu Api</comment>
+  </data>
+  <data name="NotCorrectData" xml:space="preserve">
+    <value>El elemento seleccionado no es del tipo solicitado seleccione un elemento del tipo: </value>
+    <comment>Yui Api</comment>
+  </data>
+  <data name="PolylineIsNotAPulse" xml:space="preserve">
+    <value>La geometría de la poli línea seleccionada no coincide con la geometría de un pulso. Un pulso esta formado por segmentos, cada segmento del pulso mide lo mismo y tienen solo angulos rectos.</value>
+    <comment>Ritsu Api</comment>
+  </data>
+  <data name="ReadingBlockTable" xml:space="preserve">
+    <value>Error al leer la tabla de bloques.</value>
+    <comment>Mio Api</comment>
+  </data>
+  <data name="RemovingDictionary" xml:space="preserve">
+    <value>Error al tratar de remover el diccionario.</value>
+    <comment>Mugi Chan Api</comment>
+  </data>
+  <data name="RemovingXRecord" xml:space="preserve">
+    <value>Error al tratar de remover el XRecord.</value>
+    <comment>Mugi Chan Api</comment>
+  </data>
+  <data name="SelectionTypeNotSupported" xml:space="preserve">
+    <value>El tipo de selección no esta soportado.</value>
+    <comment>Yui Api</comment>
+  </data>
+  <data name="Transaction" xml:space="preserve">
+    <value>Transaction error</value>
+    <comment>Mio Api</comment>
+  </data>
+  <data name="ValueIsOutOfSegment" xml:space="preserve">
+    <value>El valor proporcionado se encuentra fuera de los límites del segmento.</value>
+    <comment>Ritsu Api</comment>
+  </data>
+  <data name="VerifyingExistance" xml:space="preserve">
+    <value>Error al tratar de verificar la existencia del diccionario seleccionado.</value>
+    <comment>Mugi Chan Api</comment>
+  </data>
+  <data name="BlockTableRecordMissing" xml:space="preserve">
+    <value>El nombre {0} no existe en la tabla de bloques.</value>
+    <comment>Mio Api</comment>
+  </data>
+  <data name="CreatingPolylineGeometry" xml:space="preserve">
+    <value>Error al crear la geometría de la poli-línea</value>
+    <comment>Mio Api</comment>
+  </data>
+  <data name="FailedToGetLayerColor" xml:space="preserve">
+    <value>Error al tratar de leer el color de la capa.</value>
+    <comment>Mio Api</comment>
+  </data>
+  <data name="EntityCanNotBeTagged" xml:space="preserve">
+    <value>La entidad no puede ser etiquetada</value>
+    <comment>Mio Api</comment>
+  </data>
+  <data name="EntityCanNotBeTransform" xml:space="preserve">
+    <value>Una o más entidades no pueden ser transformadas</value>
+    <comment>Mio Api</comment>
+  </data>
+  <data name="InvalidPointComparation" xml:space="preserve">
+    <value>Comparación de punto no permitida</value>
+    <comment>Ritsu Api</comment>
+  </data>
+  <data name="FailedToTransform" xml:space="preserve">
+    <value>Error al transformar la entidad</value>
+    <comment>Mio Api</comment>
+  </data>
+  <data name="BadTabSize" xml:space="preserve">
+    <value>El número de pestañas debe ser igual al número de controles, elimine cadenas o agregue cadenas en la propiedad Tabs, para que iguale el tamaño del arreglo de "control".</value>
+    <comment>Mio Api</comment>
+  </data>
+  <data name="CanNotCreateBlock" xml:space="preserve">
+    <value>El bloque no puede ser creado</value>
+    <comment>Mio Api</comment>
+  </data>
+  <data name="NotADictionary" xml:space="preserve">
+    <value>El elemento no es un DBDictionary</value>
+    <comment>Mio Api</comment>
+  </data>
+  <data name="NotAXRecord" xml:space="preserve">
+    <value>El elemento no es un XRecord</value>
+    <comment>Mio Api</comment>
+  </data>
+  <data name="ErrorReadingDictionary" xml:space="preserve">
+    <value>Error al tratar de leer el diccionario, asegurese que exista el diccionario antes de intentar leerlo.</value>
+    <comment>Mugi Chan Api</comment>
+  </data>
+  <data name="BadId" xml:space="preserve">
+    <value>El id es invalido</value>
+    <comment>Mugi Chan Api</comment>
+  </data>
+</root>

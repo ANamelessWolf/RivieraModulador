@@ -1,0 +1,29 @@
+﻿<metro:MetroWindow x:Class="DaSoft.Riviera.OldModulador.UI.Dialog_Loader"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DaSoft.Riviera.OldModulador.UI"
+        mc:Ignorable="d"
+        Title="Cuantificando" Background="#FFC9E2FF" Closing="MetroWindow_Closing"
+        xmlns:metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" Width="400" Height="140">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
+                <ResourceDictionary Source="../Assets/RivieraStyle.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid>
+        <StackPanel Orientation="Vertical">
+            <TextBlock x:Name="fieldMsg" Text="Generando la cuantificación" Style="{StaticResource LoaderStyle}"/>
+            <ProgressBar x:Name="progressBar" Foreground="#FF4259C1" Value="50" Height="20" Margin="10,0,10,0" />
+            <TextBlock x:Name="percent" Text="100%" Style="{StaticResource BaseFontStyle}" HorizontalAlignment="Right"  Margin="10,0,10,10" />
+        </StackPanel>
+    </Grid>
+</metro:MetroWindow>

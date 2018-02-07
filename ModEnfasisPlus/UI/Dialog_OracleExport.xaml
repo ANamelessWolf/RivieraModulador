@@ -1,0 +1,65 @@
+﻿<Window x:Class="DaSoft.Riviera.OldModulador.UI.Dialog_OracleExport"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DaSoft.Riviera.OldModulador.UI"
+        mc:Ignorable="d"
+        xmlns:metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"     
+        Height="280" Width="720" ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterScreen"
+        Title="Cuantificación DaNTe" Loaded="Window_Loaded">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
+                <ResourceDictionary Source="../Assets/RivieraStyle.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid Background="#FFD9EDF3" >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="32"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="64"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="60"/>
+        </Grid.RowDefinitions>
+        <CheckBox x:Name="mergeQuantification" Content="Juntar cuantificación" Grid.Row="3" Style="{StaticResource MenuStyle_CheckOption}" IsChecked="True"/>
+        <CheckBox x:Name="grpQuantification" Content="Cuantificación agrupada" Grid.Row="5" Style="{StaticResource MenuStyle_CheckOption}" />
+
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Grid.Row="5" Margin="0,2" Grid.Column="1" >
+            <Button x:Name="button_Ok" Style="{StaticResource MenuStyle_RoundButton}" Content="&#xe10B;" Click="DialogAction_Click">
+                <Button.ToolTip>
+                    <ToolTip Style="{StaticResource TooltipStyle}" Tag="Haga clic para cuantificar" ToolTip="Haga clic para agregar la cuantificación en un archivo mdb existente"/>
+                </Button.ToolTip>
+            </Button>
+            <Button x:Name="button_Cancel" Style="{StaticResource MenuStyle_RoundButton}" Content="&#xe10a;" Click="DialogAction_Click">
+                <Button.ToolTip>
+                    <ToolTip Style="{StaticResource TooltipStyle}" Tag="Haga clic para cancelar" ToolTip=""/>
+                </Button.ToolTip>
+            </Button>
+        </StackPanel>
+
+        <TextBlock Text="Nombre de la cuantificación"  Style="{StaticResource MenuStyle_Header}" HorizontalAlignment="Right" />
+        <TextBox x:Name="qName" Grid.Column="1" Style="{StaticResource MenuStyle_Field}"/>
+        <TextBlock Text="Zona" Grid.Row="1"  Style="{StaticResource MenuStyle_Header}" HorizontalAlignment="Right" />
+        <ComboBox x:Name="qZone" Grid.Row="1" Grid.Column="1" Style="{StaticResource MenuStyle_List}" Height="28" Width="242" Margin="4"
+                  HorizontalAlignment="Right" SelectionChanged="Selection_Changed"/>
+
+        <TextBlock Text="Comentarios" Grid.Row="2"  Style="{StaticResource MenuStyle_Header}" HorizontalAlignment="Right" />
+        <TextBox x:Name="qComments" Grid.Row="2" Grid.Column="1" Style="{StaticResource MenuStyle_FieldDescription}"  Margin="4"/>
+        <GroupBox Header="Cuantificaciones realizadas" Grid.Column="2" Grid.RowSpan="6">
+        <ListBox ></ListBox>
+        </GroupBox>
+    </Grid>
+</Window>

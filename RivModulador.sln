@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.16
+VisualStudioVersion = 15.0.26403.7
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Addin", "Addin", "{61607126-07BB-48F6-91FB-D215879D877A}"
 EndProject
@@ -17,32 +17,90 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modulador", "Modulador\Modu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnfasisPlus", "EnfasisPlus\EnfasisPlus.csproj", "{27A3F110-38DB-470C-B8D2-019D4D15A527}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModEnfasisPlus", "ModEnfasisPlus\ModEnfasisPlus.csproj", "{664F0BD0-CA3C-4790-87F9-04FC31877382}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
 		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+		RivieraModulador|Any CPU = RivieraModulador|Any CPU
+		RivieraModulador|x64 = RivieraModulador|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{A7E26C18-FDD9-49F0-82B7-9E1E2F7422DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A7E26C18-FDD9-49F0-82B7-9E1E2F7422DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7E26C18-FDD9-49F0-82B7-9E1E2F7422DB}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{A7E26C18-FDD9-49F0-82B7-9E1E2F7422DB}.Debug|x64.Build.0 = Debug|Any CPU
 		{A7E26C18-FDD9-49F0-82B7-9E1E2F7422DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A7E26C18-FDD9-49F0-82B7-9E1E2F7422DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7E26C18-FDD9-49F0-82B7-9E1E2F7422DB}.Release|x64.ActiveCfg = Release|Any CPU
+		{A7E26C18-FDD9-49F0-82B7-9E1E2F7422DB}.Release|x64.Build.0 = Release|Any CPU
+		{A7E26C18-FDD9-49F0-82B7-9E1E2F7422DB}.RivieraModulador|Any CPU.ActiveCfg = Release|Any CPU
+		{A7E26C18-FDD9-49F0-82B7-9E1E2F7422DB}.RivieraModulador|Any CPU.Build.0 = Release|Any CPU
+		{A7E26C18-FDD9-49F0-82B7-9E1E2F7422DB}.RivieraModulador|x64.ActiveCfg = Release|Any CPU
+		{A7E26C18-FDD9-49F0-82B7-9E1E2F7422DB}.RivieraModulador|x64.Build.0 = Release|Any CPU
 		{4F0B3115-70B1-47E4-BF8D-9ABF81103335}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4F0B3115-70B1-47E4-BF8D-9ABF81103335}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F0B3115-70B1-47E4-BF8D-9ABF81103335}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{4F0B3115-70B1-47E4-BF8D-9ABF81103335}.Debug|x64.Build.0 = Debug|Any CPU
 		{4F0B3115-70B1-47E4-BF8D-9ABF81103335}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4F0B3115-70B1-47E4-BF8D-9ABF81103335}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F0B3115-70B1-47E4-BF8D-9ABF81103335}.Release|x64.ActiveCfg = Release|Any CPU
+		{4F0B3115-70B1-47E4-BF8D-9ABF81103335}.Release|x64.Build.0 = Release|Any CPU
+		{4F0B3115-70B1-47E4-BF8D-9ABF81103335}.RivieraModulador|Any CPU.ActiveCfg = Release|Any CPU
+		{4F0B3115-70B1-47E4-BF8D-9ABF81103335}.RivieraModulador|Any CPU.Build.0 = Release|Any CPU
+		{4F0B3115-70B1-47E4-BF8D-9ABF81103335}.RivieraModulador|x64.ActiveCfg = Release|Any CPU
+		{4F0B3115-70B1-47E4-BF8D-9ABF81103335}.RivieraModulador|x64.Build.0 = Release|Any CPU
 		{4E520F40-1848-4AC3-94EA-389E6770DC55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4E520F40-1848-4AC3-94EA-389E6770DC55}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E520F40-1848-4AC3-94EA-389E6770DC55}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{4E520F40-1848-4AC3-94EA-389E6770DC55}.Debug|x64.Build.0 = Debug|Any CPU
 		{4E520F40-1848-4AC3-94EA-389E6770DC55}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4E520F40-1848-4AC3-94EA-389E6770DC55}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E520F40-1848-4AC3-94EA-389E6770DC55}.Release|x64.ActiveCfg = Release|Any CPU
+		{4E520F40-1848-4AC3-94EA-389E6770DC55}.Release|x64.Build.0 = Release|Any CPU
+		{4E520F40-1848-4AC3-94EA-389E6770DC55}.RivieraModulador|Any CPU.ActiveCfg = Release|Any CPU
+		{4E520F40-1848-4AC3-94EA-389E6770DC55}.RivieraModulador|Any CPU.Build.0 = Release|Any CPU
+		{4E520F40-1848-4AC3-94EA-389E6770DC55}.RivieraModulador|x64.ActiveCfg = Release|Any CPU
+		{4E520F40-1848-4AC3-94EA-389E6770DC55}.RivieraModulador|x64.Build.0 = Release|Any CPU
 		{23008A08-120E-41E1-959D-6EBF2F08923D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{23008A08-120E-41E1-959D-6EBF2F08923D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23008A08-120E-41E1-959D-6EBF2F08923D}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{23008A08-120E-41E1-959D-6EBF2F08923D}.Debug|x64.Build.0 = Debug|Any CPU
 		{23008A08-120E-41E1-959D-6EBF2F08923D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{23008A08-120E-41E1-959D-6EBF2F08923D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23008A08-120E-41E1-959D-6EBF2F08923D}.Release|x64.ActiveCfg = Release|Any CPU
+		{23008A08-120E-41E1-959D-6EBF2F08923D}.Release|x64.Build.0 = Release|Any CPU
+		{23008A08-120E-41E1-959D-6EBF2F08923D}.RivieraModulador|Any CPU.ActiveCfg = Release|Any CPU
+		{23008A08-120E-41E1-959D-6EBF2F08923D}.RivieraModulador|Any CPU.Build.0 = Release|Any CPU
+		{23008A08-120E-41E1-959D-6EBF2F08923D}.RivieraModulador|x64.ActiveCfg = Release|Any CPU
+		{23008A08-120E-41E1-959D-6EBF2F08923D}.RivieraModulador|x64.Build.0 = Release|Any CPU
 		{27A3F110-38DB-470C-B8D2-019D4D15A527}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{27A3F110-38DB-470C-B8D2-019D4D15A527}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27A3F110-38DB-470C-B8D2-019D4D15A527}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{27A3F110-38DB-470C-B8D2-019D4D15A527}.Debug|x64.Build.0 = Debug|Any CPU
 		{27A3F110-38DB-470C-B8D2-019D4D15A527}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{27A3F110-38DB-470C-B8D2-019D4D15A527}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27A3F110-38DB-470C-B8D2-019D4D15A527}.Release|x64.ActiveCfg = Release|Any CPU
+		{27A3F110-38DB-470C-B8D2-019D4D15A527}.Release|x64.Build.0 = Release|Any CPU
+		{27A3F110-38DB-470C-B8D2-019D4D15A527}.RivieraModulador|Any CPU.ActiveCfg = Release|Any CPU
+		{27A3F110-38DB-470C-B8D2-019D4D15A527}.RivieraModulador|Any CPU.Build.0 = Release|Any CPU
+		{27A3F110-38DB-470C-B8D2-019D4D15A527}.RivieraModulador|x64.ActiveCfg = Release|Any CPU
+		{27A3F110-38DB-470C-B8D2-019D4D15A527}.RivieraModulador|x64.Build.0 = Release|Any CPU
+		{664F0BD0-CA3C-4790-87F9-04FC31877382}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{664F0BD0-CA3C-4790-87F9-04FC31877382}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{664F0BD0-CA3C-4790-87F9-04FC31877382}.Debug|x64.ActiveCfg = Debug|x64
+		{664F0BD0-CA3C-4790-87F9-04FC31877382}.Debug|x64.Build.0 = Debug|x64
+		{664F0BD0-CA3C-4790-87F9-04FC31877382}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{664F0BD0-CA3C-4790-87F9-04FC31877382}.Release|Any CPU.Build.0 = Release|Any CPU
+		{664F0BD0-CA3C-4790-87F9-04FC31877382}.Release|x64.ActiveCfg = Release|x64
+		{664F0BD0-CA3C-4790-87F9-04FC31877382}.Release|x64.Build.0 = Release|x64
+		{664F0BD0-CA3C-4790-87F9-04FC31877382}.RivieraModulador|Any CPU.ActiveCfg = RivieraModulador|Any CPU
+		{664F0BD0-CA3C-4790-87F9-04FC31877382}.RivieraModulador|Any CPU.Build.0 = RivieraModulador|Any CPU
+		{664F0BD0-CA3C-4790-87F9-04FC31877382}.RivieraModulador|x64.ActiveCfg = RivieraModulador|x64
+		{664F0BD0-CA3C-4790-87F9-04FC31877382}.RivieraModulador|x64.Build.0 = RivieraModulador|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -53,6 +111,7 @@ Global
 		{4E520F40-1848-4AC3-94EA-389E6770DC55} = {9A6F5495-DAD0-4CDF-81F6-955D767F0601}
 		{23008A08-120E-41E1-959D-6EBF2F08923D} = {61607126-07BB-48F6-91FB-D215879D877A}
 		{27A3F110-38DB-470C-B8D2-019D4D15A527} = {61607126-07BB-48F6-91FB-D215879D877A}
+		{664F0BD0-CA3C-4790-87F9-04FC31877382} = {61607126-07BB-48F6-91FB-D215879D877A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BE4E557F-D74F-4066-9740-9C23E32EAAA4}

@@ -1,0 +1,53 @@
+﻿<UserControl x:Class="DaSoft.Riviera.OldModulador.UI.Ctrl_RivieraLogin"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:DaSoft.Riviera.OldModulador.UI"
+             xmlns:metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"             
+             mc:Ignorable="d" Loaded="UserControl_Loaded" MinHeight="270" MinWidth="480">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
+                <ResourceDictionary Source="../Assets/RivieraStyle.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid Background="#FFD9EDF3">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="52"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="32"/>
+            <RowDefinition Height="32"/>
+            <RowDefinition Height="32"/>
+            <RowDefinition Height="120"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="52"/>
+        </Grid.RowDefinitions>
+        <TextBlock x:Name="tagAppDBUsername" Text="Usuario" Style="{StaticResource MenuStyle_Header}" Height="24" HorizontalAlignment="Right"/>
+        <TextBox x:Name="fieldAppDBUsername" Grid.Column="1" Text="Usuario" Style="{StaticResource MenuStyle_Field}" Height="24"/>
+        <TextBlock x:Name="tagProject" Grid.Row="2" Text="Proyecto" Style="{StaticResource MenuStyle_Header}" Height="24" HorizontalAlignment="Right"/>
+        <TextBox x:Name="fieldProject" Grid.Column="1" Grid.Row="2" Text="Usuario" Style="{StaticResource MenuStyle_Field}" Height="24"/>
+        <TextBlock x:Name="tagAppDBPassword" Grid.Row="1" Text="Contraseña" Style="{StaticResource MenuStyle_Header}" Height="24" HorizontalAlignment="Right"/>
+        <PasswordBox x:Name="fieldAppDBPassword" Grid.Column="1" Grid.Row="1" Password="Usuario" Style="{StaticResource MenuStyle_Password}" Height="24"/>
+        <TextBlock x:Name="tagListOfCompany" Grid.Row="3" Text="Compañía" Style="{StaticResource MenuStyle_Header}" Height="24" HorizontalAlignment="Right" VerticalAlignment="Top"/>
+        <ListView x:Name="litsOfAppDBCompany" Grid.Column="1" Grid.Row="3" Style="{StaticResource MenuStyle_ListOfCompany}"/>
+
+        <Button Style="{DynamicResource MenuStyle_RoundButton}" Grid.Column="3" Grid.Row="5" Content="&#xe13c;" Click="Login_Click" VerticalAlignment="Bottom">
+            <Button.ToolTip>
+                <ToolTip Style="{StaticResource TooltipStyle}" Tag="Iniciar Sesión" ToolTip="Inicie sesión en la aplicación, recuerde que debe estar conectado a Inventor."/>
+            </Button.ToolTip>
+        </Button>
+        <Grid x:Name="areaProgress" Grid.ColumnSpan="3" Grid.RowSpan="5" Background="#80042955" OpacityMask="Black" Visibility="Hidden" >
+            <metro:ProgressRing Foreground="White"  IsActive="True"/>
+        </Grid>
+    </Grid>
+</UserControl>

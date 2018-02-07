@@ -1,0 +1,30 @@
+﻿<UserControl x:Class="DaSoft.Riviera.OldModulador.UI.Delta.Ctrl_QuantifyItem"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:DaSoft.Riviera.OldModulador.UI.Delta"
+             mc:Ignorable="d" 
+             d:DesignHeight="60" d:DesignWidth="300">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
+                <ResourceDictionary Source="../../Assets/RivieraStyle.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid x:Name="itemRow" Background="#FFF6E7D2">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="100"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock x:Name="field_desc" Text="DD10104080S" Style="{StaticResource FieldItem}"/>
+        <TextBlock x:Name="field_count" Text="1" Grid.Column="1" Margin="0" HorizontalAlignment="Center"
+                   Style="{StaticResource FieldItem}"/>
+    </Grid>
+</UserControl>

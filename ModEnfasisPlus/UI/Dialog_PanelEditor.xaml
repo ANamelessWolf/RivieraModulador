@@ -1,0 +1,161 @@
+﻿<metro:MetroWindow x:Class="DaSoft.Riviera.OldModulador.UI.Dialog_PanelEditor"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DaSoft.Riviera.OldModulador.UI"
+        xmlns:metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"                   
+        mc:Ignorable="d"
+        Title="Editor de paneles" Height="600" Width="720" Loaded="MetroWindow_Loaded">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
+                <ResourceDictionary Source="../Assets/RivieraStyle.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid Background="#FFD9EDF3">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="220"/>
+            <RowDefinition Height="52"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <GroupBox Header="Vista Frontal" Grid.ColumnSpan="2">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+
+                <Border x:Name="stackOneBorder" BorderThickness="4" BorderBrush="#FF00C5FF" Visibility="Hidden" />
+                <Border x:Name="stackTwoBorder" BorderThickness="4" BorderBrush="#FF00C5FF" Grid.Column="1" Visibility="Hidden"/>
+                <Viewbox VerticalAlignment="Top" Margin="0,0,0,50">
+                    <local:Ctrl_PanelStack x:Name="mamparaSideA" Niveles="2.5" Width="400" Margin="20" MouseLeftButtonUp="clicked" Fill="mamparaSideA_Fill"/>
+                </Viewbox>
+
+                <Viewbox VerticalAlignment="Top" Grid.Column="1" Margin="0,0,0,50">
+                    <local:Ctrl_PanelStack x:Name="mamparaSideB" Niveles="2.5" Width="400" Margin="20" MouseLeftButtonUp="clicked" Fill="mamparaSideB_Fill"/>
+                </Viewbox>
+                <Grid VerticalAlignment="Bottom" Height="50" >
+                    <Rectangle Fill="#4C000000" />
+                    <TextBlock Text="Lado A" Style="{StaticResource MenuStyle_Header}" FontSize="25" Margin="20,0" Foreground="White"/>
+                </Grid>
+                <Grid VerticalAlignment="Bottom" Height="50" Grid.Column="1">
+                    <Rectangle Fill="#4C000000" />
+                    <TextBlock Text="Lado B" Style="{StaticResource MenuStyle_Header}" FontSize="25" Margin="20,0" Foreground="White"/>
+                </Grid>
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="Paneles, Biombos, Pichoneras y Cajoneras" Grid.Row="1" Grid.Column="1"  >
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="32"/>
+                    <RowDefinition Height="95"/>
+                    <RowDefinition Height="32"/>
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal" Grid.Column="1">
+                    <TextBlock Text="Código:" Style="{StaticResource ItemStyle_Header}" Width="60" />
+                    <ComboBox x:Name="listOfPanels" Style="{StaticResource MenuStyle_List}" Width="260" 
+                              SelectionChanged="listOfPanels_SelectionChanged" ContextMenuOpening="listOfPanels_ContextMenuOpening" ContextMenuClosing="listOfPanels_ContextMenuClosing"/>
+                </StackPanel>
+                <StackPanel Grid.Row="1">
+                    <TextBlock  Text="Descripción:" Style="{StaticResource ItemStyle_Header}"/>
+                    <TextBox x:Name="descPanel" TextWrapping="Wrap" Height="40" Margin="0,0,10,0"
+                             Style="{StaticResource MenuStyle_FieldDescription}"/>
+                    <CheckBox Visibility="Collapsed" x:Name="optApiso" Content="Panel a piso" Style="{StaticResource MenuStyle_CheckOption}" 
+                              HorizontalAlignment="Left" Checked="optApiso_Checked" Unchecked="optApiso_Checked" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="2" >
+                    <TextBlock x:Name="tagLvOrHeights" Text="Niveles:" Style="{StaticResource ItemStyle_Header}" Width="60"/>
+                    <ComboBox x:Name="listOfLevels" Style="{StaticResource MenuStyle_List}" Width="260" />
+                </StackPanel>
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="Mamparas" Grid.Row="1" >
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="32"/>
+                    <RowDefinition Height="29"/>
+                    <RowDefinition Height="32"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Código:" Style="{StaticResource ItemStyle_Header}" />
+                    <TextBlock x:Name="codeHost" Text="DD10101830" Margin="10,0,0,0" Style="{StaticResource MenuStyle_Header}"/>
+                </StackPanel>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Frente:"  Style="{StaticResource ItemStyle_Header}"/>
+                    <TextBlock x:Name="frenteSize" Text="18''" Style="{StaticResource MenuStyle_Header}" Grid.Column="1"/>
+                    <TextBlock Text="Altura:" Style="{StaticResource ItemStyle_Header}" Grid.Column="2"/>
+                    <TextBlock x:Name="heightSize" Text="30''" Style="{StaticResource MenuStyle_Header}"  Grid.Column="3"/>
+
+                </Grid>
+                <StackPanel Orientation="Horizontal" Grid.Row="2">
+                    <TextBlock Text="No. de niveles permitidos:" Style="{StaticResource ItemStyle_Header}" Width="170"/>
+                    <TextBlock x:Name="mamparaNLevels" Text="2" Style="{StaticResource MenuStyle_Header}"/>
+                </StackPanel>
+                <CheckBox Visibility="Hidden" Grid.Row="3" Content="Insertar Biombo" Style="{StaticResource MenuStyle_CheckOption}" 
+                              HorizontalAlignment="Left"/>
+
+            </Grid>
+        </GroupBox>
+        <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Center">
+            <Button Style="{DynamicResource MenuStyle_RoundButton}" Content="&#xe109;" Click="Add_Click">
+                <Button.ToolTip>
+                    <ToolTip Style="{StaticResource TooltipStyle}" Tag="Agregar panel" ToolTip="Haga clic para agregar un panel a la mampara seleccionada."/>
+                </Button.ToolTip>
+            </Button>
+            <Button Style="{DynamicResource MenuStyle_RoundButton}" Content="&#xe108;" Click="Remove_Click">
+                <Button.ToolTip>
+                    <ToolTip Style="{StaticResource TooltipStyle}" Tag="Remover panel" ToolTip="Haga clic para eliminar un panel a la mampara seleccionada."/>
+                </Button.ToolTip>
+            </Button>
+            
+            <Button Style="{DynamicResource MenuStyle_RoundButton}" Content="&#xe0d5;" Click="CopyLeft_Click">
+                <Button.ToolTip>
+                    <ToolTip Style="{StaticResource TooltipStyle}" Tag="Copiar paneles" ToolTip="Haga clic para copiar el contenido de la mampara derecha a la mampara izquierda"/>
+                </Button.ToolTip>
+            </Button>
+            <Button Style="{DynamicResource MenuStyle_RoundButton}" Content="&#xe117;" Click="Swap_Click">
+                <Button.ToolTip>
+                    <ToolTip Style="{StaticResource TooltipStyle}" Tag="Intercambiar paneles" ToolTip="Haga clic para intercambiar el contenido de la mampara izquierda con el de la mampara derecha"/>
+                </Button.ToolTip>
+            </Button>
+            <Button Style="{DynamicResource MenuStyle_RoundButton}" Content="&#xe0ae;" Click="CopyRight_Click">
+                <Button.ToolTip>
+                    <ToolTip Style="{StaticResource TooltipStyle}" Tag="Copiar paneles" ToolTip="Haga clic para copiar el contenido de la mampara izquierda a la mampara derecha"/>
+                </Button.ToolTip>
+            </Button>
+            <Button Style="{DynamicResource MenuStyle_RoundButton}" Content="&#xe2b1;" Click="SetAcabado_Click">
+                <Button.ToolTip>
+                    <ToolTip Style="{StaticResource TooltipStyle}" Tag="Seleccionar Acabado" ToolTip="Seleccione un acabado para el panel seleccionado"/>
+                </Button.ToolTip>
+            </Button>
+            <Button Style="{DynamicResource MenuStyle_RoundButton}" Content="&#xe10A;" Click="Cancel_Click">
+                <Button.ToolTip>
+                    <ToolTip Style="{StaticResource TooltipStyle}" Tag="Cancelear cambios" ToolTip="Haga clic para cancelar los cambios de edición"/>
+                </Button.ToolTip>
+            </Button>
+            <Button Style="{DynamicResource MenuStyle_RoundButton}" Content="&#xe10B;" Click="Ok_Click">
+                <Button.ToolTip>
+                    <ToolTip Style="{StaticResource TooltipStyle}" Tag="Aceptar cambios" ToolTip="Haga clic establecer los campos de edición"/>
+                </Button.ToolTip>
+            </Button>
+        </StackPanel>
+    </Grid>
+</metro:MetroWindow>

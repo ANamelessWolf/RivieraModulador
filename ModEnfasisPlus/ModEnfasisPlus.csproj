@@ -1,0 +1,656 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{664F0BD0-CA3C-4790-87F9-04FC31877382}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DaSoft.Riviera.OldModulador</RootNamespace>
+    <AssemblyName>RivModulador</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>x64</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>x64</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>Z:\Dropbox %28DaSoft_Kami%29\Nm-IIS\AutoCAD Plugins\ModuladorRiviera\BIN\</OutputPath>
+    <DefineConstants>TRACE;&#x1F;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'RivieraModulador|AnyCPU'">
+    <OutputPath>bin\RivieraModulador\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>C:\Users\Miguel\AppData\Roaming\Autodesk\ApplicationPlugins\ModRiv.bundle\Contents\x64\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>E:\Dropbox %28DaSoft_Kami%29\Nm-IIS\AutoCAD Plugins\ModuladorRiviera\BIN\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'RivieraModulador|x64'">
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="accoremgd">
+      <HintPath>C:\Program Files\Autodesk\AutoCAD 2016\accoremgd.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="acdbmgd">
+      <HintPath>C:\Program Files\Autodesk\AutoCAD 2016\acdbmgd.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="acmgd">
+      <HintPath>C:\Program Files\Autodesk\AutoCAD 2016\acmgd.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="AdWindows">
+      <HintPath>C:\Program Files\Autodesk\AutoCAD 2016\AdWindows.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="MahApps.Metro, Version=1.2.0.0, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f, processorArchitecture=MSIL">
+      <HintPath>..\packages\MahApps.Metro.1.2.0.0\lib\net45\MahApps.Metro.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Oracle.DataAccess, Version=4.121.2.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\BIN\Oracle.DataAccess.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\MahApps.Metro.1.2.0.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Assets\RIVIERA_CONST.cs" />
+    <Compile Include="Assets\Strings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Strings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Controller\Delta\Mampara54Flipper.cs" />
+    <Compile Include="Controller\Delta\MamparaEraser.cs" />
+    <Compile Include="Controller\Delta\MamparaIUpgrader.cs" />
+    <Compile Include="Controller\Delta\MamparaRematesDrawer.cs" />
+    <Compile Include="Controller\Delta\MamparaReportType.cs" />
+    <Compile Include="Controller\Delta\MamparaValidator.cs" />
+    <Compile Include="Controller\Delta\PanelBuilder.cs" />
+    <Compile Include="Controller\DaNTeMemory.cs" />
+    <Compile Include="Controller\ElementFinder.cs" />
+    <Compile Include="Controller\FantasmaQuantifier.cs" />
+    <Compile Include="Controller\MamparaEnfasisQuantificationError.cs" />
+    <Compile Include="Controller\ModuleManager.cs" />
+    <Compile Include="Controller\PanelExtender.cs" />
+    <Compile Include="Controller\Quantifier.cs" />
+    <Compile Include="Controller\ModuladorIdMapper.cs" />
+    <Compile Include="Controller\QuantifierEnfasisPlus.cs" />
+    <Compile Include="Controller\RuleQuantification.cs" />
+    <Compile Include="Controller\TransformArgs.cs" />
+    <Compile Include="Model\AltoNivel.cs" />
+    <Compile Include="Model\Block3D.cs" />
+    <Compile Include="Model\DaNTeUnits.cs" />
+    <Compile Include="Model\Delta\MamparaRemateFinal.cs" />
+    <Compile Include="Controller\Delta\MamparaSelector.cs" />
+    <Compile Include="Controller\Delta\MamparaSower.cs" />
+    <Compile Include="Controller\Delta\MamparaSwaper.cs" />
+    <Compile Include="Controller\Delta\SowCase.cs" />
+    <Compile Include="Controller\IBlockObject.cs" />
+    <Compile Include="Model\ArrowDirection.cs" />
+    <Compile Include="Model\ChangeViewer.cs" />
+    <Compile Include="Model\Delta\Mampara.cs" />
+    <Compile Include="Model\Delta\MamparaJoint.cs" />
+    <Compile Include="Model\Delta\MamparaSize.cs" />
+    <Compile Include="Model\Delta\MamparaUnionRule.cs" />
+    <Compile Include="Model\Delta\PointerDirection.cs" />
+    <Compile Include="Model\Delta\RemateGeometry.cs" />
+    <Compile Include="Model\Dev\SnoopRowItem.cs" />
+    <Compile Include="Model\DoubleMamparaReportGroup.cs" />
+    <Compile Include="Model\DoubleMamparaReportItem.cs" />
+    <Compile Include="Model\DoubleMamparaSideType.cs" />
+    <Compile Include="Model\ElementSize.cs" />
+    <Compile Include="Model\ElementType.cs" />
+    <Compile Include="Model\FilterDwg.cs" />
+    <Compile Include="Model\JointObject.cs" />
+    <Compile Include="Model\JointType.cs" />
+    <Compile Include="Model\MamparaAngleAlto.cs" />
+    <Compile Include="Model\MamparaReportGroup.cs" />
+    <Compile Include="Model\MamparaReportItem.cs" />
+    <Compile Include="Model\MDBFilter.cs" />
+    <Compile Include="Model\ModuleAction.cs" />
+    <Compile Include="Model\PanelAction.cs" />
+    <Compile Include="Model\PanelData.cs" />
+    <Compile Include="Model\PanelRaw.cs" />
+    <Compile Include="Model\PanelSide.cs" />
+    <Compile Include="Model\PanelSize.cs" />
+    <Compile Include="Model\PanelStackAnalyser.cs" />
+    <Compile Include="Model\PanelStatus.cs" />
+    <Compile Include="Model\QuantifiableModule.cs" />
+    <Compile Include="Model\QuantifiableObject.cs" />
+    <Compile Include="Model\QuantifiableUnion.cs" />
+    <Compile Include="Model\RivieraAcabado.cs" />
+    <Compile Include="Model\RivieraCajonera.cs" />
+    <Compile Include="Model\RivieraCode.cs" />
+    <Compile Include="Model\RivieraCompany.cs" />
+    <Compile Include="Model\RivieraConnectionContent.cs" />
+    <Compile Include="Model\Riviera2DArrow.cs" />
+    <Compile Include="Model\RivieraData.cs" />
+    <Compile Include="Model\RivieraDoublePanelArray.cs" />
+    <Compile Include="Model\RivieraObject.cs" />
+    <Compile Include="Model\RivieraPanel.cs" />
+    <Compile Include="Model\RivieraPanel54.cs" />
+    <Compile Include="Model\RivieraPanelBiombo.cs" />
+    <Compile Include="Model\RivieraPanelDoubleLocation.cs" />
+    <Compile Include="Model\RivieraPanelLevelRestriction.cs" />
+    <Compile Include="Model\RivieraBiombo.cs" />
+    <Compile Include="Model\RivieraPanelStack.cs" />
+    <Compile Include="Model\RivieraPichonera.cs" />
+    <Compile Include="Model\RivieraSize.cs" />
+    <Compile Include="Model\TratamientoUnion.cs" />
+    <Compile Include="Model\TreatmentUnion.cs" />
+    <Compile Include="Model\UserCredential.cs" />
+    <Compile Include="NamelessOld\Libraries\DB\Mikasa\Exceptions\TitanException.cs" />
+    <Compile Include="NamelessOld\Libraries\DB\Mikasa\Model\AccessProvider.cs" />
+    <Compile Include="NamelessOld\Libraries\DB\Mikasa\Model\ConnectionArgs.cs" />
+    <Compile Include="NamelessOld\Libraries\DB\Mikasa\Model\ConnectionContent.cs" />
+    <Compile Include="NamelessOld\Libraries\DB\Mikasa\Model\ConnectionData.cs" />
+    <Compile Include="NamelessOld\Libraries\DB\Mikasa\Model\ConnectionInterface.cs" />
+    <Compile Include="NamelessOld\Libraries\DB\Mikasa\Model\Connection_Type.cs" />
+    <Compile Include="NamelessOld\Libraries\DB\Mikasa\Model\DBConnectionBuilder.cs" />
+    <Compile Include="NamelessOld\Libraries\DB\Mikasa\Model\DB_Babel.cs" />
+    <Compile Include="NamelessOld\Libraries\DB\Mikasa\Model\DB_ConnectionTester.cs" />
+    <Compile Include="NamelessOld\Libraries\DB\Mikasa\Model\DB_Connector.cs" />
+    <Compile Include="NamelessOld\Libraries\DB\Mikasa\Model\DB_Query.cs" />
+    <Compile Include="NamelessOld\Libraries\DB\Mikasa\Model\DB_TestConnector.cs" />
+    <Compile Include="NamelessOld\Libraries\DB\Mikasa\Model\IConnectable.cs" />
+    <Compile Include="NamelessOld\Libraries\DB\Mikasa\Model\OledbProviders.cs" />
+    <Compile Include="NamelessOld\Libraries\DB\Mikasa\Model\QueryOperation.cs" />
+    <Compile Include="NamelessOld\Libraries\DB\Mikasa\Resources\Messages.Designer.cs" />
+    <Compile Include="NamelessOld\Libraries\DB\Mikasa\Resources\MikasaConstants.cs" />
+    <Compile Include="NamelessOld\Libraries\DB\Mikasa\StringConstants.cs" />
+    <Compile Include="NamelessOld\Libraries\DB\Mikasa\STRINGS.cs" />
+    <Compile Include="NamelessOld\Libraries\DB\Misa\BlankOracle_Transaction.cs" />
+    <Compile Include="NamelessOld\Libraries\DB\Misa\Exceptions\ShinigamiException.cs" />
+    <Compile Include="NamelessOld\Libraries\DB\Misa\Model\OracleConnectionBuilder.cs" />
+    <Compile Include="NamelessOld\Libraries\DB\Misa\Model\OracleConnectionContent.cs" />
+    <Compile Include="NamelessOld\Libraries\DB\Misa\Model\OracleQuery.cs" />
+    <Compile Include="NamelessOld\Libraries\DB\Misa\Model\Oracle_Connector.cs" />
+    <Compile Include="NamelessOld\Libraries\DB\Misa\OracleTask.cs" />
+    <Compile Include="NamelessOld\Libraries\DB\Misa\Oracle_Transaction.cs" />
+    <Compile Include="NamelessOld\Libraries\DB\Misa\VoidOracle_Transaction.cs" />
+    <Compile Include="NamelessOld\Libraries\DB\Tessa\AccessTask.cs" />
+    <Compile Include="NamelessOld\Libraries\DB\Tessa\Access_ConnectionTester.cs" />
+    <Compile Include="NamelessOld\Libraries\DB\Tessa\Access_Transaction.cs" />
+    <Compile Include="NamelessOld\Libraries\DB\Tessa\BlankAccess_Transaction.cs" />
+    <Compile Include="NamelessOld\Libraries\DB\Tessa\Exceptions\MithrilException.cs" />
+    <Compile Include="NamelessOld\Libraries\DB\Tessa\Model\AccessConnectionBuilder.cs" />
+    <Compile Include="NamelessOld\Libraries\DB\Tessa\Model\AccessConnectionContent.cs" />
+    <Compile Include="NamelessOld\Libraries\DB\Tessa\Model\Access_Connector.cs" />
+    <Compile Include="NamelessOld\Libraries\DB\Tessa\Model\Access_Query.cs" />
+    <Compile Include="NamelessOld\Libraries\DB\Tessa\VoidAccess_Transaction.cs" />
+    <Compile Include="NamelessOld\Libraries\HoukagoTeaTime\Assets\Errors.Designer.cs" />
+    <Compile Include="NamelessOld\Libraries\HoukagoTeaTime\Assets\Notices.Designer.cs" />
+    <Compile Include="NamelessOld\Libraries\HoukagoTeaTime\Assets\Strings.Designer.cs" />
+    <Compile Include="NamelessOld\Libraries\HoukagoTeaTime\Mio\Controller\IDrawableAgent2D.cs" />
+    <Compile Include="NamelessOld\Libraries\HoukagoTeaTime\Mio\Controller\MioPlugin.cs" />
+    <Compile Include="NamelessOld\Libraries\HoukagoTeaTime\Mio\Drawer.cs" />
+    <Compile Include="NamelessOld\Libraries\HoukagoTeaTime\Mio\Drawing.cs" />
+    <Compile Include="NamelessOld\Libraries\HoukagoTeaTime\Mio\Entities\AutoCADBlock.cs" />
+    <Compile Include="NamelessOld\Libraries\HoukagoTeaTime\Mio\Entities\AutoCADLayer.cs" />
+    <Compile Include="NamelessOld\Libraries\HoukagoTeaTime\Mio\Entities\AutoCADPolyline.cs" />
+    <Compile Include="NamelessOld\Libraries\HoukagoTeaTime\Mio\EntityExtender.cs" />
+    <Compile Include="NamelessOld\Libraries\HoukagoTeaTime\Mio\Model\LayerStatus.cs" />
+    <Compile Include="NamelessOld\Libraries\HoukagoTeaTime\Mio\Model\Margin.cs" />
+    <Compile Include="NamelessOld\Libraries\HoukagoTeaTime\Mio\Styler\LineStyler.cs" />
+    <Compile Include="NamelessOld\Libraries\HoukagoTeaTime\Ritsu\GeometryExtender.cs" />
+    <Compile Include="NamelessOld\Libraries\HoukagoTeaTime\Ritsu\Model\PointCompareable.cs" />
+    <Compile Include="NamelessOld\Libraries\HoukagoTeaTime\Ritsu\PointExtender.cs" />
+    <Compile Include="NamelessOld\Libraries\HoukagoTeaTime\Ritsu\PointSorting.cs" />
+    <Compile Include="NamelessOld\Libraries\HoukagoTeaTime\Ritsu\Shapes2D\BoundingBox2D.cs" />
+    <Compile Include="NamelessOld\Libraries\HoukagoTeaTime\Ritsu\Shapes2D\Buffer2D.cs" />
+    <Compile Include="NamelessOld\Libraries\HoukagoTeaTime\Ritsu\Shapes2D\Geometry2D.cs" />
+    <Compile Include="NamelessOld\Libraries\HoukagoTeaTime\Ritsu\Shapes2D\Polygon2D.cs" />
+    <Compile Include="NamelessOld\Libraries\HoukagoTeaTime\Ritsu\Shapes2D\Triangle2D.cs" />
+    <Compile Include="NamelessOld\Libraries\HoukagoTeaTime\Runtime\BlankTransactionWrapper.cs" />
+    <Compile Include="NamelessOld\Libraries\HoukagoTeaTime\Runtime\FastTransactionWrapper.cs" />
+    <Compile Include="NamelessOld\Libraries\HoukagoTeaTime\Runtime\RomioException.cs" />
+    <Compile Include="NamelessOld\Libraries\HoukagoTeaTime\Runtime\TransactionWrapper.cs" />
+    <Compile Include="NamelessOld\Libraries\HoukagoTeaTime\Runtime\VoidTransactionWrapper.cs" />
+    <Compile Include="NamelessOld\Libraries\HoukagoTeaTime\Tsumugi\AttManager.cs" />
+    <Compile Include="NamelessOld\Libraries\HoukagoTeaTime\Tsumugi\DataExtender.cs" />
+    <Compile Include="NamelessOld\Libraries\HoukagoTeaTime\Tsumugi\DManager.cs" />
+    <Compile Include="NamelessOld\Libraries\HoukagoTeaTime\Tsumugi\ExtensionDManager.cs" />
+    <Compile Include="NamelessOld\Libraries\HoukagoTeaTime\Tsumugi\GroupManager.cs" />
+    <Compile Include="NamelessOld\Libraries\HoukagoTeaTime\Tsumugi\IHoukagodentity.cs" />
+    <Compile Include="NamelessOld\Libraries\HoukagoTeaTime\Tsumugi\XDataManager.cs" />
+    <Compile Include="NamelessOld\Libraries\HoukagoTeaTime\Yui\AreaSelector.cs" />
+    <Compile Include="NamelessOld\Libraries\HoukagoTeaTime\Yui\FenceSelector.cs" />
+    <Compile Include="NamelessOld\Libraries\HoukagoTeaTime\Yui\PolygonSelector.cs" />
+    <Compile Include="NamelessOld\Libraries\HoukagoTeaTime\Yui\Selection.cs" />
+    <Compile Include="NamelessOld\Libraries\HoukagoTeaTime\Yui\SelectionFilterBuilder.cs" />
+    <Compile Include="NamelessOld\Libraries\HoukagoTeaTime\Yui\Selector.cs" />
+    <Compile Include="NamelessOld\Libraries\HoukagoTeaTime\Yui\WindowSelector.cs" />
+    <Compile Include="NamelessOld\Libraries\HoukagoTeaTime\Yui\ZoomWindow.cs" />
+    <Compile Include="NamelessOld\Libraries\Yggdrasil\Aerith\AerithFilter.cs" />
+    <Compile Include="NamelessOld\Libraries\Yggdrasil\Aerith\AerithSize.cs" />
+    <Compile Include="NamelessOld\Libraries\Yggdrasil\Aerith\CommonFilter.cs" />
+    <Compile Include="NamelessOld\Libraries\Yggdrasil\Aerith\DirectoryPicker.cs" />
+    <Compile Include="NamelessOld\Libraries\Yggdrasil\Aerith\FilePicker.cs" />
+    <Compile Include="NamelessOld\Libraries\Yggdrasil\Aerith\FileSaver.cs" />
+    <Compile Include="NamelessOld\Libraries\Yggdrasil\Aerith\FileScanner.cs" />
+    <Compile Include="NamelessOld\Libraries\Yggdrasil\Aerith\FileUtility.cs" />
+    <Compile Include="NamelessOld\Libraries\Yggdrasil\Aerith\ImageFilter.cs" />
+    <Compile Include="NamelessOld\Libraries\Yggdrasil\Alice\Caterpillar.cs" />
+    <Compile Include="NamelessOld\Libraries\Yggdrasil\Alice\IPupa.cs" />
+    <Compile Include="NamelessOld\Libraries\Yggdrasil\Asuna\INerveGearXml.cs" />
+    <Compile Include="NamelessOld\Libraries\Yggdrasil\Asuna\XCollection.cs" />
+    <Compile Include="NamelessOld\Libraries\Yggdrasil\Asuna\XCommoner.cs" />
+    <Compile Include="NamelessOld\Libraries\Yggdrasil\Asuna\XData.cs" />
+    <Compile Include="NamelessOld\Libraries\Yggdrasil\Asuna\XNpc.cs" />
+    <Compile Include="NamelessOld\Libraries\Yggdrasil\Asuna\XType.cs" />
+    <Compile Include="NamelessOld\Libraries\Yggdrasil\Asuna\XUnique.cs" />
+    <Compile Include="NamelessOld\Libraries\Yggdrasil\Exceptions\BlackMateriaException.cs" />
+    <Compile Include="NamelessOld\Libraries\Yggdrasil\Exceptions\DarkIllusionException.cs" />
+    <Compile Include="NamelessOld\Libraries\Yggdrasil\Exceptions\ErgoProxyException.cs" />
+    <Compile Include="NamelessOld\Libraries\Yggdrasil\Exceptions\GodModeException.cs" />
+    <Compile Include="NamelessOld\Libraries\Yggdrasil\Exceptions\KoKimijamaException.cs" />
+    <Compile Include="NamelessOld\Libraries\Yggdrasil\Exceptions\NamelessException.cs" />
+    <Compile Include="NamelessOld\Libraries\Yggdrasil\Exceptions\RedQueenException.cs" />
+    <Compile Include="NamelessOld\Libraries\Yggdrasil\Exceptions\TitaniaException.cs" />
+    <Compile Include="NamelessOld\Libraries\Yggdrasil\Frau\NET\FrauServer.cs" />
+    <Compile Include="NamelessOld\Libraries\Yggdrasil\Frau\NET\GZipWebClient.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="NamelessOld\Libraries\Yggdrasil\Frau\NET\Networking.cs" />
+    <Compile Include="NamelessOld\Libraries\Yggdrasil\Frau\Threading\FrauThread.cs" />
+    <Compile Include="NamelessOld\Libraries\Yggdrasil\Frau\Threading\IPoolThread.cs" />
+    <Compile Include="NamelessOld\Libraries\Yggdrasil\Frau\Threading\PoolThread.cs" />
+    <Compile Include="NamelessOld\Libraries\Yggdrasil\Lain\Protocol.cs" />
+    <Compile Include="NamelessOld\Libraries\Yggdrasil\Lain\WiredGhost.cs" />
+    <Compile Include="NamelessOld\Libraries\Yggdrasil\Lilith\Babel.cs" />
+    <Compile Include="NamelessOld\Libraries\Yggdrasil\Lilith\ILangle.cs" />
+    <Compile Include="NamelessOld\Libraries\Yggdrasil\Lilith\INameless.cs" />
+    <Compile Include="NamelessOld\Libraries\Yggdrasil\Lilith\LilithConstants.cs" />
+    <Compile Include="NamelessOld\Libraries\Yggdrasil\Lilith\NamelessObject.cs" />
+    <Compile Include="NamelessOld\Libraries\Yggdrasil\Lilith\Nothing.cs" />
+    <Compile Include="NamelessOld\Libraries\Yggdrasil\Lilith\SuccubusAssembly.cs" />
+    <Compile Include="NamelessOld\Libraries\Yggdrasil\Lilith\SupportedLanguage.cs" />
+    <Compile Include="NamelessOld\Libraries\Yggdrasil\Lilith\UI_Controller.cs" />
+    <Compile Include="NamelessOld\Libraries\Yggdrasil\Medaka\ConfigCategory.cs" />
+    <Compile Include="NamelessOld\Libraries\Yggdrasil\Medaka\ConfigMedaka.cs" />
+    <Compile Include="NamelessOld\Libraries\Yggdrasil\Medaka\ConfigStatus.cs" />
+    <Compile Include="NamelessOld\Libraries\Yggdrasil\Medaka\IMedakaApplication.cs" />
+    <Compile Include="NamelessOld\Libraries\Yggdrasil\Medaka\KaishinConfiguration.cs" />
+    <Compile Include="NamelessOld\Libraries\Yggdrasil\Medaka\NamelessApplication.cs" />
+    <Compile Include="NamelessOld\Libraries\Yggdrasil\Morrigan\CellData.cs" />
+    <Compile Include="NamelessOld\Libraries\Yggdrasil\Morrigan\ColumnData.cs" />
+    <Compile Include="NamelessOld\Libraries\Yggdrasil\Morrigan\DataStructureUtility.cs" />
+    <Compile Include="NamelessOld\Libraries\Yggdrasil\Morrigan\RowData.cs" />
+    <Compile Include="NamelessOld\Libraries\Yggdrasil\Morrigan\Sorting.cs" />
+    <Compile Include="NamelessOld\Libraries\Yggdrasil\Morrigan\SortingOrder.cs" />
+    <Compile Include="NamelessOld\Libraries\Yggdrasil\Morrigan\TableStructure.cs" />
+    <Compile Include="NamelessOld\Libraries\Yggdrasil\ReL\NetTools.cs" />
+    <Compile Include="NamelessOld\Libraries\Yggdrasil\Resources\CommonStrings.Designer.cs" />
+    <Compile Include="NamelessOld\Libraries\Yggdrasil\Resources\Errors.Designer.cs" />
+    <Compile Include="NamelessOld\Libraries\Yggdrasil\Resources\Notices.Designer.cs" />
+    <Compile Include="NamelessOld\Libraries\Yggdrasil\Yuffie\FixedString.cs" />
+    <Compile Include="NamelessOld\Libraries\Yggdrasil\Yuffie\FormattedString.cs" />
+    <Compile Include="NamelessOld\Libraries\Yggdrasil\Yuffie\StringConcatenator.cs" />
+    <Compile Include="NamelessOld\Libraries\Yggdrasil\Yuffie\StringValidator.cs" />
+    <Compile Include="Nodes\MamparaNode.cs" />
+    <Compile Include="Nodes\RivieraConnection.cs" />
+    <Compile Include="Nodes\RivieraNode.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Controller\RivieraExtender.cs" />
+    <Compile Include="Query\Query_Bases.cs" />
+    <Compile Include="Query\Query_BasesMDB.cs" />
+    <Compile Include="Query\DBExtended.cs" />
+    <Compile Include="Query\Query_Acabados.cs" />
+    <Compile Include="Query\Query_Asociados.cs" />
+    <Compile Include="Query\Query_Ejecutivo.cs" />
+    <Compile Include="Query\Query_Mampara.cs" />
+    <Compile Include="Query\Query_Paneles.cs" />
+    <Compile Include="Query\Query_Revit_Project.cs" />
+    <Compile Include="Query\Query_Uniones.cs" />
+    <Compile Include="Query\Query_Uniones_Extra.cs" />
+    <Compile Include="Runtime\App.cs" />
+    <Compile Include="Runtime\CMD.cs" />
+    <Compile Include="Runtime\Commands.cs" />
+    <Compile Include="Runtime\DaNTe\DaNTeCodeSetter.cs" />
+    <Compile Include="Runtime\DaNTe\AsociadoRow.cs" />
+    <Compile Include="Runtime\DaNTe\DaNTeExportStatus.cs" />
+    <Compile Include="Runtime\DaNTe\DaNTeQuantification.cs" />
+    <Compile Include="Runtime\DaNTe\DaNTeRow.cs" />
+    <Compile Include="Runtime\DaNTe\DaNTe_Transaction.cs" />
+    <Compile Include="Runtime\DaNTe\QuantificationMode.cs" />
+    <Compile Include="Runtime\Database.cs" />
+    <Compile Include="Runtime\Delta\DeltaCommands.cs" />
+    <Compile Include="Runtime\Delta\DeltaException.cs" />
+    <Compile Include="Runtime\Delta\MamparaPanelRules.cs" />
+    <Compile Include="Runtime\RivieraApplication.cs" />
+    <Compile Include="Assets\RIVIERA_CODE.cs" />
+    <Compile Include="Runtime\RivieraPanelRules.cs" />
+    <Compile Include="Runtime\Unit_Type.cs" />
+    <Compile Include="Runtime\ZoneManager.cs" />
+    <Compile Include="UI\Ctrl_BiomboItem.xaml.cs">
+      <DependentUpon>Ctrl_BiomboItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Ctrl_CajoneraItem.xaml.cs">
+      <DependentUpon>Ctrl_CajoneraItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Ctrl_DaNTePath.xaml.cs">
+      <DependentUpon>Ctrl_DaNTePath.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Ctrl_LinearBiomboItem.xaml.cs">
+      <DependentUpon>Ctrl_LinearBiomboItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Ctrl_OracleSettings.xaml.cs">
+      <DependentUpon>Ctrl_OracleSettings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Ctrl_PanelDataItem.xaml.cs">
+      <DependentUpon>Ctrl_PanelDataItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Dialog_PanelPicker.xaml.cs">
+      <DependentUpon>Dialog_PanelPicker.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Ctrl_PanelStack.xaml.cs">
+      <DependentUpon>Ctrl_PanelStack.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Ctrl_PichoneraItem.xaml.cs">
+      <DependentUpon>Ctrl_PichoneraItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Ctrl_RivieraLogin.xaml.cs">
+      <DependentUpon>Ctrl_RivieraLogin.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Ctrl_ZoneManager.xaml.cs">
+      <DependentUpon>Ctrl_ZoneManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Delta\Ctrl_Developer.xaml.cs">
+      <DependentUpon>Ctrl_Developer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Delta\Ctrl_Mampara.xaml.cs">
+      <DependentUpon>Ctrl_Mampara.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Delta\Ctrl_QuantifyItem.xaml.cs">
+      <DependentUpon>Ctrl_QuantifyItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Delta\Ctrl_QuantifyTable.xaml.cs">
+      <DependentUpon>Ctrl_QuantifyTable.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Delta\Dialog_Quantification.xaml.cs">
+      <DependentUpon>Dialog_Quantification.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Dialog_About.xaml.cs">
+      <DependentUpon>Dialog_About.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Dialog_AccessExport.xaml.cs">
+      <DependentUpon>Dialog_AccessExport.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Dialog_ConnectionSettings.xaml.cs">
+      <DependentUpon>Dialog_ConnectionSettings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Dialog_InsertModule.xaml.cs">
+      <DependentUpon>Dialog_InsertModule.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Dialog_Loader.xaml.cs">
+      <DependentUpon>Dialog_Loader.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Dialog_MessageBox.xaml.cs">
+      <DependentUpon>Dialog_MessageBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Ctrl_PanelItem.xaml.cs">
+      <DependentUpon>Ctrl_PanelItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Dialog_ModuleCreator.xaml.cs">
+      <DependentUpon>Dialog_ModuleCreator.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Dialog_OracleExport.xaml.cs">
+      <DependentUpon>Dialog_OracleExport.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Dialog_PanelEditor.xaml.cs">
+      <DependentUpon>Dialog_PanelEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Dialog_AcabadoSelector.xaml.cs">
+      <DependentUpon>Dialog_AcabadoSelector.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\IBiomboable.cs" />
+    <EmbeddedResource Include="Assets\Strings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Strings.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NamelessOld\Libraries\DB\Mikasa\Resources\Messages.es.resx" />
+    <EmbeddedResource Include="NamelessOld\Libraries\DB\Mikasa\Resources\Messages.resx" />
+    <EmbeddedResource Include="NamelessOld\Libraries\HoukagoTeaTime\Assets\Errors.es.resx" />
+    <EmbeddedResource Include="NamelessOld\Libraries\HoukagoTeaTime\Assets\Errors.resx" />
+    <EmbeddedResource Include="NamelessOld\Libraries\HoukagoTeaTime\Assets\Notices.es.resx" />
+    <EmbeddedResource Include="NamelessOld\Libraries\HoukagoTeaTime\Assets\Notices.resx" />
+    <EmbeddedResource Include="NamelessOld\Libraries\HoukagoTeaTime\Assets\Strings.resx" />
+    <EmbeddedResource Include="NamelessOld\Libraries\Yggdrasil\Resources\CommonStrings.resx" />
+    <EmbeddedResource Include="NamelessOld\Libraries\Yggdrasil\Resources\Errors.es.resx" />
+    <EmbeddedResource Include="NamelessOld\Libraries\Yggdrasil\Resources\Errors.resx" />
+    <EmbeddedResource Include="NamelessOld\Libraries\Yggdrasil\Resources\Notices.es.resx" />
+    <EmbeddedResource Include="NamelessOld\Libraries\Yggdrasil\Resources\Notices.resx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="Model\Riviera_Model.cd" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\lightningMini.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Assets\RivieraStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Ctrl_BiomboItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Ctrl_CajoneraItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Ctrl_DaNTePath.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Ctrl_LinearBiomboItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Ctrl_OracleSettings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Ctrl_PanelDataItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Dialog_PanelPicker.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Ctrl_PanelStack.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Ctrl_PichoneraItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Ctrl_RivieraLogin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Ctrl_ZoneManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Delta\Ctrl_Developer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Delta\Ctrl_Mampara.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Delta\Ctrl_QuantifyItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Delta\Ctrl_QuantifyTable.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Delta\Dialog_Quantification.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Dialog_About.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Dialog_AccessExport.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Dialog_ConnectionSettings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Dialog_InsertModule.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Dialog_Loader.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Dialog_MessageBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Ctrl_PanelItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Dialog_ModuleCreator.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Dialog_OracleExport.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Dialog_PanelEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Dialog_AcabadoSelector.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\accessIcon.png" />
+    <Resource Include="Assets\danteIconn.png" />
+    <Resource Include="Assets\excelIcon.png" />
+    <Resource Include="Assets\oracleIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\dasoft_32.png" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

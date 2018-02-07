@@ -1,0 +1,51 @@
+﻿<metro:MetroWindow x:Class="DaSoft.Riviera.OldModulador.UI.Delta.Dialog_Quantification"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DaSoft.Riviera.OldModulador.UI.Delta"
+        xmlns:common="clr-namespace:DaSoft.Riviera.OldModulador.UI"
+        xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
+        mc:Ignorable="d"
+        Title="Resumen de Cuantificación" Height="300" Width="600" Background="Gainsboro" >
+    <metro:MetroWindow.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
+                <ResourceDictionary Source="../../Assets/RivieraStyle.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </metro:MetroWindow.Resources>
+    <metro:MetroWindow.RightWindowCommands>
+        <metro:WindowCommands>
+            <Button Click="createDaNTeKeys" FontFamily="Segoe UI Symbol">
+                <Image Width="16" Height="16" Source="/RivModulador;component/Assets/danteIconn.png" />
+            </Button>
+            <Button Click="exportToOracle" FontFamily="Segoe UI Symbol">
+                <Image Width="16" Height="16" Source="/RivModulador;component/Assets/oracleIcon.png"/>
+            </Button>
+            <Button Click="exportToAccess" FontFamily="Segoe UI Symbol">
+                <Image Width="16" Height="16" Source="/RivModulador;component/Assets/accessIcon.png"/>
+            </Button>
+            <Button Click="exportToCVS" FontFamily="Segoe UI Symbol">
+                <Image Width="16" Height="16" Source="/RivModulador;component/Assets/excelIcon.png"/>
+            </Button>
+            <Button Content="&#xe149;" Click="refreshTable_Click" FontFamily="Segoe UI Symbol"/>
+        </metro:WindowCommands>
+    </metro:MetroWindow.RightWindowCommands>
+    <TabControl Background="#FFD9EDF3">
+        <TabItem Header="Elementos" >
+            <local:Ctrl_QuantifyTable x:Name="tableElements" Fill="tableElements_Fill"/>
+        </TabItem>
+        <TabItem Header="Uniones" >
+            <local:Ctrl_QuantifyTable x:Name="tableUnion" Fill="tableUnion_Fill" ColumnOne="Unión"/>
+        </TabItem>
+        <TabItem Header="Zonas" >
+            <common:Ctrl_ZoneManager x:Name="zoneMan" HorizontalAlignment="Left" />
+        </TabItem>
+    </TabControl>
+</metro:MetroWindow>

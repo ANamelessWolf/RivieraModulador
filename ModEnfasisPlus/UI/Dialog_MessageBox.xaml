@@ -1,0 +1,69 @@
+﻿<Window x:Class="DaSoft.Riviera.OldModulador.UI.Dialog_MessageBox"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:DaSoft.Riviera.OldModulador.UI"
+             xmlns:metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"     
+             Height="720" Width="1280" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
+             WindowStyle="None" AllowsTransparency="True" Background="#7F808080" Loaded="Window_Loaded">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
+                <ResourceDictionary Source="../Assets/RivieraStyle.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="200"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Background="White" Grid.Row="1" Orientation="Vertical">
+            <Grid Height ="130">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="600" />
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock x:Name="field_CharImage_Ok"  Style="{StaticResource MetroChar_Huge}" Text="&#xE10B;" Visibility="Hidden"/>
+                <TextBlock x:Name="field_CharImage_Error"  Style="{StaticResource MetroChar_Huge}" Text="&#xE10A;" Visibility="Hidden"/>
+                <TextBlock x:Name="field_CharImage_Warning"  Style="{StaticResource MetroChar_Huge}" Text="&#xE1DE;" Visibility="Hidden"/>
+                <TextBlock x:Name="field_CharImage_Question"  Style="{StaticResource MetroChar_Huge}" Text="&#xE11B;" Visibility="Hidden"/>
+                <TextBlock x:Name="field_CharImage_Other"  Style="{StaticResource MetroChar_Huge}" Text="&#xE11D;" Visibility="Hidden"/>
+                <TextBlock x:Name="field_Message"  Style="{StaticResource MessageBox_Dialog}" Grid.Column="2">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse felis diam, consectetur id nisi ac, faucibus rhoncus tellus. 
+                Sed nec magna vestibulum, lacinia purus ut, pulvinar eros. Sed iaculis ullamcorper dui eget viverra. Integer ut ultrices lectus. 
+                Sed ullamcorper facilisis mauris, id malesuada tortor dictum vel.
+                </TextBlock>
+            </Grid>
+            <Grid Height ="70">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="81*"/>
+                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition Width="32*"/>
+                </Grid.ColumnDefinitions>
+                <Button x:Name="button_Yes" Grid.Column="3" Style="{StaticResource MessageBox_Button}" Content ="Sí" Click="DialogAction_Click"/>
+                <Button x:Name="button_No" Grid.Column="5" Style="{StaticResource MessageBox_Button_Lighter}" Content ="No" Click="DialogAction_Click"/>
+
+                <Button x:Name="button_Ok" Grid.Column="3" Style="{StaticResource MessageBox_Button}" Content ="Ok" Click="DialogAction_Click"/>
+                <Button x:Name="button_Cancel" Grid.Column="5" Style="{StaticResource MessageBox_Button_Lighter}" Content ="Cancelar" Click="DialogAction_Click"/>
+
+                <Button x:Name="button_Yes_1" Grid.Column="1" Style="{StaticResource MessageBox_Button}" Content ="Sí" Click="DialogAction_Click"/>
+                <Button x:Name="button_No_1" Grid.Column="3" Style="{StaticResource MessageBox_Button_Lighter}" Content ="No" Click="DialogAction_Click"/>
+                <Button x:Name="button_Cancel_1" Grid.Column="5" Style="{StaticResource MessageBox_Button}" Content ="Cancelar" Click="DialogAction_Click"/>
+            </Grid>
+        </StackPanel>
+    </Grid>
+</Window>

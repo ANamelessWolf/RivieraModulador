@@ -1,0 +1,27 @@
+﻿<UserControl x:Class="DaSoft.Riviera.OldModulador.UI.Ctrl_BiomboItem"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:DaSoft.Riviera.OldModulador.UI"
+             mc:Ignorable="d" 
+             d:DesignHeight="80" d:DesignWidth="300">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
+                <ResourceDictionary Source="../Assets/RivieraStyle.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid x:Name="panelArea" Background="#7FE4F5FB" MouseLeftButtonUp="panelArea_MouseLeftButtonUp" Margin="0,0,0,5">
+        <Border BorderThickness="1" BorderBrush="Gray" />
+        <TextBlock x:Name="codePanel" Text="CODE GO HERE" Style="{StaticResource PanelCodeStyle_Header}" />
+        <Rectangle Fill="Black" Width="20" Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="60,0,0,-5"/>
+        <Rectangle Fill="Black" Width="20" Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,60,-5"/>
+    </Grid>
+</UserControl>

@@ -1,0 +1,258 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="DaSoft.Riviera.OldModulador.Model.ChangeViewer" Collapsed="true">
+    <Position X="15" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAAAAAACACACABAAAAAAABAQACEAAAAIAAAAA=</HashCode>
+      <FileName>Model\ChangeViewer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DaSoft.Riviera.OldModulador.Model.ElementSize" Collapsed="true">
+    <Position X="7.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAEAAAAAAAEAgAgACQAAAAAAQAEAAAAAAACAAA=</HashCode>
+      <FileName>Model\ElementSize.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DaSoft.Riviera.OldModulador.Model.FilterDwg" Collapsed="true">
+    <Position X="16.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAAAAAAAAAAARAAAAAAAAAAABAAAAAAAA=</HashCode>
+      <FileName>Model\FilterDwg.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DaSoft.Riviera.OldModulador.Model.JointObject" Collapsed="true">
+    <Position X="3.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAAIAIAAAAAAAgAAAAAABAEIACCQAAQAEAgAA=</HashCode>
+      <FileName>Model\JointObject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DaSoft.Riviera.OldModulador.Model.MDBFilter" Collapsed="true">
+    <Position X="20.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAA=</HashCode>
+      <FileName>Model\MDBFilter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DaSoft.Riviera.OldModulador.Model.PanelData" Collapsed="true">
+    <Position X="15" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAEAAAhAAIAABACAAAAiAAAAAAAAAQ=</HashCode>
+      <FileName>Model\PanelData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DaSoft.Riviera.OldModulador.Model.PanelRaw" Collapsed="true">
+    <Position X="16.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAkAAAAFACAAAAEACAgAAAAAAAAIAAAAIAAAAAAAAA=</HashCode>
+      <FileName>Model\PanelRaw.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DaSoft.Riviera.OldModulador.Model.PanelSize" Collapsed="true">
+    <Position X="6.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAAAAAAAAgABAAAAAAAAAAAEAAAAAAACAAA=</HashCode>
+      <FileName>Model\PanelSize.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DaSoft.Riviera.OldModulador.Model.QuantifiableModule" Collapsed="true">
+    <Position X="3.25" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\QuantifiableModule.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DaSoft.Riviera.OldModulador.Model.QuantifiableObject" Collapsed="true">
+    <Position X="3.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAAAAAEABAgAAQAAAAAAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\QuantifiableObject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DaSoft.Riviera.OldModulador.Model.QuantifiableUnion" Collapsed="true">
+    <Position X="18.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEgAAAAAgAAAAAAQAAgAAAAIBAAAEARAAAAA=</HashCode>
+      <FileName>Model\QuantifiableUnion.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DaSoft.Riviera.OldModulador.Model.Riviera2DArrow" Collapsed="true">
+    <Position X="20.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAIAAQACggAEACAAAAAACAAAAAAAAAAAAAAIAAA=</HashCode>
+      <FileName>Model\Riviera2DArrow.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DaSoft.Riviera.OldModulador.Model.RivieraAcabado" Collapsed="true">
+    <Position X="15" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAAAAEAAAgAAAAAAAAIAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\RivieraAcabado.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DaSoft.Riviera.OldModulador.Model.RivieraBiombo" Collapsed="true">
+    <Position X="8" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAIIgAEAAAACCAAAAAAAAAAAAAAQAAAAAAIACAgAE=</HashCode>
+      <FileName>Model\RivieraBiombo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DaSoft.Riviera.OldModulador.Model.RivieraConnectionContent" Collapsed="true">
+    <Position X="16.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAABAAAAgAAAIAAAAAAAAAAAAAg=</HashCode>
+      <FileName>Model\RivieraConnectionContent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DaSoft.Riviera.OldModulador.Model.RivieraData" Collapsed="true">
+    <Position X="18.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAIAAAAAARAAACAAAAAAAAAAAAAAAAAAAAAAAgAA=</HashCode>
+      <FileName>Model\RivieraData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DaSoft.Riviera.OldModulador.Model.RivieraObject" Collapsed="true">
+    <Position X="8" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAInuIkAAigEggAMCCIsQAYBAAEAAZIAAEwSAACBAAA=</HashCode>
+      <FileName>Model\RivieraObject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DaSoft.Riviera.OldModulador.Model.RivieraPanelLevelRestriction" Collapsed="true">
+    <Position X="20.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAgAAAAAAAQAAAAAACAAAAAAAA=</HashCode>
+      <FileName>Model\RivieraPanelLevelRestriction.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DaSoft.Riviera.OldModulador.Model.RivieraPanelStack" Collapsed="true">
+    <Position X="12.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAIIAAAAAAQCCAAAAAAAAAAAAAAQAAAAAAIACAgAA=</HashCode>
+      <FileName>Model\RivieraPanelStack.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DaSoft.Riviera.OldModulador.Model.RivieraSize" Collapsed="true">
+    <Position X="15" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAEAAAAAAAAEAAAgAAAAAAAAAQAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\RivieraSize.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DaSoft.Riviera.OldModulador.Model.UserCredential" Collapsed="true">
+    <Position X="16.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAQIAAAAABAAAAAACAAAABAAAAAA=</HashCode>
+      <FileName>Model\UserCredential.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DaSoft.Riviera.OldModulador.Model.Delta.Mampara" Collapsed="true">
+    <Position X="5.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAkAAAAAAhAACAABAAAAAAAAggAAAQAAAADAACAgAA=</HashCode>
+      <FileName>Model\Delta\Mampara.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DaSoft.Riviera.OldModulador.Model.Delta.MamparaJoint" Collapsed="true">
+    <Position X="3.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAABAAAAAAAAAAAAAAAAAAAAAgAEIAAAQAACAGIAAA=</HashCode>
+      <FileName>Model\Delta\MamparaJoint.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DaSoft.Riviera.OldModulador.Model.Delta.MamparaRemateFinal" Collapsed="true">
+    <Position X="10.25" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAEAAAAAAAAACAAAAAAAAAAAAgAAAAAAAADAACAgAA=</HashCode>
+      <FileName>Model\Delta\MamparaRemateFinal.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DaSoft.Riviera.OldModulador.Model.Delta.MamparaSize" Collapsed="true">
+    <Position X="8.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAEAAAAAAACAAA=</HashCode>
+      <FileName>Model\Delta\MamparaSize.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DaSoft.Riviera.OldModulador.Model.Delta.MamparaUnionRule" Collapsed="true">
+    <Position X="18.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAQAAAAEAAAAAAAIAAAAAAAAAQAAQBCgCAA=</HashCode>
+      <FileName>Model\Delta\MamparaUnionRule.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="DaSoft.Riviera.OldModulador.Model.AltoNivel" Collapsed="true">
+    <Position X="15" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAAEAAAAAAAAAAAAAQAAAQAAAAAAAAA=</HashCode>
+      <FileName>Model\AltoNivel.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="DaSoft.Riviera.OldModulador.Model.RivieraCode" Collapsed="true">
+    <Position X="16.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAkAAAEAAAgAAAAAAAAAAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>Model\RivieraCode.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Enum Name="DaSoft.Riviera.OldModulador.Model.ArrowDirection" Collapsed="true">
+    <Position X="15" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAEAAACAAAAAAAAAAgAQAAAAAAAAAAACAAAAEAAAA=</HashCode>
+      <FileName>Model\ArrowDirection.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="DaSoft.Riviera.OldModulador.Model.DaNTeUnits" Collapsed="true">
+    <Position X="16.75" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAAAAACAAAAAAEAAAA=</HashCode>
+      <FileName>Model\DaNTeUnits.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="DaSoft.Riviera.OldModulador.Model.ElementType" Collapsed="true">
+    <Position X="18.5" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAABAAAAAABAAAAAAAAABA=</HashCode>
+      <FileName>Model\ElementType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="DaSoft.Riviera.OldModulador.Model.JointType" Collapsed="true">
+    <Position X="20.25" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAACIgBAAAAAEAAAA=</HashCode>
+      <FileName>Model\JointType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="DaSoft.Riviera.OldModulador.Model.ModuleAction" Collapsed="true">
+    <Position X="15" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAABQAEAAAA=</HashCode>
+      <FileName>Model\ModuleAction.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="DaSoft.Riviera.OldModulador.Model.PanelAction" Collapsed="true">
+    <Position X="16.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAEAAAA=</HashCode>
+      <FileName>Model\PanelAction.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="DaSoft.Riviera.OldModulador.Model.PanelStatus" Collapsed="true">
+    <Position X="18.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAABAAEAAAI=</HashCode>
+      <FileName>Model\PanelStatus.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="DaSoft.Riviera.OldModulador.Model.RivieraCompany" Collapsed="true">
+    <Position X="20.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAAAAAAQAABAAAAAAAAAAABAAAAAAAAUAAAA=</HashCode>
+      <FileName>Model\RivieraCompany.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

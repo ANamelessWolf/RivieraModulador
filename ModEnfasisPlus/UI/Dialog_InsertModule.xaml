@@ -1,0 +1,48 @@
+﻿<metro:MetroWindow x:Class="DaSoft.Riviera.OldModulador.UI.Dialog_InsertModule"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DaSoft.Riviera.OldModulador.UI"
+        xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"        
+        xmlns:delta="clr-namespace:DaSoft.Riviera.OldModulador.UI.Delta"
+        mc:Ignorable="d"
+        Title="Inserción de modulos" Height="380" Width="540" Loaded="MetroWindow_Loaded">
+
+    <metro:MetroWindow.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
+                <ResourceDictionary Source="../Assets/RivieraStyle.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </metro:MetroWindow.Resources>
+    <Grid Background="#FFD9EDF3" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="32"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+            <TextBlock Text="Nombre del módulo"  Style="{StaticResource MenuStyle_Header}" HorizontalAlignment="Right"/>
+            <ComboBox x:Name="listOfModulos" Grid.Column="1" Style="{StaticResource MenuStyle_List}" Width="250" SelectionChanged="listOfModulos_SelectionChanged"/>
+        </StackPanel>
+        <delta:Ctrl_QuantifyTable x:Name="table" Fill="table_Fill"  Grid.Column="1" Grid.Row="1"/>
+        <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center">
+            <Button x:Name="button_Ok" Style="{StaticResource MenuStyle_RoundButton}" Content="&#xe10B;" Click="DialogAction_Click">
+                <Button.ToolTip>
+                    <ToolTip Style="{StaticResource TooltipStyle}" Tag="Haga clic para aceptar" ToolTip="Haga clic para insertar el módulo"/>
+                </Button.ToolTip>
+            </Button>
+            <Button x:Name="button_Cancel" Style="{StaticResource MenuStyle_RoundButton}" Content="&#xe10a;" Click="DialogAction_Click">
+                <Button.ToolTip>
+                    <ToolTip Style="{StaticResource TooltipStyle}" Tag="Haga clic para cancelar" ToolTip=""/>
+                </Button.ToolTip>
+            </Button>
+        </StackPanel>
+    </Grid>
+</metro:MetroWindow>

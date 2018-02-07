@@ -1,0 +1,3 @@
+Esta versión, es la antigua de enfasis plus.
+Debe migrarse a la nueva configuración.
+Se agregára como librería independiente.

@@ -1,0 +1,483 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="BAD_ROW_MAMPARA" xml:space="preserve">
+    <value>La columna asociada no es válida para crear un tamaño de mampara</value>
+    <comment>MamparaSize</comment>
+  </data>
+  <data name="BAD_ROW_PANEL" xml:space="preserve">
+    <value>La columna asociada no es válida para crear un tamaño de panel</value>
+    <comment>PanelSize</comment>
+  </data>
+  <data name="CAPTION_BACK" xml:space="preserve">
+    <value>Atrás</value>
+    <comment>RivieraExtender</comment>
+  </data>
+  <data name="CAPTION_DAN" xml:space="preserve">
+    <value>DaNTe</value>
+    <comment>Quantification</comment>
+  </data>
+  <data name="CAPTION_FRONT" xml:space="preserve">
+    <value>Al frente</value>
+    <comment>RivieraExtender</comment>
+  </data>
+  <data name="CAPTION_ISMODULE" xml:space="preserve">
+    <value>ISMODULE</value>
+    <comment>El campo para saber si un bloque es módulo</comment>
+  </data>
+  <data name="CAPTION_LEFT" xml:space="preserve">
+    <value>Izquierdo</value>
+    <comment>RivieraExtender</comment>
+  </data>
+  <data name="CAPTION_LEFT_BACK" xml:space="preserve">
+    <value>En la izquierda por atrás</value>
+    <comment>RivieraExtender</comment>
+  </data>
+  <data name="CAPTION_LEFT_FRONT" xml:space="preserve">
+    <value>En la izquierda al frente</value>
+    <comment>RivieraExtender</comment>
+  </data>
+  <data name="CAPTION_MODULE_RECORD" xml:space="preserve">
+    <value>MODULE_TMP</value>
+    <comment>Module</comment>
+  </data>
+  <data name="CAPTION_MODULE_RECORD3D" xml:space="preserve">
+    <value>MODULE_TMP_3D</value>
+    <comment>Module</comment>
+  </data>
+  <data name="CAPTION_NO_DESC" xml:space="preserve">
+    <value>Sin descripción</value>
+    <comment>DB</comment>
+  </data>
+  <data name="CAPTION_QUANTIFICATIONS" xml:space="preserve">
+    <value>Cuantificaciones</value>
+    <comment>DaNTe</comment>
+  </data>
+  <data name="CAPTION_RIGHT" xml:space="preserve">
+    <value>Derecho</value>
+    <comment>RivieraExtender</comment>
+  </data>
+  <data name="CAPTION_RIGHT_BACK" xml:space="preserve">
+    <value>En la derecha por atrás</value>
+    <comment>RivieraExtender</comment>
+  </data>
+  <data name="CAPTION_RIGHT_FRONT" xml:space="preserve">
+    <value>En la derecha por atrás</value>
+    <comment>RivieraExtender</comment>
+  </data>
+  <data name="CAPTION_ZONE" xml:space="preserve">
+    <value>Zona</value>
+    <comment>El campo de zonas</comment>
+  </data>
+  <data name="ERR_ADD_BIOMBO" xml:space="preserve">
+    <value>Error al agregar un elemento en la parte superior de la mampara.
+Detalles: 
+{0}</value>
+    <comment>Panel Stack</comment>
+  </data>
+  <data name="ERR_ASOCIADOS_MDB_MISSING" xml:space="preserve">
+    <value>Error al leer la base de datos de asociados, no se a encontro el archivo "{0}". Revise que el archivo no haya sido movido o borrado.</value>
+    <comment>DaNTe Transaction</comment>
+  </data>
+  <data name="ERR_ASOCIADOS_MDB_NOT_DEFINED" xml:space="preserve">
+    <value>Error al leer la base de datos de asociados, no se a definido ninguna base de asociados. Asociar una base en configuraciones.</value>
+    <comment>DaNTe Transaction</comment>
+  </data>
+  <data name="ERR_BAD_LOGIN" xml:space="preserve">
+    <value>No se puede iniciar sesión con las credenciales proporcionadas.</value>
+    <comment>Ctrl_RivieraLogin</comment>
+  </data>
+  <data name="ERR_CONN" xml:space="preserve">
+    <value>Error de conexión.</value>
+    <comment>Ctrl_OracleSettings</comment>
+  </data>
+  <data name="ERR_CREATING_3D_PANEL" xml:space="preserve">
+    <value>Error al crear el bloque 3D para el panel {0}, Exc: {1}.</value>
+    <comment>Panel Editor</comment>
+  </data>
+  <data name="ERR_FRENTE_NOT_SUPPORTED" xml:space="preserve">
+    <value>El frente de las mamparas en la unión no está soportado para un panel doble.
+Usar mamparas con frentes de 18" o de 24"</value>
+  </data>
+  <data name="ERR_INVALID_USER_PASS" xml:space="preserve">
+    <value>El nombre de usuario o password son incorrectos</value>
+  </data>
+  <data name="ERR_JUST_T" xml:space="preserve">
+    <value>Solo es posible seleccionar una unión en T.</value>
+    <comment>Panel Builder</comment>
+  </data>
+  <data name="ERR_ORACLE_CONN_MISSING" xml:space="preserve">
+    <value>No se puede conectar a Oracle con la información proporcionada, todos los campos son obligatorios.</value>
+    <comment>Ctrl_OracleSettings</comment>
+  </data>
+  <data name="ERR_QERRORS" xml:space="preserve">
+    <value>Se encontraron errores en la cuantificación. Los elementos con errores han sido resaltados</value>
+  </data>
+  <data name="ERR_QNAME_NEEDED" xml:space="preserve">
+    <value>No se puede realizar una cuantificación si no se proporciona un nombre para la cuantificación</value>
+    <comment>QName</comment>
+  </data>
+  <data name="ERR_SAME_FRENTE" xml:space="preserve">
+    <value>Los frentes de las mamparas adyacentes en la unión en T deben ser iguales.</value>
+  </data>
+  <data name="ERR_SAV_ACCESS" xml:space="preserve">
+    <value>Error al guardar el archivo de Access</value>
+    <comment>Quantification</comment>
+  </data>
+  <data name="ERR_SOP_24IN" xml:space="preserve">
+    <value>El panel electrificable quedaría del lado de 24", no es válido.
+Rote la mampara para poder continuar con la calificación.</value>
+    <comment>Err</comment>
+  </data>
+  <data name="ERR_UNKNOWN" xml:space="preserve">
+    <value>Desconocido.</value>
+    <comment>App</comment>
+  </data>
+  <data name="FIELD_BACK" xml:space="preserve">
+    <value>Back</value>
+    <comment>RivieraData, RivieraExtender</comment>
+  </data>
+  <data name="FIELD_CODE" xml:space="preserve">
+    <value>Code</value>
+    <comment>RivieraData, RivieraExtender</comment>
+  </data>
+  <data name="FIELD_DIC_DANTE" xml:space="preserve">
+    <value>DaNTe</value>
+    <comment>Nombre Diccionario</comment>
+  </data>
+  <data name="FIELD_DISPOSABLE_3D" xml:space="preserve">
+    <value>Disposable3DBlock</value>
+    <comment>Elemento desechable</comment>
+  </data>
+  <data name="FIELD_END" xml:space="preserve">
+    <value>End</value>
+    <comment>RivieraData, RivieraExtender</comment>
+  </data>
+  <data name="FIELD_EXTRA" xml:space="preserve">
+    <value>Extra</value>
+    <comment>RivieraData, RivieraExtender</comment>
+  </data>
+  <data name="FIELD_FRONT" xml:space="preserve">
+    <value>Front</value>
+    <comment>RivieraData, RivieraExtender</comment>
+  </data>
+  <data name="FIELD_GEOMETRY" xml:space="preserve">
+    <value>Geometry</value>
+    <comment>RivieraData, RivieraExtender</comment>
+  </data>
+  <data name="FIELD_LEFT_BACK" xml:space="preserve">
+    <value>Left_Back</value>
+    <comment>RivieraData, RivieraExtender</comment>
+  </data>
+  <data name="FIELD_LEFT_FRONT" xml:space="preserve">
+    <value>Left_Front</value>
+    <comment>RivieraData, RivieraExtender</comment>
+  </data>
+  <data name="FIELD_PARENT" xml:space="preserve">
+    <value>Parent</value>
+    <comment>RivieraData, RivieraExtender</comment>
+  </data>
+  <data name="FIELD_REG_ID" xml:space="preserve">
+    <value>Id</value>
+    <comment>Registro ID</comment>
+  </data>
+  <data name="FIELD_REG_UNITS" xml:space="preserve">
+    <value>Units</value>
+    <comment>Registro de unidades</comment>
+  </data>
+  <data name="FIELD_RIGHT_BACK" xml:space="preserve">
+    <value>Right_Back</value>
+    <comment>RivieraData, RivieraExtender</comment>
+  </data>
+  <data name="FIELD_RIGHT_FRONT" xml:space="preserve">
+    <value>Right_Front</value>
+    <comment>RivieraData, RivieraExtender</comment>
+  </data>
+  <data name="FIELD_SIZE" xml:space="preserve">
+    <value>Size</value>
+    <comment>RivieraData, RivieraExtender</comment>
+  </data>
+  <data name="FIELD_START" xml:space="preserve">
+    <value>Start</value>
+    <comment>RivieraData, RivieraExtender</comment>
+  </data>
+  <data name="GROUP_MAM_REP" xml:space="preserve">
+    <value>EnfasisMamparaReport</value>
+    <comment>Mampara</comment>
+  </data>
+  <data name="LAYER_ERR" xml:space="preserve">
+    <value>DD2D_Error</value>
+  </data>
+  <data name="LAYER_RIVIERA_GEOMETRY" xml:space="preserve">
+    <value>DD2D_Geometry</value>
+    <comment>App</comment>
+  </data>
+  <data name="LAYER_RIVIERA_OBJECT" xml:space="preserve">
+    <value>DD2D</value>
+    <comment>App</comment>
+  </data>
+  <data name="LAYER_RIVIERA_REPORT" xml:space="preserve">
+    <value>DDReportes</value>
+    <comment>Layer</comment>
+  </data>
+  <data name="MSG_CONN" xml:space="preserve">
+    <value>Conexión establecida.</value>
+    <comment>Ctrl_OracleSettings</comment>
+  </data>
+  <data name="MSG_DANTE_WORKING" xml:space="preserve">
+    <value>Generando la cuantificación al archivo mdb</value>
+    <comment>DaNTe</comment>
+  </data>
+  <data name="MSG_MAM_ADD" xml:space="preserve">
+    <value>Se agregó la mampara ({0}) en la posición {1}.
+</value>
+    <comment>MamparaSower</comment>
+  </data>
+  <data name="MSG_MODULE_DIR_MISSING" xml:space="preserve">
+    <value>No se ha especificado el directorio de módulos, especificarlo antes de crear el bloque.</value>
+    <comment>App</comment>
+  </data>
+  <data name="MSG_NOT_IN_DB" xml:space="preserve">
+    <value>El elemento seleccionado no fue definido por la aplicación.
+</value>
+    <comment>MamparaSelector</comment>
+  </data>
+  <data name="MSG_ORACLE_Q" xml:space="preserve">
+    <value>Esta seguro de realizar la cuantificación en el proyecto {0}.</value>
+    <comment>ORACLE_Q</comment>
+  </data>
+  <data name="MSG_SAME_SIZE" xml:space="preserve">
+    <value>El tamaño seleccionado es el mismo al asignado anteriormente, no hay cambios que aplicar</value>
+    <comment>MamparaSelector</comment>
+  </data>
+  <data name="MSG_SEL_DOUBLE_PANEL" xml:space="preserve">
+    <value>Selecciona una unión en T para crear o editar un panel doble.
+El panel debe tener en la unión dos mamparas de 18" o dos de 24".</value>
+    <comment>Panel Builder</comment>
+  </data>
+  <data name="MSG_SEL_MAM" xml:space="preserve">
+    <value>Seleccione las mamparas a reportar</value>
+    <comment>App</comment>
+  </data>
+  <data name="MSG_SEL_MAMPARA_TO_PASTE" xml:space="preserve">
+    <value>Selecciona las mamparas a las que se aplicará el estilo, solo son válidas las mamparas que tengan el mismo frente y misma altura</value>
+    <comment>App</comment>
+  </data>
+  <data name="MSG_SEL_MAM_REP_TIPO" xml:space="preserve">
+    <value>Seleccione el punto de inserción para el reporte de las mamparas tipos</value>
+    <comment>Reporte mampara tipo</comment>
+  </data>
+  <data name="MSG_SEL_MOD" xml:space="preserve">
+    <value>Seleccione los elementos que serán agregados al modulo</value>
+    <comment>ModuleManager</comment>
+  </data>
+  <data name="MSG_SEL_OBJ" xml:space="preserve">
+    <value>Selecciona un elemento para editar</value>
+    <comment>App</comment>
+  </data>
+  <data name="MSG_SEL_PANEL_SOURCE" xml:space="preserve">
+    <value>Selecciona la mampara base para copiar su diseño de paneles.</value>
+    <comment>App</comment>
+  </data>
+  <data name="MSG_SEL_TO_DEL" xml:space="preserve">
+    <value>Seleccione los elementos a eliminar</value>
+    <comment>DT_CMD</comment>
+  </data>
+  <data name="MSG_SESS_INIT" xml:space="preserve">
+    <value>Sesión iniciada como el usuario {0} en el proyecto {1}</value>
+    <comment>Ctrl_RivieraLogin</comment>
+  </data>
+  <data name="MSG_STACK_NOT_SEL" xml:space="preserve">
+    <value>No hay ninguna mampara seleccionada, seleccione una para poder agregar un panel.
+Para seleccionar una mampara solo es necesario dar click en ella.</value>
+    <comment>Panel_Editor</comment>
+  </data>
+  <data name="MSG_TRANSACTION_FINISHED" xml:space="preserve">
+    <value>La transacción ha terminado</value>
+    <comment>Quantification</comment>
+  </data>
+  <data name="PREFIX_BLOCK" xml:space="preserve">
+    <value>SPACE_{0}</value>
+    <comment>Ctrl_RivieraLogin</comment>
+  </data>
+  <data name="SEL_ARROW_DIR" xml:space="preserve">
+    <value>Selecciona una dirección.</value>
+    <comment>Mampara</comment>
+  </data>
+  <data name="STYLE_DASHED_LINE" xml:space="preserve">
+    <value>ACAD_ISO02W100</value>
+    <comment>Nombre de estilo para línea punteada en AutoCAD</comment>
+  </data>
+  <data name="tea" xml:space="preserve">
+    <value>UNIONTYPE</value>
+    <comment>Nombre de atributo para las uniones</comment>
+  </data>
+  <data name="TIT_EXPORT_QUAN" xml:space="preserve">
+    <value>Exportar Cuantificación</value>
+    <comment>Quantification</comment>
+  </data>
+  <data name="TIT_SEL_DANTE" xml:space="preserve">
+    <value>Seleccionar DaNTe MDB</value>
+    <comment>Quantification</comment>
+  </data>
+  <data name="WARNING_LEVEL_RULE" xml:space="preserve">
+    <value>Existe una restricción de nivel para el código {0}, no puede ser insertado en el Nivel {1}</value>
+    <comment>App</comment>
+  </data>
+  <data name="WARNING_PDOBLE_DIFF" xml:space="preserve">
+    <value>Para poder crear un panel doble las mamparas deben ser del mismo tipo, frente y altura.</value>
+    <comment>Panel Builder</comment>
+  </data>
+  <data name="WARNING_PDOBLE_INVALID_FRONT" xml:space="preserve">
+    <value>Para poder crear un panel doble las mamparas deben tener un frente de 18" o 24".</value>
+    <comment>Panel Builder</comment>
+  </data>
+  <data name="WARNING_START_CMD" xml:space="preserve">
+    <value>La aplicación no esta lista, ejecute primero el comando {0} para iniciar la aplicación.</value>
+    <comment>App</comment>
+  </data>
+  <data name="WARNING_X_BAD_UNION" xml:space="preserve">
+    <value>Existen uniones en "X" con cuatro alturas diferentes. Estas alturas no son válidas para la unión en X.</value>
+  </data>
+  <data name="WAR_INCOMPLETE_PANEL" xml:space="preserve">
+    <value>Los dos lados de la mampara deben estar completamente definidos, para continuar</value>
+    <comment>Mampara Editor</comment>
+  </data>
+  <data name="WAR_MIDDLE_HEIGHT_P" xml:space="preserve">
+    <value>Los paneles de nivel intermedio solo pueden ser insertados al final de la mampara.</value>
+    <comment>Mampara Editor</comment>
+  </data>
+  <data name="WAR_PAN_BAD_SIZE" xml:space="preserve">
+    <value>No hay suficiente espacio en la mampara seleccionada, par insertar el panel {0}.</value>
+    <comment>Mampara Editor</comment>
+  </data>
+  <data name="WAR_PAN_LAST_HALF" xml:space="preserve">
+    <value>No se permite tener más de un panel con nivel intermedios en la mampara.</value>
+    <comment>Mampara Editor</comment>
+  </data>
+  <data name="WAR_PP" xml:space="preserve">
+    <value>El panel {0} solo puede ser insertado a piso.</value>
+    <comment>Mampara Editor</comment>
+  </data>
+  <data name="WAR_RULE_NOT_FOUND" xml:space="preserve">
+    <value>No existe regla para la unión en {0}
+AM1_0: {1}, AM2_90: {2}, AM3_180: {3}, AM3_270: {4}</value>
+    <comment>QuantifyByRule</comment>
+  </data>
+</root>

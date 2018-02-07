@@ -1,0 +1,94 @@
+﻿<UserControl x:Class="DaSoft.Riviera.OldModulador.UI.Ctrl_OracleSettings"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:DaSoft.Riviera.OldModulador.UI"
+             xmlns:metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"             
+             mc:Ignorable="d" Loaded="UserControl_Loaded" MinHeight="250" MinWidth="480">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
+                <ResourceDictionary Source="../Assets/RivieraStyle.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid Background="#FFD9EDF3">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1.5*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="32"/>
+            <RowDefinition Height="32"/>
+            <RowDefinition Height="32"/>
+            <RowDefinition Height="32"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <TextBlock x:Name="tagConnType" Text="Tipo de Conexión" Style="{StaticResource MenuStyle_Header}" Height="24" HorizontalAlignment="Right"/>
+        <ComboBox x:Name="fieldConnType" Grid.Column="1" Width="160" Style="{StaticResource MenuStyle_List}" SelectionChanged="connType_SelectionChanged"/>
+        <TextBlock x:Name="tagUsername" Grid.Row="1" Text="Usuario" Style="{StaticResource MenuStyle_Header}" Height="24" HorizontalAlignment="Right"/>
+        <TextBox x:Name="fieldOracleUsername" Grid.Column="2" Grid.Row="1" Text="Usuario" Style="{StaticResource MenuStyle_Field}" Height="24" />
+        <TextBlock x:Name="tagPassword" Grid.Row="2" Text="Contraseña" Style="{StaticResource MenuStyle_Header}" Height="24" HorizontalAlignment="Right"/>
+        <PasswordBox x:Name="fieldOraclePassword" Grid.Column="2" Grid.Row="2" Password="Usuario" Style="{StaticResource MenuStyle_Password}" Height="24"/>
+        <TextBlock x:Name="tagOraclePort" Grid.Row="3" Text="Puerto" Style="{StaticResource MenuStyle_Header}" Height="24" HorizontalAlignment="Right"/>
+        <TextBox x:Name="fieldOraclePort" Grid.Column="2" Grid.Row="3" Text="1521" Style="{StaticResource MenuStyle_Field}" Height="24"/>
+        <Grid x:Name="sectionSID" Grid.Row="4" Grid.RowSpan="2" Grid.ColumnSpan="2" Visibility="Collapsed">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.5*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="32"/>
+                <RowDefinition Height="32"/>
+            </Grid.RowDefinitions>
+            <TextBlock x:Name="tagSID" Text="SID" Style="{StaticResource MenuStyle_Header}" Height="24" IsEnabled="False" HorizontalAlignment="Right"/>
+            <TextBox x:Name="fieldSID" Grid.Column="2" Text="ORCL" Style="{StaticResource MenuStyle_Field}" Height="24"/>
+            <TextBlock x:Name="tagHostSID" Grid.Row="1" Text="Host" Style="{StaticResource MenuStyle_Header}" Height="24" HorizontalAlignment="Right"/>
+            <TextBox x:Name="fieldHostSID" Grid.Column="2" Grid.Row="1" Text="10.0.0.3" Style="{StaticResource MenuStyle_Field}" Height="24"/>
+        </Grid>
+        <Grid x:Name="sectionServicename" Grid.Row="4" Grid.RowSpan="2" Grid.ColumnSpan="2"  Visibility="Collapsed">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.5*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="32"/>
+                <RowDefinition Height="32"/>
+            </Grid.RowDefinitions>
+            <TextBlock x:Name="tagServicename" Text="Nombre del Servicio" Style="{StaticResource MenuStyle_Header}" Height="24" IsEnabled="False" HorizontalAlignment="Right"/>
+            <TextBox x:Name="fieldServicename" Grid.Column="2" Text="ORCL" Style="{StaticResource MenuStyle_Field}" Height="24"/>
+            <TextBlock x:Name="tagHostServicename" Grid.Row="1" Text="Host" Style="{StaticResource MenuStyle_Header}" Height="24" HorizontalAlignment="Right"/>
+            <TextBox x:Name="fieldHostServicename" Grid.Column="2" Grid.Row="1" Text="10.0.0.3" Style="{StaticResource MenuStyle_Field}" Height="24"/>
+        </Grid>
+        <Grid x:Name="sectionTNS" Grid.Row="4" Grid.RowSpan="2" Grid.ColumnSpan="2" Visibility="Visible">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.5*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="32"/>
+                <RowDefinition Height="32"/>
+            </Grid.RowDefinitions>
+            <TextBlock x:Name="tagTNS" Text="TNS" Style="{StaticResource MenuStyle_Header}" Height="24" IsEnabled="False" HorizontalAlignment="Right"/>
+            <TextBox x:Name="fieldTNS" Grid.Column="2" Text="ORCL" Style="{StaticResource MenuStyle_Field}" Height="24"/>
+        </Grid>
+        <StackPanel Orientation="Horizontal" Grid.Row="5" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Column="3" Height="56" Width="56">
+            <Button Style="{DynamicResource MenuStyle_RoundButton}" Content="&#xe117;" Click="TestConnection_Click">
+                <Button.ToolTip>
+                    <ToolTip Style="{StaticResource TooltipStyle}" Tag="Conectar Oracle" ToolTip="Haga clic para conectar o validar su conexión a Oracle"/>
+                </Button.ToolTip>
+            </Button>
+        </StackPanel>
+        <Grid x:Name="areaProgress" Grid.ColumnSpan="2" Grid.RowSpan="6" Background="#80042955" OpacityMask="Black" Visibility="Collapsed" >
+            <metro:ProgressRing Foreground="White"  IsActive="True"/>
+        </Grid>
+    </Grid>
+</UserControl>

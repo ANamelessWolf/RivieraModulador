@@ -144,12 +144,15 @@ namespace DaSoft.Riviera.OldModulador.UI.Delta
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            this.listOfFrentes.Items.Clear();
-            foreach (var mFre in App.DB.Mampara_Sizes.GroupBy(x => x.Frente))
-                this.listOfFrentes.Items.Add(mFre.FirstOrDefault());
-            this.listOfFrentes.SelectedIndex = 0;
-            this.useArneses.IsChecked = App.Riviera.IsArnesEnabled;
-            this.Units = App.Riviera.Units;
+            if (App.DB != null)
+            {
+                this.listOfFrentes.Items.Clear();
+                foreach (var mFre in App.DB.Mampara_Sizes.GroupBy(x => x.Frente))
+                    this.listOfFrentes.Items.Add(mFre.FirstOrDefault());
+                this.listOfFrentes.SelectedIndex = 0;
+                this.useArneses.IsChecked = App.Riviera.IsArnesEnabled;
+                this.Units = App.Riviera.Units;
+            }
         }
 
         private void Delete_Click(object sender, RoutedEventArgs e)

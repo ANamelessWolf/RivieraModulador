@@ -389,11 +389,13 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
                 objs = this.GetRivieraBack();
             else
                 objs = this.GetRivieraFront();
-            //Se actualiza la instancia inicial
-            BordeoPanel panel = this.FirstOrDefault();
-            String code;
-            var sizes = BordeoUtils.GetDatabase().Sizes.Where(x => x.Key == CODE_PANEL_RECTO) //.Select(y => y.Value as PanelMeasure);
-            panel.UpdateSize(size, code);
+            //Se actualiza los frentes
+            var db = BordeoUtils.GetDatabase();
+            var sizes = db.Sizes[CODE_PANEL_RECTO].Sizes.Select(x => x as PanelMeasure).Where(x=> x.Frente.Nominal== front.Nominal);
+            foreach(var panel in this)
+            panel.UpdateSize(sizes);
+            this.Regen();
+            this.Draw(tr);
         }
     }
 }

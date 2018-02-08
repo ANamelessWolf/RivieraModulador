@@ -26,8 +26,8 @@ namespace DaSoft.Riviera.OldModulador.Runtime
         const string CAT_ROOT = "Riviera";
         const string CAT_DANTE = "DaNTe";
         const String CAT_LOGIN = "Credentials";
-        const string ORACLE_CONN = "oracle.conn";
-        const string ACCESS_CONN = "access.conn";
+        const string ORACLE_CONN = "oracleOld.conn";
+        const string ACCESS_CONN = "accessOld.conn";
         //Options
         const String PROP_PROJECT_NAME = "Project";
         const String PROP_3D_MODE_ENABLED = "ViewMode3D";

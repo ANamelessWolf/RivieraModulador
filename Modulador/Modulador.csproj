@@ -64,6 +64,10 @@
     <Reference Include="misa">
       <HintPath>..\Lib\misa.dll</HintPath>
     </Reference>
+    <Reference Include="Oracle.DataAccess, Version=4.121.2.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\Oracle.DataAccess.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -94,6 +98,7 @@
     <Compile Include="Commands\ApplicationCommands.cs" />
     <Compile Include="Commands\BordeoCommands.cs" />
     <Compile Include="Commands\DevCommands.cs" />
+    <Compile Include="Commands\EnfasisCommands.cs" />
     <Compile Include="Controller\RuntimeUtils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -5503,9 +5508,9 @@
       <Project>{a7e26c18-fdd9-49f0-82b7-9e1e2f7422db}</Project>
       <Name>Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\EnfasisPlus\EnfasisPlus.csproj">
-      <Project>{27a3f110-38db-470c-b8d2-019d4d15a527}</Project>
-      <Name>EnfasisPlus</Name>
+    <ProjectReference Include="..\ModEnfasisPlus\ModEnfasisPlus.csproj">
+      <Project>{664f0bd0-ca3c-4790-87f9-04fc31877382}</Project>
+      <Name>ModEnfasisPlus</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

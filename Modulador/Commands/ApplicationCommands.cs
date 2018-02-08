@@ -1,24 +1,19 @@
-﻿using Autodesk.AutoCAD.Runtime;
+﻿using Autodesk.AutoCAD.ApplicationServices;
+using Autodesk.AutoCAD.DatabaseServices;
+using Autodesk.AutoCAD.Runtime;
+using DaSoft.Riviera.Modulador.Bordeo.Controller;
+using DaSoft.Riviera.Modulador.Bordeo.UI;
 using DaSoft.Riviera.Modulador.Controller;
-using DaSoft.Riviera.Modulador.Core.Controller;
 using DaSoft.Riviera.Modulador.Core.Runtime;
 using DaSoft.Riviera.Modulador.Core.UI;
+using DaSoft.Riviera.OldModulador.UI.Delta;
 using Nameless.Libraries.HoukagoTeaTime.Mio.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static DaSoft.Riviera.Modulador.Core.Assets.CMDS;
-using System.Windows.Controls;
-using DaSoft.Riviera.Modulador.Enfasis.UI;
-using DaSoft.Riviera.Modulador.Bordeo.UI;
-using Nameless.Libraries.HoukagoTeaTime.Yui;
 using Nameless.Libraries.HoukagoTeaTime.Runtime;
-using Autodesk.AutoCAD.ApplicationServices;
-using Autodesk.AutoCAD.DatabaseServices;
-using DaSoft.Riviera.Modulador.Bordeo.Controller;
 using Nameless.Libraries.HoukagoTeaTime.Tsumugi;
+using Nameless.Libraries.HoukagoTeaTime.Yui;
+using System;
+using System.Windows.Controls;
+using static DaSoft.Riviera.Modulador.Core.Assets.CMDS;
 
 namespace DaSoft.Riviera.Modulador.Commands
 {
@@ -83,14 +78,14 @@ namespace DaSoft.Riviera.Modulador.Commands
                     _Controls = new UserControl[]
                 {
                     new TabBordeoMenu(),
-                    new TabEnfasisMenu(),
+                    new Ctrl_Mampara(),
                     new TabDevMenu()
                 };
                 else if (_Controls == null)
                     _Controls = new UserControl[]
                 {
                     new TabBordeoMenu(),
-                    new TabEnfasisMenu()
+                    new Ctrl_Mampara()
                 };
                 return _Controls;
             }

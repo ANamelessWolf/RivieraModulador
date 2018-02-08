@@ -20,7 +20,7 @@ namespace NamelessOld.Libraries.Yggdrasil.Medaka
     public abstract class KaishinConfiguration : NamelessObject, IMedakaApplication
     {
         #region Constants
-        const string CONFIG_FILE = "config.medaka";
+        const string CONFIG_FILE = "configOld.medaka";
         const string SP_CAPTION = "KAISHIN";
         const string APP_VERSION = "Version";
         const string LAST_ACCESS_DATE = "LastAccess";

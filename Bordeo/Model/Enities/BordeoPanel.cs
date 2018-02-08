@@ -133,5 +133,10 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
         /// Regens this instance geometry <see cref="P:DaSoft.Riviera.Modulador.Core.Model.RivieraObject.CADGeometry" />.
         /// </summary>
         public override void Regen() => this.RegenAsLine(ref this.PanelGeometry);
+
+        internal void UpdateSize(PanelMeasure size, string code)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

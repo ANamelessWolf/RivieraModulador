@@ -178,6 +178,17 @@ namespace DaSoft.Riviera.Modulador.Core.Model
         /// </summary>
         public abstract void Regen();
         /// <summary>
+        /// Refreshes this instance.
+        /// </summary>
+        /// <param name="tr">The active transaction.</param>
+        public void Refresh(Transaction tr)
+        {
+            this.CADGeometry.ObjectId.GetObject(OpenMode.ForWrite);
+            this.EraseGeometry(tr);
+            this.Regen();
+            this.Draw(tr);
+        }
+        /// <summary>
         /// Initializes a new instance of the <see cref="RivieraObject"/> class.
         /// </summary>
         /// <param name="code">The riviera code.</param>
@@ -273,7 +284,7 @@ namespace DaSoft.Riviera.Modulador.Core.Model
         }
 
         /// <summary>
-        /// Erase this instance drew geometry
+        /// Erase this instance
         /// </summary>
         public void Erase(Transaction tr)
         {
@@ -284,6 +295,15 @@ namespace DaSoft.Riviera.Modulador.Core.Model
                 var obj = this.CADGeometry.Id.GetObject(OpenMode.ForWrite);
                 obj.Erase(tr);
             }
+        }
+        /// <summary>
+        /// Erase this instance geometry
+        /// </summary>
+        /// <param name="tr">The active transaction</param>
+        public virtual void EraseGeometry(Transaction tr)
+        {
+            this.Ids.Erase(tr);
+            this.Ids.Clear();
         }
         /// <summary>
         /// Erase this instance drew geometry
@@ -324,6 +344,16 @@ namespace DaSoft.Riviera.Modulador.Core.Model
                 sb.Append("Sin conexión.");
                 return sb.ToString();
             }
+        }
+        /// <summary>
+        /// Moves this instance at the specific position
+        /// </summary>
+        /// <param name="tr">The active transaction.</param>
+        /// <param name="v">The displacement vector.</param>
+        public virtual void Move(Transaction tr, Vector3d v)
+        {
+            var matrix = Matrix3d.Displacement(v);
+            this.Ids.OfType<ObjectId>().Union(new ObjectId[] { this.CADGeometry.Id }).ToList().ForEach(x => (x.GetObject(OpenMode.ForWrite) as Entity).TransformBy(matrix));
         }
     }
 }

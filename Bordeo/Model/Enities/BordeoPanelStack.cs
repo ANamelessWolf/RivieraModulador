@@ -376,6 +376,16 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
             return dir;
         }
         /// <summary>
+        /// Erase this instance geometry
+        /// </summary>
+        /// <param name="tr">The active transaction</param>
+        public override void EraseGeometry(Transaction tr)
+        {
+            this.Ids.Clear();
+            this.FirstOrDefault().Ids.Erase(tr);
+            this.FirstOrDefault().Ids.Clear();
+        }
+        /// <summary>
         /// Moves the specified panel.
         /// </summary>
         /// <param name="tr">The active transaction.</param>
@@ -385,17 +395,40 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
         public void Move(Transaction tr, ArrowDirection direction, RivieraSize front)
         {
             List<RivieraObject> objs;
+            Point2d start = this.Start, end = this.End;
             if (direction == ArrowDirection.BACK)
                 objs = this.GetRivieraBack();
             else
                 objs = this.GetRivieraFront();
             //Se actualiza los frentes
             var db = BordeoUtils.GetDatabase();
-            var sizes = db.Sizes[CODE_PANEL_RECTO].Sizes.Select(x => x as PanelMeasure).Where(x=> x.Frente.Nominal== front.Nominal);
-            foreach(var panel in this)
-            panel.UpdateSize(sizes);
-            this.Regen();
-            this.Draw(tr);
+            var sizes = db.Sizes[CODE_PANEL_RECTO].Sizes.Select(x => x as PanelMeasure).Where(x => x.Frente.Nominal == front.Nominal);
+            foreach (var panel in this)
+                panel.UpdateSize(sizes);
+            //Se actualiza la geometría.
+            this.Refresh(tr);
+            //Vector dirección
+            Vector3d v = direction == ArrowDirection.FRONT ?
+                end.ToPoint3d().GetVectorTo(this.End.ToPoint3d()) : this.End.ToPoint3d().GetVectorTo(end.ToPoint3d());
+           
+            foreach (RivieraObject obj in objs)
+            {
+                obj.Move(tr, v);
+                obj.Start = obj.Start.ToPoint3d().TransformBy(Matrix3d.Displacement(v)).ToPoint2d();
+                if(obj is BordeoPanelStack)
+                foreach (var panel in (obj as BordeoPanelStack))
+                    panel.Start = obj.Start;
+                if (obj is BordeoLPanelStack)
+                    foreach (var panel in (obj as BordeoLPanelStack))
+                        panel.Start = obj.Start;
+            }
+            if (direction == ArrowDirection.BACK)
+            {
+                this.Move(tr, v);
+                this.Start = this.Start.ToPoint3d().TransformBy( Matrix3d.Displacement(v)).ToPoint2d();
+                foreach (var panel in this)
+                    panel.Start = this.Start;
+            }
         }
     }
 }

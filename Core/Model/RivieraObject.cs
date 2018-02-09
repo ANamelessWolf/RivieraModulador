@@ -310,8 +310,26 @@ namespace DaSoft.Riviera.Modulador.Core.Model
         /// </summary>
         public void Delete(Transaction tr)
         {
+            long handle = this.Id.Handle.Value;
             App.Riviera.Database.Objects.Remove(this);
             this.Erase(tr);
+            //Se cambian a sus hijos.
+            App.Riviera.Database.ValidObjects.Where(x => x.Parent == handle).ToList().
+                ForEach(x=> 
+                {
+                    x.Parent = 0;
+                    foreach (var key in this.Children.Where(y => y.Value == handle).Select(z => z.Key).ToList())
+                        x.Children[key] = 0;
+                    x.Save(tr);
+                });
+            //Se cambia a su padre
+            App.Riviera.Database.ValidObjects.Where(x => x.Children.Values.Contains(handle)).ToList().
+                ForEach(x =>
+                {
+                    foreach (var key in x.Children.Where(y => y.Value == handle).Select(z => z.Key).ToList())
+                        x.Children[key] = 0;
+                    x.Save(tr);
+                });
         }
         /// <summary>
         /// Zooms at the specified zoom.

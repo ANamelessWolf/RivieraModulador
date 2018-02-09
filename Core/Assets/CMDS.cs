@@ -26,5 +26,6 @@ namespace DaSoft.Riviera.Modulador.Core.Assets
         public const String BORDEO_EDIT_PANELS = "BordeoPanelEditor";
         public const String BORDEO_PANEL_COPY_PASTE = "BordeoCopyPastePanel";
         public const String BORDEO_PANEL_UPDATE_SIZE = "BordeoUpdatePanelSize";
+        public const String BORDEO_DELETE_STACK = "BordeoDelete";
     }
 }

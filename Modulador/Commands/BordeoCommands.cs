@@ -63,28 +63,22 @@ namespace DaSoft.Riviera.Modulador.Commands
                    TabBordeoMenu ctrl = null;
                    try
                    {
-                       ObjectId entId;
+                       RivieraObject rivObj;
                        int state;
-                       if (Picker.ObjectId("Selecciona un panel para continuar la inserción", out entId, typeof(Line), typeof(Polyline)))
+                       if ("Selecciona un panel para continuar la inserción".PickBordeoStack(out rivObj))
                        {
-                           RivieraObject rivObj = App.Riviera.Database.Objects.FirstOrDefault(x => x.Id == entId);
-                           if (rivObj != null)
-                           {
-                               ctrl = this.Controls.Where(x => x is TabBordeoMenu).FirstOrDefault() as TabBordeoMenu;
-                               ctrl.SetHeightEnableStatus(false);
-                               BordeoSower sow = new BordeoSower(ctrl);
-                               if (rivObj is BordeoPanelStack)
-                                   state = 1;
-                               else if (rivObj is BordeoLPanelStack)
-                                   state = 2;
-                               else
-                                   state = 0;
-                               var dir = sow.PickArrow(rivObj as ISowable);
-                               sow.Sow(dir, rivObj, state);
-                               ctrl.SetHeightEnableStatus(true);
-                           }
+                           ctrl = this.Controls.Where(x => x is TabBordeoMenu).FirstOrDefault() as TabBordeoMenu;
+                           ctrl.SetHeightEnableStatus(false);
+                           BordeoSower sow = new BordeoSower(ctrl);
+                           if (rivObj is BordeoPanelStack)
+                               state = 1;
+                           else if (rivObj is BordeoLPanelStack)
+                               state = 2;
                            else
-                               Selector.Ed.WriteMessage("No es un elemento de bordeo");
+                               state = 0;
+                           var dir = sow.PickArrow(rivObj as ISowable);
+                           sow.Sow(dir, rivObj, state);
+                           ctrl.SetHeightEnableStatus(true);
                        }
                    }
                    catch (System.Exception exc)
@@ -105,28 +99,21 @@ namespace DaSoft.Riviera.Modulador.Commands
                {
                    try
                    {
-                       ObjectId selPanelStackId;
-                       if (Picker.ObjectId("Selecciona el panel a editar", out selPanelStackId, typeof(BlockReference)))
+                       RivieraObject obj;
+                       if ("Selecciona el panel a editar".PickBordeoStack(out obj))
                        {
-                           var objs = App.Riviera.Database.Objects;
-                           var obj = objs.FirstOrDefault(x => x.Ids.Contains(selPanelStackId));
-                           if (obj is BordeoPanelStack || obj is BordeoLPanelStack)
+                           WinPanelEditor win = new WinPanelEditor(obj as IBordeoPanelStyler);
+                           if (win.ShowDialog().Value)
                            {
-                               WinPanelEditor win = new WinPanelEditor(obj as IBordeoPanelStyler);
-                               if (win.ShowDialog().Value)
+                               var connected = obj.GetBordeoGroup();
+                               foreach (var objConn in connected)
                                {
-                                   var connected = obj.GetBordeoGroup();
-                                   foreach (var objConn in connected)
-                                   {
-                                       if (objConn.Handle.Value == obj.Handle.Value)
-                                           (objConn as IBordeoPanelStyler).UpdatePanelStack(win.Heights, win.AcabadosLadoA.ToArray(), win.AcabadosLadoB.ToArray());
-                                       else
-                                           (objConn as IBordeoPanelStyler).UpdatePanelStack(win.Heights, null, null);
-                                   }
+                                   if (objConn.Handle.Value == obj.Handle.Value)
+                                       (objConn as IBordeoPanelStyler).UpdatePanelStack(win.Heights, win.AcabadosLadoA.ToArray(), win.AcabadosLadoB.ToArray());
+                                   else
+                                       (objConn as IBordeoPanelStyler).UpdatePanelStack(win.Heights, null, null);
                                }
                            }
-                           else
-                               Selector.Ed.WriteMessage("No es un elemento de bordeo");
                        }
                    }
                    catch (System.Exception exc)
@@ -144,27 +131,20 @@ namespace DaSoft.Riviera.Modulador.Commands
                {
                    try
                    {
-                       ObjectId selPanelStackId;
-                       if (Picker.ObjectId("Selecciona el panel a editar", out selPanelStackId, typeof(BlockReference)))
+                       RivieraObject obj;
+                       if ("Selecciona el panel a editar".PickBordeoStack(out obj))
                        {
-                           var objs = App.Riviera.Database.Objects;
-                           var obj = objs.FirstOrDefault(x => x.Ids.Contains(selPanelStackId));
-                           if (obj is BordeoPanelStack || obj is BordeoLPanelStack)
+                           ArrowDirection dir = (obj as IBordeoPanelStyler).GetMoveDirection();
+                           new QuickTransactionWrapper((Document doc, Transaction tr) =>
                            {
-                               ArrowDirection dir = (obj as IBordeoPanelStyler).GetMoveDirection();
-                               new QuickTransactionWrapper((Document doc, Transaction tr) =>
+                               if (dir != ArrowDirection.NONE)
                                {
-                                   if (dir != ArrowDirection.NONE)
-                                   {
-                                       String defFront = (obj as IBordeoPanelStyler).GetDefaultMovingFront(dir);
-                                       WinSelectFront win = new WinSelectFront(BordeoUtils.GetDatabase(), CODE_PANEL_RECTO, defFront);
-                                       if (win.ShowDialog().Value)
-                                           (obj as IBordeoPanelStyler).Move(tr, dir, win.SelectedFront);
-                                   }
-                               }).Run();
-                           }
-                           else
-                               Selector.Ed.WriteMessage("No es un elemento de bordeo");
+                                   String defFront = (obj as IBordeoPanelStyler).GetDefaultMovingFront(dir);
+                                   WinSelectFront win = new WinSelectFront(BordeoUtils.GetDatabase(), CODE_PANEL_RECTO, defFront);
+                                   if (win.ShowDialog().Value)
+                                       (obj as IBordeoPanelStyler).Move(tr, dir, win.SelectedFront);
+                               }
+                           }).Run();
                        }
                    }
                    catch (System.Exception exc)
@@ -172,6 +152,31 @@ namespace DaSoft.Riviera.Modulador.Commands
                        Selector.Ed.WriteMessage(exc.Message);
                    }
                });
+        }
+
+        [CommandMethod(BORDEO_DELETE_STACK)]
+        public void BordeoDeleteStacks()
+        {
+            App.RunCommand(
+             delegate ()
+             {
+                 try
+                 {
+                     RivieraObject obj;
+                     if ("Selecciona el panel a eliminar".PickBordeoStack(out obj))
+                     {
+                         if (obj.Children[KEY_DIR_FRONT] > 0 && obj.Children[KEY_DIR_BACK] > 0)
+                             throw new System.Exception("El elemento no es final");
+                         else
+                             new QuickTransactionWrapper((Document doc, Transaction tr) => obj.Delete(tr)).Run();
+                         App.Riviera.Database.Clean();
+                     }
+                 }
+                 catch (System.Exception exc)
+                 {
+                     Selector.Ed.WriteMessage(exc.Message);
+                 }
+             });
         }
 
         [CommandMethod(BORDEO_PANEL_COPY_PASTE)]

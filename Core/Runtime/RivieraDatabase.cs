@@ -115,7 +115,16 @@ namespace DaSoft.Riviera.Modulador.Core.Runtime
             {
                 throw new RivieraException(ERR_SIZE_NOT_EXIST);
             }
-         
+
+        }
+        /// <summary>
+        /// Cleans this instance, removing invalid objects from the database
+        /// </summary>
+        public void Clean()
+        {
+            var invalidObjs = Objects.Where(x => !(x.Id.IsValid && !x.Id.IsErased));
+            foreach (var obj in this.Objects)
+                this.Objects.Remove(obj);
         }
     }
 }

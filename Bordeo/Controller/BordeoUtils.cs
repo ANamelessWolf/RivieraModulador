@@ -15,10 +15,11 @@ using System.IO;
 using Autodesk.AutoCAD.Geometry;
 using Autodesk.AutoCAD.DatabaseServices;
 using Nameless.Libraries.HoukagoTeaTime.Ritsu.Utils;
+using DaSoft.Riviera.Modulador.Bordeo.Model.Enities;
 
 namespace DaSoft.Riviera.Modulador.Bordeo.Controller
 {
-    public  static partial class BordeoUtils
+    public static partial class BordeoUtils
     {
         /// <summary>
         /// Gets the block directory path.
@@ -132,6 +133,29 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Controller
                     break;
             }
             return heights;
+        }
+        /// <summary>
+        /// Moves the objects via a displacement vector
+        /// </summary>
+        /// <param name="rivObj">The riviera object.</param>
+        /// <param name="objs">The connected riviera objects.</param>
+        /// <param name="displacementVector">The displacement vector.</param>
+        /// <param name="tr">The active transaction.</param>
+        public static void MoveObjects(this RivieraObject rivObj, IEnumerable<RivieraObject> objs, Vector3d v, Transaction tr)
+        {
+            if (!(rivObj is BordeoPanelStack || rivObj is BordeoLPanelStack))
+                throw new BordeoException(String.Format(ERR_NOT_BORDERO, "mover"));
+            foreach (RivieraObject obj in objs)
+            {
+                obj.Move(tr, v);
+                obj.Start = obj.Start.ToPoint3d().TransformBy(Matrix3d.Displacement(v)).ToPoint2d();
+                if (obj is BordeoPanelStack)
+                    foreach (var panel in (obj as BordeoPanelStack))
+                        panel.Start = obj.Start;
+                if (obj is BordeoLPanelStack)
+                    foreach (var panel in (obj as BordeoLPanelStack))
+                        panel.Start = obj.Start;
+            }
         }
 
     }

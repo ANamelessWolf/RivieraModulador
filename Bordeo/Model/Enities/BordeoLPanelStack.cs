@@ -148,6 +148,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
                     panel.Code.SelectedAcabadoIndex,
                     panel.Elevation,
                     (int)this.Rotation));
+            dMan.Set(tr, KEY_CONTENT, content.ToArray());
         }
         /// <summary>
         /// Updates the panel stack.
@@ -368,7 +369,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
                     middle2 = pl.GetPoint2dAt(2).MiddlePointTo(pl.GetPoint2dAt(3)),
                     back = middle1.ToPoint2dByPolar(upperDistance, ang1 + Math.PI / 2).ToPoint2dByPolar(arrowSeparation, ang1),
                     front = middle1.ToPoint2dByPolar(upperDistance, ang1 + Math.PI / 2).ToPoint2dByPolar(arrowSeparation, invAng1),
-                    left = middle2.ToPoint2dByPolar(upperDistance, ang2 + Math.PI / 2).ToPoint2dByPolar(arrowSeparation, invAng2 ),
+                    left = middle2.ToPoint2dByPolar(upperDistance, ang2 + Math.PI / 2).ToPoint2dByPolar(arrowSeparation, invAng2),
                     right = middle2.ToPoint2dByPolar(upperDistance, ang2 + Math.PI / 2).ToPoint2dByPolar(arrowSeparation, ang2);
 
             ArrowDirection dir = ArrowDirection.NONE;
@@ -415,10 +416,45 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
         public void Move(Transaction tr, ArrowDirection direction, RivieraSize front)
         {
             List<RivieraObject> objs;
-            if (direction == ArrowDirection.BACK)
+            Polyline pl = this.FirstOrDefault().PanelGeometry;
+            Point3d sF1 = pl.GetPoint3dAt(0), eF1 = pl.GetPoint3dAt(1),
+                    sF2 = pl.GetPoint3dAt(2), eF2 = pl.GetPoint3dAt(3),
+                    nsF1, nsF2, neF1, neF2;
+            if (direction == ArrowDirection.BACK || direction == ArrowDirection.LEFT)
                 objs = this.GetRivieraBack();
             else
                 objs = this.GetRivieraFront();
+            //Se actualiza los frentes
+            var db = BordeoUtils.GetDatabase();
+            string code = this.PanelAngle == BordeoLPanelAngle.ANG_90 ? CODE_PANEL_90 : CODE_PANEL_135;
+            RivieraSize f1 = direction == ArrowDirection.BACK || direction == ArrowDirection.FRONT ? front : this.FirstOrDefault().PanelSize.FrenteStart,
+                        f2 = direction == ArrowDirection.BACK || direction == ArrowDirection.FRONT ? this.FirstOrDefault().PanelSize.FrenteEnd : front;
+            var sizes = db.Sizes[code].Sizes.Select(x => x as LPanelMeasure).Where(x => x.FrenteStart.Nominal == f1.Nominal && x.FrenteEnd.Nominal == f2.Nominal);
+            foreach (var panel in this)
+                panel.UpdateSize(sizes);
+            //Se actualiza la geometría.
+            this.Refresh(tr);
+            nsF1 = pl.GetPoint3dAt(0);
+            neF1 = pl.GetPoint3dAt(1);
+            nsF2 = pl.GetPoint3dAt(2);
+            neF2 = pl.GetPoint3dAt(3);
+            //Vector dirección
+            Vector3d v;
+            if (direction == ArrowDirection.FRONT || direction == ArrowDirection.BACK)
+                v = direction == ArrowDirection.FRONT ? eF1.GetVectorTo(neF1) : neF1.GetVectorTo(eF1);
+            else
+                v = direction == ArrowDirection.RIGHT ? eF2.GetVectorTo(neF2) : neF2.GetVectorTo(eF2);
+            this.MoveObjects(objs, v, tr);
+            //El bloque original soló se despalaza cuando se mueve hacía atras o hacía la izquierda.
+            if (direction == ArrowDirection.BACK || direction == ArrowDirection.LEFT)
+            {
+                this.Move(tr, v);
+                this.Start = this.Start.ToPoint3d().TransformBy(Matrix3d.Displacement(v)).ToPoint2d();
+                foreach (var panel in this)
+                    panel.Start = this.Start;
+            }
+            this.Draw(tr);
+            this.Save(tr);
         }
     }
 }

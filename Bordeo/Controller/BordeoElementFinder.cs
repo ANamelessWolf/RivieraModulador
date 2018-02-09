@@ -109,7 +109,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Controller
                     back = back.GetChildren(db, ArrowDirection.BACK);
                     objs.Add(back);
                 }
-                if (back != null && back.IsRoot)
+                if (back != null && !back.IsRoot)
                 {
                     RivieraObject previous = objs[objs.Count - 2];
                     string fKey = ArrowDirection.FRONT.GetArrowDirectionName();

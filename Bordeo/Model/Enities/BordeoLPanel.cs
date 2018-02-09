@@ -251,5 +251,14 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
                 panAng = this.Rotation == SweepDirection.Clockwise ? rotAng - RotationAngle : rotAng + RotationAngle;
             return this.Start.ToPoint2dByPolar(f1, dirAng).ToPoint2dByPolar(this.UnionLength, rotAng).ToPoint2dByPolar(f2, panAng);
         }
+        /// <summary>
+        /// Updates the size.
+        /// </summary>
+        /// <param name="sizes">The sizes.</param>
+        /// <param name="direction">The direction.</param>
+        internal void UpdateSize(IEnumerable<LPanelMeasure> sizes)
+        {
+            this.Size = sizes.FirstOrDefault(x => x.Alto.Nominal == this.PanelSize.Alto.Nominal);
+        }
     }
 }

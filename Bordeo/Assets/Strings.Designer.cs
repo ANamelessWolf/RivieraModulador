@@ -97,6 +97,15 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Assets {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Para {0} el objeto debe ser de la línea Bordeo..
+        /// </summary>
+        internal static string ERR_NOT_BORDERO {
+            get {
+                return ResourceManager.GetString("ERR_NOT_BORDERO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to El valor nominal proporcionado &quot;{0}&quot;, no es un tamaño de dibujo válido..
         /// </summary>
         internal static string ERR_UNKNOWN_DRAWING_SIZE {

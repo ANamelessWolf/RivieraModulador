@@ -410,25 +410,15 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
             //Vector dirección
             Vector3d v = direction == ArrowDirection.FRONT ?
                 end.ToPoint3d().GetVectorTo(this.End.ToPoint3d()) : this.End.ToPoint3d().GetVectorTo(end.ToPoint3d());
-           
-            foreach (RivieraObject obj in objs)
-            {
-                obj.Move(tr, v);
-                obj.Start = obj.Start.ToPoint3d().TransformBy(Matrix3d.Displacement(v)).ToPoint2d();
-                if(obj is BordeoPanelStack)
-                foreach (var panel in (obj as BordeoPanelStack))
-                    panel.Start = obj.Start;
-                if (obj is BordeoLPanelStack)
-                    foreach (var panel in (obj as BordeoLPanelStack))
-                        panel.Start = obj.Start;
-            }
+            this.MoveObjects(objs, v, tr);
             if (direction == ArrowDirection.BACK)
             {
                 this.Move(tr, v);
-                this.Start = this.Start.ToPoint3d().TransformBy( Matrix3d.Displacement(v)).ToPoint2d();
+                this.Start = this.Start.ToPoint3d().TransformBy(Matrix3d.Displacement(v)).ToPoint2d();
                 foreach (var panel in this)
                     panel.Start = this.Start;
             }
+            this.Save(tr);
         }
     }
 }

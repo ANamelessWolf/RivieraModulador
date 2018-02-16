@@ -14,7 +14,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>x64</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -145,6 +145,18 @@
     </Compile>
     <Compile Include="Runtime\BordeoException.cs" />
     <Compile Include="Testing\BordeoMockingDesignDatabase.cs" />
+    <Compile Include="UI\BordeoPazLuzItem.xaml.cs">
+      <DependentUpon>BordeoPazLuzItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\BordeoPuenteCanvas.xaml.cs">
+      <DependentUpon>BordeoPuenteCanvas.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\BordeoPuenteHorItem.xaml.cs">
+      <DependentUpon>BordeoPuenteHorItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\BordeoPuenteItem.xaml.cs">
+      <DependentUpon>BordeoPuenteItem.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\ButtonImage.xaml.cs">
       <DependentUpon>ButtonImage.xaml</DependentUpon>
     </Compile>
@@ -159,6 +171,9 @@
     </Compile>
     <Compile Include="UI\TabBordeoMenu.xaml.cs">
       <DependentUpon>TabBordeoMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\WinBridgeEditor.xaml.cs">
+      <DependentUpon>WinBridgeEditor.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\WinPanelEditor.xaml.cs">
       <DependentUpon>WinPanelEditor.xaml</DependentUpon>
@@ -187,6 +202,22 @@
     <Resource Include="Assets\PBPsPs.png" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="UI\BordeoPazLuzItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\BordeoPuenteCanvas.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\BordeoPuenteHorItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\BordeoPuenteItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UI\ButtonImage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -204,6 +235,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\TabBordeoMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\WinBridgeEditor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

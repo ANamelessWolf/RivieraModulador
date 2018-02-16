@@ -6,7 +6,7 @@
         xmlns:metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:local="clr-namespace:DaSoft.Riviera.Modulador.Bordeo.UI"
         mc:Ignorable="d" Loaded="MetroWindow_Loaded"
-        Title="WinPanelEditor" Height="600" Width="720">
+        Title="Editor de paneles" Height="600" Width="720">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

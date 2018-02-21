@@ -9,25 +9,107 @@
         Title="Bordeo - Editor de Puentes" Height="800" Width="1200">
     <metro:MetroWindow.Resources>
         <ResourceDictionary>
+            <Style TargetType="{x:Type Button}" x:Key="bridgeStyle">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Viewbox  Margin="2">
+                                <Grid Background="#FFAABCCD">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="1*"/>
+                                        <RowDefinition Height="32"/>
+                                        <RowDefinition Height="52"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="70"/>
+                                        <ColumnDefinition Width="52"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Content="{TemplateBinding Name}" Visibility="Collapsed"/>
+                                    <TextBlock Text="{TemplateBinding Content}" Foreground="Gray" Margin="2" 
+                                               Grid.ColumnSpan="2" TextAlignment="Center" FontSize="18"/>
+                                    <Button x:Name="insCheck" Content="Insertar" Grid.ColumnSpan="2" FontSize="16"  Foreground="Gray" Grid.Row="1" Click="insert_checked_changed" Margin="2,0,0,0"/>
+                                    <Button Style="{StaticResource MenuStyle_RoundButton}" Content="&#xe1d9;" FontSize="15"
+                                    Click="updateSize_click"  Grid.Row="2">
+                                        <Button.ToolTip>
+                                            <ToolTip Style="{StaticResource TooltipStyle}" Tag="Cambiar Tamaño" 
+                                             ToolTip="Haga clic para establecer el tamaño del elemento."/>
+                                        </Button.ToolTip>
+                                    </Button>
+
+                                    <Button Style="{StaticResource MenuStyle_RoundButton}" Content="&#xe2b1;" FontSize="15" Foreground="Gray" 
+                                    Click="setAcabado_click"  Grid.Row="2" Grid.Column="1">
+                                        <Button.ToolTip>
+                                            <ToolTip Style="{StaticResource TooltipStyle}" Tag="Establecer Acabado" 
+                                             ToolTip="Haga clic para establecer el acabado."/>
+                                        </Button.ToolTip>
+                                    </Button>
+                                </Grid>
+                            </Viewbox>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style TargetType="{x:Type Button}" x:Key="pozoStyle">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Viewbox  Margin="2">
+                                <Grid Background="#FFE6EEF5">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="1*"/>
+                                        <RowDefinition Height="32"/>
+                                        <RowDefinition Height="52"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="70"/>
+                                        <ColumnDefinition Width="52"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Content="{TemplateBinding Name}" Visibility="Collapsed"/>
+                                    <TextBlock Text="{TemplateBinding Content}" Foreground="Black" Margin="2" 
+                                               Grid.ColumnSpan="2" TextAlignment="Center" FontSize="18"/>
+                                    <Button x:Name="insCheck" Content="Insertar" Grid.ColumnSpan="2" FontSize="16"  Foreground="Black" Grid.Row="1" Click="insert_checked_changed" Margin="2,0,0,0"/>
+                                    
+
+                                    <Button Style="{StaticResource MenuStyle_RoundButton}" Content="&#xe2b1;" FontSize="15" Foreground="Black" 
+                                    Click="setAcabado_click"  Grid.Row="2" Grid.Column="1">
+                                        <Button.ToolTip>
+                                            <ToolTip Style="{StaticResource TooltipStyle}" Tag="Establecer Acabado" 
+                                             ToolTip="Haga clic para establecer el acabado."/>
+                                        </Button.ToolTip>
+                                    </Button>
+                                </Grid>
+                            </Viewbox>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
             <ResourceDictionary.MergedDictionaries>
-                <!--<ResourceDictionary Source="pack://application:,,,/riv_core;component/Assets/RivieraStyle.xaml"/>-->
+                <ResourceDictionary Source="pack://application:,,,/riv_core;component/Assets/RivieraStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </metro:MetroWindow.Resources>
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="400"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="800"/>
-            <ColumnDefinition Width="400"/>
+            <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
-        <Viewbox HorizontalAlignment="Left">
-            <local:BordeoPuenteCanvas />
+        <Viewbox HorizontalAlignment="Left" Grid.RowSpan="3">
+            <Viewbox.LayoutTransform>
+                <RotateTransform Angle="0"/>
+            </Viewbox.LayoutTransform>
+            <local:BordeoPuenteCanvas x:Name="puentes_layout"/>
         </Viewbox>
         <GroupBox Header="Puentes" Grid.Column="1">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1.5*"/>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="32"/>
@@ -35,8 +117,8 @@
                     <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
                 <TextBlock>
-                    <TextBlock Text="Tipo de Puente:" Style="{StaticResource ItemStyle_Header}" VerticalAlignment="Center" Height="32"/>
-                    <ComboBox SelectedIndex="0">
+                    <TextBlock  Text="Tipo de Puente:" Style="{StaticResource ItemStyle_Header}" VerticalAlignment="Center" Height="32"/>
+                    <ComboBox x:Name="listOfBridges" SelectionChanged="listOfBridges_SelectionChanged">
                         <TextBlock Text="BR2040"/>
                         <TextBlock Text="BR2050"/>
                     </ComboBox>
@@ -45,7 +127,31 @@
                     <TextBlock Text="Frente:"  Style="{StaticResource ItemStyle_Header}" Height="32"/>
                     <TextBlock x:Name="frenteSize" Text="18''" Style="{StaticResource MenuStyle_Header}" Margin="10,2,0,0"/>
                 </TextBlock>
-                
+                <Grid x:Name="btnConsole" Grid.Row="2" Grid.ColumnSpan="3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <Button x:Name="b0Top" Grid.Column="1" Style="{StaticResource bridgeStyle}"/>
+                    <Button x:Name="b1Top" Grid.Column="2"  Style="{StaticResource bridgeStyle}"/>
+                    <Button x:Name="b2Top" Grid.Column="3"  Style="{StaticResource bridgeStyle}"/>
+                    <Button x:Name="bm0Start" Grid.Column="0"  Style="{StaticResource bridgeStyle}" Grid.Row="1"/>
+                    <Button x:Name="bm0End" Grid.Column="4" Style="{StaticResource bridgeStyle}" Grid.Row="1"/>
+                    <Button x:Name="b0Low" Grid.Column="1" Style="{StaticResource bridgeStyle}" Grid.Row="2"/>
+                    <Button x:Name="b1Low" Grid.Column="2" Style="{StaticResource bridgeStyle}" Grid.Row="2"/>
+                    <Button x:Name="b2Low" Grid.Column="3" Style="{StaticResource bridgeStyle}" Grid.Row="2"/>
+                    <Button x:Name="p0Luz" Grid.Column="1" Style="{StaticResource pozoStyle}" Grid.Row="1"/>
+                    <Button x:Name="p1Luz" Grid.Column="2" Style="{StaticResource pozoStyle}" Grid.Row="1"/>
+                    <Button x:Name="p2Luz" Grid.Column="3" Style="{StaticResource pozoStyle}" Grid.Row="1"/>
+                </Grid>
             </Grid>
         </GroupBox>
     </Grid>

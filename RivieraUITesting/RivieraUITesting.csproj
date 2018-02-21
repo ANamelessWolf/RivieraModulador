@@ -140,6 +140,14 @@
       <Project>{a7e26c18-fdd9-49f0-82b7-9e1e2f7422db}</Project>
       <Name>Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ModEnfasisPlus\ModEnfasisPlus.csproj">
+      <Project>{664f0bd0-ca3c-4790-87f9-04fc31877382}</Project>
+      <Name>ModEnfasisPlus</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Modulador\Modulador.csproj">
+      <Project>{23008a08-120e-41e1-959d-6ebf2f08923d}</Project>
+      <Name>Modulador</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

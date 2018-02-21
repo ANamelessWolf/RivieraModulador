@@ -16,6 +16,6 @@
         </ResourceDictionary>
     </Window.Resources>
     <Grid>
-        <bordeo:TabBordeoMenu/>
+        
     </Grid>
 </metro:MetroWindow>

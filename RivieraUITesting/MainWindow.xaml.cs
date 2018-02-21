@@ -16,7 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using DaSoft.Riviera.Modulador.Bordeo.UI;
 namespace RivieraUITesting
 {
     /// <summary>
@@ -34,9 +34,9 @@ namespace RivieraUITesting
             try
             {
                 //if (DaSoft.Riviera.Modulador.Core.Runtime.App.Riviera == null)
-                  //  DaSoft.Riviera.Modulador.Core.Runtime.App.Riviera = new RivieraApplication();
-                //WinAppSettings win = new WinAppSettings();
-                //win.ShowDialog();
+                //  DaSoft.Riviera.Modulador.Core.Runtime.App.Riviera = new RivieraApplication();
+                WinBridgeEditor win = new WinBridgeEditor();
+                win.ShowDialog();
                // DaSoft.Riviera.Modulador.Core.Runtime.App.Riviera.Database.LineDB.Add(DaSoft.Riviera.Modulador.Core.Model.DesignLine.Bordeo, new BordeoDesignDatabase());
                 //DaSoft.Riviera.Modulador.Core.Runtime.App.Riviera.Database.Init(this);
             }

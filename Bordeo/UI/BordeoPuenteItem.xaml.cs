@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DaSoft.Riviera.Modulador.Bordeo.Controller;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,7 +19,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.UI
     /// <summary>
     /// Interaction logic for BordeoPuente.xaml
     /// </summary>
-    public partial class BordeoPuenteItem : UserControl
+    public partial class BordeoPuenteItem : UserControl,IBridgeItem
     {
         /// <summary>
         /// The Bridge Rotation
@@ -339,6 +340,38 @@ namespace DaSoft.Riviera.Modulador.Bordeo.UI
             Double res = (Double)e.NewValue;
             ctr.FondoHeight.Height = new GridLength(res);
             ctr.UpdatePosition();
+        }
+
+        /// <summary>
+        /// Sets the code.
+        /// </summary>
+        /// <param name="code">The code.</param>
+        public void SetCode(string code)
+        {
+            this.Code = code;
+        }
+        /// <summary>
+        /// Sets the acabado.
+        /// </summary>
+        /// <param name="acabdo">The acabdo.</param>
+        public void SetAcabado(string acabdo)
+        {
+            this.Acabado = acabdo;
+        }
+        /// <summary>
+        /// Updates the size.
+        /// </summary>
+        /// <param name="sizeName">Name of the size.</param>
+        /// <param name="sizeValue">The size value.</param>
+        public void UpdateSize(string sizeName, double sizeValue)
+        {
+            sizeValue *= 10;
+            if (sizeName == "Frente")
+                this.Frente = sizeValue;
+            else if (sizeName == "Fondo")
+                this.Fondo = sizeValue;
+            else if (sizeName == "Altura")
+                this.Altura = sizeValue;
         }
 
         public BordeoPuenteItem()

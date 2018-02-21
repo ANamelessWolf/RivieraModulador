@@ -182,6 +182,12 @@
     <Compile Include="UI\WinAppSettings.xaml.cs">
       <DependentUpon>WinAppSettings.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\WinFrontFondoHeight.xaml.cs">
+      <DependentUpon>WinFrontFondoHeight.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\WinFrontFondo.xaml.cs">
+      <DependentUpon>WinFrontFondo.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\WinSelectFront.xaml.cs">
       <DependentUpon>WinSelectFront.xaml</DependentUpon>
     </Compile>
@@ -231,6 +237,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\WinAppSettings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\WinFrontFondoHeight.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\WinFrontFondo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

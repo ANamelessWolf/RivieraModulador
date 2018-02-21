@@ -39,5 +39,13 @@ namespace DaSoft.Riviera.Modulador.Core.Model
         /// Panel Stack
         /// </summary>
         PanelStack = 5,
+        /// <summary>
+        /// Bridge
+        /// </summary>
+        Bridge = 6,
+        /// <summary>
+        /// Pazo_Luz
+        /// </summary>
+        Pazo_Luz = 7,
     }
 }

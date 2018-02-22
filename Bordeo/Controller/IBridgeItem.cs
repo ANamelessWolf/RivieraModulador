@@ -14,6 +14,11 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Controller
         /// <param name="code">The code.</param>
         void SetCode(String code);
         /// <summary>
+        /// Gets the code.
+        /// </summary>
+        /// <param name="code">The code.</param>
+        string GetCode();
+        /// <summary>
         /// Sets the acabado.
         /// </summary>
         /// <param name="acabdo">The acabdo.</param>

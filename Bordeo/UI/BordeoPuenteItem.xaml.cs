@@ -19,7 +19,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.UI
     /// <summary>
     /// Interaction logic for BordeoPuente.xaml
     /// </summary>
-    public partial class BordeoPuenteItem : UserControl,IBridgeItem
+    public partial class BordeoPuenteItem : UserControl, IBridgeItem
     {
         /// <summary>
         /// The Bridge Rotation
@@ -262,7 +262,9 @@ namespace DaSoft.Riviera.Modulador.Bordeo.UI
         {
             BordeoPuenteItem ctr = sender as BordeoPuenteItem;
             String res = (String)e.NewValue;
-            ctr.CodeTxt.Text = res + (ctr.Acabado != null ? ctr.Acabado : String.Empty);
+            string sizeFormat = "{0:00}{1:00}{2:00}",
+                   size = String.Format(sizeFormat, ctr.Frente / 10, ctr.Fondo / 10, ctr.Altura / 10);
+            ctr.CodeTxt.Text = res + size + 'T' + (ctr.Acabado != null ? ctr.Acabado : String.Empty) ;
         }
         /// <summary>
         /// Acabadoes the changed.
@@ -273,7 +275,9 @@ namespace DaSoft.Riviera.Modulador.Bordeo.UI
         {
             BordeoPuenteItem ctr = sender as BordeoPuenteItem;
             String res = (String)e.NewValue;
-            ctr.CodeTxt.Text = (ctr.Code != null ? ctr.Code : String.Empty) + res;
+            string sizeFormat = "{0:00}{1:00}{2:00}",
+                   size = String.Format(sizeFormat, ctr.Frente / 10, ctr.Fondo / 10, ctr.Altura / 10);
+            ctr.CodeTxt.Text = (ctr.Code != null ? ctr.Code : String.Empty) + size + 'T' + res ;
         }
         /// <summary>
         /// Rotation changed.
@@ -294,7 +298,8 @@ namespace DaSoft.Riviera.Modulador.Bordeo.UI
             this.Height = this.Altura + this.Fondo + 20d;
             this.rotPanel.CenterX = this.Width / 2;
             this.rotPanel.CenterY = this.Height / 2;
-            if (this.Rotation == 0) {
+            if (this.Rotation == 0)
+            {
                 this.rotTxt.ScaleX = 1;
                 this.rotTxt.ScaleY = 1;
             }
@@ -341,7 +346,6 @@ namespace DaSoft.Riviera.Modulador.Bordeo.UI
             ctr.FondoHeight.Height = new GridLength(res);
             ctr.UpdatePosition();
         }
-
         /// <summary>
         /// Sets the code.
         /// </summary>
@@ -349,6 +353,14 @@ namespace DaSoft.Riviera.Modulador.Bordeo.UI
         public void SetCode(string code)
         {
             this.Code = code;
+        }
+        /// <summary>
+        /// Sets the code.
+        /// </summary>
+        /// <param name="code">The code.</param>
+        public string GetCode()
+        {
+            return this.Code;
         }
         /// <summary>
         /// Sets the acabado.
@@ -366,12 +378,15 @@ namespace DaSoft.Riviera.Modulador.Bordeo.UI
         public void UpdateSize(string sizeName, double sizeValue)
         {
             sizeValue *= 10;
-            if (sizeName == "Frente")
+            if (sizeName == "FRENTE")
                 this.Frente = sizeValue;
-            else if (sizeName == "Fondo")
+            else if (sizeName == "FONDO")
                 this.Fondo = sizeValue;
-            else if (sizeName == "Altura")
+            else if (sizeName == "ALTO")
                 this.Altura = sizeValue;
+            string sizeFormat = "{0:00}{1:00}{2:00}",
+                   size = String.Format(sizeFormat, this.Frente / 10, this.Fondo / 10, this.Altura / 10);
+            this.CodeTxt.Text = this.Code + size + 'T' + this.Acabado ;
         }
 
         public BordeoPuenteItem()

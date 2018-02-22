@@ -192,7 +192,9 @@ namespace DaSoft.Riviera.Modulador.Bordeo.UI
         {
             BordeoPazLuzItem ctr = sender as BordeoPazLuzItem;
             String res = (String)e.NewValue;
-            ctr.CodeTxt.Text = res + (ctr.Acabado != null ? ctr.Acabado : String.Empty);
+            string sizeFormat = "{0:00}{1:00}",
+                   size = String.Format(sizeFormat, ctr.Frente / 10, ctr.Fondo / 10);
+            ctr.CodeTxt.Text = res + size + 'T' + (ctr.Acabado != null ? ctr.Acabado : String.Empty) ;
         }
         /// <summary>
         /// Acabadoes the changed.
@@ -203,7 +205,9 @@ namespace DaSoft.Riviera.Modulador.Bordeo.UI
         {
             BordeoPazLuzItem ctr = sender as BordeoPazLuzItem;
             String res = (String)e.NewValue;
-            ctr.CodeTxt.Text = (ctr.Code != null ? ctr.Code : String.Empty) + res;
+            string sizeFormat = "{0:00}{1:00}",
+                   size = String.Format(sizeFormat, ctr.Frente / 10, ctr.Fondo / 10);
+            ctr.CodeTxt.Text = (ctr.Code != null ? ctr.Code : String.Empty) + size + 'T' + res;
         }
 
         private void UpdatePosition()
@@ -245,6 +249,14 @@ namespace DaSoft.Riviera.Modulador.Bordeo.UI
             this.Code = code;
         }
         /// <summary>
+        /// Gets the code.
+        /// </summary>
+        /// <param name="code">The code.</param>
+        public string GetCode()
+        {
+            return this.Code;
+        }
+        /// <summary>
         /// Sets the acabado.
         /// </summary>
         /// <param name="acabdo">The acabdo.</param>
@@ -260,10 +272,13 @@ namespace DaSoft.Riviera.Modulador.Bordeo.UI
         public void UpdateSize(string sizeName, double sizeValue)
         {
             sizeValue *= 10;
-            if (sizeName == "Frente")
+            if (sizeName == "FRENTE")
                 this.Frente = sizeValue;
-            else if (sizeName == "Fondo")
+            else if (sizeName == "FONDO")
                 this.Fondo = sizeValue;
+            string sizeFormat = "{0:00}{1:00}",
+                   size = String.Format(sizeFormat, this.Frente / 10, this.Fondo / 10);
+            this.CodeTxt.Text = this.Code + size + 'T' + this.Acabado;
         }
 
         public BordeoPazLuzItem()

@@ -54,6 +54,9 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model
                  new RivieraCode(){ Block ="BR2010", Code="BR2010", Description="Panel Recto", ElementType= RivieraElementType.Panel, Line= DesignLine.Bordeo },
                  new RivieraCode(){ Block ="BR2020", Code="BR2020", Description="Panel 90°", ElementType= RivieraElementType.Panel, Line= DesignLine.Bordeo },
                  new RivieraCode(){ Block ="BR2030", Code="BR2030", Description="Panel 135°", ElementType= RivieraElementType.Panel, Line= DesignLine.Bordeo },
+                 new RivieraCode("01", "02", "03") { Block = "BR2040", Code = "BR2040", Description = "Puente 90°", ElementType = RivieraElementType.Bridge, Line = DesignLine.Bordeo },
+                 new RivieraCode("01", "02", "03") { Block = "BR2050", Code = "BR2050", Description = "Puente 135°", ElementType = RivieraElementType.Bridge, Line = DesignLine.Bordeo },
+                 new RivieraCode("01", "02", "03") { Block = "BR2060", Code = "BR2060", Description = "Pazo de Luz", ElementType = RivieraElementType.Pazo_Luz, Line = DesignLine.Bordeo }
             };
             res.Codes = codes.ToList();
         }

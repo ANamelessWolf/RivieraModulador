@@ -27,7 +27,8 @@
             <ColumnDefinition Width="75*"/>
         </Grid.ColumnDefinitions>
         <TextBlock x:Name="txtFront" Grid.Row="1" Text="Frente"  Style="{StaticResource MenuStyle_Header}" HorizontalAlignment="Right" Margin="0,0,5,0"/>
-        <ComboBox x:Name="cboFronts" Grid.Row="1" Grid.Column="1" Style="{StaticResource MenuStyle_List}"/>
+        <ComboBox x:Name="cboFronts" Grid.Row="1" Grid.Column="1" SelectedValue="Nominal"
+                  Style="{StaticResource MenuStyle_List}"/>
         <TextBlock x:Name="txtFondo" Grid.Row="2" Text="Fondo"  Style="{StaticResource MenuStyle_Header}" HorizontalAlignment="Right" Margin="0,0,5,0"/>
         <ComboBox x:Name="cboFondo" Grid.Row="2" Grid.Column="1" Style="{StaticResource MenuStyle_List}"/>
         <Viewbox Grid.Row="5" Grid.ColumnSpan="2" HorizontalAlignment="Right">

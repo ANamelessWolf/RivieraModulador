@@ -35,7 +35,7 @@ namespace DaSoft.Riviera.Modulador.Core.Model.UI
         /// </returns>
         public override bool Equals(object obj)
         {
-            return this.ItemName.Equals((obj as RivieraSizeItem).ItemName);
+            return this.ItemName.Equals((obj as RivieraSizeItem)?.ItemName);
         }
         /// <summary>
         /// Returns a hash code for this instance.

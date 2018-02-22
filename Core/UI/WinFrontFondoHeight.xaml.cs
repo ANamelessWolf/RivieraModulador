@@ -88,9 +88,12 @@ namespace DaSoft.Riviera.Modulador.Core.UI
 
         private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            this.cboFronts.ItemsSource = _Frentes;
-            this.cboHeight.ItemsSource = _Alturas;
-            this.cboFondo.ItemsSource = _Fondos;
+            this.cboFronts.ItemsSource = _Frentes.Select(x => new RivieraSizeItem() { Size = x, ItemName = x.Nominal.ToString() }); 
+            this.cboHeight.ItemsSource = _Alturas.Select(x => new RivieraSizeItem() { Size = x, ItemName = x.Nominal.ToString() });
+            this.cboFondo.ItemsSource = _Fondos.Select(x => new RivieraSizeItem() { Size = x, ItemName = x.Nominal.ToString() });
+            this.cboFronts.SelectedIndex = 0;
+            this.cboHeight.SelectedIndex = 0;
+            this.cboFondo.SelectedIndex = 0;
         }
 
         public WinFrontFondoHeight(IEnumerable<RivieraSize> frentes, IEnumerable<RivieraSize> alturas, IEnumerable<RivieraSize> fondos)

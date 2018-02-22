@@ -32,7 +32,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model
         /// <param name="alto">The bridge "alto" size.</param>
         /// <param name="fondo">The bridge "fondo" size.</param>
         public BridgeMeasure(RivieraSize frente, RivieraSize alto, RivieraSize fondo)
-            : base(frente, alto)
+            : base(frente, alto,fondo)
         {
 
         }

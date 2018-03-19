@@ -8,10 +8,10 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid x:Name="container" Background="#FFE6EEF5">
         <Grid.RowDefinitions>
-            <RowDefinition  x:Name="FondoHeight" Height="300"/>
+            <RowDefinition  x:Name="FrenteHeight" Height="300"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition x:Name="FrenteWidth" Width="300"/>
+            <ColumnDefinition x:Name="FondoWidth" Width="300"/>
         </Grid.ColumnDefinitions>
         <TextBlock x:Name="CodeTxt" Text="BR2060363024T" VerticalAlignment="Center" TextAlignment="Center"
                    FontSize="25"/>

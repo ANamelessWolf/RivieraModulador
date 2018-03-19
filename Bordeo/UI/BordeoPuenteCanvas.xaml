@@ -21,16 +21,16 @@
             <ColumnDefinition Width="auto"/>
         </Grid.ColumnDefinitions>
         
-        <local:BordeoPuenteItem x:Name="b0Top" Grid.Column="1" Frente="300" Fondo="320" Altura="100" Rotation="0" Code="BR2030" Acabado="T" Margin="2"/>
-        <local:BordeoPuenteItem x:Name="b1Top" Grid.Column="2" Frente="300" Fondo="320" Altura="100" Rotation="0" Code="BR2030" Acabado="T" Margin="2"/>
-        <local:BordeoPuenteItem x:Name="b2Top" Grid.Column="3" Frente="300" Fondo="320" Altura="100" Rotation="0" Code="BR2030" Acabado="T"/>
-        <local:BordeoPuenteItem x:Name="b0Low" Grid.Column="1" Grid.Row="3" Frente="300" Fondo="320" Altura="100" Rotation="180" Code="BR2030" Acabado="T" Margin="2"/>
-        <local:BordeoPuenteItem x:Name="b1Low" Grid.Column="2" Grid.Row="3" Frente="300" Fondo="320" Altura="100" Rotation="180" Code="BR2030" Acabado="T" Margin="2"/>
-        <local:BordeoPuenteItem x:Name="b2Low" Grid.Column="3" Grid.Row="3" Frente="300" Fondo="320" Altura="100" Rotation="180" Code="BR2030" Acabado="T"/>
-        <local:BordeoPuenteHorItem x:Name="bm0Start" Grid.Column="0" Grid.Row="1" Frente="360" Fondo="320" Altura="100" Rotation="0" Code="BR2030" Acabado="T" VerticalAlignment="Top" Margin="2"/>
-        <local:BordeoPuenteHorItem x:Name="bm0End" Grid.Column="4" Grid.Row="1" Frente="360" Fondo="200" Altura="200" Rotation="180" Code="BR2030" Acabado="T" VerticalAlignment="Top" Margin="2"/>
-        <local:BordeoPuenteHorItem x:Name="bm1Start" Grid.Column="0" Grid.Row="2" Frente="360" Fondo="320" Altura="100" Rotation="0" Code="BR2030" Acabado="T" VerticalAlignment="Bottom" Margin="2"/>
-        <local:BordeoPuenteHorItem x:Name="bm1End" Grid.Column="4" Grid.Row="2" Frente="360" Fondo="200" Altura="200" Rotation="180" Code="BR2030" Acabado="T" VerticalAlignment="Bottom" Margin="2"/>
+        <local:BordeoPuenteItem x:Name="b0Top" Grid.Column="1" Frente="300" Fondo="320" Altura="100" Code="BR2030" Acabado="T" Margin="2"/>
+        <local:BordeoPuenteItem x:Name="b1Top" Grid.Column="2" Frente="300" Fondo="320" Altura="100" Code="BR2030" Acabado="T" Margin="2"/>
+        <local:BordeoPuenteItem x:Name="b2Top" Grid.Column="3" Frente="300" Fondo="320" Altura="100" Code="BR2030" Acabado="T"/>
+        <local:BordeoPuenteItem x:Name="b0Low" Grid.Column="1" Grid.Row="3" Frente="300" Fondo="320" Altura="100"  Code="BR2030" Acabado="T" Margin="2"/>
+        <local:BordeoPuenteItem x:Name="b1Low" Grid.Column="2" Grid.Row="3" Frente="300" Fondo="320" Altura="100"  Code="BR2030" Acabado="T" Margin="2"/>
+        <local:BordeoPuenteItem x:Name="b2Low" Grid.Column="3" Grid.Row="3" Frente="300" Fondo="320" Altura="100" Code="BR2030" Acabado="T"/>
+        <local:BordeoPuenteHorItem x:Name="bm0Start" Grid.Column="0" Grid.Row="1" Frente="360" Fondo="320" Altura="100"  Code="BR2030" Acabado="T" VerticalAlignment="Top" Margin="2"/>
+        <local:BordeoPuenteHorItem x:Name="bm0End" Grid.Column="4" Grid.Row="1" Frente="360" Fondo="200" Altura="200"  Code="BR2030" Acabado="T" VerticalAlignment="Top" Margin="2"/>
+        <local:BordeoPuenteHorItem x:Name="bm1Start" Grid.Column="0" Grid.Row="2" Frente="360" Fondo="320" Altura="100"  Code="BR2030" Acabado="T" VerticalAlignment="Bottom" Margin="2"/>
+        <local:BordeoPuenteHorItem x:Name="bm1End" Grid.Column="4" Grid.Row="2" Frente="360" Fondo="200" Altura="200"  Code="BR2030" Acabado="T" VerticalAlignment="Bottom" Margin="2"/>
         <local:BordeoPazLuzItem x:Name="p0Luz" Grid.Column="1" Grid.RowSpan="2" Grid.Row="1" Frente="300" Fondo="720" Code="BR2060" Acabado="T" VerticalAlignment="Top"/>
         <local:BordeoPazLuzItem x:Name="p1Luz" Grid.Column="2" Grid.RowSpan="2" Grid.Row="1" Frente="300" Fondo="720" Code="BR2060" Acabado="T" VerticalAlignment="Top"/>
         <local:BordeoPazLuzItem x:Name="p2Luz" Grid.Column="3" Grid.RowSpan="2" Grid.Row="1" Frente="300" Fondo="720" Code="BR2060" Acabado="T" VerticalAlignment="Top"/>

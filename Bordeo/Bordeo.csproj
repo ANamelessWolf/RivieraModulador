@@ -104,6 +104,7 @@
     <Compile Include="Controller\BordeoSizeUtils.cs" />
     <Compile Include="Controller\BordeoSower.cs" />
     <Compile Include="Controller\BordeoUtils.cs" />
+    <Compile Include="Controller\CanvasBridgeUtility.cs" />
     <Compile Include="Controller\IBordeoPanelStyler.cs" />
     <Compile Include="Controller\IBridgeItem.cs" />
     <Compile Include="Controller\PanelSower.cs" />
@@ -163,9 +164,19 @@
     <Compile Include="UI\ButtonImage.xaml.cs">
       <DependentUpon>ButtonImage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\CanvasBridgeDouble.xaml.cs">
+      <DependentUpon>CanvasBridgeDouble.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\CanvasBridgeSingle.xaml.cs">
+      <DependentUpon>CanvasBridgeSingle.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\CanvasBridgeTriple.xaml.cs">
+      <DependentUpon>CanvasBridgeTriple.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\CtrlBordeoHeights.xaml.cs">
       <DependentUpon>CtrlBordeoHeights.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\ICanvasBridge.cs" />
     <Compile Include="UI\PanelStackView.xaml.cs">
       <DependentUpon>PanelStackView.xaml</DependentUpon>
     </Compile>
@@ -222,6 +233,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\ButtonImage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\CanvasBridgeDouble.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\CanvasBridgeSingle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\CanvasBridgeTriple.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

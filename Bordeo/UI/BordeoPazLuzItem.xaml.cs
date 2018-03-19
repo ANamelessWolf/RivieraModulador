@@ -194,7 +194,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.UI
             String res = (String)e.NewValue;
             string sizeFormat = "{0:00}{1:00}",
                    size = String.Format(sizeFormat, ctr.Frente / 10, ctr.Fondo / 10);
-            ctr.CodeTxt.Text = res + size + 'T' + (ctr.Acabado != null ? ctr.Acabado : String.Empty) ;
+            ctr.CodeTxt.Text = res + size + 'T' + (ctr.Acabado != null ? ctr.Acabado : String.Empty);
         }
         /// <summary>
         /// Acabadoes the changed.
@@ -212,8 +212,9 @@ namespace DaSoft.Riviera.Modulador.Bordeo.UI
 
         private void UpdatePosition()
         {
-            this.Height = this.Fondo;
-            this.Width = this.Frente;
+            this.Height = this.Frente;
+            this.Width = this.Fondo;
+            this.CodeTxt.Width = this.Width;
         }
 
         /// <summary>
@@ -225,7 +226,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.UI
         {
             BordeoPazLuzItem ctr = sender as BordeoPazLuzItem;
             Double res = (Double)e.NewValue;
-            ctr.FrenteWidth.Width = new GridLength(res);
+            ctr.FrenteHeight.Height = new GridLength(res);
             ctr.UpdatePosition();
         }
         /// <summary>
@@ -237,7 +238,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.UI
         {
             BordeoPazLuzItem ctr = sender as BordeoPazLuzItem;
             Double res = (Double)e.NewValue;
-            ctr.FondoHeight.Height = new GridLength(res);
+            ctr.FondoWidth.Width = new GridLength(res);
             ctr.UpdatePosition();
         }
         /// <summary>

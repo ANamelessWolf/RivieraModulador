@@ -5,25 +5,18 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:DaSoft.Riviera.Modulador.Bordeo.UI"
              mc:Ignorable="d" 
-             d:DesignHeight="680">
+             d:DesignHeight="360">
+    <Border BorderThickness="2" BorderBrush="Black">
     <Grid x:Name="container" Background="#FFCDDAE6">
-        <Grid.RenderTransform>
-            <RotateTransform x:Name="rotPanel" Angle="0" CenterX="120" CenterY="340"/>
-        </Grid.RenderTransform>
         <Grid.RowDefinitions>
-            <RowDefinition x:Name="AlturaHeight" Height="300"/>
-            <RowDefinition x:Name="DivisionHeight" Height="20"/>
             <RowDefinition x:Name="FondoHeight" Height="360"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition x:Name="FrenteWidth" Width="240"/>
         </Grid.ColumnDefinitions>
-        <Canvas Grid.Row="2" Background="#FFAABCCD"/>
-        <TextBlock x:Name="CodeTxt" Text="BR2040363024T" Grid.RowSpan="3" VerticalAlignment="Center" TextAlignment="Center" Background="#7FFFFFFF"
-                   FontSize="25">
-            <TextBlock.RenderTransform>
-                <ScaleTransform x:Name="rotTxt" ScaleX="1" ScaleY="1" CenterX="{Binding ElementName=rotPanel, Path=CenterX}"/>
-                </TextBlock.RenderTransform>
-        </TextBlock>
+        <TextBlock x:Name="CodeTxt" Text="BR2040363024T" 
+                   VerticalAlignment="Center" TextAlignment="Center" Background="#7FFFFFFF"
+                   FontSize="25"/>
     </Grid>
+    </Border>
 </UserControl>

@@ -22,38 +22,6 @@ namespace DaSoft.Riviera.Modulador.Bordeo.UI
     public partial class BordeoPuenteItem : UserControl, IBridgeItem
     {
         /// <summary>
-        /// The Bridge Rotation
-        /// </summary>
-        public Double Rotation
-        {
-            get
-            {
-                return (Double)GetValue(RotationProperty);
-            }
-            set
-            {
-                SetValue(RotationProperty, value);
-            }
-        }
-        /// <summary>
-        /// Gets the Rotation.
-        /// </summary>
-        /// <param name="target">The target.</param>
-        /// <returns></returns>
-        public static Double GetRotation(BordeoPuenteItem target)
-        {
-            return target.Rotation;
-        }
-        /// <summary>
-        /// Sets the Rotation.
-        /// </summary>
-        /// <param name="target">The target.</param>
-        /// <param name="value">The value.</param>
-        public static void SetRotation(BordeoPuenteItem target, Double value)
-        {
-            target.Rotation = value;
-        }
-        /// <summary>
         /// The Bridge Front
         /// </summary>
         public Double Frente
@@ -71,7 +39,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.UI
         /// Gets the Frente.
         /// </summary>
         /// <param name="target">The target.</param>
-        /// <returns></returns>
+        /// <returns>The Bridge front</returns>
         public static Double GetFrente(BordeoPuenteItem target)
         {
             return target.Frente;
@@ -88,35 +56,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.UI
         /// <summary>
         /// The Bridge Altura
         /// </summary>
-        public Double Altura
-        {
-            get
-            {
-                return (Double)GetValue(AlturaProperty);
-            }
-            set
-            {
-                SetValue(AlturaProperty, value);
-            }
-        }
-        /// <summary>
-        /// Gets the Altura.
-        /// </summary>
-        /// <param name="target">The target.</param>
-        /// <returns></returns>
-        public static Double GetAltura(BordeoPuenteItem target)
-        {
-            return target.Altura;
-        }
-        /// <summary>
-        /// Sets the Altura.
-        /// </summary>
-        /// <param name="target">The target.</param>
-        /// <param name="value">The value.</param>
-        public static void SetAltura(BordeoPuenteItem target, Double value)
-        {
-            target.Altura = value;
-        }
+        public Double Altura { get; set; }
         /// <summary>
         /// The Bridge Fondo
         /// </summary>
@@ -229,9 +169,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.UI
                 return this.CodeTxt.Text;
             }
         }
-        public static DependencyProperty RotationProperty;
         public static DependencyProperty FrenteProperty;
-        public static DependencyProperty AlturaProperty;
         public static DependencyProperty FondoProperty;
         public static DependencyProperty CodeProperty;
         public static DependencyProperty AcabadoProperty;
@@ -244,13 +182,9 @@ namespace DaSoft.Riviera.Modulador.Bordeo.UI
                 new FrameworkPropertyMetadata(String.Empty, FrameworkPropertyMetadataOptions.AffectsRender, Code_Changed));
             AcabadoProperty = DependencyProperty.Register("Acabado", typeof(String), typeof(BordeoPuenteItem),
                 new FrameworkPropertyMetadata(String.Empty, FrameworkPropertyMetadataOptions.AffectsRender, Acabado_Changed));
-            RotationProperty = DependencyProperty.Register("Rotation", typeof(Double), typeof(BordeoPuenteItem),
-                new FrameworkPropertyMetadata(0d, FrameworkPropertyMetadataOptions.AffectsRender, Rotation_Changed));
             FrenteProperty = DependencyProperty.Register("Frente", typeof(Double), typeof(BordeoPuenteItem),
                 new FrameworkPropertyMetadata(default(double), FrameworkPropertyMetadataOptions.AffectsRender, Frente_Changed));
-            AlturaProperty = DependencyProperty.Register("Altura", typeof(Double), typeof(BordeoPuenteItem),
-                new FrameworkPropertyMetadata(default(double), FrameworkPropertyMetadataOptions.AffectsRender, Altura_Changed));
-            FondoProperty = DependencyProperty.Register("Fondo", typeof(Double), typeof(BordeoPuenteItem),
+           FondoProperty = DependencyProperty.Register("Fondo", typeof(Double), typeof(BordeoPuenteItem),
                 new FrameworkPropertyMetadata(default(double), FrameworkPropertyMetadataOptions.AffectsRender, Fondo_Changed));
         }
         /// <summary>
@@ -279,35 +213,13 @@ namespace DaSoft.Riviera.Modulador.Bordeo.UI
                    size = String.Format(sizeFormat, ctr.Frente / 10, ctr.Fondo / 10, ctr.Altura / 10);
             ctr.CodeTxt.Text = (ctr.Code != null ? ctr.Code : String.Empty) + size + 'T' + res ;
         }
-        /// <summary>
-        /// Rotation changed.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
-        private static void Rotation_Changed(DependencyObject sender, DependencyPropertyChangedEventArgs e)
-        {
-            BordeoPuenteItem ctr = sender as BordeoPuenteItem;
-            Double res = (Double)e.NewValue;
-            ctr.rotPanel.Angle = res;
-            ctr.UpdatePosition();
-        }
+       
 
-        private void UpdatePosition()
+        public void UpdatePosition()
         {
             this.Width = this.Frente;
-            this.Height = this.Altura + this.Fondo + 20d;
-            this.rotPanel.CenterX = this.Width / 2;
-            this.rotPanel.CenterY = this.Height / 2;
-            if (this.Rotation == 0)
-            {
-                this.rotTxt.ScaleX = 1;
-                this.rotTxt.ScaleY = 1;
-            }
-            else
-            {
-                this.rotTxt.ScaleX = -1;
-                this.rotTxt.ScaleY = -1;
-            }
+            this.Height = this.Fondo;
+            this.CodeTxt.Width = this.Frente;
         }
 
         /// <summary>
@@ -320,18 +232,6 @@ namespace DaSoft.Riviera.Modulador.Bordeo.UI
             BordeoPuenteItem ctr = sender as BordeoPuenteItem;
             Double res = (Double)e.NewValue;
             ctr.FrenteWidth.Width = new GridLength(res);
-            ctr.UpdatePosition();
-        }
-        /// <summary>
-        /// Altura changed.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
-        private static void Altura_Changed(DependencyObject sender, DependencyPropertyChangedEventArgs e)
-        {
-            BordeoPuenteItem ctr = sender as BordeoPuenteItem;
-            Double res = (Double)e.NewValue;
-            ctr.AlturaHeight.Height = new GridLength(res);
             ctr.UpdatePosition();
         }
         /// <summary>
@@ -388,7 +288,6 @@ namespace DaSoft.Riviera.Modulador.Bordeo.UI
                    size = String.Format(sizeFormat, this.Frente / 10, this.Fondo / 10, this.Altura / 10);
             this.CodeTxt.Text = this.Code + size + 'T' + this.Acabado ;
         }
-
         public BordeoPuenteItem()
         {
             InitializeComponent();

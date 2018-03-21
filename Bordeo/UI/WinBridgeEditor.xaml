@@ -27,6 +27,46 @@
                                     <Label Content="{TemplateBinding Name}" Visibility="Collapsed"/>
                                     <TextBlock Text="{TemplateBinding Content}" Foreground="Gray" Margin="2" 
                                                Grid.ColumnSpan="2" TextAlignment="Center" FontSize="18"/>
+                                    <!--<Button x:Name="insCheck" Content="Insertar" Grid.ColumnSpan="2" FontSize="16"  Foreground="Gray" Grid.Row="1" Click="insert_checked_changed" Margin="2,0,0,0"/>-->
+                                    <Button Style="{StaticResource MenuStyle_RoundButton}" Content="&#xe1d9;" FontSize="15"
+                                    Click="updateSize_click"  Grid.Row="2">
+                                        <Button.ToolTip>
+                                            <ToolTip Style="{StaticResource TooltipStyle}" Tag="Cambiar Tamaño" 
+                                             ToolTip="Haga clic para establecer el tamaño del elemento."/>
+                                        </Button.ToolTip>
+                                    </Button>
+
+                                    <Button Style="{StaticResource MenuStyle_RoundButton}" Content="&#xe2b1;" FontSize="15" Foreground="Gray" 
+                                    Click="setAcabado_click"  Grid.Row="2" Grid.Column="1">
+                                        <Button.ToolTip>
+                                            <ToolTip Style="{StaticResource TooltipStyle}" Tag="Establecer Acabado" 
+                                             ToolTip="Haga clic para establecer el acabado."/>
+                                        </Button.ToolTip>
+                                    </Button>
+                                </Grid>
+                            </Viewbox>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style TargetType="{x:Type Button}" x:Key="bridgeStyleInsert">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Viewbox  Margin="2">
+                                <Grid Background="#FFAABCCD">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="1*"/>
+                                        <RowDefinition Height="32"/>
+                                        <RowDefinition Height="52"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="70"/>
+                                        <ColumnDefinition Width="52"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Content="{TemplateBinding Name}" Visibility="Collapsed"/>
+                                    <TextBlock Text="{TemplateBinding Content}" Foreground="Gray" Margin="2" 
+                                               Grid.ColumnSpan="2" TextAlignment="Center" FontSize="18"/>
                                     <Button x:Name="insCheck" Content="Insertar" Grid.ColumnSpan="2" FontSize="16"  Foreground="Gray" Grid.Row="1" Click="insert_checked_changed" Margin="2,0,0,0"/>
                                     <Button Style="{StaticResource MenuStyle_RoundButton}" Content="&#xe1d9;" FontSize="15"
                                     Click="updateSize_click"  Grid.Row="2">
@@ -61,8 +101,8 @@
                                         <RowDefinition Height="52"/>
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="70"/>
-                                        <ColumnDefinition Width="52"/>
+                                        <ColumnDefinition Width="100"/>
+                                        <ColumnDefinition Width="100"/>
                                     </Grid.ColumnDefinitions>
                                     <Label Content="{TemplateBinding Name}" Visibility="Collapsed"/>
                                     <TextBlock Text="{TemplateBinding Content}" Foreground="Black" Margin="2" 
@@ -108,7 +148,11 @@
             <Viewbox.LayoutTransform>
                 <RotateTransform Angle="0"/>
             </Viewbox.LayoutTransform>
-            <local:BordeoPuenteCanvas x:Name="puentes_layout"/>
+            <Grid>
+                <local:CanvasBridgeSingle x:Name="cBridgeSingle" Visibility="Collapsed"/>
+                <local:CanvasBridgeDouble x:Name="cBridgeDouble"  Visibility="Collapsed"/>
+                <local:CanvasBridgeTriple x:Name="cBridgeTriple" Visibility="Collapsed"/>
+            </Grid>
         </Viewbox>
         <GroupBox Header="Control de Puentes y Fondos de Luz" Grid.Column="1">
             <Grid>
@@ -129,7 +173,69 @@
                         <TextBlock Text="BR2050"/>
                     </ComboBox>
                 </TextBlock>
-                <Grid x:Name="btnConsole" Grid.Row="2" Grid.ColumnSpan="3">
+                <TabControl x:Name="canvasTab" Grid.ColumnSpan="3" Grid.RowSpan="3" SelectionChanged="TabControl_SelectionChanged">
+                    <TabItem Header="1 Puente">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                            </Grid.RowDefinitions>
+                            <Button x:Name="b0Top_1" Style="{StaticResource bridgeStyle}"/>
+                            <Button x:Name="b0Low_1" Style="{StaticResource bridgeStyle}" Grid.Row="2"/>
+                            <Button x:Name="bmiddle_1" Grid.Column="1"  Style="{StaticResource bridgeStyleInsert}" Grid.Row="1"/>
+                            <Button x:Name="pazoLuz_1" Style="{StaticResource pozoStyle}" Grid.Row="1" />
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="2 Puente">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                            </Grid.RowDefinitions>
+                            <Button x:Name="b0Top_2" Style="{StaticResource bridgeStyle}"/>
+                            <Button x:Name="b0Low_2" Style="{StaticResource bridgeStyle}" Grid.Row="2"/>
+                            <Button x:Name="b1Top_2" Style="{StaticResource bridgeStyle}" Grid.Column="1"/>
+                            <Button x:Name="b1Low_2" Style="{StaticResource bridgeStyle}" Grid.Column="1" Grid.Row="2"/>
+                            <Button x:Name="bmiddle_2" Grid.Column="2"  Style="{StaticResource bridgeStyleInsert}" Grid.Row="1"/>
+                            <Button x:Name="pazoLuz_2" Style="{StaticResource pozoStyle}" Grid.Row="1" Grid.ColumnSpan="2" />
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="3 Puente">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                            </Grid.RowDefinitions>
+                            <Button x:Name="b0Top_3" Style="{StaticResource bridgeStyle}"/>
+                            <Button x:Name="b0Low_3" Style="{StaticResource bridgeStyle}" Grid.Row="2"/>
+                            <Button x:Name="b1Top_3" Style="{StaticResource bridgeStyle}" Grid.Column="1"/>
+                            <Button x:Name="b1Low_3" Style="{StaticResource bridgeStyle}" Grid.Column="1" Grid.Row="2"/>
+                            <Button x:Name="b2Top_3" Style="{StaticResource bridgeStyle}" Grid.Column="2"/>
+                            <Button x:Name="b2Low_3" Style="{StaticResource bridgeStyle}" Grid.Column="2" Grid.Row="2"/>
+                            <Button x:Name="bmiddle_3" Grid.Column="3"  Style="{StaticResource bridgeStyleInsert}" Grid.Row="1"/>
+                            <Button x:Name="pazoLuz_3" Style="{StaticResource pozoStyle}" Grid.Row="1" Grid.ColumnSpan="3" />
+                        </Grid>
+                    </TabItem>
+                </TabControl>
+                <!--<Grid x:Name="btnConsole" Grid.Row="2" Grid.ColumnSpan="3">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="1*"/>
@@ -156,7 +262,7 @@
                     <Button x:Name="p0Luz" Grid.Column="1" Style="{StaticResource pozoStyle}" Grid.Row="1" Grid.RowSpan="2"/>
                     <Button x:Name="p1Luz" Grid.Column="2" Style="{StaticResource pozoStyle}" Grid.Row="1" Grid.RowSpan="2"/>
                     <Button x:Name="p2Luz" Grid.Column="3" Style="{StaticResource pozoStyle}" Grid.Row="1" Grid.RowSpan="2"/>
-                </Grid>
+                </Grid>-->
             </Grid>
         </GroupBox>
         <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="10">

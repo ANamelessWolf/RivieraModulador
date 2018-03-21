@@ -23,6 +23,10 @@ namespace DaSoft.Riviera.Modulador.Bordeo.UI
         /// </summary>
         void SetDefault();
         /// <summary>
+        /// Gets the fondo.
+        /// </summary>
+        double GetFondo();
+        /// <summary>
         /// Gets the canvas container.
         /// </summary>
         /// <value>

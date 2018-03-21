@@ -79,5 +79,13 @@ namespace DaSoft.Riviera.Modulador.Bordeo.UI
         {
             this.LoadCanvasBridge();
         }
+        /// <summary>
+        /// Gets the fondo.
+        /// </summary>
+        /// <returns>The total fondo</returns>
+        public double GetFondo()
+        {
+            return this.b0Top.Frente;
+        }
     }
 }

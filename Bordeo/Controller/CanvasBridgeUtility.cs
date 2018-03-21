@@ -42,7 +42,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Controller
         /// <param name="cbridge">The cbridge.</param>
         public static void HideCanvasBridgePazoLuz(this ICanvasBridge cbridge)
         {
-            cbridge.PazoLuz.Visibility = Visibility.Collapsed;
+            cbridge.PazoLuz.Visibility = Visibility.Hidden;
         }
         /// <summary>
         /// Shows the pazo luz.
@@ -58,7 +58,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Controller
         /// <param name="cbridge">The cbridge.</param>
         public static void HideCanvasBridgeBridgeHor(this ICanvasBridge cbridge)
         {
-            cbridge.HorBridge.Visibility = Visibility.Collapsed;
+            cbridge.HorBridge.Visibility = Visibility.Hidden;
         }
         /// <summary>
         /// Shows the Bridge Horizontal.

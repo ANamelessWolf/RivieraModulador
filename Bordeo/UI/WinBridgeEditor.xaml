@@ -6,7 +6,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:DaSoft.Riviera.Modulador.Bordeo.UI"
              mc:Ignorable="d" Loaded="MetroWindow_Loaded"
-        Title="Bordeo - Editor de Puentes" Height="800" Width="1200">
+        Title="Bordeo - Editor de Puentes" Height="800" Width="1300">
     <metro:MetroWindow.Resources>
         <ResourceDictionary>
             <Style TargetType="{x:Type Button}" x:Key="bridgeStyle">
@@ -21,26 +21,18 @@
                                         <RowDefinition Height="52"/>
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="70"/>
-                                        <ColumnDefinition Width="52"/>
+                                        <ColumnDefinition Width="100"/>
                                     </Grid.ColumnDefinitions>
                                     <Label Content="{TemplateBinding Name}" Visibility="Collapsed"/>
                                     <TextBlock Text="{TemplateBinding Content}" Foreground="Gray" Margin="2" 
                                                Grid.ColumnSpan="2" TextAlignment="Center" FontSize="18"/>
+                                    <TextBlock Text="BR2040" Style="{StaticResource ItemStyle_Header}"  Grid.RowSpan="2" TextAlignment="Center" VerticalAlignment="Center"/>
                                     <!--<Button x:Name="insCheck" Content="Insertar" Grid.ColumnSpan="2" FontSize="16"  Foreground="Gray" Grid.Row="1" Click="insert_checked_changed" Margin="2,0,0,0"/>-->
                                     <Button Style="{StaticResource MenuStyle_RoundButton}" Content="&#xe1d9;" FontSize="15"
                                     Click="updateSize_click"  Grid.Row="2">
                                         <Button.ToolTip>
                                             <ToolTip Style="{StaticResource TooltipStyle}" Tag="Cambiar Tamaño" 
                                              ToolTip="Haga clic para establecer el tamaño del elemento."/>
-                                        </Button.ToolTip>
-                                    </Button>
-
-                                    <Button Style="{StaticResource MenuStyle_RoundButton}" Content="&#xe2b1;" FontSize="15" Foreground="Gray" 
-                                    Click="setAcabado_click"  Grid.Row="2" Grid.Column="1">
-                                        <Button.ToolTip>
-                                            <ToolTip Style="{StaticResource TooltipStyle}" Tag="Establecer Acabado" 
-                                             ToolTip="Haga clic para establecer el acabado."/>
                                         </Button.ToolTip>
                                     </Button>
                                 </Grid>
@@ -68,19 +60,12 @@
                                     <TextBlock Text="{TemplateBinding Content}" Foreground="Gray" Margin="2" 
                                                Grid.ColumnSpan="2" TextAlignment="Center" FontSize="18"/>
                                     <Button x:Name="insCheck" Content="Insertar" Grid.ColumnSpan="2" FontSize="16"  Foreground="Gray" Grid.Row="1" Click="insert_checked_changed" Margin="2,0,0,0"/>
+                                    <TextBlock Text="BR2040" Style="{StaticResource ItemStyle_Header}" Grid.ColumnSpan="2" TextAlignment="Center" VerticalAlignment="Center"/>
                                     <Button Style="{StaticResource MenuStyle_RoundButton}" Content="&#xe1d9;" FontSize="15"
                                     Click="updateSize_click"  Grid.Row="2">
                                         <Button.ToolTip>
                                             <ToolTip Style="{StaticResource TooltipStyle}" Tag="Cambiar Tamaño" 
                                              ToolTip="Haga clic para establecer el tamaño del elemento."/>
-                                        </Button.ToolTip>
-                                    </Button>
-
-                                    <Button Style="{StaticResource MenuStyle_RoundButton}" Content="&#xe2b1;" FontSize="15" Foreground="Gray" 
-                                    Click="setAcabado_click"  Grid.Row="2" Grid.Column="1">
-                                        <Button.ToolTip>
-                                            <ToolTip Style="{StaticResource TooltipStyle}" Tag="Establecer Acabado" 
-                                             ToolTip="Haga clic para establecer el acabado."/>
                                         </Button.ToolTip>
                                     </Button>
                                 </Grid>
@@ -94,33 +79,25 @@
                     <Setter.Value>
                         <ControlTemplate TargetType="Button">
                             <Viewbox  Margin="2">
-                                <Grid Background="#FFE6EEF5">
+                                <Grid Background="#FFE6EEF5" Height="116" Width="{TemplateBinding Width}">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="1*"/>
                                         <RowDefinition Height="32"/>
                                         <RowDefinition Height="52"/>
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="100"/>
-                                        <ColumnDefinition Width="100"/>
+                                        <ColumnDefinition Width="1*"/>
                                     </Grid.ColumnDefinitions>
                                     <Label Content="{TemplateBinding Name}" Visibility="Collapsed"/>
                                     <TextBlock Text="{TemplateBinding Content}" Foreground="Black" Margin="2" 
                                                Grid.ColumnSpan="2" TextAlignment="Center" FontSize="18"/>
-                                    <Button x:Name="insCheck" Content="Insertar" Grid.ColumnSpan="2" FontSize="16"  Foreground="Black" Grid.Row="1" Click="insert_checked_changed" Margin="2,0,0,0"/>
-
-                                    <Button Style="{StaticResource MenuStyle_RoundButton}" Content="&#xe1d9;" FontSize="15"
+                                    <TextBlock Text="BR2060" Style="{StaticResource ItemStyle_Header}"  Grid.RowSpan="2" TextAlignment="Center" VerticalAlignment="Center"/>
+                                    <!--<Button x:Name="insCheck" Content="Insertar" Grid.ColumnSpan="2" FontSize="16"  Foreground="Black" Grid.Row="1" Click="insert_checked_changed" Margin="2,0,0,0"/>-->
+                                    <Button Style="{StaticResource MenuStyle_RoundButton}" Content="&#xe1d9;" FontSize="15" HorizontalAlignment="Center"
                                     Click="updateSize_click"  Grid.Row="2">
                                         <Button.ToolTip>
                                             <ToolTip Style="{StaticResource TooltipStyle}" Tag="Cambiar Tamaño" 
                                              ToolTip="Haga clic para establecer el tamaño del elemento."/>
-                                        </Button.ToolTip>
-                                    </Button>
-                                    <Button Style="{StaticResource MenuStyle_RoundButton}" Content="&#xe2b1;" FontSize="15" Foreground="Black" 
-                                    Click="setAcabado_click"  Grid.Row="2" Grid.Column="1">
-                                        <Button.ToolTip>
-                                            <ToolTip Style="{StaticResource TooltipStyle}" Tag="Establecer Acabado" 
-                                             ToolTip="Haga clic para establecer el acabado."/>
                                         </Button.ToolTip>
                                     </Button>
                                 </Grid>
@@ -144,17 +121,17 @@
             <ColumnDefinition Width="800"/>
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
-        <Viewbox HorizontalAlignment="Center" Grid.RowSpan="3">
+        <Viewbox HorizontalAlignment="Center" VerticalAlignment="Center" Grid.RowSpan="3">
             <Viewbox.LayoutTransform>
                 <RotateTransform Angle="0"/>
             </Viewbox.LayoutTransform>
-            <Grid>
+            <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
                 <local:CanvasBridgeSingle x:Name="cBridgeSingle" Visibility="Collapsed"/>
                 <local:CanvasBridgeDouble x:Name="cBridgeDouble"  Visibility="Collapsed"/>
                 <local:CanvasBridgeTriple x:Name="cBridgeTriple" Visibility="Collapsed"/>
             </Grid>
         </Viewbox>
-        <GroupBox Header="Control de Puentes y Fondos de Luz" Grid.Column="1">
+        <GroupBox Header="Control de Puentes y Fondos de Luz" Grid.Column="1" Grid.RowSpan="2">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
@@ -181,14 +158,31 @@
                                 <ColumnDefinition Width="1*"/>
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
+                                <RowDefinition Height="140"/>
+                                <RowDefinition Height="90"/>
                                 <RowDefinition Height="1*"/>
                                 <RowDefinition Height="1*"/>
                                 <RowDefinition Height="1*"/>
                             </Grid.RowDefinitions>
-                            <Button x:Name="b0Top_1" Style="{StaticResource bridgeStyle}"/>
-                            <Button x:Name="b0Low_1" Style="{StaticResource bridgeStyle}" Grid.Row="2"/>
-                            <Button x:Name="bmiddle_1" Grid.Column="1"  Style="{StaticResource bridgeStyleInsert}" Grid.Row="1"/>
-                            <Button x:Name="pazoLuz_1" Style="{StaticResource pozoStyle}" Grid.Row="1" />
+                            <local:BridgeProperties x:Name="oneBridgeProp" Grid.ColumnSpan="2" PropertyChanged="oneBridgeProp_PropertyChanged"/>
+                            <local:PazoLuzProperties x:Name="onePazoProp" Grid.Row="1" PropertyChanged="onePazoProp_PropertyChanged" Grid.ColumnSpan="2"/>
+                            <Viewbox  Grid.Row="2" Grid.ColumnSpan="2" Grid.RowSpan="3" >
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Button x:Name="b0Top_1" Style="{StaticResource bridgeStyle}"/>
+                                    <Button x:Name="b0Low_1" Grid.Row="2" Style="{StaticResource bridgeStyle}"/>
+                                    <Button x:Name="bmiddle_1" Grid.Row="1" Grid.Column="1"  Style="{StaticResource bridgeStyleInsert}"/>
+                                    <Button x:Name="pazoLuz_1" Grid.Row="1" Width="100" Style="{StaticResource pozoStyle}" />
+                                </Grid>
+                            </Viewbox>
                         </Grid>
                     </TabItem>
                     <TabItem Header="2 Puente">
@@ -196,19 +190,34 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="1*"/>
                                 <ColumnDefinition Width="1*"/>
-                                <ColumnDefinition Width="1*"/>
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="1*"/>
-                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="140"/>
+                                <RowDefinition Height="120"/>
                                 <RowDefinition Height="1*"/>
                             </Grid.RowDefinitions>
-                            <Button x:Name="b0Top_2" Style="{StaticResource bridgeStyle}"/>
-                            <Button x:Name="b0Low_2" Style="{StaticResource bridgeStyle}" Grid.Row="2"/>
-                            <Button x:Name="b1Top_2" Style="{StaticResource bridgeStyle}" Grid.Column="1"/>
-                            <Button x:Name="b1Low_2" Style="{StaticResource bridgeStyle}" Grid.Column="1" Grid.Row="2"/>
-                            <Button x:Name="bmiddle_2" Grid.Column="2"  Style="{StaticResource bridgeStyleInsert}" Grid.Row="1"/>
-                            <Button x:Name="pazoLuz_2" Style="{StaticResource pozoStyle}" Grid.Row="1" Grid.ColumnSpan="2" />
+                            <local:BridgeProperties x:Name="twoBridgeProp" Grid.ColumnSpan="2" PropertyChanged="twoBridgeProp_PropertyChanged" />
+                            <local:PazoLuzProperties x:Name="twoPazoProp" Grid.Row="1" Grid.ColumnSpan="2" PropertyChanged="twoPazoProp_PropertyChanged"/>
+                            <Viewbox  Grid.Row="2" Grid.ColumnSpan="2" Grid.RowSpan="3" >
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Button x:Name="b0Top_2" Style="{StaticResource bridgeStyle}"/>
+                                    <Button x:Name="b0Low_2" Grid.Row="2" Style="{StaticResource bridgeStyle}"/>
+                                    <Button x:Name="b1Top_2" Grid.Column="1" Style="{StaticResource bridgeStyle}"/>
+                                    <Button x:Name="b1Low_2" Grid.Column="1" Grid.Row="2" Style="{StaticResource bridgeStyle}"/>
+                                    <Button x:Name="bmiddle_2" Grid.Row="1" Grid.Column="2" Style="{StaticResource bridgeStyleInsert}"/>
+                                    <Button x:Name="pazoLuz_2" Grid.Row="1" Grid.ColumnSpan="2" Width="200" Style="{StaticResource pozoStyle}"/>
+                                </Grid>
+                            </Viewbox>
                         </Grid>
                     </TabItem>
                     <TabItem Header="3 Puente">
@@ -216,53 +225,40 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="1*"/>
                                 <ColumnDefinition Width="1*"/>
-                                <ColumnDefinition Width="1*"/>
-                                <ColumnDefinition Width="1*"/>
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="1*"/>
-                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="140"/>
+                                <RowDefinition Height="120"/>
                                 <RowDefinition Height="1*"/>
                             </Grid.RowDefinitions>
-                            <Button x:Name="b0Top_3" Style="{StaticResource bridgeStyle}"/>
-                            <Button x:Name="b0Low_3" Style="{StaticResource bridgeStyle}" Grid.Row="2"/>
-                            <Button x:Name="b1Top_3" Style="{StaticResource bridgeStyle}" Grid.Column="1"/>
-                            <Button x:Name="b1Low_3" Style="{StaticResource bridgeStyle}" Grid.Column="1" Grid.Row="2"/>
-                            <Button x:Name="b2Top_3" Style="{StaticResource bridgeStyle}" Grid.Column="2"/>
-                            <Button x:Name="b2Low_3" Style="{StaticResource bridgeStyle}" Grid.Column="2" Grid.Row="2"/>
-                            <Button x:Name="bmiddle_3" Grid.Column="3"  Style="{StaticResource bridgeStyleInsert}" Grid.Row="1"/>
-                            <Button x:Name="pazoLuz_3" Style="{StaticResource pozoStyle}" Grid.Row="1" Grid.ColumnSpan="3" />
+                            <local:BridgeProperties x:Name="threeBridgeProp" Grid.ColumnSpan="2" PropertyChanged="threeBridgeProp_PropertyChanged"/>
+                            <local:PazoLuzProperties x:Name="threePazoProp" Grid.Row="1" Grid.ColumnSpan="2" PropertyChanged="threePazoProp_PropertyChanged"/>
+                            <Viewbox  Grid.Row="2" Grid.ColumnSpan="2" Grid.RowSpan="3" >
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Button x:Name="b0Top_3" Style="{StaticResource bridgeStyle}"/>
+                                    <Button x:Name="b0Low_3" Grid.Row="2" Style="{StaticResource bridgeStyle}"/>
+                                    <Button x:Name="b1Top_3" Grid.Column="1" Style="{StaticResource bridgeStyle}"/>
+                                    <Button x:Name="b1Low_3" Grid.Column="1" Grid.Row="2" Style="{StaticResource bridgeStyle}"/>
+                                    <Button x:Name="b2Top_3" Grid.Column="2" Style="{StaticResource bridgeStyle}"/>
+                                    <Button x:Name="b2Low_3" Grid.Column="2" Style="{StaticResource bridgeStyle}" Grid.Row="2"/>
+                                    <Button x:Name="bmiddle_3" Grid.Row="1" Grid.Column="3" Style="{StaticResource bridgeStyleInsert}"/>
+                                    <Button x:Name="pazoLuz_3" Grid.Row="1" Grid.ColumnSpan="3" Width="300" Style="{StaticResource pozoStyle}"/>
+                                </Grid>
+                            </Viewbox>
                         </Grid>
                     </TabItem>
                 </TabControl>
-                <!--<Grid x:Name="btnConsole" Grid.Row="2" Grid.ColumnSpan="3">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="1*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="1*"/>
-                        <RowDefinition Height="1*"/>
-                        <RowDefinition Height="1*"/>
-                        <RowDefinition Height="1*"/>
-                    </Grid.RowDefinitions>
-                    <Button x:Name="b0Top" Grid.Column="1" Style="{StaticResource bridgeStyle}"/>
-                    <Button x:Name="b1Top" Grid.Column="2"  Style="{StaticResource bridgeStyle}"/>
-                    <Button x:Name="b2Top" Grid.Column="3"  Style="{StaticResource bridgeStyle}"/>
-                    <Button x:Name="bm0Start" Grid.Column="0"  Style="{StaticResource bridgeStyle}" Grid.Row="1"/>
-                    <Button x:Name="bm0End" Grid.Column="4" Style="{StaticResource bridgeStyle}" Grid.Row="1"/>
-                    <Button x:Name="bm1Start" Grid.Column="0"  Style="{StaticResource bridgeStyle}" Grid.Row="2"/>
-                    <Button x:Name="bm1End" Grid.Column="4" Style="{StaticResource bridgeStyle}" Grid.Row="2"/>
-                    <Button x:Name="b0Low" Grid.Column="1" Style="{StaticResource bridgeStyle}" Grid.Row="3"/>
-                    <Button x:Name="b1Low" Grid.Column="2" Style="{StaticResource bridgeStyle}" Grid.Row="3"/>
-                    <Button x:Name="b2Low" Grid.Column="3" Style="{StaticResource bridgeStyle}" Grid.Row="3"/>
-                    <Button x:Name="p0Luz" Grid.Column="1" Style="{StaticResource pozoStyle}" Grid.Row="1" Grid.RowSpan="2"/>
-                    <Button x:Name="p1Luz" Grid.Column="2" Style="{StaticResource pozoStyle}" Grid.Row="1" Grid.RowSpan="2"/>
-                    <Button x:Name="p2Luz" Grid.Column="3" Style="{StaticResource pozoStyle}" Grid.Row="1" Grid.RowSpan="2"/>
-                </Grid>-->
             </Grid>
         </GroupBox>
         <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="10">

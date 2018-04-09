@@ -1,0 +1,63 @@
+﻿<UserControl x:Class="DaSoft.Riviera.Modulador.Bordeo.UI.PazoLuzProperties"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:DaSoft.Riviera.Modulador.Bordeo.UI"
+             mc:Ignorable="d" 
+            d:DesignHeight="140" d:DesignWidth="400">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/riv_core;component/Assets/RivieraStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <GroupBox Grid.ColumnSpan="2" Header="Propiedades Generales de Pazo de Luz">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="120"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="120"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Style="{StaticResource ItemStyle_Header}" TextAlignment="Center">
+                                        <TextBlock Text="Acabado"/>
+                                        <LineBreak/>
+                                        <TextBlock Text="Exterior"/>
+                                    </TextBlock>
+            <ComboBox x:Name="extAcabados" Grid.Column="1"  Height="32" SelectionChanged="property_SelectionChanged"
+                                              Style="{StaticResource MenuStyle_List}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock >
+                            <TextBlock Text="{Binding Path=Acabado}" FontSize="16"/>
+                            <LineBreak/>
+                            <TextBlock Text="{Binding Path=Description}" Margin="0,2,0,0" FontSize="10" TextWrapping="Wrap"/>
+                        </TextBlock>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <TextBlock Style="{StaticResource ItemStyle_Header}" Grid.Column="2"  TextAlignment="Center">
+                                        <TextBlock Text="Acabado"/>
+                                        <LineBreak/>
+                                        <TextBlock Text="Interior"/>
+                                    </TextBlock>
+            <ComboBox x:Name="intAcabados" Grid.Column="3"  Height="32" SelectionChanged="property_SelectionChanged"
+                                              Style="{StaticResource MenuStyle_List}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock >
+                            <TextBlock Text="{Binding Path=Acabado}" FontSize="16"/>
+                            <LineBreak/>
+                            <TextBlock Text="{Binding Path=Description}" Margin="0,2,0,0" FontSize="10" TextWrapping="Wrap"/>
+                        </TextBlock>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+        </Grid>
+    </GroupBox>
+</UserControl>

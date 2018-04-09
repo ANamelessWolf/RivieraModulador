@@ -18,11 +18,11 @@ namespace DaSoft.Riviera.Modulador.Core.Model.DB
         /// <summary>
         /// The Riviera code for the "acabado"
         /// </summary>
-        public String Acabado;
+        public String Acabado { get; set; }
         /// <summary>
         /// The "acabado" description
         /// </summary>
-        public String Description;
+        public String Description { get; set; }
         /// <summary>
         /// Imprime el código al que tiene asociado los acabados
         /// </summary>

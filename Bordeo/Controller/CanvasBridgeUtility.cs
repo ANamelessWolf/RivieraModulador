@@ -8,7 +8,7 @@ using System.Windows;
 using static DaSoft.Riviera.Modulador.Core.Assets.CONST;
 namespace DaSoft.Riviera.Modulador.Bordeo.Controller
 {
-  public static  class CanvasBridgeUtility
+    public static class CanvasBridgeUtility
     {
         /// <summary>
         /// Sets the default data to the canvas bridge controller.
@@ -21,18 +21,28 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Controller
                 Select(x => x as IBridgeItem).ToList().
                         ForEach(x =>
                         {
-                            x.UpdateSize(KEY_FRONT, 24d);
+                            if(x is BordeoPuenteHorItem)
+                            {
+                                x.UpdateSize(KEY_FRONT, 24d);
+                                x.UpdateSize(KEY_DEPHT, 24d);
+                            }
+                            else
+                            {
+                                x.UpdateSize(KEY_FRONT, 24d);
+                                x.UpdateSize(KEY_DEPHT, 18d);
+                            }
                             x.UpdateSize(KEY_HEIGHT, 24d);
-                            x.UpdateSize(KEY_DEPHT, 18d);
                             x.SetAcabado("01");
                         });
+            int pIndex = cbridge.CanvasContainer.Children.OfType<FrameworkElement>().
+                    Count(x => x is BordeoPuenteItem) / 2;
             cbridge.CanvasContainer.Children.OfType<FrameworkElement>().
                 Where(x => x is BordeoPazLuzItem).
                 Select(x => x as IBridgeItem).ToList().
                 ForEach(x =>
                 {
-                    x.UpdateSize(KEY_FRONT, 24d);
-                    x.UpdateSize(KEY_DEPHT, 48d);
+                    x.UpdateSize(KEY_FRONT, 24d );
+                    x.UpdateSize(KEY_DEPHT, 24d * pIndex);
                     x.SetAcabado("01");
                 });
         }
@@ -42,7 +52,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Controller
         /// <param name="cbridge">The cbridge.</param>
         public static void HideCanvasBridgePazoLuz(this ICanvasBridge cbridge)
         {
-            cbridge.PazoLuz.Visibility = Visibility.Hidden;
+            cbridge.PazoLuz.Visibility = Visibility.Visible;
         }
         /// <summary>
         /// Shows the pazo luz.

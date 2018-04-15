@@ -191,6 +191,9 @@
     <Compile Include="UI\WinSelectFront.xaml.cs">
       <DependentUpon>WinSelectFront.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\WinSizePicker.xaml.cs">
+      <DependentUpon>WinSizePicker.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -249,6 +252,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\WinSelectFront.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\WinSizePicker.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

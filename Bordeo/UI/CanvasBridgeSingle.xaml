@@ -19,6 +19,6 @@
         <local:BordeoPuenteItem x:Name="b0Top" Code="BR2040" Frente="300" Fondo="300"/>
         <local:BordeoPuenteItem x:Name="b0Low"  Code="BR2040" Grid.Row="2" Frente="300" Fondo="300"/>
         <local:BordeoPazLuzItem x:Name="pazoLuz" Code="BR2060" Grid.Row="1" Frente="300" Fondo="300"/>
-        <local:BordeoPuenteHorItem x:Name="bmiddle" Code="BR2040" Grid.Column="1" Grid.Row="1" Frente="300" Fondo="300" Acabado="01"/>
+        <local:BordeoPuenteHorItem x:Name="bmiddle" Code="BR2040" Grid.Column="1" Grid.Row="1" Frente="300" Fondo="300" Acabado="01" IsVisibleChanged="bmiddle_IsVisibleChanged"/>
     </Grid>
 </UserControl>

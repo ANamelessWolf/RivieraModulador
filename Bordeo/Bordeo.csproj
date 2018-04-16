@@ -165,6 +165,7 @@
     <Compile Include="UI\BridgeProperties.xaml.cs">
       <DependentUpon>BridgeProperties.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\BridgeSelectionResult.cs" />
     <Compile Include="UI\ButtonImage.xaml.cs">
       <DependentUpon>ButtonImage.xaml</DependentUpon>
     </Compile>

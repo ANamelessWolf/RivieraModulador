@@ -121,14 +121,17 @@
             <ColumnDefinition Width="800"/>
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
-        <Viewbox HorizontalAlignment="Center" VerticalAlignment="Center" Grid.RowSpan="3">
+        <Viewbox HorizontalAlignment="Center" VerticalAlignment="Center" Grid.RowSpan="2">
             <Viewbox.LayoutTransform>
                 <RotateTransform Angle="0"/>
             </Viewbox.LayoutTransform>
             <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
-                <local:CanvasBridgeSingle x:Name="cBridgeSingle" Visibility="Collapsed"/>
-                <local:CanvasBridgeDouble x:Name="cBridgeDouble"  Visibility="Collapsed"/>
-                <local:CanvasBridgeTriple x:Name="cBridgeTriple" Visibility="Collapsed"/>
+                <local:CanvasBridgeSingle x:Name="cBridgeSingle" Visibility="Collapsed" CanvasIsLoaded="canvasIsLoaded"
+                                          MiddleBridgeVisibilityChanged="middleBridgeVisibilityChanged"/>
+                <local:CanvasBridgeDouble x:Name="cBridgeDouble"  Visibility="Collapsed" CanvasIsLoaded="canvasIsLoaded" 
+                                          MiddleBridgeVisibilityChanged="middleBridgeVisibilityChanged"/>
+                <local:CanvasBridgeTriple x:Name="cBridgeTriple" Visibility="Collapsed" CanvasIsLoaded="canvasIsLoaded"
+                                          MiddleBridgeVisibilityChanged="middleBridgeVisibilityChanged"/>
             </Grid>
         </Viewbox>
         <GroupBox Header="Control de Puentes y Fondos de Luz" Grid.Column="1" Grid.RowSpan="2">
@@ -143,13 +146,6 @@
                     <RowDefinition Height="32"/>
                     <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
-                <TextBlock>
-                    <TextBlock  Text="Tipo de Puente:" Style="{StaticResource ItemStyle_Header}" VerticalAlignment="Center" Height="32"/>
-                    <ComboBox x:Name="listOfBridges" SelectionChanged="listOfBridges_SelectionChanged">
-                        <TextBlock Text="BR2040"/>
-                        <TextBlock Text="BR2050"/>
-                    </ComboBox>
-                </TextBlock>
                 <TabControl x:Name="canvasTab" Grid.ColumnSpan="3" Grid.RowSpan="3" SelectionChanged="TabControl_SelectionChanged">
                     <TabItem Header="1 Puente">
                         <Grid>
@@ -273,5 +269,9 @@
                 </Button.ToolTip>
             </Button>
         </StackPanel>
+        <Rectangle Fill="#99CCE0E8" Grid.Row="3" Grid.ColumnSpan="3" VerticalAlignment="Bottom" Height="80"/>
+        <TextBlock x:Name="bridgeGroupCode" Text="BR922424243C30H24P30" Grid.Row="3" Grid.ColumnSpan="3" VerticalAlignment="Bottom" HorizontalAlignment="Left"
+                   FontSize="60" Margin="10,0,0,0" />
+
     </Grid>
 </metro:MetroWindow>

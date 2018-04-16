@@ -1,10 +1,12 @@
 ﻿using DaSoft.Riviera.Modulador.Bordeo.Controller;
 using DaSoft.Riviera.Modulador.Bordeo.Model;
+using DaSoft.Riviera.Modulador.Core.Controller.UI;
 using DaSoft.Riviera.Modulador.Core.Model;
 using DaSoft.Riviera.Modulador.Core.Model.DB;
 using DaSoft.Riviera.Modulador.Core.Runtime;
 using DaSoft.Riviera.Modulador.Core.UI;
 using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +30,10 @@ namespace DaSoft.Riviera.Modulador.Bordeo.UI
     public partial class WinBridgeEditor : MetroWindow
     {
         /// <summary>
+        /// The selected bridge result
+        /// </summary>
+        public BridgeSelectionResult SelectedBridge;
+        /// <summary>
         /// The Element Riviera codes
         /// </summary>
         public RivieraCode[] Codes;
@@ -35,7 +41,12 @@ namespace DaSoft.Riviera.Modulador.Bordeo.UI
         /// The Riviera Element sizes
         /// </summary>
         public Dictionary<string, ElementSizeCollection> Sizes;
-
+        /// <summary>
+        /// Gets the puentes layout.
+        /// </summary>
+        /// <value>
+        /// The puentes layout.
+        /// </value>
         public ICanvasBridge puentes_layout
         {
             get
@@ -64,7 +75,6 @@ namespace DaSoft.Riviera.Modulador.Bordeo.UI
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            this.listOfBridges.SelectedIndex = 0;
             this.Sizes = new Dictionary<string, ElementSizeCollection>();
             this.InitSizes();
             String bCode = "BR2040";
@@ -75,7 +85,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.UI
             this.twoPazoProp.Init(this.Codes[2]); this.oneBridgeProp.Init(bMeasures.Select(x => x.Alto).Distinct(), this.Codes[0]);
             this.threeBridgeProp.Init(bMeasures.Select(x => x.Alto).Distinct(), this.Codes[0]);
             this.threePazoProp.Init(this.Codes[2]); this.oneBridgeProp.Init(bMeasures.Select(x => x.Alto).Distinct(), this.Codes[0]);
-
+            this.UpdateCode();
         }
         /// <summary>
         /// Handles the changed event of the insert_checked control.
@@ -84,57 +94,34 @@ namespace DaSoft.Riviera.Modulador.Bordeo.UI
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void insert_checked_changed(object sender, RoutedEventArgs e)
         {
-            string btnName = ((sender as Button).Parent as Grid).Children.OfType<Label>().FirstOrDefault().Content.ToString();
-            btnName = btnName.Split('_')[0];
-            var item = (puentes_layout as UserControl).FindName(btnName) as UserControl;
-            item.Visibility = (sender as Button).Content.ToString() == "Insertar" ? Visibility.Visible : Visibility.Hidden;
-            (sender as Button).Content = (sender as Button).Content.ToString() == "Insertar" ? "Remover" : "Insertar";
-            (item as IBridgeItem).SetCode((item is BordeoPazLuzItem) ? "BR2060" : (this.listOfBridges.SelectedItem as TextBlock).Text.ToString());
-            if ((item is BordeoPazLuzItem))
+            if (puentes_layout.PazoLuz.Frente / 10 < 36)
             {
-                var pazo = item as BordeoPazLuzItem;
-                pazo.Frente = (puentes_layout as ICanvasBridge).HorBridge.Frente;
-                pazo.Fondo = (puentes_layout as ICanvasBridge).GetFondo();
+                string btnName = ((sender as Button).Parent as Grid).Children.OfType<Label>().FirstOrDefault().Content.ToString();
+                btnName = btnName.Split('_')[0];
+                var item = (puentes_layout as UserControl).FindName(btnName) as UserControl;
+                item.Visibility = (sender as Button).Content.ToString() == "Insertar" ? Visibility.Visible : Visibility.Hidden;
+                (sender as Button).Content = (sender as Button).Content.ToString() == "Insertar" ? "Remover" : "Insertar";
+                (item as IBridgeItem).SetCode((item is BordeoPazLuzItem) ? "BR2060" : "BR2040");
+                if ((item is BordeoPazLuzItem))
+                {
+                    var pazo = item as BordeoPazLuzItem;
+                    pazo.Frente = (puentes_layout as ICanvasBridge).HorBridge.Frente;
+                    pazo.Fondo = (puentes_layout as ICanvasBridge).GetFondo();
+                }
+            }
+            else
+            {
+                puentes_layout.HorBridge.Visibility = Visibility.Visible;
+                (sender as Button).Content = "Insertar";
             }
         }
-        /// <summary>
-        /// Handles the click event of the setAcabado control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
-        private void setAcabado_click(object sender, RoutedEventArgs e)
-        {
-            //string btnName = ((sender as Button).Parent as Grid).Children.OfType<Label>().FirstOrDefault().Content.ToString();
-            //var item = puentes_layout.FindName(btnName) as UserControl;
-            //if (item.Visibility == Visibility.Visible)
-            //{
-            //    String code = (item as IBridgeItem).GetCode();
-            //    var win = new WinAcabadoPicker(code, this.Codes.FirstOrDefault(x => x.Code == code));
-            //    if (win.ShowDialog().Value)
-            //        (item as IBridgeItem).SetAcabado(win.SelectedAcabado.Acabado);
-            //}
-        }
-        /// <summary>
-        /// Handles the SelectionChanged event of the listOfBridges control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="SelectionChangedEventArgs"/> instance containing the event data.</param>
-        private void listOfBridges_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            //if (this.btnConsole != null)
-            //    foreach (Button btn in this.btnConsole.Children.OfType<FrameworkElement>().
-            //        Where(x => x is Button && x.Name[0] == 'b'))
-            //        btn.Content = ((TextBlock)this.listOfBridges.SelectedItem).Text;
-            //p0Luz.Content = "BR2060";
-            //p1Luz.Content = "BR2060";
-            //p2Luz.Content = "BR2060";
-        }
+
         /// <summary>
         /// Handles the click event of the updateSize control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
-        private void updateSize_click(object sender, RoutedEventArgs e)
+        private async void updateSize_click(object sender, RoutedEventArgs e)
         {
             string btnName = ((sender as Button).Parent as Grid).Children.OfType<Label>().FirstOrDefault().Content.ToString();
             string cIndex = btnName.Split('_')[1];
@@ -175,145 +162,36 @@ namespace DaSoft.Riviera.Modulador.Bordeo.UI
                     middle.UpdateSize("FRENTE", ((WinSizePicker)win).SelectedSize.Nominal);
                     pazo = (BordeoPazLuzItem)items.FirstOrDefault(x => x is BordeoPazLuzItem);
                     pazo.UpdateSize("FRENTE", ((WinSizePicker)win).SelectedSize.Nominal);
+                    if (((WinSizePicker)win).SelectedSize.Nominal == 36)
+                        middle.Visibility = Visibility.Visible;
                 }
                 else
                 {
+
                     List<BordeoPuenteItem> bridges = items.Where(x => x is BordeoPuenteItem).Select(y => y as BordeoPuenteItem).ToList();
                     string row = btnName.Substring(0, 2);
-                    bridges.ForEach(x =>
+                    var b = bridges.Where(x => x.Name.Substring(2) == "Top" && x.Name.Substring(0, 2) != row);
+                    double size = b.Sum(y => y.Frente / 10);
+                    size += ((WinFrontFondo)win).SelectedFront.Nominal;
+                    if (size <= 72)
                     {
-                        if (row == x.Name.Substring(0, 2))
-                            x.UpdateSize("FRENTE", ((WinFrontFondo)win).SelectedFront.Nominal);
-                    });
-                    bridges.ForEach(x => x.UpdateSize("FONDO", ((WinFrontFondo)win).SelectedFondo.Nominal));
-                    pazo = (BordeoPazLuzItem)items.FirstOrDefault(x => x is BordeoPazLuzItem);
-                    pazo.UpdateSize("FONDO", bridges.Where(x => x.Name.Substring(2) == "Top").Sum(y => y.Frente));
+
+                        bridges.ForEach(x =>
+                        {
+                            if (row == x.Name.Substring(0, 2))
+                                x.UpdateSize("FRENTE", ((WinFrontFondo)win).SelectedFront.Nominal);
+                        });
+                        bridges.ForEach(x => x.UpdateSize("FONDO", ((WinFrontFondo)win).SelectedFondo.Nominal));
+                        pazo = (BordeoPazLuzItem)items.FirstOrDefault(x => x is BordeoPazLuzItem);
+                        pazo.UpdateSize("FONDO", size);
+                    }
+                    else
+                    {
+                        await this.ShowMessageAsync("Tamaño de frente no valido", "El tamaño de frente seleccionado, rompe la regla de tamaño de fondo máximo de 72\" para el pazo de Luz.", MessageDialogStyle.AffirmativeAndNegative);
+                    }
                 }
-
             }
-
-
-            //var item = puentes_layout.FindName(btnName) as UserControl;
-            //if (item.Visibility == Visibility.Visible)
-            //{
-            //    var sizes = this.Sizes[(item as IBridgeItem).GetCode()];
-            //    if (sizes.Code == "BR2040" || sizes.Code == "BR2050")
-            //    {
-            //        var bMeasures = sizes.Sizes.Select(x => x as BridgeMeasure);
-            //        var win = new WinFrontFondoHeight(bMeasures.Select(x => x.Frente).Distinct(), bMeasures.Select(x => x.Alto).Distinct(), bMeasures.Select(x => x.Fondo).Distinct());
-            //        if (win.ShowDialog().Value)
-            //            this.UpdateBridge(item, win);
-            //    }
-            //    else if (sizes.Code == "BR2060")
-            //    {
-            //        var pMeausres = sizes.Sizes.Select(x => x as PazoLuzMeasure);
-            //        var win = new WinFrontFondo(pMeausres.Select(x => x.Frente).Distinct(), pMeausres.Select(x => x.Fondo).Distinct());
-            //        if (win.ShowDialog().Value)
-            //            this.UpdatePazo(item as BordeoPazLuzItem, win);
-            //    }
-            //}
-        }
-        /// <summary>
-        /// Updates the pazo.
-        /// </summary>
-        /// <param name="item">The item.</param>
-        /// <param name="win">The win.</param>
-        private void UpdatePazo(BordeoPazLuzItem item, WinFrontFondo win)
-        {
-            //BordeoPazLuzItem[] pazos =
-            //    new BordeoPazLuzItem[] { puentes_layout.p0Luz, puentes_layout.p1Luz, puentes_layout.p2Luz };
-            //pazos.ToList().ForEach(x =>
-            //{
-            //    x.UpdateSize(win.SelectedFront.Measure, win.SelectedFront.Nominal);
-            //    x.UpdateSize(win.SelectedFondo.Measure, win.SelectedFondo.Nominal);
-            //});
-            //BordeoPuenteHorItem[] puentesH;
-            //if (win.SelectedFondo.Nominal <= 42)
-            //{
-            //    puentesH = new BordeoPuenteHorItem[] { puentes_layout.bm0Start, puentes_layout.bm0End };
-            //    puentesH.ToList().ForEach(x => x.UpdateSize(win.SelectedFront.Measure, win.SelectedFondo.Nominal));
-            //}
-            //else
-            //{
-            //    puentesH = new BordeoPuenteHorItem[] { puentes_layout.bm0Start, puentes_layout.bm0End };
-            //    puentesH.ToList().ForEach(x => x.UpdateSize(win.SelectedFront.Measure, this.SelectFondo(win.SelectedFondo.Nominal, false)));
-            //    puentesH = new BordeoPuenteHorItem[] { puentes_layout.bm1Start, puentes_layout.bm1End };
-            //    puentesH.ToList().ForEach(x => x.UpdateSize(win.SelectedFront.Measure, this.SelectFondo(win.SelectedFondo.Nominal, true)));
-            //}
-            //BordeoPuenteItem[] puentes = new BordeoPuenteItem[]
-            //{
-            //    puentes_layout.b0Top, puentes_layout.b1Top, puentes_layout.b2Top,
-            //    puentes_layout.b0Low, puentes_layout.b1Low, puentes_layout.b2Low
-            //};
-            //puentes.ToList().ForEach(x => x.UpdateSize(win.SelectedFront.Measure, win.SelectedFront.Nominal));
-        }
-        /// <summary>
-        /// Updates the bridge.
-        /// </summary>
-        /// <param name="item">The item.</param>
-        /// <param name="win">The win.</param>
-        private void UpdateBridge(UserControl item, WinFrontFondoHeight win)
-        {
-            //    if (item is BordeoPuenteHorItem)
-            //    {
-            //        BordeoPuenteHorItem[] puentesH = item.Name.Contains('1') ?
-            //            new BordeoPuenteHorItem[] { puentes_layout.bm0Start, puentes_layout.bm0End } :
-            //            new BordeoPuenteHorItem[] { puentes_layout.bm1Start, puentes_layout.bm1End },
-            //         puentesSel = item.Name.Contains('0') ?
-            //            new BordeoPuenteHorItem[] { puentes_layout.bm0Start, puentes_layout.bm0End } :
-            //            new BordeoPuenteHorItem[] { puentes_layout.bm1Start, puentes_layout.bm1End };
-            //        double frenteFinal = puentes_layout.p0Luz.Fondo / 10 - win.SelectedFront.Nominal;
-            //        frenteFinal = frenteFinal <= 0 ? 24d : frenteFinal;
-            //        //if (frenteFinal + win.SelectedFront.Nominal != puentes_layout.p0Luz.Fondo / 10)
-            //        //{ MessageBox.Show("El frente seleccionado no es valido con el fondo actual" }
-            //        puentesSel.ToList().ForEach(x =>
-            //        {
-            //            x.UpdateSize(win.SelectedFront.Measure, win.SelectedFront.Nominal);
-            //            x.UpdateSize(win.SelectedHeight.Measure, win.SelectedHeight.Nominal);
-            //            x.UpdateSize(win.SelectedFondo.Measure, win.SelectedFondo.Nominal);
-            //        });
-            //        puentesH.ToList().ForEach(x =>
-            //        {
-            //            x.UpdateSize(win.SelectedFront.Measure, frenteFinal);
-            //            x.UpdateSize(win.SelectedHeight.Measure, win.SelectedHeight.Nominal);
-            //            x.UpdateSize(win.SelectedFondo.Measure, win.SelectedFondo.Nominal);
-            //        });
-            //    }
-            //    else
-            //    {
-            //        IEnumerable<BordeoPuenteItem> puentes =
-            //            puentes_layout.items.Children.OfType<FrameworkElement>().Where(x => x is BordeoPuenteItem).Select(x => x as BordeoPuenteItem);
-            //        puentes.ToList().ForEach(x =>
-            //        {
-            //            x.UpdateSize(win.SelectedHeight.Measure, win.SelectedHeight.Nominal);
-            //            x.UpdateSize(win.SelectedFondo.Measure, win.SelectedFondo.Nominal);
-            //        });
-
-            //        IEnumerable<IBridgeItem> pazoLuz =
-            //            puentes_layout.items.Children.OfType<FrameworkElement>().Where(x => x is BordeoPazLuzItem).Select(x => x as IBridgeItem);
-            //        puentes.Where(x => x.Name.Contains(item.Name.Substring(1, 1))).Select(x => x as IBridgeItem).Union(pazoLuz).ToList().ForEach(x => x.UpdateSize(win.SelectedFront.Measure, win.SelectedFront.Nominal));
-            //    }
-        }
-        /// <summary>
-        /// Selects the fondo.
-        /// </summary>
-        /// <param name="nominal">The nominal.</param>
-        /// <param name="endFondo">if set to <c>true</c> [end fondo].</param>
-        /// <returns>The selected "Fondo"</returns>
-        private double SelectFondo(double nominal, bool endFondo)
-        {
-            if (nominal == 48d || nominal == 60 || nominal == 72)
-                return nominal / 2d;
-            else if (nominal == 54d && endFondo)
-                return 24d;
-            else if (nominal == 54d && !endFondo)
-                return 30d;
-            else if (nominal == 66d && endFondo)
-                return 30d;
-            else if (nominal == 66d && !endFondo)
-                return 36d;
-            else
-                return nominal;
+            this.UpdateCode();
         }
         /// <summary>
         /// Initializes the sizes.
@@ -387,6 +265,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.UI
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
             this.DialogResult = false;
+
             this.Close();
         }
         /// <summary>
@@ -397,9 +276,28 @@ namespace DaSoft.Riviera.Modulador.Bordeo.UI
         private void Ok_Click(object sender, RoutedEventArgs e)
         {
             this.DialogResult = true;
+            BridgeProperties bridgeProp = (this.puentes_layout is CanvasBridgeSingle) ? oneBridgeProp :
+                            (this.puentes_layout is CanvasBridgeDouble) ? twoBridgeProp : threeBridgeProp;
+            PazoLuzProperties pazoProp = (this.puentes_layout is CanvasBridgeSingle) ? onePazoProp :
+                        (this.puentes_layout is CanvasBridgeDouble) ? twoPazoProp : threePazoProp;
+            RivieraAcabado codeBridge = bridgeProp.SelectedExtAcabado.Acabado.CompareTo(bridgeProp.SelectedIntAcabado.Acabado) > 0 ?
+                bridgeProp.SelectedExtAcabado : bridgeProp.SelectedIntAcabado,
+                codePazo = pazoProp.SelectedExtAcabado.Acabado.CompareTo(pazoProp.SelectedIntAcabado.Acabado) > 0 ?
+                bridgeProp.SelectedExtAcabado : pazoProp.SelectedIntAcabado;
+
+            this.SelectedBridge = new BridgeSelectionResult()
+            {
+                SelectedCode = this.bridgeGroupCode.Text,
+                AcabadoPazo = codePazo,
+                AcabadoPuentes = codeBridge
+            };
             this.Close();
         }
-
+        /// <summary>
+        /// Handles the SelectionChanged event of the TabControl control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="SelectionChangedEventArgs"/> instance containing the event data.</param>
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var tab = (TabControl)sender;
@@ -421,6 +319,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.UI
                 cBridgeDouble.Visibility = Visibility.Collapsed;
                 cBridgeTriple.Visibility = Visibility.Visible;
             }
+            this.UpdateCode();
         }
         /// <summary>
         /// Handles the PropertyChanged event of the threeBridgeProp control.
@@ -433,6 +332,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.UI
             var bridges = (this.cBridgeSingle as ICanvasBridge).CanvasContainer.Children.OfType<FrameworkElement>().
                 Where(x => x is BordeoPuenteItem || x is BordeoPuenteHorItem).ToList();
             this.UpdateBridgeProperties(args, this.oneBridgeProp, bridges);
+            this.UpdateCode();
         }
         /// <summary>
         /// Handles the PropertyChanged event of the onePazoProp control.
@@ -445,6 +345,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.UI
             var pazo = (this.cBridgeSingle as ICanvasBridge).CanvasContainer.Children.OfType<FrameworkElement>().
                   FirstOrDefault(x => x is BordeoPazLuzItem) as BordeoPazLuzItem;
             this.UpdatePazo(args, this.onePazoProp, pazo);
+            this.UpdateCode();
         }
         /// <summary>
         /// Handles the PropertyChanged event of the threeBridgeProp control.
@@ -458,7 +359,11 @@ namespace DaSoft.Riviera.Modulador.Bordeo.UI
                 Where(x => x is BordeoPuenteItem || x is BordeoPuenteHorItem).ToList();
             this.UpdateBridgeProperties(args, this.twoBridgeProp, bridges);
         }
-
+        /// <summary>
+        /// Handles the PropertyChanged event of the twoPazoProp control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="SelectionChangedEventArgs"/> instance containing the event data.</param>
         private void twoPazoProp_PropertyChanged(object sender, SelectionChangedEventArgs e)
         {
             PropertyChangedArgs args = (PropertyChangedArgs)e;
@@ -535,6 +440,57 @@ namespace DaSoft.Riviera.Modulador.Bordeo.UI
                     pazoProp.SelectedExtAcabado : pazoProp.SelectedIntAcabado;
                 pazo.SetAcabado(acabado.Acabado);
             }
+        }
+        /// <summary>
+        /// Middles the bridge visibility changed.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        private void middleBridgeVisibilityChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            BordeoPuenteHorItem bmiddle = (BordeoPuenteHorItem)sender;
+            this.UpdateCode();
+        }
+        /// <summary>
+        /// Updates the code.
+        /// </summary>
+        private void UpdateCode()
+        {
+            //  BR9|2|24|24|24|30|30|H24|P30
+            int bridgeIndex = this.puentes_layout is CanvasBridgeSingle ? 1 : this.puentes_layout is CanvasBridgeDouble ? 2 : 3;
+            double[] codeParams = new double[] {
+                            (this.puentes_layout is CanvasBridgeSingle) ? (this.puentes_layout as CanvasBridgeSingle).b0Top.Frente :
+                            (this.puentes_layout is CanvasBridgeDouble) ? (this.puentes_layout as CanvasBridgeDouble).b0Top.Frente:
+                            (this.puentes_layout as CanvasBridgeTriple).b0Top.Frente, //b0Front
+                            (this.puentes_layout is CanvasBridgeSingle) ? double.NaN :
+                            (this.puentes_layout is CanvasBridgeDouble) ? (this.puentes_layout as CanvasBridgeDouble).b1Top.Frente :
+                            (this.puentes_layout as CanvasBridgeTriple).b1Top.Frente, //b1Front
+                            (this.puentes_layout is CanvasBridgeSingle) ? double.NaN :
+                            (this.puentes_layout is CanvasBridgeDouble) ? double.NaN :
+                            (this.puentes_layout as CanvasBridgeTriple).b2Top.Frente, //b2Front
+                            (this.puentes_layout is CanvasBridgeSingle) ? (this.puentes_layout as CanvasBridgeSingle).b0Top.Fondo:
+                            (this.puentes_layout is CanvasBridgeDouble) ? (this.puentes_layout as CanvasBridgeDouble).b0Top.Fondo:
+                            (this.puentes_layout as CanvasBridgeTriple).b0Top.Fondo,  //bFondo
+                            this.puentes_layout.PazoLuz.Frente, //Pazo Frente
+                            (this.puentes_layout is CanvasBridgeSingle) ? oneBridgeProp.SelectedHeight.Nominal*10d ://bHeight
+                            (this.puentes_layout is CanvasBridgeDouble) ? twoBridgeProp.SelectedHeight.Nominal*10d :
+                            threeBridgeProp.SelectedHeight.Nominal*10d,
+                            this.puentes_layout.HorBridge.IsVisible ? this.puentes_layout.HorBridge.Frente : double.NaN //bMiddleFront
+            };
+            String[] codeParamsStr = new String[codeParams.Length + 1];
+            int i = 1;
+            codeParamsStr[0] = bridgeIndex.ToString();
+            codeParams.ToList().ForEach(x => codeParamsStr[i++] = double.IsNaN(x) ? "NA" : (x / 10d).ToString());
+            this.bridgeGroupCode.Text = String.Format("BR9{0}{1}{2}{3}{4}{5}H{6}P{7}", codeParamsStr);
+        }
+        /// <summary>
+        /// Canvases the is loaded.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        private void canvasIsLoaded(object sender, RoutedEventArgs e)
+        {
+            this.UpdateCode();
         }
     }
 }

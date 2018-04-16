@@ -22,6 +22,14 @@ namespace DaSoft.Riviera.Modulador.Bordeo.UI
     public partial class CanvasBridgeTriple : UserControl, ICanvasBridge
     {
         /// <summary>
+        /// Occurs when [middle bridge visibility changed].
+        /// </summary>
+        public event DependencyPropertyChangedEventHandler MiddleBridgeVisibilityChanged;
+        /// <summary>
+        /// Occurs when [middle bridge visibility changed].
+        /// </summary>
+        public event RoutedEventHandler CanvasIsLoaded;
+        /// <summary>
         /// Gets the canvas container.
         /// </summary>
         /// <value>
@@ -78,6 +86,8 @@ namespace DaSoft.Riviera.Modulador.Bordeo.UI
         void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             this.LoadCanvasBridge();
+            if (CanvasIsLoaded != null)
+                CanvasIsLoaded(this, e);
         }
         /// <summary>
         /// Gets the fondo.
@@ -86,6 +96,16 @@ namespace DaSoft.Riviera.Modulador.Bordeo.UI
         public double GetFondo()
         {
             return this.b0Top.Frente + this.b1Top.Frente + this.b2Top.Frente;
+        }
+        /// <summary>
+        /// Handles the IsVisibleChanged event of the bmiddle control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        private void bmiddle_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if (this.MiddleBridgeVisibilityChanged != null)
+                MiddleBridgeVisibilityChanged(this.bmiddle, e);
         }
     }
 }

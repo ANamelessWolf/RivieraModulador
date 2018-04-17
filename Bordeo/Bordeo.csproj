@@ -114,11 +114,13 @@
     <Compile Include="Model\BordeoDesignDatabase.cs" />
     <Compile Include="Model\BordeoLPanelAngle.cs" />
     <Compile Include="Model\BordeoPanelHeight.cs" />
+    <Compile Include="Model\BridgeGroupCode.cs" />
     <Compile Include="Model\BridgeMeasure.cs" />
     <Compile Include="Model\DB\BordeoIPanelRow.cs" />
     <Compile Include="Model\DB\BordeoLPanelRow.cs" />
     <Compile Include="Model\DB\BordeoPasoLuzRow.cs" />
     <Compile Include="Model\DB\BordeoPuenteRow.cs" />
+    <Compile Include="Model\Enities\BordeoBridge.cs" />
     <Compile Include="Model\Enities\BordeoL135Panel.cs" />
     <Compile Include="Model\Enities\BordeoL90Panel.cs" />
     <Compile Include="Model\Enities\BordeoLPanel.cs" />

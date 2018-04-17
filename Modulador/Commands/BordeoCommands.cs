@@ -19,6 +19,12 @@ using static DaSoft.Riviera.Modulador.Core.Assets.CMDS;
 using static DaSoft.Riviera.Modulador.Core.Assets.CONST;
 using static DaSoft.Riviera.Modulador.Bordeo.Assets.Codes;
 using Nameless.Libraries.HoukagoTeaTime.Runtime;
+using System.Windows.Media.Media3D;
+using Nameless.Libraries.HoukagoTeaTime.Ritsu.Utils;
+using Autodesk.AutoCAD.Geometry;
+using Nameless.Libraries.HoukagoTeaTime.Mio.Entities;
+using NamelessOld.Libraries.Yggdrasil.Aerith;
+using NamelessOld.Libraries.HoukagoTeaTime.Runtime;
 
 namespace DaSoft.Riviera.Modulador.Commands
 {
@@ -153,7 +159,43 @@ namespace DaSoft.Riviera.Modulador.Commands
                    }
                });
         }
-
+        [CommandMethod("BordeoInsertarPuente")]
+        public void InsertarPuentes()
+        {
+            App.RunCommand(
+            delegate ()
+            {
+                try
+                {
+                    RivieraObject obj;
+                    if ("Selecciona el panel a insertar un puente".PickBordeoStack(out obj) &&
+                    obj is BordeoPanelStack)
+                    {
+                        WinBridgeEditor win = new WinBridgeEditor();
+                        if (win.ShowDialog().Value)
+                        {
+                            var panel = (BordeoPanel)(obj as BordeoPanelStack).FirstOrDefault();
+                            BridgeSelectionResult bridge = win.SelectedBridge;
+                            BordeoBridge b = new BordeoBridge(bridge.SelectedCode, bridge.AcabadoPazo, bridge.AcabadoPuentes, panel.PanelSize, panel.Start.ToPoint3d(), panel.End.ToPoint3d());
+                            var fTw = new FastTransactionWrapper(
+                                (Document doc, Transaction tr) =>
+                                {
+                                    b.Draw(tr);
+                                    var db = App.Riviera.Database.Objects;
+                                    if (db.FirstOrDefault(x => x.Handle.Value == b.Handle.Value) == null)
+                                        db.Add(b);
+                                    b.Save(tr);
+                                });
+                            fTw.Run();
+                        }
+                    }
+                }
+                catch (System.Exception exc)
+                {
+                    Selector.Ed.WriteMessage(exc.Message);
+                }
+            });
+        }
         [CommandMethod(BORDEO_DELETE_STACK)]
         public void BordeoDeleteStacks()
         {

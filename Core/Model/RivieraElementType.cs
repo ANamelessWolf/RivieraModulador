@@ -47,5 +47,9 @@ namespace DaSoft.Riviera.Modulador.Core.Model
         /// Pazo_Luz
         /// </summary>
         Pazo_Luz = 7,
+        /// <summary>
+        /// The bridge group
+        /// </summary>
+        Bridge_Group = 8,
     }
 }

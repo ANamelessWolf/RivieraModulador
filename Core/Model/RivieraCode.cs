@@ -28,7 +28,7 @@ namespace DaSoft.Riviera.Modulador.Core.Model
         /// <summary>
         /// The selected acabado 
         /// </summary>
-        public RivieraAcabado SelectedAcabado
+        public virtual RivieraAcabado SelectedAcabado
         {
             get => this.SelectedAcabadoIndex >= 0 && this.Acabados.Count > this.SelectedAcabadoIndex ?
                 this.Acabados[this.SelectedAcabadoIndex] : new RivieraAcabado() { Acabado = "", Description = "", RivCode = this };

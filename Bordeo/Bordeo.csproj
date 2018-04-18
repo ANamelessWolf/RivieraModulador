@@ -133,6 +133,7 @@
     <Compile Include="Model\PasoLuzMeasure.cs" />
     <Compile Include="Model\PazoLuzMeasure.cs" />
     <Compile Include="Model\PuenteMeasure.cs" />
+    <Compile Include="Model\RivieraBridgeBlock.cs" />
     <Compile Include="Model\RivieraLBlock.cs" />
     <Compile Include="Model\RivieraLinearBlock.cs" />
     <Compile Include="Model\UI\BordeoPanelHeightItem.cs" />

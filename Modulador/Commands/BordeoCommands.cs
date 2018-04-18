@@ -177,6 +177,7 @@ namespace DaSoft.Riviera.Modulador.Commands
                             var panel = (BordeoPanel)(obj as BordeoPanelStack).FirstOrDefault();
                             BridgeSelectionResult bridge = win.SelectedBridge;
                             BordeoBridge b = new BordeoBridge(bridge.SelectedCode, bridge.AcabadoPazo, bridge.AcabadoPuentes, panel.PanelSize, panel.Start.ToPoint3d(), panel.End.ToPoint3d());
+                            b.SetElevation((obj as BordeoPanelStack).Sum(x=> x.PanelSize.Alto.Nominal));
                             var fTw = new FastTransactionWrapper(
                                 (Document doc, Transaction tr) =>
                                 {

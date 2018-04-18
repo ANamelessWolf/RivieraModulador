@@ -5493,6 +5493,24 @@
     <Content Include="Delta\3D\DD90807242.dwg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Bordeo\2D\Puentes\BR9124NANA3030H24PNA.dwg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bordeo\2D\Puentes\BR922424NA3030H24PNA.dwg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bordeo\2D\Puentes\BR932424243030H24PNA.dwg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bordeo\3D\Puentes\BR9124NANA3030H24PNA.dwg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bordeo\3D\Puentes\BR922424NA3030H24PNA.dwg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bordeo\3D\Puentes\BR932424243030H24PNA.dwg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

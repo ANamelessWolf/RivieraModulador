@@ -81,8 +81,13 @@ namespace DaSoft.Riviera.Modulador.Core.Model
         {
             String pth = is2DBlock ? this.Block2DDirectoryPath : this.Block3DDirectoryPath;
             FileInfo[] files;
+
             if (Directory.Exists(pth))
-                files = new DirectoryInfo(pth).GetFiles();
+            {
+                Nameless.Libraries.Yggdrasil.Aerith.AerithScanner scn = new Nameless.Libraries.Yggdrasil.Aerith.AerithScanner(pth, true);
+                scn.Find();
+                files = scn.Files;
+            }
             else
                 files = new FileInfo[0];
             return files.FirstOrDefault(x => x.Name.ToUpper() == String.Format("{0}.DWG", this.BlockName).ToUpper());

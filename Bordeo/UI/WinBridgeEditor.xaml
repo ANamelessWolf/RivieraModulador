@@ -257,6 +257,9 @@
                 </TabControl>
             </Grid>
         </GroupBox>
+        <Rectangle Fill="#99CCE0E8" Grid.Row="3" Grid.ColumnSpan="3" VerticalAlignment="Bottom" Height="80"/>
+        <TextBlock x:Name="bridgeGroupCode" Text="BR922424243C30H24P30" Grid.Row="3" Grid.ColumnSpan="3" VerticalAlignment="Bottom" HorizontalAlignment="Left"
+                   FontSize="60" Margin="10,0,0,0" />
         <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="10">
             <Button Style="{DynamicResource MenuStyle_RoundButton}" Content="&#xe10A;" Click="Cancel_Click">
                 <Button.ToolTip>
@@ -269,9 +272,5 @@
                 </Button.ToolTip>
             </Button>
         </StackPanel>
-        <Rectangle Fill="#99CCE0E8" Grid.Row="3" Grid.ColumnSpan="3" VerticalAlignment="Bottom" Height="80"/>
-        <TextBlock x:Name="bridgeGroupCode" Text="BR922424243C30H24P30" Grid.Row="3" Grid.ColumnSpan="3" VerticalAlignment="Bottom" HorizontalAlignment="Left"
-                   FontSize="60" Margin="10,0,0,0" />
-
     </Grid>
 </metro:MetroWindow>

@@ -13,6 +13,7 @@ using Nameless.Libraries.HoukagoTeaTime.Ritsu.Utils;
 using static DaSoft.Riviera.Modulador.Bordeo.Controller.BordeoUtils;
 using DaSoft.Riviera.Modulador.Core.Runtime;
 using Autodesk.AutoCAD.ApplicationServices;
+using Nameless.Libraries.HoukagoTeaTime.Mio.Utils;
 
 namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
 {
@@ -24,7 +25,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
         /// <value>
         /// The block manager.
         /// </value>
-        public RivieraBlock Block => new RivieraLinearBlock(this.BlockName, BlockDirectoryPath);
+        public RivieraBlock Block => new RivieraBridgeBlock(this.BlockName, BlockDirectoryPath);
         /// <summary>
         /// Gets the name of the block.
         /// </summary>
@@ -87,6 +88,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
             var doc = Application.DocumentManager.MdiActiveDocument;
             BlockReference blkRef, blockContent;
             ObjectIdCollection ids = new ObjectIdCollection();
+            BlockTableRecord model = (BlockTableRecord)doc.Database.CurrentSpaceId.GetObject(OpenMode.ForWrite);
             //Si ya se dibujo, el elemento tiene un id válido, solo se debe actualizar
             //el contenido.
             if (first.IsValid)
@@ -97,12 +99,19 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
             else
             {
                 blkRef = block.Insert(doc, tr, this.Start.ToPoint3d(), this.Direction.Angle);
-                if (!is2DBlock)
-                    UpdateBlockPosition(tr, blkRef);
                 ids.Add(blkRef.Id);
             }
             //Solo se actualizan los bloques insertados en la vista 3D
-
+            //Se dibuja o actualizá la línea
+            if (this.Id.IsValid)
+            {
+                this.PanelGeometry.Id.GetObject(OpenMode.ForWrite);
+                this.Regen();
+            }
+            else
+                this.PanelGeometry.Draw(model, tr);
+            double elev = !is2DBlock ? (this.Elevation - 0.0100d) : 0;
+            UpdateBlockPosition(tr, blkRef, elev);
             return ids;
         }
         /// <summary>
@@ -122,9 +131,33 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
         /// </summary>
         /// <param name="tr">The tr.</param>
         /// <param name="blockRef">The block reference.</param>
-        public void UpdateBlockPosition(Transaction tr, BlockReference blkRef)
+        public void UpdateBlockPosition(Transaction tr, BlockReference blkRef, double elevation)
         {
-            blkRef.Position = new Point3d(blkRef.Position.X, blkRef.Position.Y, this.Elevation);
+            blkRef.Position = new Point3d(blkRef.Position.X, blkRef.Position.Y, elevation);
+        }
+        /// <summary>
+        /// Sets the elevation.
+        /// </summary>
+        /// <param name="nominal">The nominal.</param>
+        public void SetElevation(double nominal)
+        {
+            if (nominal == 42d)
+                this.Elevation = 1.054d;
+            else if (nominal == 54d)
+                this.Elevation = 1.354d;
+            else if (nominal == 57d)
+                this.Elevation = 1.430d;
+            else if (nominal == 69d)
+                this.Elevation = 1.730d;
+            else if (nominal == 72d)
+                this.Elevation = 1.806d;
+            else if (nominal == 81d)
+                this.Elevation = 2.030d;
+        }
+
+        public void UpdateBlockPosition(Transaction tr, BlockReference blockRef)
+        {
+            return;
         }
     }
 }

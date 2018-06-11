@@ -19,6 +19,9 @@ using Nameless.Libraries.HoukagoTeaTime.Mio.Model;
 using Nameless.Libraries.HoukagoTeaTime.Mio.Utils;
 using System.Windows.Media;
 using Autodesk.AutoCAD.ApplicationServices;
+using static DaSoft.Riviera.Modulador.Core.Controller.AutoCADUtils;
+using static DaSoft.Riviera.Modulador.Bordeo.Assets.Constants;
+using Nameless.Libraries.HoukagoTeaTime.Tsumugi;
 
 namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
 {
@@ -119,6 +122,13 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
             this.Direction = start.ToPoint2d().GetVectorTo(end.ToPoint2d());
             this.Rotation = rotation;
             this.Regen();
+        }
+        public override void Save(Transaction tr)
+        {
+            base.Save(tr);
+            var dMan = new ExtensionDictionaryManager(this.CADGeometry.Id, tr);
+            dMan.Set(tr, KEY_LOCATION, this.Start.ToFormat(5, false), this.End.ToFormat(5, false));
+            dMan.Set(tr, KEY_CODE, this.Code.Code);
         }
         /// <summary>
         /// Draws this instance
@@ -251,6 +261,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
                 panAng = this.Rotation == SweepDirection.Clockwise ? rotAng - RotationAngle : rotAng + RotationAngle;
             return this.Start.ToPoint2dByPolar(f1, dirAng).ToPoint2dByPolar(this.UnionLength, rotAng).ToPoint2dByPolar(f2, panAng);
         }
+
         /// <summary>
         /// Updates the size.
         /// </summary>

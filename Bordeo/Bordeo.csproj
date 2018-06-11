@@ -103,6 +103,7 @@
     <Compile Include="Controller\BordeoLoader.cs" />
     <Compile Include="Controller\BordeoSizeUtils.cs" />
     <Compile Include="Controller\BordeoSower.cs" />
+    <Compile Include="Controller\BordeoStationBuilder.cs" />
     <Compile Include="Controller\BordeoUtils.cs" />
     <Compile Include="Controller\CanvasBridgeUtility.cs" />
     <Compile Include="Controller\IBordeoPanelStyler.cs" />
@@ -114,6 +115,7 @@
     <Compile Include="Model\BordeoDesignDatabase.cs" />
     <Compile Include="Model\BordeoLPanelAngle.cs" />
     <Compile Include="Model\BordeoPanelHeight.cs" />
+    <Compile Include="Model\Enities\BordeoStation.cs" />
     <Compile Include="Model\BridgeGroupCode.cs" />
     <Compile Include="Model\BridgeMeasure.cs" />
     <Compile Include="Model\DB\BordeoIPanelRow.cs" />
@@ -196,6 +198,9 @@
     </Compile>
     <Compile Include="UI\TabBordeoMenu.xaml.cs">
       <DependentUpon>TabBordeoMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\test.xaml.cs">
+      <DependentUpon>test.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\WinBridgeEditor.xaml.cs">
       <DependentUpon>WinBridgeEditor.xaml</DependentUpon>
@@ -280,6 +285,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\TabBordeoMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\test.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

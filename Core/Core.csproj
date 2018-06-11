@@ -63,6 +63,7 @@
     <Reference Include="misa">
       <HintPath>..\Lib\misa.dll</HintPath>
     </Reference>
+    <Reference Include="Oracle.DataAccess, Version=4.122.1.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=AMD64" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -118,6 +119,7 @@
     <Compile Include="Controller\UI\IOracleUIConnector.cs" />
     <Compile Include="Controller\UI\DialogUtils.cs" />
     <Compile Include="Controller\UI\UIUtils.cs" />
+    <Compile Include="Model\Ameasurable.cs" />
     <Compile Include="Model\ArrowDirection.cs" />
     <Compile Include="Model\AutomatonState.cs" />
     <Compile Include="Model\DB\RivieraCodeRow.cs" />

@@ -25,6 +25,7 @@ using Autodesk.AutoCAD.Geometry;
 using Nameless.Libraries.HoukagoTeaTime.Mio.Entities;
 using NamelessOld.Libraries.Yggdrasil.Aerith;
 using NamelessOld.Libraries.HoukagoTeaTime.Runtime;
+using DaSoft.Riviera.Modulador.Bordeo.Model;
 
 namespace DaSoft.Riviera.Modulador.Commands
 {
@@ -177,7 +178,7 @@ namespace DaSoft.Riviera.Modulador.Commands
                             var panel = (BordeoPanel)(obj as BordeoPanelStack).FirstOrDefault();
                             BridgeSelectionResult bridge = win.SelectedBridge;
                             BordeoBridge b = new BordeoBridge(bridge.SelectedCode, bridge.AcabadoPazo, bridge.AcabadoPuentes, panel.PanelSize, panel.Start.ToPoint3d(), panel.End.ToPoint3d());
-                            b.SetElevation((obj as BordeoPanelStack).Sum(x=> x.PanelSize.Alto.Nominal));
+                            b.SetElevation((obj as BordeoPanelStack).Sum(x => x.PanelSize.Alto.Nominal));
                             var fTw = new FastTransactionWrapper(
                                 (Document doc, Transaction tr) =>
                                 {
@@ -197,6 +198,45 @@ namespace DaSoft.Riviera.Modulador.Commands
                 }
             });
         }
+
+        [CommandMethod("BordeoRefresh")]
+        public void BordeoRefresh()
+        {
+            App.RunCommand(
+            delegate ()
+            {
+                try
+                {
+                    var fTw = new FastTransactionWrapper(
+                        (Document doc, Transaction tr) =>
+                        {
+                            BordeoStationBuilder bSB = new BordeoStationBuilder(tr);
+                            bSB.SelectEntities();
+                            Entity ent;
+                            List<RivieraObject> objs;
+                            BordeoStation station;
+                            Point3d start;
+                            while (bSB.BordeoEnds.Count > 0)
+                            {
+                                ent = bSB.BordeoEnds.FirstOrDefault();
+                                start = ent is Line ? (ent as Line).StartPoint : (ent is Polyline) ? (ent as Polyline).StartPoint : new Point3d();
+                                bSB.BordeoEnds.Remove(ent);
+                                objs = bSB.BuildStation(App.Riviera.Database, ent);
+                                station = new BordeoStation(start, objs);
+                                station.Draw(tr);
+                                App.Riviera.Database.Objects.Add(station);
+                            }
+                        });
+                    fTw.Run();
+                }
+                catch (System.Exception exc)
+                {
+                    Selector.Ed.WriteMessage(exc.Message);
+                }
+            });
+        }
+
+
         [CommandMethod(BORDEO_DELETE_STACK)]
         public void BordeoDeleteStacks()
         {

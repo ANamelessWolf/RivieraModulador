@@ -51,7 +51,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Controller
                 switch (code)
                 {
                     case CODE_DPANEL_STACK:
-                        BordeoLPanel[] doublePanels = this.GetDoublePanels(start, end, tr);
+                        BordeoLPanel[] doublePanels = GetDoublePanels(this.DManager, start, end, tr);
                         BordeoLPanelStack pdStack = new BordeoLPanelStack(start, end, doublePanels);
                         doublePanels[0].PanelGeometry = this.GetEntity<Polyline>(tr);
                         ids = this.LoadGeometry(tr);
@@ -60,7 +60,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Controller
                         loadObject = pdStack;
                         break;
                     case CODE_PANEL_STACK:
-                        BordeoPanel[] panels = this.GetPanels(start, end, tr);
+                        BordeoPanel[] panels = GetPanels(this.DManager, start, end, tr);
                         BordeoPanelStack pStack = new BordeoPanelStack(start, end, panels);
                         pStack.PanelGeometry = this.GetEntity<Line>(tr);
                         ids = this.LoadGeometry(tr);
@@ -84,9 +84,9 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Controller
         /// <param name="end">The end panel.</param>
         /// <param name="tr">The active transaction.</param>
         /// <returns>The stack panels</returns>
-        private BordeoLPanel[] GetDoublePanels(Point3d start, Point3d end, Transaction tr)
+        public static BordeoLPanel[] GetDoublePanels(ExtensionDictionaryManager dMan, Point3d start, Point3d end, Transaction tr)
         {
-            String[] contentData = this.DManager.GetXRecord(KEY_CONTENT, tr).GetDataAsString(tr);
+            String[] contentData = dMan.GetXRecord(KEY_CONTENT, tr).GetDataAsString(tr);
             var db = BordeoUtils.GetDatabase();
             BordeoLPanel[] panels = new BordeoLPanel[contentData.Length];
             string code;
@@ -130,9 +130,9 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Controller
         /// <param name="end">The end point.</param>
         /// <param name="tr">The active transaction.</param>
         /// <returns>The stack panels</returns>
-        private BordeoPanel[] GetPanels(Point3d start, Point3d end, Transaction tr)
+        public static BordeoPanel[] GetPanels(ExtensionDictionaryManager dMan, Point3d start, Point3d end, Transaction tr)
         {
-            String[] contentData = this.DManager.GetXRecord(KEY_CONTENT, tr).GetDataAsString(tr);
+            String[] contentData = dMan.GetXRecord(KEY_CONTENT, tr).GetDataAsString(tr);
             var db = BordeoUtils.GetDatabase();
             BordeoPanel[] panels = new BordeoPanel[contentData.Length];
             string code;

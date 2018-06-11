@@ -138,6 +138,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
             base.Save(tr);
             var dMan = new ExtensionDictionaryManager(this.CADGeometry.Id, tr);
             dMan.Set(tr, KEY_LOCATION, this.Start.ToFormat(5, false), (this.CADGeometry as Polyline).GetPoint2dAt(1).ToFormat(5, false));
+            dMan.Set(tr, KEY_CODE, CODE_DPANEL_STACK);
             List<String> content = new List<string>();
             foreach (var panel in this)
                 content.Add(String.Format("{0}@{1}@{2}@{3}@{4}@{5}@{6}"

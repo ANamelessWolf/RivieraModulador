@@ -123,10 +123,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
             base.Save(tr);
             var dMan = new ExtensionDictionaryManager(this.CADGeometry.Id, tr);
             dMan.Set(tr, KEY_LOCATION, this.Start.ToFormat(5, false), this.End.ToFormat(5, false));
-            List<String> content = new List<string>();
-            foreach (var panel in this)
-                content.Add(String.Format("{0}@{1}@{2}@{3}@{4}", panel.Code.Code, panel.PanelSize.Frente.Nominal, panel.PanelSize.Alto.Nominal, panel.Code.SelectedAcabadoIndex, panel.Elevation));
-            dMan.Set(tr, KEY_CONTENT, content.ToArray());
+            dMan.Set(tr, KEY_CODE, CODE_PANEL_STACK);
         }
 
         /// <summary>

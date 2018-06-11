@@ -28,5 +28,9 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Assets
         /// The code for a bordeo panel stack
         /// </summary>
         public const String CODE_PANEL_STACK = "BRSTACK";
+        /// <summary>
+        /// The code for a bordeo panel stack
+        /// </summary>
+        public const String CODE_STATION = "BRSTATION";
     }
 }

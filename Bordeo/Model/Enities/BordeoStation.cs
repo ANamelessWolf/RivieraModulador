@@ -101,7 +101,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
                 this.StationGeometry.AddVertexAt(this.StationGeometry.NumberOfVertices, last.End, 0, 0, 0);
             for (int i = 0; i < this.StationGeometry.NumberOfVertices; i++)
                 if (this.StationGeometry.GetSegmentType(i) == SegmentType.Line)
-                    this.Lengths.Add(i == 0 || i == this.StationGeometry.NumberOfVertices - 2 ? (int)((this.StationGeometry.GetLineSegment2dAt(i).Length - 0.0688)*1000) : (int)((this.StationGeometry.GetLineSegment2dAt(i).Length - 0.1396)*1000));
+                    this.Lengths.Add(i == 0 || i == this.StationGeometry.NumberOfVertices - 2 ? (int)((this.StationGeometry.GetLineSegment2dAt(i).Length - 0.2228) *1000) : (int)((this.StationGeometry.GetLineSegment2dAt(i).Length - 0.1396)*1000));
         }
         /// <summary>
         /// Updates the direction.

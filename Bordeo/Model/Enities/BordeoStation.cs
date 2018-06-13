@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static DaSoft.Riviera.Modulador.Bordeo.Assets.Codes;
+using static DaSoft.Riviera.Modulador.Core.Assets.CONST;
 using static DaSoft.Riviera.Modulador.Bordeo.Assets.Constants;
 using static DaSoft.Riviera.Modulador.Core.Controller.AutoCADUtils;
 using Autodesk.AutoCAD.DatabaseServices;
@@ -22,6 +23,10 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
         /// The collection of panel stacks asociated to this station
         /// </summary>
         public IEnumerable<RivieraObject> Members;
+        /// <summary>
+        /// The list of lengths defined in the given station
+        /// </summary>
+        public List<Double> Lengths;
         /// <summary>
         /// The station geometry
         /// </summary>
@@ -51,11 +56,9 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
             base(BordeoUtils.GetRivieraCode(CODE_STATION), new Ameasurable(), start)
         {
             this.Members = members;
-            this.Members.ToList().ForEach(x =>
-            {
-                int i = 0;
-                this.Children.Add(i++.ToString(), x.Handle.Value);
-            });
+            this.Lengths = new List<double>();
+            int i = 0;
+            this.Members.ToList().ForEach(x => this.Children.Add(i++.ToString(), x.Handle.Value));
         }
         /// <summary>
         /// Returns an enumerator that iterates through the collection.
@@ -78,6 +81,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
             if (this.StationGeometry == null)
             {
                 this.StationGeometry = new Polyline();
+                this.StationGeometry.Layer = LAYER_RIVIERA_STATION;
                 this.GetVertex(first, 0, out location, out bulge);
                 this.StationGeometry.AddVertexAt(0, location, bulge, 0, 0);
             }
@@ -95,7 +99,9 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
             var last = this.Members.LastOrDefault();
             if (last.End.GetDistanceTo(this.StationGeometry.EndPoint.ToPoint2d()) > 0)
                 this.StationGeometry.AddVertexAt(this.StationGeometry.NumberOfVertices, last.End, 0, 0, 0);
-
+            for (int i = 0; i < this.StationGeometry.NumberOfVertices; i++)
+                if (this.StationGeometry.GetSegmentType(i) == SegmentType.Line)
+                    this.Lengths.Add(i == 0 || i == this.StationGeometry.NumberOfVertices - 2 ? (int)((this.StationGeometry.GetLineSegment2dAt(i).Length - 0.0688)*1000) : (int)((this.StationGeometry.GetLineSegment2dAt(i).Length - 0.1396)*1000));
         }
         /// <summary>
         /// Updates the direction.
@@ -127,8 +133,8 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
             Point2d location;
             Double bulge, pastDirection = 0, currentDirection = 0;
             this.GetVertex(stack, index, out location, out bulge);
-            this.UpdateDirection(location, ref pastDirection, ref currentDirection);
-            if (this.StationGeometry.NumberOfVertices == 1 || (this.StationGeometry.NumberOfVertices >= 2 && pastDirection != currentDirection))
+            //this.UpdateDirection(location, ref pastDirection, ref currentDirection);
+            if (this.StationGeometry.GetBulgeAt(this.StationGeometry.NumberOfVertices-1)!= bulge )
                 this.StationGeometry.AddVertexAt(this.StationGeometry.NumberOfVertices, location, bulge, 0, 0);
         }
         /// <summary>
@@ -162,6 +168,8 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
         {
             BlockTableRecord model = tr.GetModelSpace(OpenMode.ForWrite);
             ObjectIdCollection ids = new ObjectIdCollection();
+            if (this.CADGeometry == null)
+                this.Regen();
             //Se dibuja o actualizá la línea
             if (this.Id.IsValid)
             {
@@ -190,7 +198,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
         /// </returns>
         IEnumerator IEnumerable.GetEnumerator()
         {
-          return  this.Members.GetEnumerator();
+            return this.Members.GetEnumerator();
         }
     }
 }

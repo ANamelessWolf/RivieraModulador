@@ -23,7 +23,7 @@ namespace DaSoft.Riviera.Modulador.Core.Controller.Transactions
         /// <param name="application">The application.</param>
         public static void InitLayers(this App application)
         {
-            String[] layers = new String[] { LAYER_RIVIERA_OBJECT, LAYER_ERR, LAYER_RIVIERA_GEOMETRY, LAYER_RIVIERA_REPORT };
+            String[] layers = new String[] { LAYER_RIVIERA_OBJECT, LAYER_ERR, LAYER_RIVIERA_GEOMETRY, LAYER_RIVIERA_REPORT, LAYER_RIVIERA_STATION };
             QuickTransactionWrapper qTr = new QuickTransactionWrapper(
                 (Document doc, Transaction tr) =>
                 {

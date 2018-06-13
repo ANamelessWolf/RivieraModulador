@@ -51,5 +51,9 @@ namespace DaSoft.Riviera.Modulador.Core.Model
         /// The bridge group
         /// </summary>
         Bridge_Group = 8,
+        /// <summary>
+        /// A design station
+        /// </summary>
+        Station = 9,
     }
 }

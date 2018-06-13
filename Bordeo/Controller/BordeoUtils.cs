@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static DaSoft.Riviera.Modulador.Core.Assets.CONST;
+using static DaSoft.Riviera.Modulador.Bordeo.Assets.Codes;
 using static DaSoft.Riviera.Modulador.Bordeo.Assets.Constants;
 using static DaSoft.Riviera.Modulador.Bordeo.Assets.Strings;
 using Nameless.Libraries.Yggdrasil.Lilith;
@@ -71,11 +72,23 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Controller
         {
             try
             {
-                var db = GetDatabase();
-                var rivCode = db.Codes.FirstOrDefault(x => x.Code == code);
-                if (rivCode == null)
-                    throw new BordeoException(String.Format(ERR_CODE_NOT_FOUND, code));
-                return rivCode;
+                //This codes are logic and not defined in the database
+                RivieraCode[] logicCodes = new RivieraCode[]
+                {
+                    new RivieraCode() { Code = CODE_STATION, Description = "Estación de línea bordeo", ElementType = RivieraElementType.Station, Line = DesignLine.Bordeo },
+                    new RivieraCode() { Code = CODE_PANEL_STACK, Description = "Pila de paneles rectos", ElementType = RivieraElementType.PanelStack, Line = DesignLine.Bordeo },
+                    new RivieraCode() { Code = CODE_DPANEL_STACK, Description = "Pila de paneles dobles", ElementType = RivieraElementType.PanelStack, Line = DesignLine.Bordeo }
+                };
+                if (logicCodes.Select(x => x.Code).Contains(code))
+                    return logicCodes.FirstOrDefault(x => x.Code == code);
+                else
+                {
+                    var db = GetDatabase();
+                    var rivCode = db.Codes.FirstOrDefault(x => x.Code == code);
+                    if (rivCode == null)
+                        throw new BordeoException(String.Format(ERR_CODE_NOT_FOUND, code));
+                    return rivCode;
+                }
             }
             catch (Exception exc)
             {

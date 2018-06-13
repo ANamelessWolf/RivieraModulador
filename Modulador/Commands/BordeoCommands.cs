@@ -211,6 +211,10 @@ namespace DaSoft.Riviera.Modulador.Commands
                         (Document doc, Transaction tr) =>
                         {
                             BordeoStationBuilder bSB = new BordeoStationBuilder(tr);
+                            var stations = App.Riviera.Database.Objects.Where(x => x.Code.Code == CODE_STATION).ToArray();
+                            foreach (RivieraObject s in stations)
+                                s.Delete(tr);
+                            Ed.Regen();
                             bSB.SelectEntities();
                             Entity ent;
                             List<RivieraObject> objs;

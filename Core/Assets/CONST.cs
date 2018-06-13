@@ -48,6 +48,7 @@ namespace DaSoft.Riviera.Modulador.Core.Assets
         public const String SUFFIX_ARROW = "ARR_{0}";
         public const String LAYER_ERR = "DD2D_Error";
         public const String LAYER_RIVIERA_GEOMETRY = "DD2D_Geometry";
+        public const String LAYER_RIVIERA_STATION = "DD2D_STATION";
         public const String LAYER_RIVIERA_OBJECT = "DD2D";
         public const String LAYER_RIVIERA_REPORT = "DDReportes";
 

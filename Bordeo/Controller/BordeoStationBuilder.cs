@@ -218,8 +218,10 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Controller
             {
                 ids = this.SearchInEnd(ent, sFilter.Filter);
                 if (ids.Count() > 0)
+                {
                     ent = this.Pop(ids.FirstOrDefault(), ref stopBuilding);
-                this.Add(ref objs, db, ent);
+                    this.Add(ref objs, db, ent);
+                }
             } while (ids.Count() > 0 && !stopBuilding);
             return objs;
         }
@@ -264,6 +266,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Controller
             }
             else
                 this.BordeoEntities.Remove(ent);
+            stopBuilding = (this.BordeoEnds.Count() + this.BordeoEntities.Count()) == 0;
             return ent;
         }
     }

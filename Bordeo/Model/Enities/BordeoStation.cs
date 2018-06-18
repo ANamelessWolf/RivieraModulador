@@ -17,12 +17,12 @@ using Nameless.Libraries.HoukagoTeaTime.Mio.Utils;
 
 namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
 {
-    public class BordeoStation : RivieraObject, IEnumerable<RivieraObject>
+    public class BordeoStation : RivieraObject, IEnumerable<BordeoStationVertex>
     {
         /// <summary>
         /// The collection of panel stacks asociated to this station
         /// </summary>
-        public IEnumerable<RivieraObject> Members;
+        public IEnumerable<BordeoStationVertex> Members;
         /// <summary>
         /// The list of lengths defined in the given station
         /// </summary>
@@ -52,13 +52,13 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
         /// <param name="code">The riviera code.</param>
         /// <param name="size">The riviera element size.</param>
         /// <param name="start">The riviera start point or insertion point.</param>
-        public BordeoStation(Point3d start, IEnumerable<RivieraObject> members) :
+        public BordeoStation(Point3d start, IEnumerable<BordeoStationVertex> members) :
             base(BordeoUtils.GetRivieraCode(CODE_STATION), new Ameasurable(), start)
         {
             this.Members = members;
             this.Lengths = new List<double>();
             int i = 0;
-            this.Members.ToList().ForEach(x => this.Children.Add(i++.ToString(), x.Handle.Value));
+            this.Members.ToList().ForEach(x => this.Children.Add(i++.ToString(), x.RivObj.Handle.Value));
         }
         /// <summary>
         /// Returns an enumerator that iterates through the collection.
@@ -66,7 +66,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
         /// <returns>
         /// An enumerator that can be used to iterate through the collection.
         /// </returns>
-        public IEnumerator<RivieraObject> GetEnumerator()
+        public IEnumerator<BordeoStationVertex> GetEnumerator()
         {
             return this.Members.GetEnumerator();
         }
@@ -82,26 +82,41 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
             {
                 this.StationGeometry = new Polyline();
                 this.StationGeometry.Layer = LAYER_RIVIERA_STATION;
-                this.GetVertex(first, 0, out location, out bulge);
+                if (first.IsAtStart.Value)
+                    this.GetVertex(first.RivObj, 0, out location, out bulge);
+                else {
+                    int index = (first.RivObj.CADGeometry is Line) ? 1 : (first.RivObj.CADGeometry as Polyline).NumberOfVertices - 1;
+                    this.GetVertex(first.RivObj, index, out location, out bulge);
+                }
                 this.StationGeometry.AddVertexAt(0, location, bulge, 0, 0);
             }
             else
                 while (this.StationGeometry.NumberOfVertices > 1)
                     this.StationGeometry.RemoveVertexAt(this.StationGeometry.NumberOfVertices - 1);
             //Draw the polyline
-            foreach (RivieraObject stack in Members)
-                if (stack.CADGeometry is Polyline)
-                    for (int i = 1; i < (stack.CADGeometry as Polyline).NumberOfVertices; i++)
-                        this.AddVertex(stack, i);
+            foreach (BordeoStationVertex stack in Members)
+                if (stack.RivObj.CADGeometry is Polyline)
+                    if (stack.IsAtStart.Value)
+                        for (int i = 1; i < (stack.RivObj.CADGeometry as Polyline).NumberOfVertices; i++)
+                            this.AddVertex(stack.RivObj, i);
+                    else
+                        for (int i = (stack.RivObj.CADGeometry as Polyline).NumberOfVertices - 2; i > 0; i--)
+                            this.AddVertex(stack.RivObj, i);
                 else
-                    this.AddVertex(stack, 1);
+                {
+                    if (stack.IsAtStart.Value)
+                        this.AddVertex(stack.RivObj, 1);
+                    else
+                        this.AddVertex(stack.RivObj, 0);
+                }
+
             //Check if the las vertex is not missing
             var last = this.Members.LastOrDefault();
-            if (last.End.GetDistanceTo(this.StationGeometry.EndPoint.ToPoint2d()) > 0)
-                this.StationGeometry.AddVertexAt(this.StationGeometry.NumberOfVertices, last.End, 0, 0, 0);
+            if (last.RivObj.End.GetDistanceTo(this.StationGeometry.EndPoint.ToPoint2d()) > 0)
+                this.StationGeometry.AddVertexAt(this.StationGeometry.NumberOfVertices, last.RivObj.End, 0, 0, 0);
             for (int i = 0; i < this.StationGeometry.NumberOfVertices; i++)
                 if (this.StationGeometry.GetSegmentType(i) == SegmentType.Line)
-                    this.Lengths.Add(i == 0 || i == this.StationGeometry.NumberOfVertices - 2 ? (int)((this.StationGeometry.GetLineSegment2dAt(i).Length - 0.2228) *1000) : (int)((this.StationGeometry.GetLineSegment2dAt(i).Length - 0.1396)*1000));
+                    this.Lengths.Add(i == 0 || i == this.StationGeometry.NumberOfVertices - 2 ? (int)((this.StationGeometry.GetLineSegment2dAt(i).Length - 0.2228) * 1000) : (int)((this.StationGeometry.GetLineSegment2dAt(i).Length - 0.1396) * 1000));
         }
         /// <summary>
         /// Updates the direction.
@@ -134,7 +149,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
             Double bulge, pastDirection = 0, currentDirection = 0;
             this.GetVertex(stack, index, out location, out bulge);
             //this.UpdateDirection(location, ref pastDirection, ref currentDirection);
-            if (this.StationGeometry.GetBulgeAt(this.StationGeometry.NumberOfVertices-1)!= bulge )
+            if (this.StationGeometry.GetBulgeAt(this.StationGeometry.NumberOfVertices - 1) != bulge)
                 this.StationGeometry.AddVertexAt(this.StationGeometry.NumberOfVertices, location, bulge, 0, 0);
         }
         /// <summary>

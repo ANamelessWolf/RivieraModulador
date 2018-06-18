@@ -99,6 +99,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Strings.resx</DependentUpon>
     </Compile>
+    <Compile Include="BordeoStationVertex.cs" />
     <Compile Include="Controller\BordeoElementFinder.cs" />
     <Compile Include="Controller\BordeoLoader.cs" />
     <Compile Include="Controller\BordeoSizeUtils.cs" />

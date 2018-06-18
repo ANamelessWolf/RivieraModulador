@@ -26,6 +26,7 @@ using Nameless.Libraries.HoukagoTeaTime.Mio.Entities;
 using NamelessOld.Libraries.Yggdrasil.Aerith;
 using NamelessOld.Libraries.HoukagoTeaTime.Runtime;
 using DaSoft.Riviera.Modulador.Bordeo.Model;
+using DaSoft.Riviera.Modulador.Bordeo;
 
 namespace DaSoft.Riviera.Modulador.Commands
 {
@@ -216,8 +217,9 @@ namespace DaSoft.Riviera.Modulador.Commands
                                 s.Delete(tr);
                             Ed.Regen();
                             bSB.SelectEntities();
+                            AutoCADLayer layer = new AutoCADLayer(LAYER_RIVIERA_STATION, tr);
                             Entity ent;
-                            List<RivieraObject> objs;
+                            List<BordeoStationVertex> objs;
                             BordeoStation station;
                             Point3d start;
                             while (bSB.BordeoEnds.Count > 0)

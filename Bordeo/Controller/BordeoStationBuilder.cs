@@ -207,22 +207,23 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Controller
         /// <param name="db">The Riviera database.</param>
         /// <param name="ent">The entity.</param>
         /// <returns>The list of station members</returns>
-        public List<RivieraObject> BuildStation(RivieraDatabase db, Entity ent)
+        public List<BordeoStationVertex> BuildStation(RivieraDatabase db, Entity ent)
         {
-            List<RivieraObject> objs = new List<RivieraObject>();
+            List<BordeoStationVertex> objs = new List<BordeoStationVertex>();
             IEnumerable<ObjectId> ids;
-            this.Add(ref objs, db, ent);
             SelectionFilterBuilder sFilter = new SelectionFilterBuilder(typeof(Line), typeof(Polyline));
+            this.Add(ref objs, db, ent, this.SearchInEnd(ent, sFilter.Filter).Count() > 0);
             Boolean stopBuilding = false;
             do
             {
-                ids = this.SearchInEnd(ent, sFilter.Filter);
-                if (ids.Count() > 0)
-                {
-                    ent = this.Pop(ids.FirstOrDefault(), ref stopBuilding);
-                    this.Add(ref objs, db, ent);
-                }
-            } while (ids.Count() > 0 && !stopBuilding);
+                if (objs.Last().IsAtStart.Value)
+                    ids = this.SearchInEnd(ent, sFilter.Filter);
+                else
+                    ids = this.SearchInStart(ent, sFilter.Filter);
+
+                ent = this.Pop(ids.FirstOrDefault(), ref stopBuilding);
+                this.Add(ref objs, db, ent, this.SearchInEnd(ent, sFilter.Filter).Where(x => !objs.Select(y => y.RivObj.CADGeometry.Id).Contains(x)).Count() > 0);
+            } while (!stopBuilding);
             return objs;
         }
         /// <summary>
@@ -232,8 +233,9 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Controller
         /// <param name="objs">The Riviera objects collection.</param>
         /// <param name="db">The Riviera database.</param>
         /// <param name="ent">The entity.</param>
-        private void Add(ref List<RivieraObject> objs, RivieraDatabase db, Entity ent)
+        private void Add(ref List<BordeoStationVertex> objs, RivieraDatabase db, Entity ent, Nullable<Boolean> isFoundAtStart)
         {
+
             if (ent != null)
             {
                 RivieraObject obj = db.Objects.FirstOrDefault(x => x.Handle.Value == ent.Handle.Value);
@@ -243,7 +245,13 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Controller
                     ent.UpgradeOpen();
                     obj.Save(this.ActiveTransaction);
                 }
-                objs.Add(obj);
+                //Bordeo Vertex
+                objs.Add(new BordeoStationVertex()
+                {
+                    Index = objs.Count,
+                    IsAtStart = isFoundAtStart,
+                    RivObj = obj
+                });
             }
         }
 

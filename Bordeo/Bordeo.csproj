@@ -139,6 +139,11 @@
     <Compile Include="Model\RivieraBridgeBlock.cs" />
     <Compile Include="Model\RivieraLBlock.cs" />
     <Compile Include="Model\RivieraLinearBlock.cs" />
+    <Compile Include="Model\Station\StationBuilder.cs" />
+    <Compile Include="Model\Station\StationDirection.cs" />
+    <Compile Include="Model\Station\StationMoldure.cs" />
+    <Compile Include="Model\Station\StationToken.cs" />
+    <Compile Include="Model\Station\StationUnion.cs" />
     <Compile Include="Model\UI\BordeoPanelHeightItem.cs" />
     <Compile Include="Model\UI\ImageItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">

@@ -19,6 +19,7 @@ using DaSoft.Riviera.Modulador.Bordeo.Model.Enities;
 using System.Windows.Media;
 using DaSoft.Riviera.Modulador.Bordeo.Model;
 using DaSoft.Riviera.Modulador.Core.Runtime;
+using DaSoft.Riviera.Modulador.Bordeo.Model.Station;
 
 namespace DaSoft.Riviera.Modulador.Bordeo.Controller
 {
@@ -122,7 +123,6 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Controller
             SelectionFilterBuilder sFilter = new SelectionFilterBuilder(typeof(BlockReference));
             IEnumerable<ObjectId> geomIds = this.SearchInStart(ent, sFilter.Filter).Intersect(this.SearchInEnd(ent, sFilter.Filter));
             return new ObjectIdCollection(geomIds.Select(x => (BlockReference)x.GetObject(OpenMode.ForRead)).Where(x => x.Name.Contains("BR20")).Select(x => x.Id).ToArray());
-
         }
         /// <summary>
         /// Gets the location.
@@ -200,6 +200,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Controller
             var result = ed.SelectCrossingPolygon(pts, filter).Value.GetObjectIds();
             return result.Where(x => x != ent.Id);
         }
+        List<StationToken> tokens;
         /// <summary>
         /// Builds the station.
         /// Load the station members
@@ -210,6 +211,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Controller
         public List<BordeoStationVertex> BuildStation(RivieraDatabase db, Entity ent)
         {
             List<BordeoStationVertex> objs = new List<BordeoStationVertex>();
+            tokens = new List<StationToken>();
             IEnumerable<ObjectId> ids;
             SelectionFilterBuilder sFilter = new SelectionFilterBuilder(typeof(Line), typeof(Polyline));
             this.Add(ref objs, db, ent, this.SearchInEnd(ent, sFilter.Filter).Count() > 0);
@@ -220,10 +222,10 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Controller
                     ids = this.SearchInEnd(ent, sFilter.Filter);
                 else
                     ids = this.SearchInStart(ent, sFilter.Filter);
-
                 ent = this.Pop(ids.FirstOrDefault(), ref stopBuilding);
                 this.Add(ref objs, db, ent, this.SearchInEnd(ent, sFilter.Filter).Where(x => !objs.Select(y => y.RivObj.CADGeometry.Id).Contains(x)).Count() > 0);
             } while (!stopBuilding);
+            this.tokens.Last().Direction = StationDirection.End;
             return objs;
         }
         /// <summary>
@@ -252,6 +254,25 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Controller
                     IsAtStart = isFoundAtStart,
                     RivObj = obj
                 });
+                if (tokens.Count() == 0 && ent is Line)
+                    tokens.Add(StationToken.Istart);
+                else if (tokens.Count() == 0 && ent is Polyline)
+                {
+                    if (obj is BordeoLPanelStack && (obj as BordeoLPanelStack).PanelAngle == BordeoLPanelAngle.ANG_90)
+                        tokens.Add(StationToken.L90start);
+                    else
+                        tokens.Add(StationToken.L135start);
+                }
+                else if (ent is Line)
+                    tokens.Add(isFoundAtStart.Value? StationToken.Iless:StationToken.Iplus);
+                else if (ent is Polyline)
+                {
+                    if (obj is BordeoLPanelStack && (obj as BordeoLPanelStack).PanelAngle == BordeoLPanelAngle.ANG_90)
+                        tokens.Add(isFoundAtStart.Value ? StationToken.L90less : StationToken.L90plus);
+                    else
+                        tokens.Add(isFoundAtStart.Value ? StationToken.L135less : StationToken.L135plus);
+                }
+                tokens.Last().Stack = obj;
             }
         }
 

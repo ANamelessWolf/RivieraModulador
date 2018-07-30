@@ -215,7 +215,7 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Controller
             IEnumerable<ObjectId> ids;
             SelectionFilterBuilder sFilter = new SelectionFilterBuilder(typeof(Line), typeof(Polyline));
             this.Add(ref objs, db, ent, this.SearchInEnd(ent, sFilter.Filter).Count() > 0);
-            Boolean stopBuilding = false;
+            Boolean stopBuilding = false; 
             do
             {
                 if (objs.Last().IsAtStart.Value)

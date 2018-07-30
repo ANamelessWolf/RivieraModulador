@@ -14,6 +14,10 @@ using Nameless.Libraries.HoukagoTeaTime.Yui;
 using System;
 using System.Windows.Controls;
 using static DaSoft.Riviera.Modulador.Core.Assets.CMDS;
+using static DaSoft.Riviera.Modulador.Core.Assets.CONST;
+using DaSoft.Riviera.Modulador.Core.Assets;
+using System.Linq;
+using DaSoft.Riviera.Modulador.Core.Model;
 
 namespace DaSoft.Riviera.Modulador.Commands
 {
@@ -105,7 +109,7 @@ namespace DaSoft.Riviera.Modulador.Commands
             RivApp.Is3DEnabled = false;
             RivApp.Database.DatabaseLoaded = InitCommand;
             RivApp.InitDatabase();
-          //  this.LoadApplication();
+            this.LoadApplication();
         }
         /// <summary>
         /// Loads the application.
@@ -119,14 +123,31 @@ namespace DaSoft.Riviera.Modulador.Commands
                     BlockTableRecord model = (BlockTableRecord)blkTab[BlockTableRecord.ModelSpace].GetObject(OpenMode.ForRead);
                     ExtensionDictionaryManager dMan;
                     BordeoLoader bLoader;
+                    DBObject obj;
+                    Entity ent;
+                    String code;
+                    Xrecord xRecord;
+                    RivieraObject loadObj;
                     foreach (ObjectId entId in model)
-                        if (entId.GetObject(OpenMode.ForRead) is Entity)
+                    {
+                        obj = entId.GetObject(OpenMode.ForRead);
+                        if (obj is Entity && (obj as Entity).Layer == LAYER_RIVIERA_GEOMETRY)
                         {
                             dMan = new ExtensionDictionaryManager(entId, tr);
+                            ent = obj as Entity;
                             bLoader = new BordeoLoader(dMan);
-                            //string code = dMan.GetXRecord(KEY_)
-                            //bLoader.Load()
+                            if (dMan.TryGetXRecord("Code", out xRecord, tr))
+                            {
+                                code = xRecord.GetDataAsString(tr).FirstOrDefault();
+                                if (bLoader.Load(code, tr, out loadObj))
+                                {
+                                    RivApp.Database.Objects.Add(loadObj);
+                                    loadObj.Refresh(tr);
+                                }
+                            }
+
                         }
+                    }
                 });
         }
 
@@ -173,10 +194,12 @@ namespace DaSoft.Riviera.Modulador.Commands
             App.RunCommand(
                 delegate ()
                 {
-                    base.InitCommand();
                     try
                     {
-
+                        if (this.Palette == null)
+                            base.InitCommand();
+                        else if (!this.Palette.IsDisposed && !this.Palette.Visible)
+                            this.Palette.Visible = true;
                     }
                     catch (System.Exception exc)
                     {
@@ -197,3 +220,4 @@ namespace DaSoft.Riviera.Modulador.Commands
         }
     }
 }
+

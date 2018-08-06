@@ -52,9 +52,9 @@ namespace DaSoft.Riviera.Modulador.Core.Controller
         public void GetLocation(Transaction tr, out Point3d start, out Point3d end)
         {
             String[] location = this.DManager.GetXRecord(KEY_LOCATION, tr).GetDataAsString(tr);
-            var coords = location[0].Split(',');
+            var coords = location[0].Replace(", ","@").Split('@');
             start = new Point3d(double.Parse(coords[0]), double.Parse(coords[1]), 0);
-            coords = location[1].Split(',');
+            coords = location[1].Replace(", ", "@").Split('@');
             end = new Point3d(double.Parse(coords[0]), double.Parse(coords[1]), 0);
         }
         /// <summary>
@@ -87,7 +87,7 @@ namespace DaSoft.Riviera.Modulador.Core.Controller
             Xrecord conn;
             string[] data;
             foreach (var key in connKeys)
-                if (this.DManager.TryGetXRecord(key, out conn, tr))
+                if (this.DManager.TryGetXRecord("Des_"+key, out conn, tr))
                 {
                     data = conn.GetDataAsString(tr);
                     obj.Description.Connections.Add(new RivieraConnection() { Key = key, Direction = data[0], BlockName = data[1] });
@@ -123,7 +123,7 @@ namespace DaSoft.Riviera.Modulador.Core.Controller
         public ObjectIdCollection LoadGeometry(Transaction tr)
         {
             ObjectIdCollection ids = new ObjectIdCollection();
-            string[] geometry = this.DManager.GetXRecord(KEY_ID, tr).GetDataAsString(tr);
+            string[] geometry = this.DManager.GetXRecord(KEY_GEOMETRY, tr).GetDataAsString(tr);
             long handle;
             foreach (string handleStr in geometry)
             {

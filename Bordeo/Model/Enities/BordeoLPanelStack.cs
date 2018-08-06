@@ -120,11 +120,11 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
         /// <param name="end">The end point.</param>
         /// <param name="measure">The panel measure.</param>
         public BordeoLPanelStack(Point3d start, Point3d end, params BordeoLPanel[] panels) :
-            base(BordeoUtils.GetRivieraCode(CODE_PANEL_STACK), panels[0].PanelSize, start)
+            base(BordeoUtils.GetRivieraCode(CODE_DPANEL_STACK), panels[0].PanelSize, start)
         {
             this.Panels = new List<BordeoLPanel>();
             this.PanelAngle = panels[0].Code.Code == CODE_PANEL_90 ? BordeoLPanelAngle.ANG_90 : BordeoLPanelAngle.ANG_135;
-            foreach (BordeoLPanel panel in this.Panels)
+            foreach (BordeoLPanel panel in panels)
                 this.Panels.Add(panel);
             this.Direction = this.Panels.FirstOrDefault().Direction;
             this.Regen();
@@ -135,21 +135,24 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
         /// <param name="tr">The active transaction.</param>
         public override void Save(Transaction tr)
         {
-            base.Save(tr);
-            var dMan = new ExtensionDictionaryManager(this.CADGeometry.Id, tr);
-            dMan.Set(tr, KEY_LOCATION, this.Start.ToFormat(5, false), (this.CADGeometry as Polyline).GetPoint2dAt(1).ToFormat(5, false));
-            dMan.Set(tr, KEY_CODE, CODE_DPANEL_STACK);
-            List<String> content = new List<string>();
-            foreach (var panel in this)
-                content.Add(String.Format("{0}@{1}@{2}@{3}@{4}@{5}@{6}"
-                    , panel.Code.Code,
-                    panel.PanelSize.FrenteStart.Nominal,
-                    panel.PanelSize.FrenteEnd.Nominal,
-                    panel.PanelSize.Alto.Nominal,
-                    panel.Code.SelectedAcabadoIndex,
-                    panel.Elevation,
-                    (int)this.Rotation));
-            dMan.Set(tr, KEY_CONTENT, content.ToArray());
+            if (!this.CADGeometry.IsErased)
+            {
+                base.Save(tr);
+                var dMan = new ExtensionDictionaryManager(this.CADGeometry.Id, tr);
+                dMan.Set(tr, KEY_LOCATION, this.Start.ToFormat(5, false), (this.CADGeometry as Polyline).GetPoint2dAt(1).ToFormat(5, false));
+                dMan.Set(tr, KEY_CODE, CODE_DPANEL_STACK);
+                List<String> content = new List<string>();
+                foreach (var panel in this)
+                    content.Add(String.Format("{0}@{1}@{2}@{3}@{4}@{5}@{6}"
+                        , panel.Code.Code,
+                        panel.PanelSize.FrenteStart.Nominal,
+                        panel.PanelSize.FrenteEnd.Nominal,
+                        panel.PanelSize.Alto.Nominal,
+                        panel.Code.SelectedAcabadoIndex,
+                        panel.Elevation,
+                        (int)this.Rotation));
+                dMan.Set(tr, KEY_CONTENT, content.ToArray());
+            }
         }
         /// <summary>
         /// Updates the panel stack.

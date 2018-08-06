@@ -183,10 +183,13 @@ namespace DaSoft.Riviera.Modulador.Core.Model
         /// <param name="tr">The active transaction.</param>
         public void Refresh(Transaction tr)
         {
-            this.CADGeometry.ObjectId.GetObject(OpenMode.ForWrite);
+            Autodesk.AutoCAD.ApplicationServices.Document doc = Autodesk.AutoCAD.ApplicationServices.Application.DocumentManager.MdiActiveDocument;
+            doc.LockDocument();
+            if (!this.CADGeometry.IsWriteEnabled)
+                this.CADGeometry.UpgradeOpen();
             this.EraseGeometry(tr);
-            this.Regen();
             this.Draw(tr);
+            this.Save(tr);
         }
         /// <summary>
         /// Initializes a new instance of the <see cref="RivieraObject"/> class.
@@ -236,17 +239,20 @@ namespace DaSoft.Riviera.Modulador.Core.Model
         /// <param name="dMan">The extension dictionary manager</param>
         public virtual void Save(Transaction tr)
         {
-            var dMan = new ExtensionDictionaryManager(this.CADGeometry.Id, tr);
-            dMan.Set(tr, KEY_ID, this.Handle.Value.ToString());
-            List<String> handles = new List<string>();
-            foreach (ObjectId id in this.Ids)
-                handles.Add(id.Handle.Value.ToString());
-            dMan.Set(tr, KEY_GEOMETRY, handles.ToArray());
-            foreach (var child in Children.Where(x => x.Value > 0))
-                dMan.Set(tr, child.Key, child.Value.ToString());
-            dMan.Set(tr, KEY_PARENT, this.Parent.ToString());
-            foreach (var conn in this.Description.Connections)
-                dMan.Set(tr, conn.Key, conn.Direction, conn.BlockName);
+            if (!this.CADGeometry.IsErased)
+            {
+                var dMan = new ExtensionDictionaryManager(this.CADGeometry.Id, tr);
+                dMan.Set(tr, KEY_ID, this.Handle.Value.ToString());
+                List<String> handles = new List<string>();
+                foreach (ObjectId id in this.Ids)
+                    handles.Add(id.Handle.Value.ToString());
+                dMan.Set(tr, KEY_GEOMETRY, handles.ToArray());
+                foreach (var child in Children.Where(x => x.Value > 0))
+                    dMan.Set(tr, child.Key, child.Value.ToString());
+                dMan.Set(tr, KEY_PARENT, this.Parent.ToString());
+                foreach (var conn in this.Description.Connections)
+                    dMan.Set(tr, "Des_"+ conn.Key, conn.Direction, conn.BlockName);
+            }
         }
         /// <summary>
         /// Saves the riviera object.
@@ -315,7 +321,7 @@ namespace DaSoft.Riviera.Modulador.Core.Model
             this.Erase(tr);
             //Se cambian a sus hijos.
             App.Riviera.Database.ValidObjects.Where(x => x.Parent == handle).ToList().
-                ForEach(x=> 
+                ForEach(x =>
                 {
                     x.Parent = 0;
                     foreach (var key in this.Children.Where(y => y.Value == handle).Select(z => z.Key).ToList())

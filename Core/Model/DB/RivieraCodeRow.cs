@@ -48,7 +48,7 @@ namespace DaSoft.Riviera.Modulador.Core.Model.DB
         /// <summary>
         /// Initializes a new instance of the <see cref="RivieraCodeRow"/> class.
         /// </summary>
-        public RivieraCodeRow(SelectionResult[] result) : 
+        public RivieraCodeRow(SelectionResult[] result) :
             base(result)
         {
 
@@ -114,6 +114,17 @@ namespace DaSoft.Riviera.Modulador.Core.Model.DB
             {
                 throw exc.CreateNamelessException<RivieraException>(ERR_LOAD_RIV_CODES);
             }
+
+        }
+        /// <summary>
+        /// Returns a <see cref="System.String" /> that represents this instance.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
+        public override string ToString()
+        {
+            return String.Join(",", this.Data.Values.ToArray());
         }
     }
 }

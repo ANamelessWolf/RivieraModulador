@@ -40,19 +40,25 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.DB
         /// </returns>
         protected override RivieraMeasure CreateMeausure(SelectionResult[] result)
         {
-            RivieraSize frente = new RivieraSize()
+            if (result != null)
             {
-                Measure = KEY_FRONT,
-                Nominal = result.ConvertValue<Double>(FIELD_FRENTE),
-                Real = result.ConvertValue<Double>(FIELD_FRENTE_REAL)
-            },
-            fondo = new RivieraSize()
-            {
-                Measure = KEY_HEIGHT,
-                Nominal = result.ConvertValue<Double>(FIELD_FONDO),
-                Real = result.ConvertValue<Double>(FIELD_FONDO_REAL)
-            };
-            return new PasoLuzMeasure(frente, fondo);
+                RivieraSize frente = new RivieraSize()
+                {
+                    Measure = KEY_FRONT,
+                    Nominal = result.ConvertValue<Double>(FIELD_FRENTE),
+                    Real = result.ConvertValue<Double>(FIELD_FRENTE_REAL)
+                },
+                fondo = new RivieraSize()
+                {
+                    Measure = KEY_HEIGHT,
+                    Nominal = result.ConvertValue<Double>(FIELD_FONDO),
+                    Real = result.ConvertValue<Double>(FIELD_FONDO_REAL)
+                };
+
+                return new PasoLuzMeasure(frente, fondo);
+            }
+            else
+                return new PasoLuzMeasure(new RivieraSize(), new RivieraSize());
         }
     }
 }

@@ -18,6 +18,7 @@ using static DaSoft.Riviera.Modulador.Core.Assets.CONST;
 using DaSoft.Riviera.Modulador.Core.Assets;
 using System.Linq;
 using DaSoft.Riviera.Modulador.Core.Model;
+using System.Collections.Generic;
 
 namespace DaSoft.Riviera.Modulador.Commands
 {
@@ -109,7 +110,7 @@ namespace DaSoft.Riviera.Modulador.Commands
             RivApp.Is3DEnabled = false;
             RivApp.Database.DatabaseLoaded = InitCommand;
             RivApp.InitDatabase();
-            this.LoadApplication();
+
         }
         /// <summary>
         /// Loads the application.
@@ -128,10 +129,12 @@ namespace DaSoft.Riviera.Modulador.Commands
                     String code;
                     Xrecord xRecord;
                     RivieraObject loadObj;
+                    IEnumerable<ObjectId> objIds;
+                    Boolean objIsLoaded, objIsInDatabase;
                     foreach (ObjectId entId in model)
                     {
                         obj = entId.GetObject(OpenMode.ForRead);
-                        if (obj is Entity && (obj as Entity).Layer == LAYER_RIVIERA_GEOMETRY)
+                        if (obj is Line || obj is Polyline || obj is DBPoint)
                         {
                             dMan = new ExtensionDictionaryManager(entId, tr);
                             ent = obj as Entity;
@@ -139,7 +142,10 @@ namespace DaSoft.Riviera.Modulador.Commands
                             if (dMan.TryGetXRecord("Code", out xRecord, tr))
                             {
                                 code = xRecord.GetDataAsString(tr).FirstOrDefault();
-                                if (bLoader.Load(code, tr, out loadObj))
+                                objIsLoaded = bLoader.Load(code, tr, out loadObj);
+                                objIds = RivApp.Database.Objects.Select(x => x.CADGeometry.Id);
+                                objIsInDatabase = objIds.Count(x => x == entId) > 0;
+                                if (objIsLoaded && !objIsInDatabase)
                                 {
                                     RivApp.Database.Objects.Add(loadObj);
                                     loadObj.Refresh(tr);
@@ -148,7 +154,7 @@ namespace DaSoft.Riviera.Modulador.Commands
 
                         }
                     }
-                });
+                }).Run();
         }
 
         /// <summary>
@@ -197,9 +203,17 @@ namespace DaSoft.Riviera.Modulador.Commands
                     try
                     {
                         if (this.Palette == null)
+                        {
+                            this.LoadApplication();
                             base.InitCommand();
-                        else if (!this.Palette.IsDisposed && !this.Palette.Visible)
-                            this.Palette.Visible = true;
+                        }
+                        else
+                        {
+                            if (!this.Palette.IsDisposed)
+                                this.Palette.Close();
+                            this._Controls = null;
+                            base.Reset();
+                        }
                     }
                     catch (System.Exception exc)
                     {

@@ -120,10 +120,22 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
         /// <param name="tr">The active transaction.</param>
         public override void Save(Transaction tr)
         {
-            base.Save(tr);
-            var dMan = new ExtensionDictionaryManager(this.CADGeometry.Id, tr);
-            dMan.Set(tr, KEY_LOCATION, this.Start.ToFormat(5, false), this.End.ToFormat(5, false));
-            dMan.Set(tr, KEY_CODE, CODE_PANEL_STACK);
+            if (!this.CADGeometry.Id.IsErased)
+            {
+                base.Save(tr);
+                var dMan = new ExtensionDictionaryManager(this.CADGeometry.Id, tr);
+                dMan.Set(tr, KEY_LOCATION, this.Start.ToFormat(5, false), this.End.ToFormat(5, false));
+                dMan.Set(tr, KEY_CODE, CODE_PANEL_STACK);
+                List<String> content = new List<string>();
+                foreach (var panel in this)
+                    content.Add(String.Format("{0}@{1}@{2}@{3}@{4}"
+                        , panel.Code.Code,
+                        panel.PanelSize.Frente.Nominal,
+                        panel.PanelSize.Alto.Nominal,
+                        panel.Code.SelectedAcabadoIndex,
+                        panel.Elevation));
+                dMan.Set(tr, KEY_CONTENT, content.ToArray());
+            }
         }
 
         /// <summary>
@@ -378,9 +390,10 @@ namespace DaSoft.Riviera.Modulador.Bordeo.Model.Enities
         /// <param name="tr">The active transaction</param>
         public override void EraseGeometry(Transaction tr)
         {
-            this.Ids.Clear();
+            
             this.FirstOrDefault().Ids.Erase(tr);
-            this.FirstOrDefault().Ids.Clear();
+            this.Ids.Clear();
+            
         }
         /// <summary>
         /// Moves the specified panel.
